@@ -30,6 +30,7 @@ class LiveVoiceSession(
     @Volatile private var turnReceivedAudio = false
     @Volatile private var pendingOutputTranscript = ""
     private val running = AtomicBoolean(false)
+    private val setupCompleted = AtomicBoolean(false)
     private val client = OkHttpClient.Builder().readTimeout(0, TimeUnit.MILLISECONDS).build()
     @Volatile private var socket: WebSocket? = null
     @Volatile private var recorder: AudioRecord? = null
@@ -53,7 +54,15 @@ class LiveVoiceSession(
                     .put("inputAudioTranscription", JSONObject())
                     .put("outputAudioTranscription", JSONObject()))
                 ws.send(setup.toString())
-                onStatus("CONNECTED • SETTING UP VOICE…")
+                onStatus("CONNECTED • WAITING FOR GEMINI SETUP…")
+                Thread({
+                    try { Thread.sleep(12000) } catch (_: InterruptedException) { return@Thread }
+                    if (running.get() && !setupCompleted.get()) {
+                        onStatus("VOICE SETUP TIMEOUT • CHECK API KEY ACCESS / LIVE API")
+                        stopAudio()
+                        socket?.cancel()
+                    }
+                }, "Sona-Setup-Watchdog").apply { isDaemon = true; start() }
             }
             override fun onMessage(ws: WebSocket, text: String) {
                 try {
@@ -64,7 +73,10 @@ class LiveVoiceSession(
                         stopAudio()
                         return
                     }
-                    if (root.has("setupComplete")) startAudio()
+                    if (root.has("setupComplete")) {
+                        setupCompleted.set(true)
+                        startAudio()
+                    }
                     val server = root.optJSONObject("serverContent")
                     server?.optJSONObject("inputTranscription")?.optString("text")?.takeIf { it.isNotBlank() && it != "null" }?.let { onTranscript("You: $it") }
                     server?.optJSONObject("outputTranscription")?.optString("text")?.takeIf { it.isNotBlank() && it != "null" }?.let { text ->
@@ -93,11 +105,11 @@ class LiveVoiceSession(
                         pendingOutputTranscript = ""
                         turnReceivedAudio = false
                     }
-                } catch (_: Exception) { onStatus("LIVE RESPONSE PROCESSING ERROR") }
+                } catch (_: Exception) { onStatus("LIVE RESPONSE ERROR • " + (root.optJSONObject("error")?.optString("message") ?: "INVALID SERVER MESSAGE").take(100)) }
             }
             override fun onFailure(ws: WebSocket, t: Throwable, response: Response?) {
                 stopAudio()
-                onStatus("LIVE CONNECTION FAILED • CHECK KEY, MODEL OR INTERNET")
+                onStatus("LIVE CONNECTION FAILED • " + ((response?.code?.let { "HTTP $it • " } ?: "") + (t.message ?: "CHECK KEY / NETWORK")).take(110))
             }
             override fun onClosed(ws: WebSocket, code: Int, reason: String) {
                 stopAudio()
@@ -156,6 +168,7 @@ class LiveVoiceSession(
 
     fun stop() {
         running.set(false)
+        setupCompleted.set(false)
         try { micThread?.interrupt() } catch (_: Exception) {}
         try { recorder?.stop() } catch (_: Exception) {}
         try { recorder?.release() } catch (_: Exception) {}
