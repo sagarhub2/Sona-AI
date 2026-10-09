@@ -45,6 +45,7 @@ class MainActivity : ComponentActivity() {
     private var showSettings by mutableStateOf(false)
     private var busy by mutableStateOf(false)
     private var speechRecognizer: SpeechRecognizer? = null
+    private var liveVoiceSession: LiveVoiceSession? = null
     private var textToSpeech: TextToSpeech? = null
     private var ttsReady = false
 
@@ -172,18 +173,22 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun startVoiceRecognition() {
-        try {
-            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
-                putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-                putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-IN")
-                putExtra(RecognizerIntent.EXTRA_PROMPT, "Talk to Sona")
-                putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3)
-            }
-            status = "STARTING MICROPHONE…"
-            speechRecognizer?.startListening(intent)
-        } catch (_: Exception) {
-            status = "COULDN’T START VOICE INPUT • TRY AGAIN"
+        if (apiKey.isBlank()) {
+            status = "ADD GEMINI KEY IN SETTINGS"
+            showSettings = true
+            return
         }
+        if (liveVoiceSession != null) {
+            status = "LIVE VOICE IS ALREADY RUNNING"
+            return
+        }
+        status = "STARTING GEMINI LIVE AUDIO…"
+        liveVoiceSession = LiveVoiceSession(
+            apiKey = apiKey,
+            onStatus = { message -> runOnUiThread { status = message } },
+            onTranscript = { message -> runOnUiThread { heardText = message } }
+        )
+        liveVoiceSession?.start()
     }
 
     private fun askGemini(prompt: String) {
@@ -257,6 +262,8 @@ class MainActivity : ComponentActivity() {
     }
 
     override fun onDestroy() {
+        liveVoiceSession?.stop()
+        liveVoiceSession = null
         speechRecognizer?.destroy()
         speechRecognizer = null
         textToSpeech?.stop()
