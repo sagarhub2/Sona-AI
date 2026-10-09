@@ -44,11 +44,11 @@ class LiveVoiceSession(
         val url = "wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key=" + URLEncoder.encode(apiKey, "UTF-8")
         socket = client.newWebSocket(Request.Builder().url(url).build(), object : WebSocketListener() {
             override fun onOpen(ws: WebSocket, response: Response) {
+                // Match Google's current WebSocket quickstart: responseModalities is a direct
+                // setup field, not nested under generationConfig.
                 val setup = JSONObject().put("setup", JSONObject()
                     .put("model", "models/$model")
-                    .put("generationConfig", JSONObject()
-                        .put("responseModalities", JSONArray().put("AUDIO"))
-                        .put("speechConfig", JSONObject().put("voiceConfig", JSONObject().put("prebuiltVoiceConfig", JSONObject().put("voiceName", "Aoede")))))
+                    .put("responseModalities", JSONArray().put("AUDIO"))
                     .put("systemInstruction", JSONObject().put("parts", JSONArray().put(JSONObject().put("text",
                         "You are Sona, a warm and natural female AI companion. Talk like a kind Indian friend. Understand and reply naturally in Hindi or Hinglish. Keep spoken answers conversational and concise."))))
                     .put("inputAudioTranscription", JSONObject())
