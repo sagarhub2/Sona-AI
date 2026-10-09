@@ -95,11 +95,7 @@ class MainActivity : ComponentActivity() {
             status = "SPEECH RECOGNITION NOT AVAILABLE"
         }
         setContent {
-            SonaHome(
-                status = status,
-                heardText = heardText,
-                onStartVoice = { requestOrStartVoice() }
-            )
+            SonaHome(status = status, heardText = heardText, onStartVoice = { requestOrStartVoice() })
         }
     }
 
@@ -130,7 +126,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == AUDIO_PERMISSION_REQUEST) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -155,8 +151,7 @@ class MainActivity : ComponentActivity() {
 private fun SonaHome(status: String, heardText: String, onStartVoice: () -> Unit) {
     Surface(modifier = Modifier.fillMaxSize(), color = Night) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
+            modifier = Modifier.fillMaxSize()
                 .background(Brush.verticalGradient(listOf(Color(0xFF10132D), Night, Color(0xFF080B18))))
                 .padding(horizontal = 24.dp, vertical = 28.dp),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -172,21 +167,16 @@ private fun SonaHome(status: String, heardText: String, onStartVoice: () -> Unit
             Box(
                 modifier = Modifier.size(220.dp).background(
                     Brush.radialGradient(listOf(Color(0x558B5CF6), Color(0x2238BDF8), Color.Transparent)), CircleShape
-                ),
-                contentAlignment = Alignment.Center
+                ), contentAlignment = Alignment.Center
             ) {
-                Box(
-                    modifier = Modifier.size(150.dp).background(
-                        Brush.radialGradient(listOf(Color(0xFFB8A3FF), Violet, Color(0xFF243A83))), CircleShape
-                    ),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Box(
-                        modifier = Modifier.size(112.dp).background(
-                            Brush.radialGradient(listOf(Color(0xFF111B43), Color(0xFF070B1D))), CircleShape
-                        ),
-                        contentAlignment = Alignment.Center
-                    ) { Text("S", color = Color.White, fontSize = 52.sp, fontWeight = FontWeight.Light) }
+                Box(modifier = Modifier.size(150.dp).background(
+                    Brush.radialGradient(listOf(Color(0xFFB8A3FF), Violet, Color(0xFF243A83))), CircleShape
+                ), contentAlignment = Alignment.Center) {
+                    Box(modifier = Modifier.size(112.dp).background(
+                        Brush.radialGradient(listOf(Color(0xFF111B43), Color(0xFF070B1D))), CircleShape
+                    ), contentAlignment = Alignment.Center) {
+                        Text("S", color = Color.White, fontSize = 52.sp, fontWeight = FontWeight.Light)
+                    }
                 }
             }
             Spacer(Modifier.height(26.dp))
@@ -198,12 +188,10 @@ private fun SonaHome(status: String, heardText: String, onStartVoice: () -> Unit
             Spacer(Modifier.height(8.dp))
             Text(heardText, color = Color(0xFFB7C1DF), fontSize = 13.sp)
             Spacer(Modifier.height(20.dp))
-            Button(
-                onClick = onStartVoice,
-                modifier = Modifier.fillMaxWidth().height(54.dp),
-                shape = RoundedCornerShape(18.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Violet)
-            ) { Text("🎙  Start voice assistant", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.SemiBold) }
+            Button(onClick = onStartVoice, modifier = Modifier.fillMaxWidth().height(54.dp),
+                shape = RoundedCornerShape(18.dp), colors = ButtonDefaults.buttonColors(containerColor = Violet)) {
+                Text("🎙  Start voice assistant", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+            }
             Spacer(Modifier.height(22.dp))
             Text("QUICK ACCESS", color = Color(0xFF7F8AAE), fontSize = 11.sp, letterSpacing = 2.sp)
             Spacer(Modifier.height(12.dp))
@@ -220,10 +208,8 @@ private fun SonaHome(status: String, heardText: String, onStartVoice: () -> Unit
 
 @Composable
 private fun QuickTile(title: String, subtitle: String, modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier.height(88.dp).background(Color(0xFF151A31), RoundedCornerShape(16.dp)).padding(10.dp),
-        verticalArrangement = Arrangement.Center
-    ) {
+    Column(modifier = modifier.height(88.dp).background(Color(0xFF151A31), RoundedCornerShape(16.dp)).padding(10.dp),
+        verticalArrangement = Arrangement.Center) {
         Text(title, color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 13.sp)
         Spacer(Modifier.height(4.dp))
         Text(subtitle, color = Color(0xFF9AA6C8), fontSize = 10.sp)
