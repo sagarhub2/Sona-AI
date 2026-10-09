@@ -174,15 +174,23 @@ class MainActivity : ComponentActivity() {
             showSettings = true
             return
         }
-        if (liveVoiceSession != null) {
-            status = "LIVE VOICE IS ALREADY RUNNING"
-            return
-        }
+        // A previous Live session may have failed silently; always clean it up before retrying.
+        liveVoiceSession?.stop()
+        liveVoiceSession = null
         status = "STARTING GEMINI LIVE AUDIO…"
         liveVoiceSession = LiveVoiceSession(
             apiKey = apiKey,
             onStatus = { message -> runOnUiThread { status = message } },
-            onTranscript = { message -> runOnUiThread { heardText = message } }
+            onTranscript = { message ->
+                runOnUiThread {
+                    heardText = message
+                    // Fallback speech: if Live audio playback is silent but Gemini sends
+                    // output transcription, speak the text with Android's installed TTS voice.
+                    if (!message.startsWith("You:") && message.isNotBlank() && ttsReady) {
+                        textToSpeech?.speak(message, TextToSpeech.QUEUE_FLUSH, null, "sona-live-transcript")
+                    }
+                }
+            }
         )
         liveVoiceSession?.start()
     }
