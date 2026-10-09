@@ -161,10 +161,6 @@ class MainActivity : ComponentActivity() {
             showSettings = true
             return
         }
-        if (speechRecognizer == null) {
-            status = "SPEECH RECOGNITION NOT AVAILABLE"
-            return
-        }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), AUDIO_PERMISSION_REQUEST)
             return
