@@ -183,11 +183,14 @@ class MainActivity : ComponentActivity() {
             onStatus = { message -> runOnUiThread { status = message } },
             onTranscript = { message ->
                 runOnUiThread {
-                    heardText = message
-                    // Fallback speech: if Live audio playback is silent but Gemini sends
-                    // output transcription, speak the text with Android's installed TTS voice.
-                    if (!message.startsWith("You:") && message.isNotBlank() && ttsReady) {
-                        textToSpeech?.speak(message, TextToSpeech.QUEUE_FLUSH, null, "sona-live-transcript")
+                    if (message.startsWith("SPEAK_FALLBACK:")) {
+                        val fallbackText = message.removePrefix("SPEAK_FALLBACK:").trim()
+                        if (fallbackText.isNotBlank()) {
+                            heardText = fallbackText
+                            if (ttsReady) textToSpeech?.speak(fallbackText, TextToSpeech.QUEUE_FLUSH, null, "sona-live-fallback")
+                        }
+                    } else {
+                        heardText = message
                     }
                 }
             }
