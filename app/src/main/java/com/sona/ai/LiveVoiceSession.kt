@@ -1,5 +1,6 @@
 package com.sona.ai
 
+import android.media.AudioAttributes
 import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.AudioTrack
@@ -95,9 +96,22 @@ class LiveVoiceSession(
             val input = AudioRecord(MediaRecorder.AudioSource.VOICE_RECOGNITION, 16000, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, maxOf(minIn, 6400))
             if (input.state != AudioRecord.STATE_INITIALIZED) { input.release(); onStatus("MICROPHONE INITIALIZATION FAILED"); stop(); return }
             val output = AudioTrack.Builder()
+                .setAudioAttributes(AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_MEDIA)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                    .build())
                 .setAudioFormat(AudioFormat.Builder().setSampleRate(24000).setEncoding(AudioFormat.ENCODING_PCM_16BIT).setChannelMask(AudioFormat.CHANNEL_OUT_MONO).build())
                 .setBufferSizeInBytes(maxOf(minOut, 12000))
                 .setTransferMode(AudioTrack.MODE_STREAM).build()
+            if (output.state != AudioTrack.STATE_INITIALIZED) {
+                output.release()
+                input.stop()
+                input.release()
+                onStatus("SPEAKER AUDIO INITIALIZATION FAILED")
+                stop()
+                return
+            }
+            output.setVolume(1.0f)
             recorder = input
             player = output
             output.play()
