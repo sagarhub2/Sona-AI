@@ -105,7 +105,7 @@ class LiveVoiceSession(
                         pendingOutputTranscript = ""
                         turnReceivedAudio = false
                     }
-                } catch (_: Exception) { onStatus("LIVE RESPONSE ERROR • " + (root.optJSONObject("error")?.optString("message") ?: "INVALID SERVER MESSAGE").take(100)) }
+                } catch (e: Exception) { onStatus("LIVE RESPONSE ERROR • " + (e.message ?: "INVALID SERVER MESSAGE").take(100)) }
             }
             override fun onFailure(ws: WebSocket, t: Throwable, response: Response?) {
                 stopAudio()
