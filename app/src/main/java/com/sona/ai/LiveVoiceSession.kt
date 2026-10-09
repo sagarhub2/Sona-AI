@@ -41,7 +41,7 @@ class LiveVoiceSession(
         if (apiKey.isBlank()) { onStatus("ADD GEMINI KEY IN SETTINGS"); return }
         if (!running.compareAndSet(false, true)) { onStatus("LIVE VOICE IS ALREADY RUNNING"); return }
         onStatus("CONNECTING TO GEMINI LIVE…")
-        val url = "wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key=" + URLEncoder.encode(apiKey, "UTF-8")
+        val url = "wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent?key=" + URLEncoder.encode(apiKey, "UTF-8")
         socket = client.newWebSocket(Request.Builder().url(url).build(), object : WebSocketListener() {
             override fun onOpen(ws: WebSocket, response: Response) {
                 // Match Google's current WebSocket quickstart: responseModalities is a direct
@@ -51,8 +51,7 @@ class LiveVoiceSession(
                     .put("responseModalities", JSONArray().put("AUDIO"))
                     .put("systemInstruction", JSONObject().put("parts", JSONArray().put(JSONObject().put("text",
                         "You are Sona, a warm and natural female AI companion. Talk like a kind Indian friend. Understand and reply naturally in Hindi or Hinglish. Keep spoken answers conversational and concise."))))
-                    .put("inputAudioTranscription", JSONObject())
-                    .put("outputAudioTranscription", JSONObject()))
+                    )
                 val sent = ws.send(setup.toString())
                 if (!sent) {
                     onStatus("SETUP SEND FAILED • RETRY VOICE")
