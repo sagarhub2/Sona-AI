@@ -179,7 +179,7 @@ class MainActivity : ComponentActivity() {
             var connection: HttpURLConnection? = null
             try {
                 val encodedKey = URLEncoder.encode(key, "UTF-8")
-                connection = (URL("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=$encodedKey").openConnection() as HttpURLConnection).apply {
+                connection = (URL("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=$encodedKey").openConnection() as HttpURLConnection).apply {
                     requestMethod = "POST"
                     connectTimeout = 15000
                     readTimeout = 30000
