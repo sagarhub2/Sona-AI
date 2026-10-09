@@ -50,9 +50,9 @@ class LiveVoiceSession(
                     .put("generationConfig", JSONObject()
                         .put("responseModalities", JSONArray().put("AUDIO"))
                         .put("speechConfig", JSONObject().put("voiceConfig", JSONObject()
-                            .put("prebuiltVoiceConfig", JSONObject().put("voiceName", "Aoede"))))
-                        .put("inputAudioTranscription", JSONObject())
-                        .put("outputAudioTranscription", JSONObject()))
+                            .put("prebuiltVoiceConfig", JSONObject().put("voiceName", "Puck")))))
+                    .put("inputAudioTranscription", JSONObject())
+                    .put("outputAudioTranscription", JSONObject())
                     .put("systemInstruction", JSONObject().put("parts", JSONArray().put(JSONObject().put("text",
                         "You are Sona, a warm and natural female AI companion. Talk like a kind Indian friend. Understand and reply naturally in Hindi or Hinglish. Keep spoken answers conversational and concise."))))
                     )
