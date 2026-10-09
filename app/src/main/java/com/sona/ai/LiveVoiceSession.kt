@@ -26,7 +26,9 @@ class LiveVoiceSession(
     private val onStatus: (String) -> Unit,
     private val onTranscript: (String) -> Unit
 ) {
-    private val model = "gemini-3.1-flash-live-preview"
+    private val model = "gemini-3.8-live"
+    @Volatile private var turnReceivedAudio = false
+    @Volatile private var pendingOutputTranscript = ""
     private val running = AtomicBoolean(false)
     private val client = OkHttpClient.Builder().readTimeout(0, TimeUnit.MILLISECONDS).build()
     @Volatile private var socket: WebSocket? = null
@@ -65,16 +67,32 @@ class LiveVoiceSession(
                     if (root.has("setupComplete")) startAudio()
                     val server = root.optJSONObject("serverContent")
                     server?.optJSONObject("inputTranscription")?.optString("text")?.takeIf { it.isNotBlank() && it != "null" }?.let { onTranscript("You: $it") }
-                    server?.optJSONObject("outputTranscription")?.optString("text")?.takeIf { it.isNotBlank() && it != "null" }?.let(onTranscript)
+                    server?.optJSONObject("outputTranscription")?.optString("text")?.takeIf { it.isNotBlank() && it != "null" }?.let { text ->
+                        pendingOutputTranscript = if (pendingOutputTranscript.isBlank()) text else if (text.startsWith(pendingOutputTranscript)) text else pendingOutputTranscript + text
+                        onTranscript(text)
+                    }
                     val parts = server?.optJSONObject("modelTurn")?.optJSONArray("parts")
                     if (parts != null) for (i in 0 until parts.length()) {
                         val data = parts.optJSONObject(i)?.optJSONObject("inlineData")?.optString("data")
                         if (!data.isNullOrBlank()) {
                             val bytes = Base64.decode(data, Base64.DEFAULT)
+                            turnReceivedAudio = true
                             player?.write(bytes, 0, bytes.size, AudioTrack.WRITE_BLOCKING)
                         }
                     }
-                    if (server?.optBoolean("interrupted", false) == true) { player?.pause(); player?.flush(); player?.play() }
+                    if (server?.optBoolean("interrupted", false) == true) {
+                        player?.pause(); player?.flush(); player?.play()
+                        pendingOutputTranscript = ""
+                        turnReceivedAudio = false
+                    }
+                    if (server?.optBoolean("turnComplete", false) == true) {
+                        // Only use Android TTS when Gemini returned no playable audio for this turn.
+                        if (!turnReceivedAudio && pendingOutputTranscript.isNotBlank()) {
+                            onTranscript("SPEAK_FALLBACK:" + pendingOutputTranscript)
+                        }
+                        pendingOutputTranscript = ""
+                        turnReceivedAudio = false
+                    }
                 } catch (_: Exception) { onStatus("LIVE RESPONSE PROCESSING ERROR") }
             }
             override fun onFailure(ws: WebSocket, t: Throwable, response: Response?) {
