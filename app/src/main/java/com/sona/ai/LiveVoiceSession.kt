@@ -42,10 +42,11 @@ class LiveVoiceSession(
             override fun onOpen(ws: WebSocket, response: Response) {
                 val setup = JSONObject().put("setup", JSONObject()
                     .put("model", "models/$model")
-                    .put("responseModalities", JSONArray().put("AUDIO"))
+                    .put("generationConfig", JSONObject()
+                        .put("responseModalities", JSONArray().put("AUDIO"))
+                        .put("speechConfig", JSONObject().put("voiceConfig", JSONObject().put("prebuiltVoiceConfig", JSONObject().put("voiceName", "Aoede")))))
                     .put("systemInstruction", JSONObject().put("parts", JSONArray().put(JSONObject().put("text",
                         "You are Sona, a warm and natural female AI companion. Talk like a kind Indian friend. Understand and reply naturally in Hindi or Hinglish. Keep spoken answers conversational and concise."))))
-                    .put("speechConfig", JSONObject().put("voiceConfig", JSONObject().put("prebuiltVoiceConfig", JSONObject().put("voiceName", "Aoede"))))
                     .put("inputAudioTranscription", JSONObject())
                     .put("outputAudioTranscription", JSONObject()))
                 ws.send(setup.toString())
@@ -54,6 +55,12 @@ class LiveVoiceSession(
             override fun onMessage(ws: WebSocket, text: String) {
                 try {
                     val root = JSONObject(text)
+                    if (root.has("error")) {
+                        val error = root.optJSONObject("error")
+                        onStatus("GEMINI ERROR: " + (error?.optString("message") ?: "Unknown setup error").take(140))
+                        stopAudio()
+                        return
+                    }
                     if (root.has("setupComplete")) startAudio()
                     val server = root.optJSONObject("serverContent")
                     server?.optJSONObject("inputTranscription")?.optString("text")?.takeIf { it.isNotBlank() && it != "null" }?.let { onTranscript("You: $it") }
