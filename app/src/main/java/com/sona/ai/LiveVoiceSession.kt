@@ -26,7 +26,7 @@ class LiveVoiceSession(
     private val onStatus: (String) -> Unit,
     private val onTranscript: (String) -> Unit
 ) {
-    private val model = "gemini-3.8-live"
+    private val model = "gemini-3.1-flash-live-preview"
     @Volatile private var turnReceivedAudio = false
     @Volatile private var pendingOutputTranscript = ""
     private val running = AtomicBoolean(false)
@@ -41,10 +41,10 @@ class LiveVoiceSession(
         if (apiKey.isBlank()) { onStatus("ADD GEMINI KEY IN SETTINGS"); return }
         if (!running.compareAndSet(false, true)) { onStatus("LIVE VOICE IS ALREADY RUNNING"); return }
         onStatus("CONNECTING TO GEMINI LIVE…")
-        val url = "wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent?key=" + URLEncoder.encode(apiKey, "UTF-8")
+        val url = "wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key=" + URLEncoder.encode(apiKey, "UTF-8")
         socket = client.newWebSocket(Request.Builder().url(url).build(), object : WebSocketListener() {
             override fun onOpen(ws: WebSocket, response: Response) {
-                // Gemini 3.8 Live expects audio response settings under generationConfig.
+                // Use the documented v1beta Live API setup schema.
                 val setup = JSONObject().put("setup", JSONObject()
                     .put("model", "models/$model")
                     .put("generationConfig", JSONObject()
