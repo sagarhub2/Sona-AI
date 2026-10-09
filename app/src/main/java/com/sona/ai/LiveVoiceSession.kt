@@ -53,12 +53,18 @@ class LiveVoiceSession(
                         "You are Sona, a warm and natural female AI companion. Talk like a kind Indian friend. Understand and reply naturally in Hindi or Hinglish. Keep spoken answers conversational and concise."))))
                     .put("inputAudioTranscription", JSONObject())
                     .put("outputAudioTranscription", JSONObject()))
-                ws.send(setup.toString())
+                val sent = ws.send(setup.toString())
+                if (!sent) {
+                    onStatus("SETUP SEND FAILED • RETRY VOICE")
+                    stopAudio()
+                    ws.cancel()
+                    return
+                }
                 onStatus("CONNECTED • WAITING FOR GEMINI SETUP…")
                 Thread({
                     try { Thread.sleep(12000) } catch (_: InterruptedException) { return@Thread }
                     if (running.get() && !setupCompleted.get()) {
-                        onStatus("VOICE SETUP TIMEOUT • CHECK API KEY ACCESS / LIVE API")
+                        onStatus("VOICE SETUP TIMEOUT • NO GEMINI SETUP REPLY")
                         stopAudio()
                         socket?.cancel()
                     }
@@ -112,8 +118,13 @@ class LiveVoiceSession(
                 onStatus("LIVE CONNECTION FAILED • " + ((response?.code?.let { "HTTP $it • " } ?: "") + (t.message ?: "CHECK KEY / NETWORK")).take(110))
             }
             override fun onClosed(ws: WebSocket, code: Int, reason: String) {
+                val hadSetup = setupCompleted.get()
                 stopAudio()
-                onStatus("LIVE SESSION CLOSED")
+                if (hadSetup) {
+                    onStatus("LIVE SESSION CLOSED")
+                } else {
+                    onStatus("LIVE CLOSED BEFORE SETUP • CODE $code " + reason.take(60))
+                }
             }
         })
     }
