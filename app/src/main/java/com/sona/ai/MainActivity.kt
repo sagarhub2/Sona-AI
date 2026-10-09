@@ -54,7 +54,28 @@ class MainActivity : ComponentActivity() {
         heardText = if (apiKey.isBlank()) "Add your Gemini API key in Settings to enable AI." else "Gemini key saved • ready to connect"
         textToSpeech = TextToSpeech(this) { result ->
             ttsReady = result == TextToSpeech.SUCCESS
-            if (ttsReady) textToSpeech?.language = Locale("en", "IN")
+            if (ttsReady) {
+                textToSpeech?.setSpeechRate(0.94f)
+                textToSpeech?.setPitch(1.06f)
+                val engine = textToSpeech
+                val voices = engine?.voices.orEmpty()
+                // Prefer a good-quality Hindi (India) voice; select a female-labelled voice
+                // when the installed TTS engine exposes one. Voice availability varies by phone.
+                val hindiVoices = voices.filter { it.locale.language == "hi" && it.locale.country == "IN" }
+                val preferred = hindiVoices
+                    .sortedWith(compareBy<android.speech.tts.Voice>(
+                        { voice -> if (listOf("female", "woman", "feminine").any { voice.name.contains(it, true) }) 0 else 1 },
+                        { voice -> if (voice.isNetworkConnectionRequired) 1 else 0 },
+                        { voice -> -voice.quality }
+                    ))
+                    .firstOrNull()
+                if (preferred != null) {
+                    engine?.voice = preferred
+                    engine?.language = preferred.locale
+                } else {
+                    engine?.language = Locale("hi", "IN")
+                }
+            }
         }
         if (SpeechRecognizer.isRecognitionAvailable(this)) {
             speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this).apply {
@@ -186,9 +207,10 @@ class MainActivity : ComponentActivity() {
                     doOutput = true
                     setRequestProperty("Content-Type", "application/json; charset=utf-8")
                 }
+                val companionPrompt = "You are Sona, a warm, natural, friendly female AI companion. Speak like a kind Indian friend, not a robot. Reply in the user's language, especially natural Hindi or Hinglish when they use it. Keep spoken answers conversational and easy to say aloud; avoid markdown, lists, emojis, and overly long replies unless requested. Be respectful and supportive. User says: $prompt"
                 val body = JSONObject()
-                    .put("contents", JSONArray().put(JSONObject().put("parts", JSONArray().put(JSONObject().put("text", prompt)))))
-                    .put("generationConfig", JSONObject().put("maxOutputTokens", 400))
+                    .put("contents", JSONArray().put(JSONObject().put("parts", JSONArray().put(JSONObject().put("text", companionPrompt)))))
+                    .put("generationConfig", JSONObject().put("maxOutputTokens", 300))
                 connection.outputStream.use { it.write(body.toString().toByteArray(Charsets.UTF_8)) }
                 val code = connection.responseCode
                 val stream = if (code in 200..299) connection.inputStream else connection.errorStream
