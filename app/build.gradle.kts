@@ -30,6 +30,7 @@ android {
 }
 
 dependencies {
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
     val composeBom = platform("androidx.compose:compose-bom:2025.05.00")
     implementation(composeBom)
     androidTestImplementation(composeBom)
