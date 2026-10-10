@@ -1161,6 +1161,31 @@ For privacy, I do not silently send messages or place calls. Android may ask you
                 if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-task-delete")
                 true
             }
+            listOf("clear my tasks", "delete all tasks", "mere tasks delete karo").any { prompt == it } -> {
+                getSharedPreferences("myra_private", MODE_PRIVATE).edit().remove("sona_tasks").apply()
+                heardText = "All saved tasks were cleared from this device."
+                status = "TASKS CLEARED"
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-tasks-cleared")
+                true
+            }
+            listOf("complete task ", "finish task ", "task complete karo ").any { prompt.startsWith(it) } -> {
+                val target = rawPrompt.replace(Regex("(?i)^(complete task|finish task|task complete karo)\\s*"), "").trim()
+                val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
+                val tasks = prefs.getString("sona_tasks", "").orEmpty().lines().filter { it.isNotBlank() }
+                val index = tasks.indexOfFirst { it.removePrefix("[x] ").equals(target, ignoreCase = true) || it.contains(target, ignoreCase = true) }
+                if (target.isBlank() || index < 0) {
+                    heardText = if (target.isBlank()) "Say, complete task followed by the task name." else "I couldn't find a task matching $target."
+                    status = "TASK NOT FOUND"
+                } else {
+                    val updated = tasks.toMutableList()
+                    updated[index] = "[x] " + updated[index].removePrefix("[x] ")
+                    prefs.edit().putString("sona_tasks", updated.joinToString("\\n")).apply()
+                    heardText = "Marked task complete: " + updated[index].removePrefix("[x] ")
+                    status = "TASK COMPLETED"
+                }
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-task-complete")
+                true
+            }
             listOf("read my tasks", "show my tasks", "tasks padho", "mere tasks batao").any { prompt == it } -> {
                 val tasks = getSharedPreferences("myra_private", MODE_PRIVATE).getString("sona_tasks", "").orEmpty()
                 heardText = if (tasks.isBlank()) "You have no saved tasks yet." else "Your tasks: " + tasks.lines().take(10).joinToString(". ")
