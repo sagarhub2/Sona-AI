@@ -673,6 +673,37 @@ class MainActivity : ComponentActivity() {
             }
         }
         return when {
+            listOf("define ", "meaning of ", "meaning batao ", "dictionary ").any { prompt.startsWith(it) } -> {
+                val query = rawPrompt.replace(Regex("(?i)^(define|meaning of|meaning batao|dictionary)\\s*"), "").trim()
+                val target = "https://www.google.com/search?q=" + URLEncoder.encode("define " + query, "UTF-8")
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse(target)), if (query.isBlank()) "Opening dictionary search" else "Finding meaning of: $query")
+            }
+            listOf("convert currency ", "currency convert ", "convert rupees ", "exchange rate ").any { prompt.startsWith(it) } -> {
+                val query = rawPrompt.replace(Regex("(?i)^(convert currency|currency convert|convert rupees|exchange rate)\\s*"), "").trim()
+                val target = "https://www.google.com/search?q=" + URLEncoder.encode(if (query.isBlank()) "currency converter" else "$query currency converter", "UTF-8")
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse(target)), "Opening currency conversion search")
+            }
+            listOf("recipe ", "recipe for ", "how to cook ", "recipe batao ").any { prompt.startsWith(it) } -> {
+                val query = rawPrompt.replace(Regex("(?i)^(recipe for|recipe|how to cook|recipe batao)\\s*"), "").trim()
+                val target = "https://www.google.com/search?q=" + URLEncoder.encode(if (query.isBlank()) "easy recipes" else "$query recipe", "UTF-8")
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse(target)), if (query.isBlank()) "Searching recipes" else "Searching recipe for $query")
+            }
+            listOf("nearby ", "near me ", "find nearby ", "aas paas ").any { prompt.startsWith(it) } -> {
+                val query = rawPrompt.replace(Regex("(?i)^(find nearby|nearby|near me|aas paas)\\s*"), "").trim()
+                val target = "https://www.google.com/maps/search/" + URLEncoder.encode(query.ifBlank { "places near me" }, "UTF-8")
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse(target)), if (query.isBlank()) "Searching nearby places" else "Finding nearby: $query")
+            }
+            listOf("sports score ", "score of ", "match score ", "cricket score ").any { prompt.startsWith(it) } -> {
+                val query = rawPrompt.replace(Regex("(?i)^(sports score|score of|match score|cricket score)\\s*"), "").trim()
+                val target = "https://www.google.com/search?q=" + URLEncoder.encode(if (query.isBlank()) "live sports scores" else "$query score", "UTF-8")
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse(target)), "Searching sports score")
+            }
+            listOf("scan qr", "qr scanner", "scan barcode", "barcode scanner").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.google.com/search?q=QR+code+scanner+app")), "Searching for a QR scanner app")
+            listOf("open print settings", "printing settings", "print settings").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_PRINT_SETTINGS), "Opening print settings")
+            listOf("screen lock settings", "lock screen settings", "lock screen kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_DISPLAY_SETTINGS), "Opening display settings for lock-screen options")
             listOf("translate ", "translate to hindi ", "translate to english ", "anuvad karo ").any { prompt.startsWith(it) } -> {
                 val query = rawPrompt.replace(Regex("(?i)^(translate to hindi|translate to english|translate|anuvad karo)\\s*"), "").trim()
                 val target = if (query.isBlank()) "https://translate.google.com" else "https://translate.google.com/?sl=auto&tl=hi&text=" + URLEncoder.encode(query, "UTF-8") + "&op=translate"
