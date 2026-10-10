@@ -1534,22 +1534,35 @@ private fun MyraHome(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                Column {
-                    Text("MYRA AI", color = Color.White, fontSize = 26.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 2.2.sp)
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Text("MYRA", color = Color.White, fontSize = 29.sp, fontWeight = FontWeight.Black, letterSpacing = 4.sp)
+                    Text("PERSONAL AI COMPANION", color = Cyan, fontSize = 9.sp, letterSpacing = 2.1.sp)
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Box(Modifier.size(7.dp).background(if (hasKey) Color(0xFF4ADE80) else Color(0xFFFBBF24), CircleShape))
-                        Spacer(Modifier.width(7.dp))
-                        Text(if (hasKey) "✦ GEMINI CONNECTED WHEN USED" else "YOUR PERSONAL AI COMPANION", color = Cyan, fontSize = 9.sp, letterSpacing = 1.4.sp)
+                        Box(Modifier.size(6.dp).background(if (hasKey) Color(0xFF4ADE80) else Color(0xFFFBBF24), CircleShape))
+                        Spacer(Modifier.width(6.dp))
+                        Text(if (hasKey) "AI CORE READY" else "AI CORE • API KEY NEEDED", color = Color(0xFFB9B8D7), fontSize = 9.sp, letterSpacing = 1.sp)
                     }
                 }
-                TextButton(onClick = onSettings) {
-                    Text("⚙", color = Cyan, fontSize = 23.sp)
+                Surface(
+                    onClick = onSettings,
+                    shape = CircleShape,
+                    color = Color(0x33202A4C),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x557DEBFF))
+                ) {
+                    Box(Modifier.size(46.dp), contentAlignment = Alignment.Center) {
+                        Text("⚙", color = Cyan, fontSize = 22.sp)
+                    }
                 }
             }
 
-            Spacer(Modifier.height(24.dp))
+            Spacer(Modifier.height(12.dp))
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
+                Text("Good evening, Sagar", color = Color.White, fontSize = 25.sp, fontWeight = FontWeight.SemiBold)
+            }
+            Text("What shall we explore today?", color = Color(0xFFB7B8D6), fontSize = 13.sp, modifier = Modifier.fillMaxWidth().padding(top = 4.dp))
+            Spacer(Modifier.height(8.dp))
             Box(
-                modifier = Modifier.size(250.dp),
+                modifier = Modifier.fillMaxWidth().height(270.dp),
                 contentAlignment = Alignment.Center
             ) {
                 if (animatedOrb) {
