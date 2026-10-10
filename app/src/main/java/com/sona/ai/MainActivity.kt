@@ -1614,7 +1614,7 @@ private fun MyraHome(
     Surface(modifier = Modifier.fillMaxSize(), color = Night) {
         Column(
             modifier = Modifier.fillMaxSize()
-                .background(Brush.verticalGradient(listOf(Color(0xFF1A1030), Color(0xFF070611), Color(0xFF100A20))))
+                .background(Brush.verticalGradient(listOf(Color(0xFF100B24), Color(0xFF050611), Color(0xFF090D1B))))
         ) {
         Column(
             modifier = Modifier.weight(1f).fillMaxWidth()
@@ -1624,8 +1624,8 @@ private fun MyraHome(
         ) {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                 Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                    Text("MYRA", color = Color.White, fontSize = 29.sp, fontWeight = FontWeight.Black, letterSpacing = 4.sp)
-                    Text("PERSONAL AI COMPANION", color = Cyan, fontSize = 9.sp, letterSpacing = 2.1.sp)
+                    Text("MYRA AI", color = Color.White, fontSize = 29.sp, fontWeight = FontWeight.Black, letterSpacing = 3.2.sp)
+                    Text("YOUR PERSONAL AI COMPANION", color = Color(0xFFBCA7FF), fontSize = 9.sp, letterSpacing = 1.7.sp)
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Box(Modifier.size(6.dp).background(if (hasKey) Color(0xFF4ADE80) else Color(0xFFFBBF24), CircleShape))
                         Spacer(Modifier.width(6.dp))
@@ -1635,8 +1635,8 @@ private fun MyraHome(
                 Surface(
                     onClick = onSettings,
                     shape = CircleShape,
-                    color = Color(0x33202A4C),
-                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x557DEBFF))
+                    color = Color(0xFF15162B),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x665F55A8))
                 ) {
                     Box(Modifier.size(46.dp), contentAlignment = Alignment.Center) {
                         Text("⚙", color = Cyan, fontSize = 22.sp)
@@ -1646,9 +1646,9 @@ private fun MyraHome(
 
             Spacer(Modifier.height(12.dp))
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
-                Text("Welcome back, Sagar", color = Color.White, fontSize = 25.sp, fontWeight = FontWeight.SemiBold)
+                Text("Welcome back, Sagar ✨", color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold, letterSpacing = (-0.4).sp)
             }
-            Text("What shall we explore today?", color = Color(0xFFB7B8D6), fontSize = 13.sp, modifier = Modifier.fillMaxWidth().padding(top = 4.dp))
+            Text("Your day, your ideas, your AI — all in one place.", color = Color(0xFF9FA8C8), fontSize = 13.sp, modifier = Modifier.fillMaxWidth().padding(top = 4.dp))
             Spacer(Modifier.height(8.dp))
             Box(
                 modifier = Modifier.fillMaxWidth().height(270.dp),
@@ -1689,7 +1689,7 @@ private fun MyraHome(
                     modifier = Modifier.align(Alignment.TopCenter).padding(top = 4.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text("AI OS  •  HOLOGRAPHIC CORE", color = Color(0xFF9AA6C8), fontSize = 8.sp, letterSpacing = 2.sp)
+                    Text("MYRA INTELLIGENCE  •  HOLOGRAPHIC CORE", color = Color(0xFFB7A7F7), fontSize = 8.sp, letterSpacing = 1.5.sp)
                     Text(if (busy) "● LIVE SESSION" else "● SYSTEM ONLINE", color = if (busy) Cyan else Color(0xFF7CF7C6), fontSize = 9.sp, letterSpacing = 1.4.sp)
                 }
                 if (animatedOrb) {
@@ -1794,15 +1794,16 @@ private fun MyraHome(
                 }
             }
             Spacer(Modifier.height(12.dp))
-            Text("Hello, I’m Myra ✨", color = Color.White, fontSize = 27.sp, fontWeight = FontWeight.Bold)
+            Text("Your AI. Your space. ✨", color = Color.White, fontSize = 25.sp, fontWeight = FontWeight.Bold, letterSpacing = (-0.4).sp)
             Spacer(Modifier.height(6.dp))
-            Text("Your personal AI for voice, chat, memory and everyday control.", color = Color(0xFFC4B9E8), fontSize = 13.sp)
+            Text("Talk naturally, ask anything, save ideas, and get things done.", color = Color(0xFFA9B2D0), fontSize = 13.sp, lineHeight = 19.sp)
             Spacer(Modifier.height(18.dp))
 
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(18.dp),
-                colors = CardDefaults.cardColors(containerColor = Color(0xFF10162B))
+                shape = RoundedCornerShape(22.dp),
+                colors = CardDefaults.cardColors(containerColor = Color(0xFF111326)),
+                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x334F4B83))
             ) {
                 Column(Modifier.fillMaxWidth().padding(15.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -2021,7 +2022,7 @@ private fun MyraHome(
             Spacer(Modifier.height(8.dp))
         }
         Row(
-            modifier = Modifier.fillMaxWidth().background(Color(0xF20A0B18)).border(1.dp, Color(0x332DDAFF)).padding(horizontal = 5.dp, vertical = 6.dp),
+            modifier = Modifier.fillMaxWidth().background(Color(0xFF090B17)).border(1.dp, Color(0x444C4A7A)).padding(horizontal = 7.dp, vertical = 7.dp),
             horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically
         ) {
             Column(Modifier.weight(1f).background(if (selectedNav == "Assistant") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(13.dp)).clickable { selectedNav = "Assistant"; showAllTools = false; navScope.launch { scrollState.animateScrollTo(0) } }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("⌂", color = if (selectedNav == "Assistant") Cyan else Color(0xFF8993B7), fontSize = 18.sp); Text("Home", color = if (selectedNav == "Assistant") Color.White else Color(0xFF8993B7), fontSize = 9.sp) }
