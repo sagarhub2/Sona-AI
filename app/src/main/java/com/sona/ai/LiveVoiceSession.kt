@@ -59,7 +59,7 @@ class LiveVoiceSession(
                     .put("inputAudioTranscription", JSONObject())
                     .put("outputAudioTranscription", JSONObject())
                     .put("systemInstruction", JSONObject().put("parts", JSONArray().put(JSONObject().put("text",
-                        "You are Sona, using LIA-style natural real-time voice. Speak warmly in Hindi or Hinglish like a helpful Indian friend. Keep replies conversational and concise."))))
+                        "You are Myra, using a natural real-time voice inspired by the user's reference design. Speak warmly in Hindi or Hinglish like a helpful Indian friend. Keep replies conversational and concise."))))
                     )
                 val sent = ws.send(setup.toString())
                 if (!sent) {
@@ -181,7 +181,7 @@ class LiveVoiceSession(
                         if (socket?.send(message.toString()) != true) break
                     }
                 }
-            }, "Sona-Live-Mic").also { it.start() }
+            }, "Myra-Live-Mic").also { it.start() }
         } catch (_: SecurityException) {
             onStatus("MICROPHONE PERMISSION NEEDED"); stop()
         } catch (_: Exception) {
