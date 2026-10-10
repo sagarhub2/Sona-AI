@@ -122,6 +122,21 @@ class MainActivity : ComponentActivity() {
         } else status = "SPEECH RECOGNITION NOT AVAILABLE"
 
         setContent {
+            MaterialTheme(
+                colorScheme = darkColorScheme(
+                    primary = Cyan,
+                    onPrimary = Color(0xFF06101B),
+                    secondary = Violet,
+                    onSecondary = Color.White,
+                    background = Night,
+                    onBackground = Color.White,
+                    surface = Color(0xFF10172B),
+                    onSurface = Color(0xFFE8ECFF),
+                    surfaceVariant = Color(0xFF1B2340),
+                    onSurfaceVariant = Color(0xFFB6C1E0),
+                    error = Color(0xFFFF6B8A)
+                )
+            ) {
             MyraHome(
                 status = status,
                 heardText = heardText,
@@ -412,6 +427,7 @@ class MainActivity : ComponentActivity() {
                         TextButton(onClick = { showSettings = false }) { Text("Cancel") }
                     }
                 )
+            }
             }
         }
     }
@@ -834,7 +850,7 @@ private fun MyraHome(
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                 Text("✦", color = Cyan, fontSize = 28.sp)
                                 Text("MYRA", color = Color.White, fontSize = 25.sp, fontWeight = FontWeight.Light, letterSpacing = 3.sp)
-                                Text("AI ORB", color = Color(0xFFBCA7FF), fontSize = 9.sp, letterSpacing = 2.sp)
+                                Text("VOICE CORE", color = Color(0xFFBCA7FF), fontSize = 9.sp, letterSpacing = 2.sp)
                             }
                         }
                     }
@@ -914,7 +930,7 @@ private fun MyraHome(
 
             Spacer(Modifier.height(24.dp))
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                Text("YOUR AI TOOLKIT", color = Color.White, fontSize = 13.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.8.sp)
+                Text("MYRA FEATURES", color = Color.White, fontSize = 13.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.8.sp)
                 Spacer(Modifier.weight(1f))
                 Text("MADE FOR YOU ✦", color = Color(0xFFC49BFF), fontSize = 9.sp, letterSpacing = 1.sp)
             }
