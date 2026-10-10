@@ -45,6 +45,7 @@ class MainActivity : ComponentActivity() {
     private var heardText by mutableStateOf("Add your Gemini API key in Settings to enable AI.")
     private var apiKey by mutableStateOf("")
     private var showSettings by mutableStateOf(false)
+    private var showMemory by mutableStateOf(false)
     private var busy by mutableStateOf(false)
     private var speechRecognizer: SpeechRecognizer? = null
     private var liveVoiceSession: LiveVoiceSession? = null
@@ -119,8 +120,43 @@ class MainActivity : ComponentActivity() {
                 hasKey = apiKey.isNotBlank(),
                 busy = busy,
                 onStartVoice = { requestOrStartVoice() },
-                onSettings = { showSettings = true }
-            )
+                onSettings = { showSettings = true },
+                onMemory = { showMemory = true },
+                onSearch = { query ->
+                    try { startActivity(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.google.com/search?q=" + URLEncoder.encode(query, "UTF-8")))) }
+                    catch (_: Exception) { status = "NO BROWSER AVAILABLE" }
+                },
+                onFiles = {
+                    try {
+                        startActivityForResult(Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                            addCategory(Intent.CATEGORY_OPENABLE)
+                            type = "*/*"
+                            putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("application/pdf", "image/*", "text/*"))
+                        }, 411)
+                    } catch (_: Exception) { status = "FILE PICKER UNAVAILABLE" }
+                }
+            if (showMemory) {
+                var memoryDraft by remember { mutableStateOf(getSharedPreferences("sona_private", MODE_PRIVATE).getString("memory_notes", "") ?: "") }
+                AlertDialog(
+                    onDismissRequest = { showMemory = false },
+                    title = { Text("Sona Memory") },
+                    text = {
+                        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Text("Save notes for Sona to remember on this phone.")
+                            OutlinedTextField(value = memoryDraft, onValueChange = { memoryDraft = it }, label = { Text("Your notes") }, minLines = 4, maxLines = 8)
+                        }
+                    },
+                    confirmButton = {
+                        TextButton(onClick = {
+                            getSharedPreferences("sona_private", MODE_PRIVATE).edit().putString("memory_notes", memoryDraft).apply()
+                            heardText = if (memoryDraft.isBlank()) "Memory cleared." else "Memory saved on this device."
+                            status = "MEMORY UPDATED"
+                            showMemory = false
+                        }) { Text("Save memory") }
+                    },
+                    dismissButton = { TextButton(onClick = { showMemory = false }) { Text("Cancel") } }
+                )
+            }
             if (showSettings) {
                 var keyDraft by remember { mutableStateOf(apiKey) }
                 AlertDialog(
@@ -289,7 +325,10 @@ private fun SonaHome(
     hasKey: Boolean,
     busy: Boolean,
     onStartVoice: () -> Unit,
-    onSettings: () -> Unit
+    onSettings: () -> Unit,
+    onMemory: () -> Unit,
+    onSearch: (String) -> Unit,
+    onFiles: () -> Unit
 ) {
     val transition = androidx.compose.animation.core.rememberInfiniteTransition(label = "sona-orb")
     val pulse by transition.animateFloat(
@@ -302,6 +341,8 @@ private fun SonaHome(
         label = "orb-pulse"
     )
     val scrollState = androidx.compose.foundation.rememberScrollState()
+    var showSearchDialog by remember { mutableStateOf(false) }
+    var searchQuery by remember { mutableStateOf("") }
     Surface(modifier = Modifier.fillMaxSize(), color = Night) {
         Column(
             modifier = Modifier.fillMaxSize()
@@ -383,18 +424,33 @@ private fun SonaHome(
             }
             Spacer(Modifier.height(12.dp))
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                QuickTile("🧠 Memory", "Notes & recall", Modifier.weight(1f))
-                QuickTile("🌐 Search", "Explore the web", Modifier.weight(1f))
+                QuickTile("🧠 Memory", "Notes & recall", Modifier.weight(1f), onClick = onMemory)
+                QuickTile("🌐 Search", "Explore the web", Modifier.weight(1f), onClick = { showSearchDialog = true })
             }
             Spacer(Modifier.height(10.dp))
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                QuickTile("🗂 Files", "PDFs & images", Modifier.weight(1f))
+                QuickTile("🗂 Files", "PDFs & images", Modifier.weight(1f), onClick = onFiles)
                 QuickTile("⚙ Settings", "API & preferences", Modifier.weight(1f), onClick = onSettings)
             }
             Spacer(Modifier.height(20.dp))
             Text("VOICE • MEMORY • DISCOVERY", color = Color(0xFF66708F), fontSize = 10.sp, letterSpacing = 2.sp)
             Spacer(Modifier.height(8.dp))
         }
+    }
+    if (showSearchDialog) {
+        AlertDialog(
+            onDismissRequest = { showSearchDialog = false },
+            title = { Text("Search the web") },
+            text = { OutlinedTextField(value = searchQuery, onValueChange = { searchQuery = it }, label = { Text("What do you want to find?") }, singleLine = true) },
+            confirmButton = {
+                TextButton(onClick = {
+                    val query = searchQuery.trim()
+                    if (query.isNotBlank()) onSearch(query)
+                    showSearchDialog = false
+                }) { Text("Search") }
+            },
+            dismissButton = { TextButton(onClick = { showSearchDialog = false }) { Text("Cancel") } }
+        )
     }
 }
 
