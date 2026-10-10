@@ -960,6 +960,28 @@ class MainActivity : ComponentActivity() {
                 if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-mute")
                 true
             }
+            listOf("what time is it", "current time", "time kya hua", "abhi kitne baje hain").any { prompt == it } -> {
+                val now = java.text.SimpleDateFormat("h:mm a", Locale.getDefault()).format(java.util.Date())
+                heardText = "It's $now."
+                status = "CURRENT TIME"
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-time")
+                true
+            }
+            listOf("what is today's date", "today's date", "date kya hai", "aaj ki date kya hai").any { prompt == it } -> {
+                val today = java.text.SimpleDateFormat("EEEE, d MMMM yyyy", Locale.getDefault()).format(java.util.Date())
+                heardText = "Today is $today."
+                status = "TODAY'S DATE"
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-date")
+                true
+            }
+            listOf("read clipboard", "clipboard padho", "read copied text").any { prompt == it } -> {
+                val clipboard = getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+                val clipText = if (clipboard.hasPrimaryClip()) clipboard.primaryClip?.getItemAt(0)?.coerceToText(this)?.toString().orEmpty() else ""
+                heardText = if (clipText.isBlank()) "The clipboard is empty." else "Clipboard text: " + clipText.take(2500)
+                status = if (clipText.isBlank()) "CLIPBOARD EMPTY" else "READING CLIPBOARD"
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-clipboard")
+                true
+            }
             listOf("battery status", "phone battery kitni hai", "battery kitni hai", "check battery").any { prompt == it } -> {
                 val battery = registerReceiver(null, android.content.IntentFilter(Intent.ACTION_BATTERY_CHANGED))
                 val level = battery?.getIntExtra(android.os.BatteryManager.EXTRA_LEVEL, -1) ?: -1
