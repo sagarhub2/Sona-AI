@@ -937,9 +937,9 @@ private fun MyraHome(
             Text("Voice input • spoken reply when enabled in Settings", color = Color(0xFF7784AA), fontSize = 11.sp)
 
             Spacer(Modifier.height(24.dp))
-            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                if (selectedNav == "Tools") {
-                Text("MYRA FEATURES", color = Color.White, fontSize = 13.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.8.sp)
+            if (selectedNav == "Tools") {
+                Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                    Text("MYRA FEATURES", color = Color.White, fontSize = 13.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.8.sp)
                     Spacer(Modifier.weight(1f))
                     Text("MADE FOR YOU ✦", color = Color(0xFFC49BFF), fontSize = 9.sp, letterSpacing = 1.sp)
                 }
@@ -950,75 +950,69 @@ private fun MyraHome(
                 }
                 Spacer(Modifier.height(10.dp))
                 if (showAllTools) {
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    QuickTile("📱 Phone Control", "Device settings", Modifier.weight(1f), onClick = onDeviceSettings)
-                    QuickTile("🎵 Media", "Open YouTube", Modifier.weight(1f), onClick = onMedia)
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        QuickTile("📱 Phone Control", "Device settings", Modifier.weight(1f), onClick = onDeviceSettings)
+                        QuickTile("🎵 Media", "Open YouTube", Modifier.weight(1f), onClick = onMedia)
+                    }
+                    Spacer(Modifier.height(10.dp))
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        QuickTile("📷 Camera", "Open camera", Modifier.weight(1f), onClick = onCamera)
+                        QuickTile("📇 Contacts", "Open contacts", Modifier.weight(1f), onClick = onContacts)
+                    }
+                    Spacer(Modifier.height(10.dp))
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        QuickTile("🗂 Files & Photos", "PDFs, images & documents", Modifier.weight(1f), onClick = onFiles)
+                        QuickTile("⚙ Settings", "API & preferences", Modifier.weight(1f), onClick = onSettings)
+                    }
+                    Spacer(Modifier.height(10.dp))
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        QuickTile("📝 Notes & Tasks", "Save notes with Memory", Modifier.weight(1f), onClick = onTasks)
+                        QuickTile("🪄 Wallpaper", "Open display settings", Modifier.weight(1f), onClick = onDeviceSettings)
+                    }
+                    Spacer(Modifier.height(10.dp))
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        QuickTile("⏰ Alarms & Timers", "Create an alarm", Modifier.weight(1f), onClick = onReminder)
+                        QuickTile("🛡 Permissions", "App access controls", Modifier.weight(1f), onClick = onPermissions)
+                    }
+                    Spacer(Modifier.height(10.dp))
+                    QuickTile("🕘 Recent Conversations", "View or clear saved chat context", Modifier.fillMaxWidth(), onClick = onHistory)
+                    Spacer(Modifier.height(10.dp))
+                    QuickTile("📊 Device Info", "Battery, Android version & model", Modifier.fillMaxWidth(), onClick = onDeviceInfo)
+                    Spacer(Modifier.height(10.dp))
+                    QuickTile("🌍 Quick Translate", "Translate text with Myra AI", Modifier.fillMaxWidth(), onClick = { showTranslateDialog = true })
+                    Spacer(Modifier.height(10.dp))
+                    QuickTile("🎓 Study Mode", "Learn topics, quiz yourself, make notes", Modifier.fillMaxWidth(), onClick = { showStudyDialog = true })
+                    Spacer(Modifier.height(10.dp))
+                    QuickTile("✍️ Writing Studio", "Draft messages, captions, emails and ideas", Modifier.fillMaxWidth(), onClick = { showWritingStudio = true })
+                    Spacer(Modifier.height(10.dp))
+                    QuickTile("🗓️ Goal Planner", "Turn a goal into clear, manageable steps", Modifier.fillMaxWidth(), onClick = { showPlannerDialog = true })
+                    Spacer(Modifier.height(10.dp))
+                    QuickTile("⚖️ Decision Helper", "Compare options, trade-offs and next steps", Modifier.fillMaxWidth(), onClick = { showDecisionDialog = true })
+                    Spacer(Modifier.height(10.dp))
+                    QuickTile("📔 Daily Journal", "Write and save today's thoughts privately on this phone", Modifier.fillMaxWidth(), onClick = {
+                        journalEntry = context.getSharedPreferences("myra_prefs", 0).getString(journalKey, "") ?: ""
+                        showJournalDialog = true
+                    })
+                    Spacer(Modifier.height(10.dp))
+                    QuickTile("📝 Quick Notes", "Save ideas and important details on this phone", Modifier.fillMaxWidth(), onClick = {
+                        notesText = context.getSharedPreferences("myra_prefs", 0).getString("myra_quick_notes", "") ?: ""
+                        showNotesDialog = true
+                    })
+                    Spacer(Modifier.height(10.dp))
+                    QuickTile("↗ Share latest answer", "Send Myra's reply to another app", Modifier.fillMaxWidth(), onClick = onShareAnswer)
+                    Spacer(Modifier.height(10.dp))
+                    QuickTile("📋 Copy latest answer", "Copy Myra's reply to clipboard", Modifier.fillMaxWidth(), onClick = onCopyAnswer)
+                    Spacer(Modifier.height(10.dp))
+                    QuickTile("🔊 Speak latest answer", "Read Myra's reply aloud", Modifier.fillMaxWidth(), onClick = onSpeakAnswer)
+                    Spacer(Modifier.height(10.dp))
+                    QuickTile("⏹ Stop speaking", "Stop voice playback immediately", Modifier.fillMaxWidth(), onClick = onStopSpeaking)
                 }
                 Spacer(Modifier.height(10.dp))
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    QuickTile("📷 Camera", "Open camera", Modifier.weight(1f), onClick = onCamera)
-                    QuickTile("📇 Contacts", "Open contacts", Modifier.weight(1f), onClick = onContacts)
-                }
-                Spacer(Modifier.height(10.dp))
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    QuickTile("🗂 Files & Photos", "PDFs, images & documents", Modifier.weight(1f), onClick = onFiles)
-                    QuickTile("⚙ Settings", "API & preferences", Modifier.weight(1f), onClick = onSettings)
-                }
-                Spacer(Modifier.height(10.dp))
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    QuickTile("📝 Notes & Tasks", "Save notes with Memory", Modifier.weight(1f), onClick = onTasks)
-                    QuickTile("🪄 Wallpaper", "Open display settings", Modifier.weight(1f), onClick = onDeviceSettings)
-                }
-                Spacer(Modifier.height(10.dp))
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    QuickTile("⏰ Alarms & Timers", "Create an alarm", Modifier.weight(1f), onClick = onReminder)
-                    QuickTile("🛡 Permissions", "App access controls", Modifier.weight(1f), onClick = onPermissions)
-                }
-                Spacer(Modifier.height(10.dp))
-                QuickTile("🕘 Recent Conversations", "View or clear saved chat context", Modifier.fillMaxWidth(), onClick = onHistory)
-                Spacer(Modifier.height(10.dp))
-                QuickTile("📊 Device Info", "Battery, Android version & model", Modifier.fillMaxWidth(), onClick = onDeviceInfo)
-                Spacer(Modifier.height(10.dp))
-                QuickTile("🌍 Quick Translate", "Translate text with Myra AI", Modifier.fillMaxWidth(), onClick = { showTranslateDialog = true })
-                Spacer(Modifier.height(10.dp))
-                QuickTile("🎓 Study Mode", "Learn topics, quiz yourself, make notes", Modifier.fillMaxWidth(), onClick = { showStudyDialog = true })
-                Spacer(Modifier.height(10.dp))
-                QuickTile("✍️ Writing Studio", "Draft messages, captions, emails and ideas", Modifier.fillMaxWidth(), onClick = { showWritingStudio = true })
-                Spacer(Modifier.height(10.dp))
-                QuickTile("🗓️ Goal Planner", "Turn a goal into clear, manageable steps", Modifier.fillMaxWidth(), onClick = { showPlannerDialog = true })
-                Spacer(Modifier.height(10.dp))
-                QuickTile("⚖️ Decision Helper", "Compare options, trade-offs and next steps", Modifier.fillMaxWidth(), onClick = { showDecisionDialog = true })
-                Spacer(Modifier.height(10.dp))
-                QuickTile("📔 Daily Journal", "Write and save today's thoughts privately on this phone", Modifier.fillMaxWidth(), onClick = {
-                    journalEntry = context.getSharedPreferences("myra_prefs", 0).getString(journalKey, "") ?: ""
-                    showJournalDialog = true
-                })
-                Spacer(Modifier.height(10.dp))
-                QuickTile("📝 Quick Notes", "Save ideas and important details on this phone", Modifier.fillMaxWidth(), onClick = {
-                    notesText = context.getSharedPreferences("myra_prefs", 0).getString("myra_quick_notes", "") ?: ""
-                    showNotesDialog = true
-                })
-                Spacer(Modifier.height(10.dp))
-                QuickTile("↗ Share latest answer", "Send Myra's reply to another app", Modifier.fillMaxWidth(), onClick = onShareAnswer)
-                Spacer(Modifier.height(10.dp))
-                QuickTile("📋 Copy latest answer", "Copy Myra's reply to clipboard", Modifier.fillMaxWidth(), onClick = onCopyAnswer)
-                Spacer(Modifier.height(10.dp))
-                QuickTile("🔊 Speak latest answer", "Read Myra's reply aloud", Modifier.fillMaxWidth(), onClick = onSpeakAnswer)
-                Spacer(Modifier.height(10.dp))
-                QuickTile("⏹ Stop speaking", "Stop voice playback immediately", Modifier.fillMaxWidth(), onClick = onStopSpeaking)
-                }
-                Spacer(Modifier.height(10.dp))
-                OutlinedButton(
-                    onClick = { showAllTools = !showAllTools },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.outlinedButtonColors(contentColor = Cyan),
-                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF39416D))
-                ) {
+                OutlinedButton(onClick = { showAllTools = !showAllTools }, modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.outlinedButtonColors(contentColor = Cyan), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF39416D))) {
                     Text(if (showAllTools) "⌃  Show fewer tools" else "⌄  Explore all Myra tools")
                 }
                 Spacer(Modifier.height(20.dp))
                 Text("VOICE • MEMORY • SEARCH • TOOLS", color = Color(0xFF66708F), fontSize = 10.sp, letterSpacing = 2.sp)
-                Spacer(Modifier.height(8.dp))
             } else {
                 Spacer(Modifier.height(20.dp))
                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
@@ -1051,6 +1045,8 @@ private fun MyraHome(
                 Spacer(Modifier.height(8.dp))
                 Text("VOICE • MEMORY • CONVERSATION", color = Color(0xFF66708F), fontSize = 10.sp, letterSpacing = 1.5.sp)
             }
+            Spacer(Modifier.height(8.dp))
+        }
         Row(
             modifier = Modifier.fillMaxWidth().background(Color(0xF20A0B18)).border(1.dp, Color(0x332DDAFF)).padding(horizontal = 8.dp, vertical = 7.dp),
             horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically
