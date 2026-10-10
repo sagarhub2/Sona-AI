@@ -177,6 +177,17 @@ class MainActivity : ComponentActivity() {
                         } catch (_: Exception) { status = "SHARING UNAVAILABLE" }
                     }
                 }
+,
+                onCopyAnswer = {
+                    val textToCopy = heardText.trim()
+                    if (textToCopy.isBlank()) {
+                        status = "NO ANSWER TO COPY YET"
+                    } else {
+                        val clipboard = getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+                        clipboard.setPrimaryClip(android.content.ClipData.newPlainText("Sona AI answer", textToCopy))
+                        status = "ANSWER COPIED TO CLIPBOARD"
+                    }
+                }
             )
             if (showMemory) {
                 var memoryDraft by remember { mutableStateOf(getSharedPreferences("sona_private", MODE_PRIVATE).getString("memory_notes", "") ?: "") }
@@ -523,7 +534,8 @@ private fun SonaHome(
     onMedia: () -> Unit,
     onReminder: () -> Unit,
     onPermissions: () -> Unit,
-    onShareAnswer: () -> Unit
+    onShareAnswer: () -> Unit,
+    onCopyAnswer: () -> Unit
 ) {
     val transition = androidx.compose.animation.core.rememberInfiniteTransition(label = "sona-orb")
     val animatedPulse by transition.animateFloat(
@@ -708,6 +720,8 @@ private fun SonaHome(
             }
             Spacer(Modifier.height(10.dp))
             QuickTile("↗ Share latest answer", "Send Sona's reply to another app", Modifier.fillMaxWidth(), onClick = onShareAnswer)
+            Spacer(Modifier.height(10.dp))
+            QuickTile("📋 Copy latest answer", "Copy Sona's reply to clipboard", Modifier.fillMaxWidth(), onClick = onCopyAnswer)
             Spacer(Modifier.height(20.dp))
             Text("VOICE • MEMORY • SEARCH • TOOLS", color = Color(0xFF66708F), fontSize = 10.sp, letterSpacing = 2.sp)
             Spacer(Modifier.height(8.dp))
