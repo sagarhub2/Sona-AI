@@ -326,6 +326,7 @@ class MainActivity : ComponentActivity() {
             if (showSettings) {
                 val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
                 var keyDraft by remember { mutableStateOf(apiKey) }
+                var showApiKey by remember { mutableStateOf(false) }
                 var userNameDraft by remember { mutableStateOf(prefs.getString("user_name", "").orEmpty()) }
                 var assistantNameDraft by remember { mutableStateOf(prefs.getString("assistant_name", "Myra").orEmpty()) }
                 var languageDraft by remember { mutableStateOf(prefs.getString("language", "Auto (match me)") ?: "Auto (match me)") }
@@ -351,14 +352,15 @@ class MainActivity : ComponentActivity() {
                             OutlinedTextField(
                                 value = keyDraft, onValueChange = { keyDraft = it },
                                 label = { Text("Gemini API key") }, singleLine = true,
-                                visualTransformation = PasswordVisualTransformation(),
-                                modifier = Modifier.fillMaxWidth()
+                                visualTransformation = if (showApiKey) androidx.compose.ui.text.input.VisualTransformation.None else PasswordVisualTransformation(),
+                                modifier = Modifier.fillMaxWidth(),
+                                trailingIcon = { TextButton(onClick = { showApiKey = !showApiKey }) { Text(if (showApiKey) "HIDE" else "SHOW", color = Cyan) } }
                             )
                             Text("VOICE & LANGUAGE", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             OutlinedTextField(value = languageDraft, onValueChange = { languageDraft = it }, label = { Text("Language (e.g. Hindi, English, Auto)") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             OutlinedTextField(value = voiceDraft, onValueChange = { voiceDraft = it }, label = { Text("Voice style preference") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             SettingToggle("Speak text replies aloud", speakReplies, { speakReplies = it })
-                            Text("PERMYRALITY & MEMORY", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text("PERSONALITY & MEMORY", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             OutlinedTextField(value = personalityDraft, onValueChange = { personalityDraft = it }, label = { Text("Assistant personality / instructions") }, minLines = 2, modifier = Modifier.fillMaxWidth())
                             SettingToggle("Use saved Memory notes in replies", rememberNotes, { rememberNotes = it })
                             Text("APPEARANCE", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
