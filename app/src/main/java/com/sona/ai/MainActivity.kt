@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -654,6 +655,7 @@ private fun SonaHome(
     onStopSpeaking: () -> Unit,
     onAskText: (String) -> Unit
 ) {
+    val context = LocalContext.current
     val transition = androidx.compose.animation.core.rememberInfiniteTransition(label = "sona-orb")
     val animatedPulse by transition.animateFloat(
         initialValue = 0.94f,
