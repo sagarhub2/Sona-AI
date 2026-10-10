@@ -1019,8 +1019,6 @@ private fun MyraHome(
                 Spacer(Modifier.height(20.dp))
                 Text("VOICE • MEMORY • SEARCH • TOOLS", color = Color(0xFF66708F), fontSize = 10.sp, letterSpacing = 2.sp)
                 Spacer(Modifier.height(8.dp))
-            }
-    
             } else {
                 Spacer(Modifier.height(20.dp))
                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
