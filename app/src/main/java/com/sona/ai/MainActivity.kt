@@ -461,11 +461,21 @@ private fun SonaHome(
             }
             Spacer(Modifier.height(10.dp))
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                QuickTile("🗂 Files", "PDFs & images", Modifier.weight(1f), onClick = onFiles)
+                QuickTile("🗂 Files & Photos", "PDFs, images & documents", Modifier.weight(1f), onClick = onFiles)
                 QuickTile("⚙ Settings", "API & preferences", Modifier.weight(1f), onClick = onSettings)
             }
+            Spacer(Modifier.height(10.dp))
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                QuickTile("📝 Notes & Tasks", "Save notes with Memory", Modifier.weight(1f), onClick = onMemory)
+                QuickTile("🪄 Wallpaper", "Open display settings", Modifier.weight(1f), onClick = onDeviceSettings)
+            }
+            Spacer(Modifier.height(10.dp))
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                QuickTile("👁 Camera & Vision", "Open camera", Modifier.weight(1f), onClick = onCamera)
+                QuickTile("📞 Calls & Contacts", "Open contacts", Modifier.weight(1f), onClick = onContacts)
+            }
             Spacer(Modifier.height(20.dp))
-            Text("VOICE • MEMORY • DISCOVERY", color = Color(0xFF66708F), fontSize = 10.sp, letterSpacing = 2.sp)
+            Text("VOICE • MEMORY • SEARCH • TOOLS", color = Color(0xFF66708F), fontSize = 10.sp, letterSpacing = 2.sp)
             Spacer(Modifier.height(8.dp))
         }
     }
