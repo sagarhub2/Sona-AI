@@ -761,7 +761,6 @@ For privacy, I do not silently send messages or place calls. Android may ask you
                 if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-help")
                 true
             }
-        return when {
             listOf("save memory ", "remember about me ", "yaad rakhna ").any { prompt.startsWith(it) } -> {
                 val fact = rawPrompt.replace(Regex("(?i)^(save memory|remember about me|yaad rakhna)\\s*"), "").trim()
                 val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
