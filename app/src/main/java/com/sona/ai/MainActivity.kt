@@ -14,6 +14,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -24,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
@@ -403,6 +405,24 @@ private fun SonaHome(
         label = "orb-pulse"
     )
     val pulse = if (animatedOrb) animatedPulse else 1f
+    val ringRotation by transition.animateFloat(
+        initialValue = 0f,
+        targetValue = 360f,
+        animationSpec = androidx.compose.animation.core.infiniteRepeatable(
+            animation = androidx.compose.animation.core.tween(9000, easing = androidx.compose.animation.core.LinearEasing),
+            repeatMode = androidx.compose.animation.core.RepeatMode.Restart
+        ),
+        label = "orb-ring-rotation"
+    )
+    val counterRotation by transition.animateFloat(
+        initialValue = 360f,
+        targetValue = 0f,
+        animationSpec = androidx.compose.animation.core.infiniteRepeatable(
+            animation = androidx.compose.animation.core.tween(12000, easing = androidx.compose.animation.core.LinearEasing),
+            repeatMode = androidx.compose.animation.core.RepeatMode.Restart
+        ),
+        label = "orb-counter-rotation"
+    )
     val scrollState = androidx.compose.foundation.rememberScrollState()
     var showSearchDialog by remember { mutableStateOf(false) }
     var searchQuery by remember { mutableStateOf("") }
@@ -430,16 +450,35 @@ private fun SonaHome(
 
             Spacer(Modifier.height(24.dp))
             Box(
-                modifier = Modifier.size((220 * pulse).dp)
-                    .background(Brush.radialGradient(listOf(Color(0x668B5CF6), Color(0x2238BDF8), Color.Transparent)), CircleShape),
+                modifier = Modifier.size(236.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Box(Modifier.size(174.dp).background(Brush.radialGradient(listOf(Color(0xFF9F67FF), Color(0xFF4626B5), Color(0xFF111B43))), CircleShape), contentAlignment = Alignment.Center) {
-                    Box(Modifier.size(150.dp).background(Brush.radialGradient(listOf(Color(0xFF111B43), Color(0xFF050816))), CircleShape), contentAlignment = Alignment.Center) {
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            Text("✦", color = Cyan, fontSize = 28.sp)
-                            Text("SONA", color = Color.White, fontSize = 25.sp, fontWeight = FontWeight.Light, letterSpacing = 3.sp)
-                            Text("AI ORB", color = Color(0xFFBCA7FF), fontSize = 9.sp, letterSpacing = 2.sp)
+                if (animatedOrb) {
+                    Box(
+                        Modifier.size(224.dp).rotate(ringRotation)
+                            .border(1.5.dp, Brush.sweepGradient(listOf(Cyan, Color.Transparent, Violet, Color.Transparent, Cyan)), CircleShape)
+                    )
+                    Box(
+                        Modifier.size(202.dp).rotate(counterRotation)
+                            .border(1.dp, Brush.sweepGradient(listOf(Color.Transparent, Cyan, Color.Transparent, Violet, Color.Transparent)), CircleShape)
+                    )
+                    Box(
+                        Modifier.size(184.dp).rotate(ringRotation * 0.55f)
+                            .border(2.dp, Brush.sweepGradient(listOf(Color.Transparent, Color(0x668B5CF6), Cyan, Color.Transparent)), CircleShape)
+                    )
+                }
+                Box(
+                    modifier = Modifier.size((176 * pulse).dp)
+                        .background(Brush.radialGradient(listOf(Color(0x889F67FF), Color(0x554626B5), Color.Transparent)), CircleShape),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Box(Modifier.size(164.dp).background(Brush.radialGradient(listOf(Color(0xFF9F67FF), Color(0xFF4626B5), Color(0xFF111B43))), CircleShape), contentAlignment = Alignment.Center) {
+                        Box(Modifier.size(142.dp).background(Brush.radialGradient(listOf(Color(0xFF111B43), Color(0xFF050816))), CircleShape), contentAlignment = Alignment.Center) {
+                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                Text("✦", color = Cyan, fontSize = 28.sp)
+                                Text("SONA", color = Color.White, fontSize = 25.sp, fontWeight = FontWeight.Light, letterSpacing = 3.sp)
+                                Text("AI ORB", color = Color(0xFFBCA7FF), fontSize = 9.sp, letterSpacing = 2.sp)
+                            }
                         }
                     }
                 }
