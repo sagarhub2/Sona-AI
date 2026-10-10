@@ -1080,7 +1080,6 @@ private fun SonaHome(
                 TextButton(onClick = {
                     context.getSharedPreferences("sona_prefs", 0).edit().putString(journalKey, journalEntry).apply()
                     showJournalDialog = false
-                    status = "TODAY'S JOURNAL SAVED"
                 }) { Text("Save entry") }
             },
             dismissButton = {
@@ -1088,7 +1087,6 @@ private fun SonaHome(
                     journalEntry = ""
                     context.getSharedPreferences("sona_prefs", 0).edit().remove(journalKey).apply()
                     showJournalDialog = false
-                    status = "TODAY'S JOURNAL CLEARED"
                 }) { Text("Clear") }
             }
         )
@@ -1115,7 +1113,6 @@ private fun SonaHome(
                 TextButton(onClick = {
                     context.getSharedPreferences("sona_prefs", 0).edit().putString("sona_quick_notes", notesText).apply()
                     showNotesDialog = false
-                    status = "NOTES SAVED ON THIS DEVICE"
                 }) { Text("Save notes") }
             },
             dismissButton = {
@@ -1123,7 +1120,6 @@ private fun SonaHome(
                     notesText = ""
                     context.getSharedPreferences("sona_prefs", 0).edit().remove("sona_quick_notes").apply()
                     showNotesDialog = false
-                    status = "NOTES CLEARED"
                 }) { Text("Clear") }
             }
         )
