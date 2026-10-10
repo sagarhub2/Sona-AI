@@ -709,6 +709,26 @@ class MainActivity : ComponentActivity() {
                 launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://play.google.com/store")), "Opening Play Store")
             listOf("open maps search", "search places").any { prompt.contains(it) } ->
                 launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.google.com/maps/search/")), "Opening places search")
+            listOf("display settings", "screen settings", "brightness settings", "display kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_DISPLAY_SETTINGS), "Opening display settings")
+            listOf("sound settings", "volume settings", "audio settings", "sound kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_SOUND_SETTINGS), "Opening sound settings")
+            listOf("location settings", "gps settings", "location kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS), "Opening location settings")
+            listOf("date and time settings", "time settings", "date settings").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_DATE_SETTINGS), "Opening date and time settings")
+            listOf("storage settings", "phone storage", "storage kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_INTERNAL_STORAGE_SETTINGS), "Opening storage settings")
+            listOf("language settings", "keyboard settings", "input settings").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_INPUT_METHOD_SETTINGS), "Opening keyboard and input settings")
+            listOf("accessibility settings", "accessibility kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS), "Opening accessibility settings")
+            listOf("battery settings", "battery usage", "battery kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_BATTERY_SAVER_SETTINGS), "Opening battery settings")
+            listOf("notification settings", "notifications kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS).putExtra(android.provider.Settings.EXTRA_APP_PACKAGE, packageName), "Opening Myra notification settings")
+            listOf("share app", "share myra", "share myra ai").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_SEND).apply { type = "text/plain"; putExtra(Intent.EXTRA_TEXT, "Try Myra AI: https://github.com/sagarhub2/Sona-AI") }.let { Intent.createChooser(it, "Share Myra AI") }, "Opening share sheet")
             else -> false
         }
     }
