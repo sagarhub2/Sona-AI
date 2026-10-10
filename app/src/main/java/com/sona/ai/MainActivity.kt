@@ -695,6 +695,20 @@ class MainActivity : ComponentActivity() {
                 launch(Intent(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS), "Opening Bluetooth settings")
             listOf("open files", "files kholo", "file manager kholo").any { prompt.contains(it) } ->
                 launch(Intent(Intent.ACTION_OPEN_DOCUMENT).apply { addCategory(Intent.CATEGORY_OPENABLE); type = "*/*" }, "Opening file picker")
+            listOf("open maps", "maps kholo", "navigate", "directions").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.google.com/maps")), "Opening maps")
+            listOf("open gmail", "gmail kholo", "check email", "email kholo").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://mail.google.com")), "Opening Gmail")
+            listOf("open calendar", "calendar kholo", "my calendar").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_APP_CALENDAR), "Opening calendar")
+            listOf("open calculator", "calculator kholo", "calculate kholo").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_APP_CALCULATOR), "Opening calculator")
+            listOf("open app settings", "myra app settings", "myra permissions").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, android.net.Uri.parse("package:$packageName")), "Opening Myra app settings")
+            listOf("open play store", "play store kholo").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://play.google.com/store")), "Opening Play Store")
+            listOf("open maps search", "search places").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.google.com/maps/search/")), "Opening places search")
             else -> false
         }
     }
