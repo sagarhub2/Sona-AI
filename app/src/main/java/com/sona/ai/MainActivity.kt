@@ -308,7 +308,7 @@ class MainActivity : ComponentActivity() {
                     doOutput = true
                     setRequestProperty("Content-Type", "application/json; charset=utf-8")
                 }
-                val savedMemory = getSharedPreferences("sona_private", MODE_PRIVATE).getString("memory_notes", "").orEmpty().take(4000)
+                val savedMemory = if (getSharedPreferences("sona_private", MODE_PRIVATE).getBoolean("use_memory", true)) getSharedPreferences("sona_private", MODE_PRIVATE).getString("memory_notes", "").orEmpty().take(4000) else ""
                 val companionPrompt = "You are Sona, a warm, natural, friendly AI companion with a feminine voice. Speak like a kind Indian friend, not a robot. Reply in the user's language, especially natural Hindi or Hinglish when they use it. Keep spoken answers conversational and easy to say aloud; avoid markdown, lists, emojis, and overly long replies unless requested. Be respectful and supportive.\n\nUser's saved notes (use only when relevant):\n$savedMemory\n\nUser says: $prompt"
                 val body = JSONObject()
                     .put("contents", JSONArray().put(JSONObject().put("parts", JSONArray().put(JSONObject().put("text", companionPrompt)))))
@@ -341,7 +341,7 @@ class MainActivity : ComponentActivity() {
                 if (responseText != null) {
                     heardText = responseText!!
                     status = "GEMINI CONNECTED • RESPONSE RECEIVED"
-                    if (ttsReady) textToSpeech?.speak(responseText, TextToSpeech.QUEUE_FLUSH, null, "sona-gemini-reply")
+                    if (ttsReady && getSharedPreferences("sona_private", MODE_PRIVATE).getBoolean("speak_replies", true)) textToSpeech?.speak(responseText, TextToSpeech.QUEUE_FLUSH, null, "sona-gemini-reply")
                 } else {
                     heardText = errorText
                     status = "AI CONNECTION FAILED"
@@ -527,6 +527,18 @@ private fun SonaHome(
             },
             dismissButton = { TextButton(onClick = { showSearchDialog = false }) { Text("Cancel") } }
         )
+    }
+}
+
+@Composable
+private fun SettingToggle(label: String, checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(label, color = Color(0xFFD2D9F0), fontSize = 13.sp, modifier = Modifier.weight(1f))
+        Switch(checked = checked, onCheckedChange = onCheckedChange)
     }
 }
 
