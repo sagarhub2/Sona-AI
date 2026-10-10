@@ -754,6 +754,37 @@ class MainActivity : ComponentActivity() {
                 if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-note")
                 true
             }
+            listOf("remember that ", "remember this about me ", "yaad rakhna ", "memory save karo ").any { prompt.startsWith(it) } -> {
+                val fact = rawPrompt.replace(Regex("(?i)^(remember that|remember this about me|yaad rakhna|memory save karo)\\s*"), "").trim()
+                val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
+                val existing = prefs.getString("memory_notes", "").orEmpty()
+                if (fact.isBlank()) {
+                    heardText = "Please say what you want me to remember."
+                    status = "MEMORY ENTRY EMPTY"
+                } else {
+                    val entries = existing.lines().filter { it.isNotBlank() }
+                    val updated = (listOf(fact) + entries.filterNot { it.equals(fact, ignoreCase = true) }).take(100).joinToString("\\n")
+                    prefs.edit().putString("memory_notes", updated).apply()
+                    heardText = "I'll remember this on this phone: $fact"
+                    status = "MEMORY SAVED LOCALLY"
+                }
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-memory-save")
+                true
+            }
+            listOf("read my memory", "what do you remember about me", "meri memory padho", "yaad kya hai").any { prompt == it } -> {
+                val memory = getSharedPreferences("myra_private", MODE_PRIVATE).getString("memory_notes", "").orEmpty()
+                heardText = if (memory.isBlank()) "I don't have any saved personal memory on this phone yet." else "Your saved memory: " + memory.lines().take(10).joinToString(". ")
+                status = if (memory.isBlank()) "MEMORY EMPTY" else "LOCAL MEMORY LOADED"
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-memory-read")
+                true
+            }
+            listOf("clear my memory", "forget everything about me", "meri memory delete karo").any { prompt == it } -> {
+                getSharedPreferences("myra_private", MODE_PRIVATE).edit().remove("memory_notes").apply()
+                heardText = "Saved personal memory was cleared from this phone."
+                status = "LOCAL MEMORY CLEARED"
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-memory-clear")
+                true
+            }
             listOf("clear my voice notes", "delete all voice notes", "mere voice notes delete karo").any { prompt == it } -> {
                 getSharedPreferences("myra_prefs", MODE_PRIVATE).edit().remove("myra_voice_notes").apply()
                 heardText = "All saved voice notes were cleared from this device."
