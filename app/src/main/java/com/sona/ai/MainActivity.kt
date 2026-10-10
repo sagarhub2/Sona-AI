@@ -657,7 +657,50 @@ class MainActivity : ComponentActivity() {
         }.start()
     }
 
+    private fun handleLocalCommand(rawPrompt: String): Boolean {
+        val prompt = rawPrompt.trim().lowercase(Locale.ROOT)
+        fun launch(intent: Intent, success: String): Boolean {
+            return try {
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                status = success
+                heardText = success
+                true
+            } catch (_: Exception) {
+                status = "ACTION NOT AVAILABLE ON THIS PHONE"
+                heardText = status
+                true
+            }
+        }
+        return when {
+            listOf("open settings", "phone settings", "settings kholo", "setting kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_SETTINGS), "Opening phone settings")
+            listOf("open camera", "camera kholo", "take a photo", "photo lo").any { prompt.contains(it) } ->
+                launch(Intent("android.media.action.IMAGE_CAPTURE"), "Opening camera")
+            listOf("open contacts", "contacts kholo", "my contacts").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("content://contacts/people/")), "Opening contacts")
+            listOf("open youtube", "youtube kholo", "play youtube").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.youtube.com")), "Opening YouTube")
+            listOf("open browser", "browser kholo", "open google").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.google.com")), "Opening browser")
+            listOf("set alarm", "alarm lagao", "alarm kholo").any { prompt.contains(it) } ->
+                launch(Intent(AlarmClock.ACTION_SET_ALARM), "Opening alarm")
+            listOf("open dialer", "dialer kholo", "call screen").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_DIAL), "Opening phone dialer")
+            listOf("send message", "sms kholo", "open messages").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_APP_MESSAGING), "Opening messages")
+            listOf("open wifi settings", "wifi settings", "wifi kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_WIFI_SETTINGS), "Opening Wi-Fi settings")
+            listOf("bluetooth settings", "open bluetooth").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS), "Opening Bluetooth settings")
+            listOf("open files", "files kholo", "file manager kholo").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_OPEN_DOCUMENT).apply { addCategory(Intent.CATEGORY_OPENABLE); type = "*/*" }, "Opening file picker")
+            else -> false
+        }
+    }
+
     private fun askGemini(prompt: String) {
+        if (handleLocalCommand(prompt)) return
         val key = apiKey
         if (key.isBlank()) {
             status = "ADD GEMINI KEY IN SETTINGS"
