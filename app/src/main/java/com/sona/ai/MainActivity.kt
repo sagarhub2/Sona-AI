@@ -1557,7 +1557,7 @@ private fun MyraHome(
 
             Spacer(Modifier.height(12.dp))
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
-                Text("Good evening, Sagar", color = Color.White, fontSize = 25.sp, fontWeight = FontWeight.SemiBold)
+                Text("Welcome back, Sagar", color = Color.White, fontSize = 25.sp, fontWeight = FontWeight.SemiBold)
             }
             Text("What shall we explore today?", color = Color(0xFFB7B8D6), fontSize = 13.sp, modifier = Modifier.fillMaxWidth().padding(top = 4.dp))
             Spacer(Modifier.height(8.dp))
@@ -1619,7 +1619,7 @@ private fun MyraHome(
             Spacer(Modifier.height(8.dp))
             Text("Hello, I’m Myra ✨", color = Color.White, fontSize = 27.sp, fontWeight = FontWeight.Bold)
             Spacer(Modifier.height(6.dp))
-            Text("I’m here for you. Ask me anything or tap the mic to speak.", color = Color(0xFFC4B9E8), fontSize = 13.sp)
+            Text("Your personal AI for voice, chat, memory and everyday control.", color = Color(0xFFC4B9E8), fontSize = 13.sp)
             Spacer(Modifier.height(18.dp))
 
             Card(
