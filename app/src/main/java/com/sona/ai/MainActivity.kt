@@ -747,6 +747,24 @@ class MainActivity : ComponentActivity() {
                 launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.google.com")), "Opening web search")
             listOf("open downloads", "downloads kholo", "download folder").any { prompt.contains(it) } ->
                 launch(Intent(Intent.ACTION_VIEW).setDataAndType(android.net.Uri.parse("content://com.android.providers.downloads.documents/root/downloads"), "vnd.android.document/root"), "Opening downloads")
+            listOf("open do not disturb settings", "dnd settings", "do not disturb kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_ZEN_MODE_SETTINGS), "Opening Do Not Disturb settings")
+            listOf("open data usage", "mobile data settings", "data settings kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_DATA_USAGE_SETTINGS), "Opening data usage settings")
+            listOf("open default apps", "default apps settings", "default apps kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS), "Opening default apps settings")
+            listOf("open app list", "installed apps", "all apps settings").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS), "Opening installed apps")
+            listOf("open about phone", "phone information", "about device").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_DEVICE_INFO_SETTINGS), "Opening device information")
+            listOf("open wallpaper settings", "wallpaper kholo", "change wallpaper").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_SET_WALLPAPER), "Opening wallpaper picker")
+            listOf("open music", "music kholo", "open music player").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_APP_MUSIC), "Opening music player")
+            listOf("open clock", "clock kholo", "open clock app").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_APP_CLOCK), "Opening clock")
+            listOf("open gallery", "gallery kholo", "open photos", "photos kholo").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_VIEW).setDataAndType(android.net.Uri.parse("content://media/internal/images/media"), "image/*"), "Opening gallery")
             else -> false
         }
     }
