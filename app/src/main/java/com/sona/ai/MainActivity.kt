@@ -175,31 +175,65 @@ class MainActivity : ComponentActivity() {
                 )
             }
             if (showSettings) {
+                val prefs = getSharedPreferences("sona_private", MODE_PRIVATE)
                 var keyDraft by remember { mutableStateOf(apiKey) }
+                var languageDraft by remember { mutableStateOf(prefs.getString("language", "Auto (match me)") ?: "Auto (match me)") }
+                var voiceDraft by remember { mutableStateOf(prefs.getString("voice_style", "Warm & natural") ?: "Warm & natural") }
+                var personalityDraft by remember { mutableStateOf(prefs.getString("personality", "Friendly, helpful, concise") ?: "Friendly, helpful, concise") }
+                var speakReplies by remember { mutableStateOf(prefs.getBoolean("speak_replies", true)) }
+                var animatedOrb by remember { mutableStateOf(prefs.getBoolean("animated_orb", true)) }
+                var rememberNotes by remember { mutableStateOf(prefs.getBoolean("use_memory", true)) }
                 AlertDialog(
                     onDismissRequest = { showSettings = false },
-                    title = { Text("Gemini AI connection") },
+                    title = { Text("SONA AI • ALL SETTINGS", color = Cyan, fontWeight = FontWeight.Bold) },
                     text = {
-                        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                            Text("Paste your Google AI Studio API key. Keep it private.")
+                        Column(
+                            modifier = Modifier.heightIn(max = 480.dp).verticalScroll(androidx.compose.foundation.rememberScrollState()),
+                            verticalArrangement = Arrangement.spacedBy(10.dp)
+                        ) {
+                            Text("AI PROVIDER & MODEL", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text("Provider: Google Gemini", fontSize = 13.sp)
+                            Text("Voice model: Gemini Live (configured in this build)", fontSize = 11.sp, color = Color(0xFF9AA6C8))
                             OutlinedTextField(
-                                value = keyDraft,
-                                onValueChange = { keyDraft = it },
-                                label = { Text("Gemini API key") },
-                                singleLine = true,
-                                visualTransformation = PasswordVisualTransformation()
+                                value = keyDraft, onValueChange = { keyDraft = it },
+                                label = { Text("Gemini API key") }, singleLine = true,
+                                visualTransformation = PasswordVisualTransformation(),
+                                modifier = Modifier.fillMaxWidth()
                             )
-                            Text("The key is stored in this app's private preferences. For public release, use a secure backend proxy.", fontSize = 11.sp)
+                            Text("VOICE & LANGUAGE", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            OutlinedTextField(value = languageDraft, onValueChange = { languageDraft = it }, label = { Text("Language (e.g. Hindi, English, Auto)") }, singleLine = true, modifier = Modifier.fillMaxWidth())
+                            OutlinedTextField(value = voiceDraft, onValueChange = { voiceDraft = it }, label = { Text("Voice style preference") }, singleLine = true, modifier = Modifier.fillMaxWidth())
+                            SettingToggle("Speak text replies aloud", speakReplies, { speakReplies = it })
+                            Text("PERSONALITY & MEMORY", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            OutlinedTextField(value = personalityDraft, onValueChange = { personalityDraft = it }, label = { Text("Assistant personality / instructions") }, minLines = 2, modifier = Modifier.fillMaxWidth())
+                            SettingToggle("Use saved Memory notes in replies", rememberNotes, { rememberNotes = it })
+                            Text("APPEARANCE", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            SettingToggle("Animated holographic orb", animatedOrb, { animatedOrb = it })
+                            Text("PHONE, FILES & PERMISSIONS", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text("Camera, microphone, contacts, files, notifications and device settings use Android permission/system screens when required.", fontSize = 12.sp, color = Color(0xFF9AA6C8))
+                            Text("WEB & SEARCH", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text("Web search opens your browser. Search history is not stored by this settings panel.", fontSize = 12.sp, color = Color(0xFF9AA6C8))
+                            Text("PRIVACY & DIAGNOSTICS", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text("API key and preferences are stored in this app's private local preferences. Never share your API key.", fontSize = 12.sp, color = Color(0xFF9AA6C8))
+                            Text("Build: Sona AI • Android • Gemini", fontSize = 11.sp, color = Color(0xFF9AA6C8))
                         }
                     },
                     confirmButton = {
                         TextButton(onClick = {
                             apiKey = keyDraft.trim()
-                            getSharedPreferences("sona_private", MODE_PRIVATE).edit().putString("gemini_key", apiKey).apply()
+                            prefs.edit()
+                                .putString("gemini_key", apiKey)
+                                .putString("language", languageDraft.trim())
+                                .putString("voice_style", voiceDraft.trim())
+                                .putString("personality", personalityDraft.trim())
+                                .putBoolean("speak_replies", speakReplies)
+                                .putBoolean("animated_orb", animatedOrb)
+                                .putBoolean("use_memory", rememberNotes)
+                                .apply()
                             showSettings = false
-                            heardText = if (apiKey.isBlank()) "API key removed." else "API key saved • tap voice to test Gemini"
-                            status = if (apiKey.isBlank()) "AI NOT CONNECTED" else "KEY SAVED • READY TO TEST"
-                        }) { Text("Save key") }
+                            heardText = if (apiKey.isBlank()) "API key removed." else "Settings saved • Gemini key stored"
+                            status = if (apiKey.isBlank()) "AI NOT CONNECTED" else "SETTINGS SAVED • READY TO CONNECT"
+                        }) { Text("Save all") }
                     },
                     dismissButton = {
                         TextButton(onClick = { showSettings = false }) { Text("Cancel") }
