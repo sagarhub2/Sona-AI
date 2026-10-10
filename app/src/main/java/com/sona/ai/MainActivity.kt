@@ -22,6 +22,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -836,6 +838,8 @@ private fun MyraHome(
     var journalEntry by remember { mutableStateOf(context.getSharedPreferences("myra_prefs", 0).getString(journalKey, "") ?: "") }
     var showNotesDialog by remember { mutableStateOf(false) }
     var showAllTools by remember { mutableStateOf(false) }
+    var showChatScreen by remember { mutableStateOf(false) }
+    var chatDraft by remember { mutableStateOf("") }
     var selectedNav by remember { mutableStateOf("Assistant") }
     val navScope = rememberCoroutineScope()
     var notesText by remember { mutableStateOf(context.getSharedPreferences("myra_prefs", 0).getString("myra_quick_notes", "") ?: "") }
@@ -1152,11 +1156,101 @@ private fun MyraHome(
             horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically
         ) {
             Column(Modifier.weight(1f).background(if (selectedNav == "Assistant") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(13.dp)).clickable { selectedNav = "Assistant"; showAllTools = false; navScope.launch { scrollState.animateScrollTo(0) } }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("⌂", color = if (selectedNav == "Assistant") Cyan else Color(0xFF8993B7), fontSize = 18.sp); Text("Home", color = if (selectedNav == "Assistant") Color.White else Color(0xFF8993B7), fontSize = 9.sp) }
-            Column(Modifier.weight(1f).background(if (selectedNav == "Chat") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(13.dp)).clickable { selectedNav = "Chat"; showAllTools = false; navScope.launch { scrollState.animateScrollTo(0) } }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("▤", color = if (selectedNav == "Chat") Cyan else Color(0xFF8993B7), fontSize = 18.sp); Text("Chat", color = if (selectedNav == "Chat") Color.White else Color(0xFF8993B7), fontSize = 9.sp) }
+            Column(Modifier.weight(1f).background(if (selectedNav == "Chat") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(13.dp)).clickable { selectedNav = "Chat"; showAllTools = false; showChatScreen = true }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("▤", color = if (selectedNav == "Chat") Cyan else Color(0xFF8993B7), fontSize = 18.sp); Text("Chat", color = if (selectedNav == "Chat") Color.White else Color(0xFF8993B7), fontSize = 9.sp) }
             Column(Modifier.weight(1f).background(if (selectedNav == "Voice") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(13.dp)).clickable { selectedNav = "Voice"; onStartVoice() }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("✦", color = if (selectedNav == "Voice") Cyan else Color(0xFF8993B7), fontSize = 18.sp); Text("Voice", color = if (selectedNav == "Voice") Color.White else Color(0xFF8993B7), fontSize = 9.sp) }
             Column(Modifier.weight(1f).background(if (selectedNav == "History") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(13.dp)).clickable { selectedNav = "History"; onHistory() }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("◷", color = if (selectedNav == "History") Cyan else Color(0xFF8993B7), fontSize = 18.sp); Text("History", color = if (selectedNav == "History") Color.White else Color(0xFF8993B7), fontSize = 9.sp) }
             Column(Modifier.weight(1f).background(if (selectedNav == "Settings") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(13.dp)).clickable { selectedNav = "Settings"; onSettings() }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("⚙", color = if (selectedNav == "Settings") Cyan else Color(0xFF8993B7), fontSize = 18.sp); Text("Settings", color = if (selectedNav == "Settings") Color.White else Color(0xFF8993B7), fontSize = 9.sp) }
         }
+        }
+    }
+    if (showChatScreen) {
+        val historyPrefs = context.getSharedPreferences("myra_private", 0)
+        var chatHistory by remember { mutableStateOf(historyPrefs.getString("conversation_history", "").orEmpty()) }
+        Dialog(
+            onDismissRequest = { showChatScreen = false },
+            properties = DialogProperties(usePlatformDefaultWidth = false)
+        ) {
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = Color(0xFF080714),
+                shape = RoundedCornerShape(0.dp)
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxSize().padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                        Column(Modifier.weight(1f)) {
+                            Text("MYRA CHAT", color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                            Text("Your private conversation on this device", color = Cyan, fontSize = 11.sp)
+                        }
+                        TextButton(onClick = { showChatScreen = false }) { Text("Close", color = Cyan) }
+                    }
+                    Column(
+                        modifier = Modifier.weight(1f).fillMaxWidth()
+                            .background(Color(0xFF111126), RoundedCornerShape(18.dp))
+                            .verticalScroll(androidx.compose.foundation.rememberScrollState())
+                            .padding(12.dp),
+                        verticalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        if (chatHistory.isBlank()) {
+                            Text("Hi! Ask me anything. You can type here or use the voice button.", color = Color(0xFFD2D9F0), fontSize = 14.sp)
+                        } else {
+                            chatHistory.lines().filter { it.isNotBlank() }.forEach { line ->
+                                val isUserLine = line.startsWith("User:")
+                                Surface(
+                                    color = if (isUserLine) Color(0xFF24334D) else Color(0xFF201735),
+                                    shape = RoundedCornerShape(12.dp),
+                                    modifier = Modifier.fillMaxWidth()
+                                ) {
+                                    Text(line, color = Color(0xFFE9E9F8), fontSize = 13.sp, lineHeight = 19.sp, modifier = Modifier.padding(10.dp))
+                                }
+                            }
+                        }
+                        if (busy) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                CircularProgressIndicator(modifier = Modifier.size(16.dp), strokeWidth = 2.dp, color = Cyan)
+                                Spacer(Modifier.width(8.dp))
+                                Text("Myra is thinking…", color = Cyan, fontSize = 12.sp)
+                            }
+                        }
+                    }
+                    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                        OutlinedTextField(
+                            value = chatDraft,
+                            onValueChange = { chatDraft = it },
+                            modifier = Modifier.weight(1f),
+                            placeholder = { Text("Message Myra…") },
+                            maxLines = 4
+                        )
+                        Spacer(Modifier.width(8.dp))
+                        Button(
+                            onClick = {
+                                val prompt = chatDraft.trim()
+                                if (prompt.isNotBlank() && !busy) {
+                                    chatDraft = ""
+                                    onAskText(prompt)
+                                }
+                            },
+                            enabled = chatDraft.isNotBlank() && !busy,
+                            colors = ButtonDefaults.buttonColors(containerColor = Cyan, contentColor = Color(0xFF06101B))
+                        ) { Text("Send") }
+                    }
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        OutlinedButton(onClick = onStartVoice, modifier = Modifier.weight(1f)) { Text("🎙 Voice") }
+                        OutlinedButton(
+                            onClick = {
+                                historyPrefs.edit().remove("conversation_history").apply()
+                                chatHistory = ""
+                            },
+                            modifier = Modifier.weight(1f)
+                        ) { Text("Clear chat") }
+                    }
+                }
+            }
+        }
+        LaunchedEffect(heardText) {
+            chatHistory = historyPrefs.getString("conversation_history", "").orEmpty()
         }
     }
     if (showStudyDialog) {
