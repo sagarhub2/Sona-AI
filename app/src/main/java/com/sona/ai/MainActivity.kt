@@ -265,7 +265,7 @@ class MainActivity : ComponentActivity() {
                 val visibleHistory = if (historyQuery.isBlank()) savedHistory else savedHistory
                     .lines()
                     .filter { it.contains(historyQuery, ignoreCase = true) }
-                    .joinToString("\\n")
+                    .joinToString("\n")
                 AlertDialog(
                     onDismissRequest = { showHistory = false },
                     title = { Text("Searchable Conversation History") },
@@ -708,6 +708,36 @@ class MainActivity : ComponentActivity() {
             }
         }
         return when {
+            listOf("save memory ", "remember about me ", "yaad rakhna ").any { prompt.startsWith(it) } -> {
+                val fact = rawPrompt.replace(Regex("(?i)^(save memory|remember about me|yaad rakhna)\\s*"), "").trim()
+                val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
+                val current = prefs.getString("memory_notes", "").orEmpty()
+                if (fact.isBlank()) {
+                    heardText = "Please say the detail after 'save memory'."
+                    status = "MEMORY DETAIL NEEDED"
+                } else {
+                    val updated = (current.lines().filter { it.isNotBlank() } + fact).distinct().takeLast(80).joinToString("\n")
+                    prefs.edit().putString("memory_notes", updated).apply()
+                    heardText = "I'll remember this on this phone: $fact"
+                    status = "MEMORY SAVED LOCALLY"
+                }
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-memory-save")
+                true
+            }
+            listOf("what do you remember about me", "read my memory", "meri memory padho", "what is in my memory").any { prompt == it } -> {
+                val memory = getSharedPreferences("myra_private", MODE_PRIVATE).getString("memory_notes", "").orEmpty()
+                heardText = if (memory.isBlank()) "Your saved memory is empty." else "Here is what I have saved on this phone: " + memory.lines().takeLast(12).joinToString(". ")
+                status = if (memory.isBlank()) "MEMORY EMPTY" else "MEMORY READ"
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-memory-read")
+                true
+            }
+            listOf("forget my memory", "clear my memory", "meri memory delete karo").any { prompt == it } -> {
+                getSharedPreferences("myra_private", MODE_PRIVATE).edit().remove("memory_notes").apply()
+                heardText = "Saved memory has been cleared from this phone."
+                status = "MEMORY CLEARED"
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-memory-clear")
+                true
+            }
             listOf("save note ", "note likho ", "remember this ", "note save karo ").any { prompt.startsWith(it) } -> {
                 val note = rawPrompt.replace(Regex("(?i)^(save note|note likho|remember this|note save karo)\\s*"), "").trim()
                 if (note.isBlank()) {
@@ -752,7 +782,7 @@ class MainActivity : ComponentActivity() {
                     heardText = "Please say the task after 'add task'."
                     status = "TASK IS EMPTY"
                 } else {
-                    val updated = (existing.lines().filter { it.isNotBlank() } + task).takeLast(100).joinToString("\\n")
+                    val updated = (existing.lines().filter { it.isNotBlank() } + task).takeLast(100).joinToString("\n")
                     prefs.edit().putString("sona_tasks", updated).apply()
                     heardText = "Task added: $task"
                     status = "TASK SAVED"
@@ -774,7 +804,7 @@ class MainActivity : ComponentActivity() {
                 } else {
                     val updated = tasks.toMutableList()
                     updated[index] = "[x] " + updated[index].removePrefix("[ ] ").removePrefix("[x] ")
-                    prefs.edit().putString("sona_tasks", updated.joinToString("\\n")).apply()
+                    prefs.edit().putString("sona_tasks", updated.joinToString("\n")).apply()
                     heardText = "Task marked complete: $target"
                     status = "TASK COMPLETED"
                 }
@@ -794,7 +824,7 @@ class MainActivity : ComponentActivity() {
                     status = "TASK NOT FOUND"
                 } else {
                     val updated = tasks.toMutableList().also { it.removeAt(index) }
-                    prefs.edit().putString("sona_tasks", updated.joinToString("\\n")).apply()
+                    prefs.edit().putString("sona_tasks", updated.joinToString("\n")).apply()
                     heardText = "Deleted task: $target"
                     status = "TASK DELETED"
                 }
@@ -923,7 +953,7 @@ class MainActivity : ComponentActivity() {
                 } else {
                     val updated = tasks.toMutableList()
                     updated[index] = "[x] " + updated[index].removePrefix("[ ] ").removePrefix("[x] ").trim()
-                    prefs.edit().putString("sona_tasks", updated.joinToString("\\n")).apply()
+                    prefs.edit().putString("sona_tasks", updated.joinToString("\n")).apply()
                     heardText = "Task marked complete: " + updated[index].removePrefix("[x] ")
                     status = "TASK COMPLETED"
                 }
