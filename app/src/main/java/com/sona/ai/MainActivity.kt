@@ -673,6 +673,16 @@ class MainActivity : ComponentActivity() {
             }
         }
         return when {
+            listOf("open chatgpt", "chatgpt kholo", "launch chatgpt").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://chatgpt.com")), "Opening ChatGPT")
+            listOf("open gemini", "gemini kholo", "launch gemini ai").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://gemini.google.com")), "Opening Gemini")
+            listOf("open google translate", "google translate kholo", "translator kholo").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://translate.google.com")), "Opening Google Translate")
+            listOf("internet speed test", "check internet speed", "speed test kholo").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://fast.com")), "Opening internet speed test")
+            listOf("open google drive", "google drive kholo", "drive kholo").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://drive.google.com")), "Opening Google Drive")
             listOf("notification access", "enable notification reader", "notification reader settings", "whatsapp read access").any { prompt.contains(it) } ->
                 launch(Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"), "Open Myra AI in notification access and enable it")
             listOf("read notifications", "read my notifications", "read whatsapp messages", "whatsapp messages padho", "messages padho").any { prompt.contains(it) } -> {
