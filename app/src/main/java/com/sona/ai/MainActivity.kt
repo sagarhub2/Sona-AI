@@ -765,8 +765,11 @@ class MainActivity : ComponentActivity() {
                 launch(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_APP_CLOCK), "Opening clock")
             listOf("open gallery", "gallery kholo", "open photos", "photos kholo").any { prompt.contains(it) } ->
                 launch(Intent(Intent.ACTION_VIEW).setDataAndType(android.net.Uri.parse("content://media/internal/images/media"), "image/*"), "Opening gallery")
-            listOf("play", "youtube par chalao", "song play", "video play").any { prompt.startsWith(it) } -> {
-                val query = rawPrompt.trim().replace(Regex("(?i)^(play|youtube par chalao|song play|video play)\\s*"), "").trim()
+            listOf("play ", "youtube par chalao", "song play", "video play", " play karo", " song chalao", " gaana chalao").any { prompt.startsWith(it) || prompt.contains(it) } -> {
+                val query = rawPrompt.trim()
+                    .replace(Regex("(?i)^(play|youtube par chalao|song play|video play)\\s*"), "")
+                    .replace(Regex("(?i)\\s+(song play|video play|play karo|chalao)$"), "")
+                    .trim()
                 val target = if (query.isBlank()) "https://www.youtube.com" else "https://www.youtube.com/results?search_query=" + URLEncoder.encode(query, "UTF-8")
                 launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse(target)), if (query.isBlank()) "Opening YouTube" else "Searching YouTube for: $query")
             }
