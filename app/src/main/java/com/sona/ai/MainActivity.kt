@@ -781,6 +781,39 @@ class MainActivity : ComponentActivity() {
                 if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-task-complete")
                 true
             }
+            prompt.startsWith("delete task ") || prompt.startsWith("task delete karo ") -> {
+                val target = rawPrompt.replace(Regex("(?i)^(delete task|task delete karo)\\s*"), "").trim()
+                val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
+                val tasks = prefs.getString("sona_tasks", "").orEmpty().lines().filter { it.isNotBlank() }
+                val index = tasks.indexOfFirst { it.contains(target, ignoreCase = true) }
+                if (target.isBlank()) {
+                    heardText = "Say, delete task followed by the task name."
+                    status = "TASK NAME NEEDED"
+                } else if (index < 0) {
+                    heardText = "I couldn't find a task matching $target."
+                    status = "TASK NOT FOUND"
+                } else {
+                    val updated = tasks.toMutableList().also { it.removeAt(index) }
+                    prefs.edit().putString("sona_tasks", updated.joinToString("\\n")).apply()
+                    heardText = "Deleted task: $target"
+                    status = "TASK DELETED"
+                }
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-task-delete")
+                true
+            }
+            prompt.startsWith("search my tasks ") || prompt.startsWith("find task ") || prompt.startsWith("tasks mein search ") -> {
+                val query = rawPrompt.replace(Regex("(?i)^(search my tasks|find task|tasks mein search)\\s*"), "").trim()
+                val tasks = getSharedPreferences("myra_private", MODE_PRIVATE).getString("sona_tasks", "").orEmpty().lines()
+                val matches = tasks.filter { it.contains(query, ignoreCase = true) && it.isNotBlank() }.take(10)
+                heardText = when {
+                    query.isBlank() -> "Say, search my tasks followed by a word."
+                    matches.isEmpty() -> "I couldn't find any task matching $query."
+                    else -> "Matching tasks: " + matches.joinToString(". ")
+                }
+                status = if (matches.isEmpty()) "NO MATCHING TASKS" else "TASK SEARCH COMPLETE"
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-task-search")
+                true
+            }
             prompt == "clear my tasks" || prompt == "delete all tasks" || prompt == "mere saare tasks delete karo" -> {
                 getSharedPreferences("myra_private", MODE_PRIVATE).edit().remove("sona_tasks").apply()
                 heardText = "All saved tasks were cleared from this device."
