@@ -800,6 +800,28 @@ class MainActivity : ComponentActivity() {
                 launchAppOrWeb("com.twitter.android", "https://x.com", "Opening X")
             listOf("open spotify", "spotify kholo").any { prompt.contains(it) } ->
                 launchAppOrWeb("com.spotify.music", "https://open.spotify.com", "Opening Spotify")
+            listOf("navigate to ", "directions to ", "raasta batao ", "route to ").any { prompt.startsWith(it) } -> {
+                val destination = rawPrompt.replace(Regex("(?i)^(navigate to|directions to|raasta batao|route to)\\s*"), "").trim()
+                val target = if (destination.isBlank()) "https://www.google.com/maps" else
+                    "https://www.google.com/maps/dir/?api=1&destination=" + URLEncoder.encode(destination, "UTF-8")
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse(target)), if (destination.isBlank()) "Opening maps" else "Opening directions to: $destination")
+            }
+            listOf("search for ", "google ", "web search ", "internet par search ").any { prompt.startsWith(it) } -> {
+                val query = rawPrompt.replace(Regex("(?i)^(search for|google|web search|internet par search)\\s*"), "").trim()
+                if (query.isBlank()) launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.google.com")), "Opening Google")
+                else launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.google.com/search?q=" + URLEncoder.encode(query, "UTF-8"))), "Searching web for: $query")
+            }
+            listOf("email ", "compose email ", "mail bhejo ").any { prompt.startsWith(it) } -> {
+                val subject = rawPrompt.replace(Regex("(?i)^(compose email|email|mail bhejo)\\s*"), "").trim()
+                launch(Intent(Intent.ACTION_SENDTO, android.net.Uri.parse("mailto:")).apply {
+                    putExtra(Intent.EXTRA_SUBJECT, subject)
+                }, "Email draft opened; review recipient and send")
+            }
+            listOf("open play store search ", "play store search ").any { prompt.startsWith(it) } -> {
+                val query = rawPrompt.replace(Regex("(?i)^(open play store search|play store search)\\s*"), "").trim()
+                val target = "https://play.google.com/store/search?q=" + URLEncoder.encode(query, "UTF-8") + "&c=apps"
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse(target)), "Searching Play Store for: $query")
+            }
             else -> false
         }
     }
