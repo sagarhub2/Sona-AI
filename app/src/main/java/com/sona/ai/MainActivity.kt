@@ -1044,6 +1044,35 @@ class MainActivity : ComponentActivity() {
                 val target = "https://play.google.com/store/search?q=" + URLEncoder.encode(query, "UTF-8") + "&c=apps"
                 launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse(target)), "Searching Play Store for: $query")
             }
+            listOf("launch app ", "open app ", "app kholo ").any { prompt.startsWith(it) } -> {
+                val requestedName = rawPrompt.trim().replace(
+                    Regex("(?i)^(launch app|open app|app kholo)\\s*"), ""
+                ).trim()
+                if (requestedName.isBlank()) {
+                    heardText = "Say, open app WhatsApp, or launch app Calculator."
+                    status = "APP NAME NEEDED"
+                    if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-app-help")
+                    true
+                } else {
+                    val match = packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+                        .asSequence()
+                        .mapNotNull { app ->
+                            val label = packageManager.getApplicationLabel(app).toString()
+                            if (label.contains(requestedName, ignoreCase = true)) {
+                                packageManager.getLaunchIntentForPackage(app.packageName)?.let { Triple(label, app.packageName, it) }
+                            } else null
+                        }
+                        .firstOrNull()
+                    if (match == null) {
+                        heardText = "I couldn't find an installed app matching $requestedName."
+                        status = "APP NOT FOUND"
+                        if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-app-not-found")
+                        true
+                    } else {
+                        launch(match.third, "Opening ${match.first}")
+                    }
+                }
+            }
             else -> false
         }
     }
