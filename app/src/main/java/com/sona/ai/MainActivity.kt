@@ -195,6 +195,10 @@ class MainActivity : ComponentActivity() {
                         status = "SPEAKING LATEST ANSWER"
                     }
                 },
+                onStopSpeaking = {
+                    textToSpeech?.stop()
+                    status = "SPEECH STOPPED"
+                },
                 onCopyAnswer = {
                     val textToCopy = heardText.trim()
                     if (textToCopy.isBlank()) {
@@ -647,6 +651,7 @@ private fun SonaHome(
     onShareAnswer: () -> Unit,
     onCopyAnswer: () -> Unit,
     onSpeakAnswer: () -> Unit,
+    onStopSpeaking: () -> Unit,
     onAskText: (String) -> Unit
 ) {
     val transition = androidx.compose.animation.core.rememberInfiniteTransition(label = "sona-orb")
@@ -887,6 +892,8 @@ private fun SonaHome(
             QuickTile("📋 Copy latest answer", "Copy Sona's reply to clipboard", Modifier.fillMaxWidth(), onClick = onCopyAnswer)
             Spacer(Modifier.height(10.dp))
             QuickTile("🔊 Speak latest answer", "Read Sona's reply aloud", Modifier.fillMaxWidth(), onClick = onSpeakAnswer)
+            Spacer(Modifier.height(10.dp))
+            QuickTile("⏹ Stop speaking", "Stop voice playback immediately", Modifier.fillMaxWidth(), onClick = onStopSpeaking)
             Spacer(Modifier.height(20.dp))
             Text("VOICE • MEMORY • SEARCH • TOOLS", color = Color(0xFF66708F), fontSize = 10.sp, letterSpacing = 2.sp)
             Spacer(Modifier.height(8.dp))
