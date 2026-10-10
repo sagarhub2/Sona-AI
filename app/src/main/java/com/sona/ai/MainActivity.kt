@@ -680,7 +680,7 @@ class MainActivity : ComponentActivity() {
             }
         }
         return try {
-            startService(Intent(this, MyraAccessibilityService::class.java).setAction(action))
+            sendBroadcast(Intent(action).setPackage(packageName))
             status = description
             heardText = description
             if (ttsReady) textToSpeech?.speak(description, TextToSpeech.QUEUE_FLUSH, null, "myra-accessibility-action")
