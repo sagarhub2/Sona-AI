@@ -211,6 +211,9 @@ class MainActivity : ComponentActivity() {
                     } else if (!ttsReady) {
                         status = "TEXT-TO-SPEECH IS NOT READY"
                     } else {
+                        val voicePrefs = getSharedPreferences("myra_private", MODE_PRIVATE)
+                        textToSpeech?.setSpeechRate(voicePrefs.getFloat("speech_rate", 0.94f))
+                        textToSpeech?.setPitch(voicePrefs.getFloat("speech_pitch", 1.06f))
                         textToSpeech?.speak(speech, TextToSpeech.QUEUE_FLUSH, null, "myra-latest-answer")
                         status = "SPEAKING LATEST ANSWER"
                     }
@@ -352,6 +355,9 @@ class MainActivity : ComponentActivity() {
                 var voiceDraft by remember { mutableStateOf(prefs.getString("voice_style", "Warm & natural") ?: "Warm & natural") }
                 var personalityDraft by remember { mutableStateOf(prefs.getString("personality", "Friendly, helpful, concise") ?: "Friendly, helpful, concise") }
                 var speakReplies by remember { mutableStateOf(prefs.getBoolean("speak_replies", true)) }
+                var speechRate by remember { mutableFloatStateOf(prefs.getFloat("speech_rate", 0.94f)) }
+                var speechPitch by remember { mutableFloatStateOf(prefs.getFloat("speech_pitch", 1.06f)) }
+                var autoListen by remember { mutableStateOf(prefs.getBoolean("auto_listen", false)) }
                 var animatedOrb by remember { mutableStateOf(prefs.getBoolean("animated_orb", true)) }
                 var rememberNotes by remember { mutableStateOf(prefs.getBoolean("use_memory", true)) }
                 AlertDialog(
@@ -379,6 +385,12 @@ class MainActivity : ComponentActivity() {
                             OutlinedTextField(value = languageDraft, onValueChange = { languageDraft = it }, label = { Text("Language (e.g. Hindi, English, Auto)") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             OutlinedTextField(value = voiceDraft, onValueChange = { voiceDraft = it }, label = { Text("Voice style preference") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             SettingToggle("Speak text replies aloud", speakReplies, { speakReplies = it })
+                            Text("Speech speed • ${String.format(Locale.US, "%.2f", speechRate)}×", color = Color(0xFFD2D9F0), fontSize = 13.sp)
+                            Slider(value = speechRate, onValueChange = { speechRate = it }, valueRange = 0.65f..1.35f)
+                            Text("Voice pitch • ${String.format(Locale.US, "%.2f", speechPitch)}", color = Color(0xFFD2D9F0), fontSize = 13.sp)
+                            Slider(value = speechPitch, onValueChange = { speechPitch = it }, valueRange = 0.75f..1.35f)
+                            SettingToggle("Auto-listen after voice reply (experimental)", autoListen, { autoListen = it })
+                            Text("Available voice depends on the speech engine installed on your phone.", color = Color(0xFF9AA6C8), fontSize = 11.sp)
                             Text("PERSONALITY & MEMORY", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("QUICK PERSONALITY", color = Color(0xFF9AA6C8), fontSize = 10.sp, fontWeight = FontWeight.Bold)
                             listOf(
@@ -441,6 +453,9 @@ class MainActivity : ComponentActivity() {
                                 .putString("voice_style", voiceDraft.trim())
                                 .putString("personality", personalityDraft.trim())
                                 .putBoolean("speak_replies", speakReplies)
+                                .putFloat("speech_rate", speechRate)
+                                .putFloat("speech_pitch", speechPitch)
+                                .putBoolean("auto_listen", autoListen)
                                 .putBoolean("animated_orb", animatedOrb)
                                 .putBoolean("use_memory", rememberNotes)
                                 .apply()
