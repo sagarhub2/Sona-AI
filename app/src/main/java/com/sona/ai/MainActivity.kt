@@ -1112,6 +1112,40 @@ class MainActivity : ComponentActivity() {
                 if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-task-deleted")
                 true
             }
+            prompt.startsWith("complete task ") || prompt.startsWith("task complete karo ") || prompt.startsWith("finish task ") -> {
+                val target = rawPrompt.replace(Regex("(?i)^(complete task|task complete karo|finish task)\\s*"), "").trim()
+                val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
+                val tasks = prefs.getString("sona_tasks", "").orEmpty().lines().filter { it.isNotBlank() }
+                val index = tasks.indexOfFirst { it.removePrefix("[x] ").equals(target, ignoreCase = true) || it.contains(target, ignoreCase = true) }
+                if (target.isBlank() || index < 0) {
+                    heardText = if (target.isBlank()) "Say, complete task followed by the task name." else "I couldn't find a task matching $target."
+                    status = "TASK NOT FOUND"
+                } else {
+                    val updated = tasks.toMutableList()
+                    updated[index] = "[x] " + updated[index].removePrefix("[x] ")
+                    prefs.edit().putString("sona_tasks", updated.joinToString("\n")).apply()
+                    heardText = "Marked as complete: " + updated[index].removePrefix("[x] ")
+                    status = "TASK COMPLETED"
+                }
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-task-complete")
+                true
+            }
+            prompt.startsWith("delete task ") || prompt.startsWith("remove task ") || prompt.startsWith("task delete karo ") -> {
+                val target = rawPrompt.replace(Regex("(?i)^(delete task|remove task|task delete karo)\\s*"), "").trim()
+                val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
+                val tasks = prefs.getString("sona_tasks", "").orEmpty().lines().filter { it.isNotBlank() }
+                val remaining = tasks.filterNot { it.removePrefix("[x] ").equals(target, ignoreCase = true) || (target.isNotBlank() && it.contains(target, ignoreCase = true)) }
+                if (target.isBlank() || remaining.size == tasks.size) {
+                    heardText = if (target.isBlank()) "Say, delete task followed by the task name." else "I couldn't find a task matching $target."
+                    status = "TASK NOT FOUND"
+                } else {
+                    prefs.edit().putString("sona_tasks", remaining.joinToString("\n")).apply()
+                    heardText = "Task removed: $target"
+                    status = "TASK REMOVED"
+                }
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-task-delete")
+                true
+            }
             listOf("read my tasks", "show my tasks", "tasks padho", "mere tasks batao").any { prompt == it } -> {
                 val tasks = getSharedPreferences("myra_private", MODE_PRIVATE).getString("sona_tasks", "").orEmpty()
                 heardText = if (tasks.isBlank()) "You have no saved tasks yet." else "Your tasks: " + tasks.lines().take(10).joinToString(". ")
