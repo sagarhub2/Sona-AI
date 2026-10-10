@@ -1974,7 +1974,81 @@ private fun MyraHome(
             }
 
             Spacer(Modifier.height(24.dp))
-            if (selectedNav == "Tools") {
+            if (selectedNav == "Profile") {
+                val profilePrefs = context.getSharedPreferences("myra_private", 0)
+                var profileName by remember { mutableStateOf(profilePrefs.getString("profile_display_name", "Sagar").orEmpty()) }
+                var profileBio by remember { mutableStateOf(profilePrefs.getString("profile_bio", "Building my own AI future ✦").orEmpty()) }
+                var profileLanguage by remember { mutableStateOf(profilePrefs.getString("profile_language", "Hindi + English").orEmpty()) }
+                var profileSaved by remember { mutableStateOf(false) }
+                Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                    Column(Modifier.weight(1f)) {
+                        Text("MY PROFILE", color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Black, letterSpacing = 1.5.sp)
+                        Text("Make Myra feel like yours", color = Color(0xFFBCA7FF), fontSize = 12.sp)
+                    }
+                    Surface(onClick = onSettings, shape = CircleShape, color = Color(0xFF17142B), border = androidx.compose.foundation.BorderStroke(1.dp, Violet)) {
+                        Box(Modifier.size(44.dp), contentAlignment = Alignment.Center) { Text("⚙", fontSize = 20.sp, color = Cyan) }
+                    }
+                }
+                Spacer(Modifier.height(20.dp))
+                Box(
+                    Modifier.fillMaxWidth().background(Brush.linearGradient(listOf(Color(0xFF31205A), Color(0xFF142C4A), Color(0xFF17132B))), RoundedCornerShape(26.dp))
+                        .border(1.dp, Color(0x667D73D9), RoundedCornerShape(26.dp)).padding(20.dp)
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
+                        Box(Modifier.size(94.dp).background(Brush.linearGradient(listOf(Cyan, Violet, Color(0xFFED78D7))), CircleShape).padding(3.dp), contentAlignment = Alignment.Center) {
+                            Box(Modifier.fillMaxSize().background(Color(0xFF0B0C1B), CircleShape), contentAlignment = Alignment.Center) {
+                                Text(profileName.trim().firstOrNull()?.uppercase() ?: "S", color = Color.White, fontSize = 38.sp, fontWeight = FontWeight.Black)
+                            }
+                        }
+                        Spacer(Modifier.height(12.dp))
+                        Text(profileName.ifBlank { "Your name" }, color = Color.White, fontSize = 23.sp, fontWeight = FontWeight.Bold)
+                        Text(profileBio.ifBlank { "Your personal AI journey" }, color = Color(0xFFD0C9F0), fontSize = 12.sp)
+                        Spacer(Modifier.height(12.dp))
+                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Surface(shape = RoundedCornerShape(30.dp), color = Color(0x332CE6C8)) { Text(if (hasKey) "✦ AI CONNECTED" else "✦ SET UP AI", color = Cyan, fontSize = 9.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(horizontal = 10.dp, vertical = 7.dp)) }
+                            Surface(shape = RoundedCornerShape(30.dp), color = Color(0x33B86BFF)) { Text("◈ ON-DEVICE PROFILE", color = Color(0xFFD5B8FF), fontSize = 9.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(horizontal = 10.dp, vertical = 7.dp)) }
+                        }
+                    }
+                }
+                Spacer(Modifier.height(18.dp))
+                Text("PERSONAL DETAILS", color = Cyan, fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                Spacer(Modifier.height(8.dp))
+                OutlinedTextField(value = profileName, onValueChange = { profileName = it; profileSaved = false }, label = { Text("What should Myra call you?") }, singleLine = true, modifier = Modifier.fillMaxWidth())
+                Spacer(Modifier.height(8.dp))
+                OutlinedTextField(value = profileBio, onValueChange = { profileBio = it; profileSaved = false }, label = { Text("Short bio / status") }, singleLine = true, modifier = Modifier.fillMaxWidth())
+                Spacer(Modifier.height(8.dp))
+                Text("PREFERRED LANGUAGE", color = Cyan, fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                Spacer(Modifier.height(8.dp))
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    listOf("Hindi", "English", "Hindi + English").forEach { language ->
+                        val selected = profileLanguage == language
+                        Surface(onClick = { profileLanguage = language; profileSaved = false }, modifier = Modifier.weight(1f), shape = RoundedCornerShape(14.dp), color = if (selected) Color(0x5535D7E8) else Color(0xFF11152A), border = androidx.compose.foundation.BorderStroke(1.dp, if (selected) Cyan else Color(0xFF303653))) {
+                            Text(language, color = if (selected) Color.White else Color(0xFF9AA6C8), fontSize = 10.sp, modifier = Modifier.padding(vertical = 12.dp, horizontal = 5.dp), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+                        }
+                    }
+                }
+                Spacer(Modifier.height(14.dp))
+                Button(onClick = {
+                    profilePrefs.edit().putString("profile_display_name", profileName.trim()).putString("profile_bio", profileBio.trim()).putString("profile_language", profileLanguage).apply()
+                    profileSaved = true
+                    status = "PROFILE SAVED"
+                    heardText = "Your Myra profile has been saved on this device."
+                }, modifier = Modifier.fillMaxWidth().height(50.dp), shape = RoundedCornerShape(16.dp), colors = ButtonDefaults.buttonColors(containerColor = Violet)) {
+                    Text(if (profileSaved) "✓  Profile saved" else "Save profile", color = Color.White, fontWeight = FontWeight.Bold)
+                }
+                Spacer(Modifier.height(18.dp))
+                Text("YOUR SPACE", color = Cyan, fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                Spacer(Modifier.height(10.dp))
+                QuickTile("🧠 My Memory", "Personal notes for Myra", Modifier.fillMaxWidth(), onClick = onMemory)
+                Spacer(Modifier.height(9.dp))
+                QuickTile("📝 Tasks & Notes", "Keep plans organised", Modifier.fillMaxWidth(), onClick = onTasks)
+                Spacer(Modifier.height(9.dp))
+                QuickTile("◷ Conversation history", "Search or clear past chats", Modifier.fillMaxWidth(), onClick = onHistory)
+                Spacer(Modifier.height(9.dp))
+                QuickTile("⚙ AI & app settings", "API key, voice and appearance", Modifier.fillMaxWidth(), onClick = onSettings)
+                Spacer(Modifier.height(16.dp))
+                Text("Privacy note: profile details are saved locally on this phone. The Gemini API key and messages may be sent to Google when you use AI features.", color = Color(0xFF8993B7), fontSize = 11.sp, lineHeight = 16.sp)
+            } else if (selectedNav == "Tools") {
                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                     Text("MYRA FEATURES", color = Color.White, fontSize = 13.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.8.sp)
                     Spacer(Modifier.weight(1f))
@@ -2092,7 +2166,7 @@ private fun MyraHome(
             Column(Modifier.weight(1f).background(if (selectedNav == "Chat") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(13.dp)).clickable { selectedNav = "Chat"; showAllTools = false; showChatScreen = true }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("▤", color = if (selectedNav == "Chat") Cyan else Color(0xFF8993B7), fontSize = 18.sp); Text("Chat", color = if (selectedNav == "Chat") Color.White else Color(0xFF8993B7), fontSize = 9.sp) }
             Column(Modifier.weight(1f).background(if (selectedNav == "Voice") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(13.dp)).clickable { selectedNav = "Voice"; onStartVoice() }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("✦", color = if (selectedNav == "Voice") Cyan else Color(0xFF8993B7), fontSize = 18.sp); Text("Voice", color = if (selectedNav == "Voice") Color.White else Color(0xFF8993B7), fontSize = 9.sp) }
             Column(Modifier.weight(1f).background(if (selectedNav == "History") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(13.dp)).clickable { selectedNav = "History"; onHistory() }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("◷", color = if (selectedNav == "History") Cyan else Color(0xFF8993B7), fontSize = 18.sp); Text("History", color = if (selectedNav == "History") Color.White else Color(0xFF8993B7), fontSize = 9.sp) }
-            Column(Modifier.weight(1f).background(if (selectedNav == "Settings") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(13.dp)).clickable { selectedNav = "Settings"; onSettings() }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("⚙", color = if (selectedNav == "Settings") Cyan else Color(0xFF8993B7), fontSize = 18.sp); Text("Settings", color = if (selectedNav == "Settings") Color.White else Color(0xFF8993B7), fontSize = 9.sp) }
+            Column(Modifier.weight(1f).background(if (selectedNav == "Profile") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(13.dp)).clickable { selectedNav = "Profile"; showAllTools = false; navScope.launch { scrollState.animateScrollTo(0) } }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("◉", color = if (selectedNav == "Profile") Cyan else Color(0xFF8993B7), fontSize = 18.sp); Text("Profile", color = if (selectedNav == "Profile") Color.White else Color(0xFF8993B7), fontSize = 9.sp) }
         }
         }
     }
