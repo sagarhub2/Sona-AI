@@ -39,9 +39,9 @@ import java.net.URL
 import java.net.URLEncoder
 import java.util.Locale
 
-private val Night = Color(0xFF050816)
-private val Violet = Color(0xFF8B5CF6)
-private val Cyan = Color(0xFF67E8F9)
+private val Night = Color(0xFF05040D)
+private val Violet = Color(0xFFB86BFF)
+private val Cyan = Color(0xFF7DEBFF)
 private const val AUDIO_PERMISSION_REQUEST = 410
 
 class MainActivity : ComponentActivity() {
@@ -713,18 +713,18 @@ private fun SonaHome(
     Surface(modifier = Modifier.fillMaxSize(), color = Night) {
         Column(
             modifier = Modifier.fillMaxSize()
-                .background(Brush.verticalGradient(listOf(Color(0xFF10132D), Color(0xFF030611), Color(0xFF080B18))))
+                .background(Brush.verticalGradient(listOf(Color(0xFF1A1030), Color(0xFF070611), Color(0xFF100A20))))
                 .verticalScroll(scrollState)
                 .padding(horizontal = 20.dp, vertical = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                 Column {
-                    Text("SONA AI", color = Color.White, fontSize = 25.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                    Text("SONA AI", color = Color.White, fontSize = 26.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 2.2.sp)
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Box(Modifier.size(7.dp).background(if (hasKey) Color(0xFF4ADE80) else Color(0xFFFBBF24), CircleShape))
                         Spacer(Modifier.width(7.dp))
-                        Text(if (hasKey) "AI READY TO CONNECT" else "YOUR PERSONAL AI", color = Cyan, fontSize = 10.sp, letterSpacing = 1.5.sp)
+                        Text(if (hasKey) "✦ YOUR AI IS READY" else "YOUR PERSONAL AI COMPANION", color = Cyan, fontSize = 9.sp, letterSpacing = 1.4.sp)
                     }
                 }
                 TextButton(onClick = onSettings) {
@@ -734,7 +734,7 @@ private fun SonaHome(
 
             Spacer(Modifier.height(24.dp))
             Box(
-                modifier = Modifier.size(236.dp),
+                modifier = Modifier.size(250.dp),
                 contentAlignment = Alignment.Center
             ) {
                 if (animatedOrb) {
@@ -789,9 +789,9 @@ private fun SonaHome(
                 }
             }
             Spacer(Modifier.height(8.dp))
-            Text("Hey, welcome back ✨", color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.SemiBold)
+            Text("Hello, I’m Sona ✨", color = Color.White, fontSize = 27.sp, fontWeight = FontWeight.Bold)
             Spacer(Modifier.height(6.dp))
-            Text("Your AI companion is here for you.", color = Color(0xFFADB8D8), fontSize = 13.sp)
+            Text("Your personal AI space. What’s on your mind?", color = Color(0xFFC4B9E8), fontSize = 13.sp)
             Spacer(Modifier.height(18.dp))
 
             Card(
@@ -816,8 +816,8 @@ private fun SonaHome(
                 value = typedPrompt,
                 onValueChange = { typedPrompt = it },
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text("Ask Sona anything by typing") },
-                placeholder = { Text("Write your question…") },
+                label = { Text("Message Sona") },
+                placeholder = { Text("Ask anything…") },
                 enabled = !busy,
                 shape = RoundedCornerShape(16.dp),
                 colors = OutlinedTextFieldDefaults.colors(
@@ -843,9 +843,9 @@ private fun SonaHome(
                 enabled = !busy && typedPrompt.isNotBlank() && hasKey,
                 modifier = Modifier.fillMaxWidth().height(48.dp),
                 shape = RoundedCornerShape(15.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0E7490))
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7142D8))
             ) {
-                Text("➤  Send text question", color = Color.White, fontWeight = FontWeight.SemiBold)
+                Text("✦  Send message", color = Color.White, fontWeight = FontWeight.Bold)
             }
             Spacer(Modifier.height(14.dp))
             Button(
@@ -853,18 +853,18 @@ private fun SonaHome(
                 enabled = !busy,
                 modifier = Modifier.fillMaxWidth().height(58.dp),
                 shape = RoundedCornerShape(20.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF673DE6))
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF8B45E8))
             ) {
-                Text(if (busy) "✦  Sona is thinking…" else "🎙   Talk to Sona", color = Color.White, fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
+                Text(if (busy) "✦  Sona is thinking…" else "🎙   Talk with Sona", color = Color.White, fontSize = 17.sp, fontWeight = FontWeight.Bold)
             }
             Spacer(Modifier.height(8.dp))
             Text("Tap to start a voice conversation", color = Color(0xFF7784AA), fontSize = 11.sp)
 
             Spacer(Modifier.height(24.dp))
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                Text("QUICK ACCESS", color = Color.White, fontSize = 13.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                Text("YOUR AI TOOLKIT", color = Color.White, fontSize = 13.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.8.sp)
                 Spacer(Modifier.weight(1f))
-                Text("YOUR AI SPACE", color = Color(0xFF8B7CFF), fontSize = 9.sp, letterSpacing = 1.sp)
+                Text("MADE FOR YOU ✦", color = Color(0xFFC49BFF), fontSize = 9.sp, letterSpacing = 1.sp)
             }
             Spacer(Modifier.height(12.dp))
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
