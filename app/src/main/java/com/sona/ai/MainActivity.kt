@@ -135,6 +135,7 @@ class MainActivity : ComponentActivity() {
                         }, 411)
                     } catch (_: Exception) { status = "FILE PICKER UNAVAILABLE" }
                 }
+            )
             if (showMemory) {
                 var memoryDraft by remember { mutableStateOf(getSharedPreferences("sona_private", MODE_PRIVATE).getString("memory_notes", "") ?: "") }
                 AlertDialog(
