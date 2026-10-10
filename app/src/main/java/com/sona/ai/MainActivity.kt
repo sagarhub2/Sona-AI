@@ -162,6 +162,20 @@ class MainActivity : ComponentActivity() {
                 onPermissions = {
                     try { startActivity(Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, android.net.Uri.parse("package:$packageName"))) }
                     catch (_: Exception) { status = "APP SETTINGS UNAVAILABLE" }
+                },
+                onShareAnswer = {
+                    val textToShare = heardText.trim()
+                    if (textToShare.isBlank()) {
+                        status = "NO ANSWER TO SHARE YET"
+                    } else {
+                        try {
+                            val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                                type = "text/plain"
+                                putExtra(Intent.EXTRA_TEXT, textToShare)
+                            }
+                            startActivity(Intent.createChooser(shareIntent, "Share Sona's answer"))
+                        } catch (_: Exception) { status = "SHARING UNAVAILABLE" }
+                    }
                 }
             )
             if (showMemory) {
@@ -431,7 +445,8 @@ private fun SonaHome(
     onContacts: () -> Unit,
     onMedia: () -> Unit,
     onReminder: () -> Unit,
-    onPermissions: () -> Unit
+    onPermissions: () -> Unit,
+    onShareAnswer: () -> Unit
 ) {
     val transition = androidx.compose.animation.core.rememberInfiniteTransition(label = "sona-orb")
     val animatedPulse by transition.animateFloat(
@@ -614,6 +629,8 @@ private fun SonaHome(
                 QuickTile("⏰ Alarms & Timers", "Create an alarm", Modifier.weight(1f), onClick = onReminder)
                 QuickTile("🛡 Permissions", "App access controls", Modifier.weight(1f), onClick = onPermissions)
             }
+            Spacer(Modifier.height(10.dp))
+            QuickTile("↗ Share latest answer", "Send Sona's reply to another app", Modifier.fillMaxWidth(), onClick = onShareAnswer)
             Spacer(Modifier.height(20.dp))
             Text("VOICE • MEMORY • SEARCH • TOOLS", color = Color(0xFF66708F), fontSize = 10.sp, letterSpacing = 2.sp)
             Spacer(Modifier.height(8.dp))
