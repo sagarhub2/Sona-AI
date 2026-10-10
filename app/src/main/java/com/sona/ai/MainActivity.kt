@@ -379,7 +379,25 @@ class MainActivity : ComponentActivity() {
                             OutlinedTextField(value = voiceDraft, onValueChange = { voiceDraft = it }, label = { Text("Voice style preference") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             SettingToggle("Speak text replies aloud", speakReplies, { speakReplies = it })
                             Text("PERSONALITY & MEMORY", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
-                            OutlinedTextField(value = personalityDraft, onValueChange = { personalityDraft = it }, label = { Text("Assistant personality / instructions") }, minLines = 2, modifier = Modifier.fillMaxWidth())
+                            Text("QUICK PERSONALITY", color = Color(0xFF9AA6C8), fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                            listOf(
+                                "Friendly companion" to "Friendly, warm, emotionally aware, helpful, concise",
+                                "Professional" to "Professional, clear, structured, respectful, concise",
+                                "Study tutor" to "Patient tutor, explain step by step with simple examples and check understanding",
+                                "Creative partner" to "Creative, imaginative, suggest original ideas and practical alternatives"
+                            ).forEach { (label, value) ->
+                                Row(
+                                    Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp))
+                                        .background(if (personalityDraft == value) Color(0x332CDBFF) else Color(0xFF10162A))
+                                        .clickable { personalityDraft = value }.padding(horizontal = 10.dp, vertical = 9.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(label, color = if (personalityDraft == value) Cyan else Color.White, fontSize = 13.sp, fontWeight = FontWeight.Medium)
+                                    Spacer(Modifier.weight(1f))
+                                    if (personalityDraft == value) Text("✓", color = Cyan, fontWeight = FontWeight.Bold)
+                                }
+                            }
+                            OutlinedTextField(value = personalityDraft, onValueChange = { personalityDraft = it }, label = { Text("Custom personality / instructions") }, minLines = 2, modifier = Modifier.fillMaxWidth())
                             SettingToggle("Use saved Memory notes in replies", rememberNotes, { rememberNotes = it })
                             Text("APPEARANCE", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             SettingToggle("Animated holographic orb", animatedOrb, { animatedOrb = it })
@@ -887,6 +905,23 @@ private fun MyraHome(
             }
 
             Spacer(Modifier.height(16.dp))
+            var interactionMode by remember { mutableStateOf("Both") }
+            Text("HOW DO YOU WANT TO TALK?", color = Color(0xFF9AA6C8), fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+            Spacer(Modifier.height(7.dp))
+            Row(Modifier.fillMaxWidth().background(Color(0xFF0B1022), RoundedCornerShape(15.dp)).padding(4.dp), horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+                listOf("Chat", "Voice", "Both").forEach { mode ->
+                    Box(
+                        Modifier.weight(1f).clip(RoundedCornerShape(11.dp))
+                            .background(if (interactionMode == mode) Color(0xFF5630A0) else Color.Transparent)
+                            .clickable { interactionMode = mode }.padding(vertical = 10.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(if (mode == "Chat") "⌨  Chat" else if (mode == "Voice") "🎙  Voice" else "✦  Both", color = if (interactionMode == mode) Color.White else Color(0xFF9AA6C8), fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                    }
+                }
+            }
+            if (interactionMode != "Voice") {
+            Spacer(Modifier.height(12.dp))
             var typedPrompt by remember { mutableStateOf("") }
             OutlinedTextField(
                 value = typedPrompt,
@@ -923,6 +958,8 @@ private fun MyraHome(
             ) {
                 Text("✦  Send message", color = Color.White, fontWeight = FontWeight.Bold)
             }
+            }
+            if (interactionMode != "Chat") {
             Spacer(Modifier.height(14.dp))
             Button(
                 onClick = onStartVoice,
@@ -935,6 +972,7 @@ private fun MyraHome(
             }
             Spacer(Modifier.height(8.dp))
             Text("Voice input • spoken reply when enabled in Settings", color = Color(0xFF7784AA), fontSize = 11.sp)
+            }
 
             Spacer(Modifier.height(24.dp))
             if (selectedNav == "Tools") {
