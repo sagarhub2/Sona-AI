@@ -50,6 +50,7 @@ class MainActivity : ComponentActivity() {
     private var showSettings by mutableStateOf(false)
     private var showMemory by mutableStateOf(false)
     private var showTasks by mutableStateOf(false)
+    private var showHistory by mutableStateOf(false)
     private var busy by mutableStateOf(false)
     private var speechRecognizer: SpeechRecognizer? = null
     private var liveVoiceSession: LiveVoiceSession? = null
@@ -128,6 +129,7 @@ class MainActivity : ComponentActivity() {
                 onSettings = { showSettings = true },
                 onMemory = { showMemory = true },
                 onTasks = { showTasks = true },
+                onHistory = { showHistory = true },
                 onSearch = { query ->
                     try { startActivity(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.google.com/search?q=" + URLEncoder.encode(query, "UTF-8")))) }
                     catch (_: Exception) { status = "NO BROWSER AVAILABLE" }
@@ -193,6 +195,35 @@ class MainActivity : ComponentActivity() {
 ,
                 onAskText = { prompt -> askGemini(prompt) }
             )
+            if (showHistory) {
+                val prefs = getSharedPreferences("sona_private", MODE_PRIVATE)
+                val savedHistory = prefs.getString("conversation_history", "").orEmpty()
+                AlertDialog(
+                    onDismissRequest = { showHistory = false },
+                    title = { Text("Recent Conversations") },
+                    text = {
+                        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Text(
+                                if (savedHistory.isBlank()) "No saved conversation history yet. Ask Sona a question to start." else savedHistory,
+                                color = Color(0xFFD2D9F0),
+                                fontSize = 13.sp,
+                                lineHeight = 19.sp
+                            )
+                        }
+                    },
+                    confirmButton = {
+                        TextButton(onClick = { showHistory = false }) { Text("Close") }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = {
+                            prefs.edit().remove("conversation_history").apply()
+                            status = "CONVERSATION HISTORY CLEARED"
+                            heardText = "Conversation history cleared on this device."
+                            showHistory = false
+                        }) { Text("Clear history") }
+                    }
+                )
+            }
             if (showTasks) {
                 val prefs = getSharedPreferences("sona_private", MODE_PRIVATE)
                 var taskDraft by remember { mutableStateOf(prefs.getString("sona_tasks", "").orEmpty()) }
@@ -569,6 +600,7 @@ private fun SonaHome(
     onSettings: () -> Unit,
     onMemory: () -> Unit,
     onTasks: () -> Unit,
+    onHistory: () -> Unit,
     onSearch: (String) -> Unit,
     onFiles: () -> Unit,
     onDeviceSettings: () -> Unit,
@@ -799,6 +831,8 @@ private fun SonaHome(
                 QuickTile("⏰ Alarms & Timers", "Create an alarm", Modifier.weight(1f), onClick = onReminder)
                 QuickTile("🛡 Permissions", "App access controls", Modifier.weight(1f), onClick = onPermissions)
             }
+            Spacer(Modifier.height(10.dp))
+            QuickTile("🕘 Recent Conversations", "View or clear saved chat context", Modifier.fillMaxWidth(), onClick = onHistory)
             Spacer(Modifier.height(10.dp))
             QuickTile("↗ Share latest answer", "Send Sona's reply to another app", Modifier.fillMaxWidth(), onClick = onShareAnswer)
             Spacer(Modifier.height(10.dp))
