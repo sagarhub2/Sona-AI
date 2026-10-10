@@ -2,6 +2,7 @@ package com.sona.ai
 
 import android.Manifest
 import android.content.Intent
+import android.provider.AlarmClock
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.speech.RecognitionListener
@@ -153,6 +154,14 @@ class MainActivity : ComponentActivity() {
                 onMedia = {
                     try { startActivity(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.youtube.com"))) }
                     catch (_: Exception) { status = "MEDIA APP UNAVAILABLE" }
+                },
+                onReminder = {
+                    try { startActivity(Intent(AlarmClock.ACTION_SET_ALARM).apply { putExtra(AlarmClock.EXTRA_SKIP_UI, false) }) }
+                    catch (_: Exception) { status = "CLOCK APP UNAVAILABLE" }
+                },
+                onPermissions = {
+                    try { startActivity(Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, android.net.Uri.parse("package:$packageName"))) }
+                    catch (_: Exception) { status = "APP SETTINGS UNAVAILABLE" }
                 }
             )
             if (showMemory) {
@@ -218,7 +227,11 @@ class MainActivity : ComponentActivity() {
                             Text("APPEARANCE", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             SettingToggle("Animated holographic orb", animatedOrb, { animatedOrb = it })
                             Text("PHONE, FILES & PERMISSIONS", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
-                            Text("Camera, microphone, contacts, files, notifications and device settings use Android permission/system screens when required.", fontSize = 12.sp, color = Color(0xFF9AA6C8))
+                            Text("Use Android app settings to review or change permissions available to Sona AI.", fontSize = 12.sp, color = Color(0xFF9AA6C8))
+                            TextButton(onClick = {
+                                try { startActivity(Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, android.net.Uri.parse("package:$packageName"))) }
+                                catch (_: Exception) { status = "APP SETTINGS UNAVAILABLE" }
+                            }) { Text("Open permission dashboard", color = Cyan) }
                             Text("WEB & SEARCH", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("Web search opens your browser. Search history is not stored by this settings panel.", fontSize = 12.sp, color = Color(0xFF9AA6C8))
                             Text("PRIVACY & DIAGNOSTICS", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
@@ -230,6 +243,9 @@ class MainActivity : ComponentActivity() {
                                 heardText = "Conversation history cleared on this device."
                                 status = "HISTORY CLEARED"
                             }) { Text("Clear conversation history", color = Cyan) }
+                            Text("DIAGNOSTICS", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text("Status: $status\\nDevice: ${android.os.Build.MANUFACTURER} ${android.os.Build.MODEL}\\nAndroid: ${android.os.Build.VERSION.RELEASE} (SDK ${android.os.Build.VERSION.SDK_INT})\\nGemini key: ${if (apiKey.isBlank()) "not configured" else "saved"}", fontSize = 12.sp, color = Color(0xFF9AA6C8))
+                            TextButton(onClick = { heardText = "Diagnostics refreshed • $status • Android ${android.os.Build.VERSION.RELEASE}" }) { Text("Refresh diagnostics", color = Cyan) }
                             Text("Build: Sona AI • Android • Gemini", fontSize = 11.sp, color = Color(0xFF9AA6C8))
                         }
                     },
@@ -413,7 +429,9 @@ private fun SonaHome(
     onDeviceSettings: () -> Unit,
     onCamera: () -> Unit,
     onContacts: () -> Unit,
-    onMedia: () -> Unit
+    onMedia: () -> Unit,
+    onReminder: () -> Unit,
+    onPermissions: () -> Unit
 ) {
     val transition = androidx.compose.animation.core.rememberInfiniteTransition(label = "sona-orb")
     val animatedPulse by transition.animateFloat(
@@ -593,8 +611,8 @@ private fun SonaHome(
             }
             Spacer(Modifier.height(10.dp))
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                QuickTile("👁 Camera & Vision", "Open camera", Modifier.weight(1f), onClick = onCamera)
-                QuickTile("📞 Calls & Contacts", "Open contacts", Modifier.weight(1f), onClick = onContacts)
+                QuickTile("⏰ Alarms & Timers", "Create an alarm", Modifier.weight(1f), onClick = onReminder)
+                QuickTile("🛡 Permissions", "App access controls", Modifier.weight(1f), onClick = onPermissions)
             }
             Spacer(Modifier.height(20.dp))
             Text("VOICE • MEMORY • SEARCH • TOOLS", color = Color(0xFF66708F), fontSize = 10.sp, letterSpacing = 2.sp)
