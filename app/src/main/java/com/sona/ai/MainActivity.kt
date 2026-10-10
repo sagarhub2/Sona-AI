@@ -274,7 +274,8 @@ class MainActivity : ComponentActivity() {
                     doOutput = true
                     setRequestProperty("Content-Type", "application/json; charset=utf-8")
                 }
-                val companionPrompt = "You are Sona, a warm, natural, friendly female AI companion. Speak like a kind Indian friend, not a robot. Reply in the user's language, especially natural Hindi or Hinglish when they use it. Keep spoken answers conversational and easy to say aloud; avoid markdown, lists, emojis, and overly long replies unless requested. Be respectful and supportive. User says: $prompt"
+                val savedMemory = getSharedPreferences("sona_private", MODE_PRIVATE).getString("memory_notes", "").orEmpty().take(4000)
+                val companionPrompt = "You are Sona, a warm, natural, friendly AI companion with a feminine voice. Speak like a kind Indian friend, not a robot. Reply in the user's language, especially natural Hindi or Hinglish when they use it. Keep spoken answers conversational and easy to say aloud; avoid markdown, lists, emojis, and overly long replies unless requested. Be respectful and supportive.\n\nUser's saved notes (use only when relevant):\n$savedMemory\n\nUser says: $prompt"
                 val body = JSONObject()
                     .put("contents", JSONArray().put(JSONObject().put("parts", JSONArray().put(JSONObject().put("text", companionPrompt)))))
                     .put("generationConfig", JSONObject().put("maxOutputTokens", 300))
