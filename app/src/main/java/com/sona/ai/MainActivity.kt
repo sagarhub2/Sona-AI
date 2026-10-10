@@ -673,6 +673,32 @@ class MainActivity : ComponentActivity() {
             }
         }
         return when {
+            listOf("translate ", "translate to hindi ", "translate to english ", "anuvad karo ").any { prompt.startsWith(it) } -> {
+                val query = rawPrompt.replace(Regex("(?i)^(translate to hindi|translate to english|translate|anuvad karo)\\s*"), "").trim()
+                val target = if (query.isBlank()) "https://translate.google.com" else "https://translate.google.com/?sl=auto&tl=hi&text=" + URLEncoder.encode(query, "UTF-8") + "&op=translate"
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse(target)), if (query.isBlank()) "Opening Google Translate" else "Translating: $query")
+            }
+            listOf("weather ", "weather in ", "mausam ", "mausam batao ").any { prompt.startsWith(it) } -> {
+                val query = rawPrompt.replace(Regex("(?i)^(weather in|weather|mausam batao|mausam)\\s*"), "").trim()
+                val target = "https://www.google.com/search?q=" + URLEncoder.encode(if (query.isBlank()) "weather near me" else "weather in $query", "UTF-8")
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse(target)), if (query.isBlank()) "Opening local weather search" else "Searching weather for $query")
+            }
+            listOf("news ", "latest news ", "khabar ", "news about ").any { prompt.startsWith(it) } -> {
+                val query = rawPrompt.replace(Regex("(?i)^(latest news|news about|news|khabar)\\s*"), "").trim()
+                val target = "https://www.google.com/search?tbm=nws&q=" + URLEncoder.encode(query.ifBlank { "latest news" }, "UTF-8")
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse(target)), if (query.isBlank()) "Searching latest news" else "Searching news about $query")
+            }
+            listOf("shop for ", "buy ", "shopping search ", "online shopping ").any { prompt.startsWith(it) } -> {
+                val query = rawPrompt.replace(Regex("(?i)^(shop for|shopping search|online shopping|buy)\\s*"), "").trim()
+                val target = "https://www.google.com/search?tbm=shop&q=" + URLEncoder.encode(query, "UTF-8")
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse(target)), if (query.isBlank()) "Opening shopping search" else "Searching products: $query")
+            }
+            listOf("hotspot settings", "open hotspot", "portable hotspot", "hotspot kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_TETHER_SETTINGS), "Opening hotspot and tethering settings")
+            listOf("nfc settings", "open nfc", "nfc kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_NFC_SETTINGS), "Opening NFC settings")
+            listOf("vpn settings", "open vpn", "vpn kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_VPN_SETTINGS), "Opening VPN settings")
             listOf("open settings", "phone settings", "settings kholo", "setting kholo").any { prompt.contains(it) } ->
                 launch(Intent(android.provider.Settings.ACTION_SETTINGS), "Opening phone settings")
             listOf("open camera", "camera kholo", "take a photo", "photo lo").any { prompt.contains(it) } ->
