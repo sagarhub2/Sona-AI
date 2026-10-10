@@ -872,6 +872,39 @@ class MainActivity : ComponentActivity() {
                 if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-battery-status")
                 true
             }
+            listOf("clear completed tasks", "remove completed tasks", "completed tasks hatao").any { prompt == it } -> {
+                val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
+                val tasks = prefs.getString("sona_tasks", "").orEmpty().lines().filter { it.isNotBlank() }
+                val remaining = tasks.filterNot { it.trimStart().startsWith("[x]", ignoreCase = true) }
+                val removed = tasks.size - remaining.size
+                prefs.edit().putString("sona_tasks", remaining.joinToString("\n")).apply()
+                heardText = if (removed == 0) "There are no completed tasks to remove." else "Removed " + removed + " completed task(s)."
+                status = if (removed == 0) "NO COMPLETED TASKS" else "COMPLETED TASKS CLEARED"
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-clear-completed")
+                true
+            }
+            listOf("save journal ", "journal likho ", "save today's journal ").any { prompt.startsWith(it) } -> {
+                val entry = rawPrompt.replace(Regex("(?i)^(save journal|journal likho|save today's journal)\\s*"), "").trim()
+                if (entry.isBlank()) {
+                    heardText = "Say, save journal followed by your entry."
+                    status = "JOURNAL ENTRY EMPTY"
+                } else {
+                    val key = "myra_journal_" + java.time.LocalDate.now().toString()
+                    getSharedPreferences("myra_prefs", MODE_PRIVATE).edit().putString(key, entry).apply()
+                    heardText = "Today's journal entry has been saved on this phone."
+                    status = "JOURNAL SAVED"
+                }
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-journal-save")
+                true
+            }
+            listOf("read my journal", "journal padho", "today's journal").any { prompt == it } -> {
+                val key = "myra_journal_" + java.time.LocalDate.now().toString()
+                val entry = getSharedPreferences("myra_prefs", MODE_PRIVATE).getString(key, "").orEmpty()
+                heardText = if (entry.isBlank()) "There is no journal entry saved for today." else "Today's journal: " + entry
+                status = if (entry.isBlank()) "NO JOURNAL ENTRY" else "JOURNAL READ"
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-journal-read")
+                true
+            }
             listOf("read my tasks", "show my tasks", "tasks padho", "mere tasks batao").any { prompt == it } -> {
                 val tasks = getSharedPreferences("myra_private", MODE_PRIVATE).getString("sona_tasks", "").orEmpty()
                 heardText = if (tasks.isBlank()) "You have no saved tasks yet." else "Your tasks: " + tasks.lines().take(10).joinToString(". ")
