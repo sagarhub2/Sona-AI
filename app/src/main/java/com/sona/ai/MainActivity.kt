@@ -51,6 +51,7 @@ class MainActivity : ComponentActivity() {
     private var showMemory by mutableStateOf(false)
     private var showTasks by mutableStateOf(false)
     private var showHistory by mutableStateOf(false)
+    private var showDeviceInfo by mutableStateOf(false)
     private var busy by mutableStateOf(false)
     private var speechRecognizer: SpeechRecognizer? = null
     private var liveVoiceSession: LiveVoiceSession? = null
@@ -130,6 +131,7 @@ class MainActivity : ComponentActivity() {
                 onMemory = { showMemory = true },
                 onTasks = { showTasks = true },
                 onHistory = { showHistory = true },
+                onDeviceInfo = { showDeviceInfo = true },
                 onSearch = { query ->
                     try { startActivity(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.google.com/search?q=" + URLEncoder.encode(query, "UTF-8")))) }
                     catch (_: Exception) { status = "NO BROWSER AVAILABLE" }
@@ -195,6 +197,27 @@ class MainActivity : ComponentActivity() {
 ,
                 onAskText = { prompt -> askGemini(prompt) }
             )
+            if (showDeviceInfo) {
+                val batteryIntent = registerReceiver(null, android.content.IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+                val level = batteryIntent?.getIntExtra(android.os.BatteryManager.EXTRA_LEVEL, -1) ?: -1
+                val scale = batteryIntent?.getIntExtra(android.os.BatteryManager.EXTRA_SCALE, -1) ?: -1
+                val percent = if (level >= 0 && scale > 0) (level * 100 / scale) else -1
+                val plugged = batteryIntent?.getIntExtra(android.os.BatteryManager.EXTRA_PLUGGED, 0) ?: 0
+                AlertDialog(
+                    onDismissRequest = { showDeviceInfo = false },
+                    title = { Text("Device Info") },
+                    text = {
+                        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                            Text("Device: " + android.os.Build.MANUFACTURER + " " + android.os.Build.MODEL)
+                            Text("Android: " + android.os.Build.VERSION.RELEASE + " (API " + android.os.Build.VERSION.SDK_INT + ")")
+                            Text("Battery: " + (if (percent >= 0) percent.toString() + "%" else "Unavailable"))
+                            Text(if (plugged != 0) "Power: Charging / connected" else "Power: Not charging")
+                            Text("Sona AI • " + packageName, fontSize = 11.sp, color = Color(0xFF9AA6C8))
+                        }
+                    },
+                    confirmButton = { TextButton(onClick = { showDeviceInfo = false }) { Text("Done") } }
+                )
+            }
             if (showHistory) {
                 val prefs = getSharedPreferences("sona_private", MODE_PRIVATE)
                 val savedHistory = prefs.getString("conversation_history", "").orEmpty()
@@ -601,6 +624,7 @@ private fun SonaHome(
     onMemory: () -> Unit,
     onTasks: () -> Unit,
     onHistory: () -> Unit,
+    onDeviceInfo: () -> Unit,
     onSearch: (String) -> Unit,
     onFiles: () -> Unit,
     onDeviceSettings: () -> Unit,
@@ -833,6 +857,8 @@ private fun SonaHome(
             }
             Spacer(Modifier.height(10.dp))
             QuickTile("🕘 Recent Conversations", "View or clear saved chat context", Modifier.fillMaxWidth(), onClick = onHistory)
+            Spacer(Modifier.height(10.dp))
+            QuickTile("📊 Device Info", "Battery, Android version & model", Modifier.fillMaxWidth(), onClick = onDeviceInfo)
             Spacer(Modifier.height(10.dp))
             QuickTile("↗ Share latest answer", "Send Sona's reply to another app", Modifier.fillMaxWidth(), onClick = onShareAnswer)
             Spacer(Modifier.height(10.dp))
