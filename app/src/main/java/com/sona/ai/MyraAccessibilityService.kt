@@ -1,31 +1,61 @@
 package com.sona.ai
 
 import android.accessibilityservice.AccessibilityService
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
+import android.os.Build
 import android.view.accessibility.AccessibilityEvent
 
 /**
- * User-enabled accessibility bridge for explicit, local navigation commands.
- * This service intentionally does not inspect screen text, click arbitrary controls,
- * enter text, or perform sensitive actions.
+ * User-enabled bridge for explicit navigation commands only.
+ * It does not inspect screen text, click arbitrary controls, or enter text.
  */
 class MyraAccessibilityService : AccessibilityService() {
+    private val actionReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            when (intent?.action) {
+                ACTION_BACK -> performGlobalAction(GLOBAL_ACTION_BACK)
+                ACTION_HOME -> performGlobalAction(GLOBAL_ACTION_HOME)
+                ACTION_NOTIFICATIONS -> performGlobalAction(GLOBAL_ACTION_NOTIFICATIONS)
+                ACTION_QUICK_SETTINGS -> performGlobalAction(GLOBAL_ACTION_QUICK_SETTINGS)
+                ACTION_RECENTS -> performGlobalAction(GLOBAL_ACTION_RECENTS)
+            }
+        }
+    }
+    private var receiverRegistered = false
+
+    override fun onServiceConnected() {
+        super.onServiceConnected()
+        val filter = IntentFilter().apply {
+            addAction(ACTION_BACK)
+            addAction(ACTION_HOME)
+            addAction(ACTION_NOTIFICATIONS)
+            addAction(ACTION_QUICK_SETTINGS)
+            addAction(ACTION_RECENTS)
+        }
+        if (Build.VERSION.SDK_INT >= 33) {
+            registerReceiver(actionReceiver, filter, Context.RECEIVER_NOT_EXPORTED)
+        } else {
+            @Suppress("DEPRECATION")
+            registerReceiver(actionReceiver, filter)
+        }
+        receiverRegistered = true
+    }
+
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
-        // Screen contents are not read or retained.
+        // Screen contents are deliberately not read or retained.
     }
 
     override fun onInterrupt() = Unit
 
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        when (intent?.action) {
-            ACTION_BACK -> performGlobalAction(GLOBAL_ACTION_BACK)
-            ACTION_HOME -> performGlobalAction(GLOBAL_ACTION_HOME)
-            ACTION_NOTIFICATIONS -> performGlobalAction(GLOBAL_ACTION_NOTIFICATIONS)
-            ACTION_QUICK_SETTINGS -> performGlobalAction(GLOBAL_ACTION_QUICK_SETTINGS)
-            ACTION_RECENTS -> performGlobalAction(GLOBAL_ACTION_RECENTS)
+    override fun onDestroy() {
+        if (receiverRegistered) {
+            try { unregisterReceiver(actionReceiver) } catch (_: Exception) { }
+            receiverRegistered = false
         }
-        stopSelf(startId)
-        return START_NOT_STICKY
+        super.onDestroy()
     }
 
     companion object {
