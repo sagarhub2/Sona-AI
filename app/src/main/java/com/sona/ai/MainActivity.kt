@@ -760,6 +760,45 @@ class MainActivity : ComponentActivity() {
                 if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-task-added")
                 true
             }
+            prompt.startsWith("complete task ") || prompt.startsWith("task complete karo ") -> {
+                val target = rawPrompt.replace(Regex("(?i)^(complete task|task complete karo)\\s*"), "").trim()
+                val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
+                val tasks = prefs.getString("sona_tasks", "").orEmpty().lines().filter { it.isNotBlank() }
+                val index = tasks.indexOfFirst { it.contains(target, ignoreCase = true) && !it.trimStart().startsWith("[x]", true) }
+                if (target.isBlank()) {
+                    heardText = "Say, complete task followed by the task name."
+                    status = "TASK NAME NEEDED"
+                } else if (index < 0) {
+                    heardText = "I couldn't find an unfinished task matching $target."
+                    status = "TASK NOT FOUND"
+                } else {
+                    val updated = tasks.toMutableList()
+                    updated[index] = "[x] " + updated[index].removePrefix("[ ] ").removePrefix("[x] ")
+                    prefs.edit().putString("sona_tasks", updated.joinToString("\\n")).apply()
+                    heardText = "Task marked complete: $target"
+                    status = "TASK COMPLETED"
+                }
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-task-complete")
+                true
+            }
+            prompt == "clear my tasks" || prompt == "delete all tasks" || prompt == "mere saare tasks delete karo" -> {
+                getSharedPreferences("myra_private", MODE_PRIVATE).edit().remove("sona_tasks").apply()
+                heardText = "All saved tasks were cleared from this device."
+                status = "TASKS CLEARED"
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-tasks-cleared")
+                true
+            }
+            listOf("battery status", "phone battery kitni hai", "battery kitni hai", "check battery").any { prompt == it } -> {
+                val battery = registerReceiver(null, android.content.IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+                val level = battery?.getIntExtra(android.os.BatteryManager.EXTRA_LEVEL, -1) ?: -1
+                val scale = battery?.getIntExtra(android.os.BatteryManager.EXTRA_SCALE, -1) ?: -1
+                val percent = if (level >= 0 && scale > 0) level * 100 / scale else -1
+                val plugged = battery?.getIntExtra(android.os.BatteryManager.EXTRA_PLUGGED, 0) ?: 0
+                heardText = if (percent >= 0) "Your battery is $percent percent. " + if (plugged != 0) "The phone is charging." else "The phone is not charging." else "Battery status is unavailable."
+                status = "BATTERY STATUS READY"
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-battery-status")
+                true
+            }
             listOf("read my tasks", "show my tasks", "tasks padho", "mere tasks batao").any { prompt == it } -> {
                 val tasks = getSharedPreferences("myra_private", MODE_PRIVATE).getString("sona_tasks", "").orEmpty()
                 heardText = if (tasks.isBlank()) "You have no saved tasks yet." else "Your tasks: " + tasks.lines().take(10).joinToString(". ")
