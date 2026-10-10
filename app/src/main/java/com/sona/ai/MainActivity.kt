@@ -673,6 +673,67 @@ class MainActivity : ComponentActivity() {
             }
         }
         return when {
+            listOf("save note ", "note likho ", "remember this ", "note save karo ").any { prompt.startsWith(it) } -> {
+                val note = rawPrompt.replace(Regex("(?i)^(save note|note likho|remember this|note save karo)\\s*"), "").trim()
+                if (note.isBlank()) {
+                    heardText = "Please say the note after 'save note'."
+                    status = "NOTE IS EMPTY"
+                } else {
+                    val prefs = getSharedPreferences("myra_prefs", MODE_PRIVATE)
+                    val oldNotes = prefs.getString("myra_voice_notes", "").orEmpty()
+                    val stamp = java.text.SimpleDateFormat("dd MMM, HH:mm", Locale.getDefault()).format(java.util.Date())
+                    prefs.edit().putString("myra_voice_notes", ("[$stamp] $note\\n" + oldNotes).lines().take(50).joinToString("\\n")).apply()
+                    heardText = "Note saved: $note"
+                    status = "NOTE SAVED"
+                }
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-note")
+                true
+            }
+            listOf("read my notes", "show my notes", "notes padho", "mere notes dikhao").any { prompt.contains(it) } -> {
+                val notes = getSharedPreferences("myra_prefs", MODE_PRIVATE).getString("myra_voice_notes", "").orEmpty()
+                heardText = if (notes.isBlank()) "You have no saved voice notes yet." else "Your latest notes: " + notes.lines().take(5).joinToString(". ")
+                status = if (notes.isBlank()) "NO SAVED NOTES" else "YOUR SAVED NOTES"
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-notes-read")
+                true
+            }
+            listOf("remind me at ", "set reminder at ", "alarm for ").any { prompt.startsWith(it) } -> {
+                val match = Regex("(?i)^(?:remind me at|set reminder at|alarm for)\\s*(\\d{1,2})(?::(\\d{2}))?\\s*(am|pm)?\\s*(?:to|for)?\\s*(.*)$").find(rawPrompt.trim())
+                if (match == null) {
+                    heardText = "Say, remind me at 7:30 PM to study."
+                    status = "TIME FORMAT NOT RECOGNIZED"
+                    if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-reminder-help")
+                    true
+                } else {
+                    val rawHour = match.groupValues[1].toIntOrNull() ?: 0
+                    val minute = match.groupValues[2].ifBlank { "0" }.toIntOrNull() ?: 0
+                    val meridiem = match.groupValues[3].lowercase(Locale.ROOT)
+                    val hour = when (meridiem) { "pm" -> if (rawHour in 1..11) rawHour + 12 else rawHour; "am" -> if (rawHour == 12) 0 else rawHour; else -> rawHour }
+                    val task = match.groupValues[4].trim().ifBlank { "Reminder" }
+                    if (rawHour !in 0..23 || minute !in 0..59 || (meridiem.isNotBlank() && rawHour !in 1..12)) {
+                        heardText = "That time doesn't look valid. Please try again."
+                        status = "INVALID REMINDER TIME"
+                        if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-reminder-invalid")
+                        true
+                    } else {
+                        launch(Intent(AlarmClock.ACTION_SET_ALARM).apply {
+                            putExtra(AlarmClock.EXTRA_HOUR, hour)
+                            putExtra(AlarmClock.EXTRA_MINUTES, minute)
+                            putExtra(AlarmClock.EXTRA_MESSAGE, task)
+                            putExtra(AlarmClock.EXTRA_SKIP_UI, false)
+                        }, "Opening alarm setup for $task")
+                    }
+                }
+            }
+            listOf("open google keep", "google keep kholo", "keep notes kholo").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://keep.google.com")), "Opening Google Keep")
+            listOf("open google docs", "google docs kholo", "docs kholo").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://docs.google.com")), "Opening Google Docs")
+            listOf("open google photos", "google photos kholo", "photos backup kholo").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://photos.google.com")), "Opening Google Photos")
+            listOf("open google maps traffic", "traffic check", "traffic dikhao").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.google.com/maps/@?layer=t")), "Opening live traffic map")
+            listOf("open wikipedia", "wikipedia kholo", "search wikipedia").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.wikipedia.org")), "Opening Wikipedia")
             listOf("open chatgpt", "chatgpt kholo", "launch chatgpt").any { prompt.contains(it) } ->
                 launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://chatgpt.com")), "Opening ChatGPT")
             listOf("open gemini", "gemini kholo", "launch gemini ai").any { prompt.contains(it) } ->
