@@ -382,10 +382,15 @@ class MainActivity : ComponentActivity() {
                             Text("PERSONALITY & MEMORY", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("QUICK PERSONALITY", color = Color(0xFF9AA6C8), fontSize = 10.sp, fontWeight = FontWeight.Bold)
                             listOf(
-                                "Friendly companion" to "Friendly, warm, emotionally aware, helpful, concise",
+                                "Companion" to "Warm, caring, emotionally aware, friendly, supportive, and respectful",
+                                "Funny" to "Playful, witty, light-hearted, use gentle humour when appropriate",
+                                "GF Mode" to "Affectionate fictional companion tone, sweet and supportive, while respecting boundaries",
+                                "Teacher" to "Patient teacher, explain step by step with simple examples and check understanding",
+                                "Developer" to "Technical developer assistant, give accurate code-focused explanations and practical debugging steps",
                                 "Professional" to "Professional, clear, structured, respectful, concise",
                                 "Study tutor" to "Patient tutor, explain step by step with simple examples and check understanding",
-                                "Creative partner" to "Creative, imaginative, suggest original ideas and practical alternatives"
+                                "Creative partner" to "Creative, imaginative, suggest original ideas and practical alternatives",
+                                "Custom" to "Helpful assistant; follow the custom instructions below"
                             ).forEach { (label, value) ->
                                 Row(
                                     Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp))
@@ -1111,13 +1116,20 @@ private fun MyraHome(
             Spacer(Modifier.height(8.dp))
         }
         Row(
-            modifier = Modifier.fillMaxWidth().background(Color(0xF20A0B18)).border(1.dp, Color(0x332DDAFF)).padding(horizontal = 8.dp, vertical = 7.dp),
+            modifier = Modifier.fillMaxWidth().background(Color(0xF20A0B18)).border(1.dp, Color(0x332DDAFF)).padding(horizontal = 5.dp, vertical = 6.dp),
             horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically
         ) {
-            Column(Modifier.weight(1f).background(if (selectedNav == "Assistant") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(14.dp)).clickable { selectedNav = "Assistant"; showAllTools = false; navScope.launch { scrollState.animateScrollTo(0) } }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("✧", color = if (selectedNav == "Assistant") Cyan else Color(0xFF8993B7), fontSize = 19.sp); Text("Myra", color = if (selectedNav == "Assistant") Color.White else Color(0xFF8993B7), fontSize = 10.sp) }
-            Column(Modifier.weight(1f).background(if (selectedNav == "Memory") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(14.dp)).clickable { selectedNav = "Memory"; onMemory() }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("◉", color = if (selectedNav == "Memory") Cyan else Color(0xFF8993B7), fontSize = 19.sp); Text("Memory", color = if (selectedNav == "Memory") Color.White else Color(0xFF8993B7), fontSize = 10.sp) }
-            Column(Modifier.weight(1f).background(if (selectedNav == "Tools") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(14.dp)).clickable { selectedNav = "Tools"; showAllTools = true; navScope.launch { scrollState.animateScrollTo(scrollState.maxValue) } }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("⌘", color = if (selectedNav == "Tools") Cyan else Color(0xFF8993B7), fontSize = 19.sp); Text("Tools", color = if (selectedNav == "Tools") Color.White else Color(0xFF8993B7), fontSize = 10.sp) }
-            Column(Modifier.weight(1f).background(if (selectedNav == "Settings") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(14.dp)).clickable { selectedNav = "Settings"; onSettings() }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("⚙", color = if (selectedNav == "Settings") Cyan else Color(0xFF8993B7), fontSize = 19.sp); Text("Settings", color = if (selectedNav == "Settings") Color.White else Color(0xFF8993B7), fontSize = 10.sp) }
+            @Composable fun NavItem(icon: String, label: String, active: Boolean, action: () -> Unit) {
+                Column(Modifier.weight(1f).background(if (active) Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(13.dp)).clickable(onClick = action).padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(icon, color = if (active) Cyan else Color(0xFF8993B7), fontSize = 18.sp)
+                    Text(label, color = if (active) Color.White else Color(0xFF8993B7), fontSize = 9.sp)
+                }
+            }
+            NavItem("⌂", "Home", selectedNav == "Assistant") { selectedNav = "Assistant"; showAllTools = false; navScope.launch { scrollState.animateScrollTo(0) } }
+            NavItem("▤", "Chat", selectedNav == "Chat") { selectedNav = "Chat"; showAllTools = false; navScope.launch { scrollState.animateScrollTo(0) } }
+            NavItem("✦", "Voice", selectedNav == "Voice") { selectedNav = "Voice"; onStartVoice() }
+            NavItem("◷", "History", selectedNav == "History") { selectedNav = "History"; onHistory() }
+            NavItem("⚙", "Settings", selectedNav == "Settings") { selectedNav = "Settings"; onSettings() }
         }
         }
     }
