@@ -724,6 +724,49 @@ class MainActivity : ComponentActivity() {
                 if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-note")
                 true
             }
+            listOf("clear my voice notes", "delete all voice notes", "mere voice notes delete karo").any { prompt == it } -> {
+                getSharedPreferences("myra_prefs", MODE_PRIVATE).edit().remove("myra_voice_notes").apply()
+                heardText = "All saved voice notes were cleared from this device."
+                status = "VOICE NOTES CLEARED"
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-notes-cleared")
+                true
+            }
+            prompt.startsWith("search my notes ") || prompt.startsWith("find my note ") || prompt.startsWith("notes mein search ") -> {
+                val query = rawPrompt.replace(Regex("(?i)^(search my notes|find my note|notes mein search)\\s*"), "").trim()
+                val notes = getSharedPreferences("myra_prefs", MODE_PRIVATE).getString("myra_voice_notes", "").orEmpty()
+                val matches = notes.lines().filter { it.contains(query, ignoreCase = true) }.take(5)
+                heardText = when {
+                    query.isBlank() -> "Say, search my notes followed by a word."
+                    matches.isEmpty() -> "I couldn't find a saved note matching $query."
+                    else -> "Notes matching $query: " + matches.joinToString(". ")
+                }
+                status = if (matches.isEmpty()) "NO MATCHING NOTES" else "NOTES SEARCH COMPLETE"
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-notes-search")
+                true
+            }
+            listOf("add task ", "task add karo ", "remember task ").any { prompt.startsWith(it) } -> {
+                val task = rawPrompt.replace(Regex("(?i)^(add task|task add karo|remember task)\\s*"), "").trim()
+                val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
+                val existing = prefs.getString("sona_tasks", "").orEmpty()
+                if (task.isBlank()) {
+                    heardText = "Please say the task after 'add task'."
+                    status = "TASK IS EMPTY"
+                } else {
+                    val updated = (existing.lines().filter { it.isNotBlank() } + task).takeLast(100).joinToString("\\n")
+                    prefs.edit().putString("sona_tasks", updated).apply()
+                    heardText = "Task added: $task"
+                    status = "TASK SAVED"
+                }
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-task-added")
+                true
+            }
+            listOf("read my tasks", "show my tasks", "tasks padho", "mere tasks batao").any { prompt == it } -> {
+                val tasks = getSharedPreferences("myra_private", MODE_PRIVATE).getString("sona_tasks", "").orEmpty()
+                heardText = if (tasks.isBlank()) "You have no saved tasks yet." else "Your tasks: " + tasks.lines().take(10).joinToString(". ")
+                status = if (tasks.isBlank()) "NO SAVED TASKS" else "YOUR SAVED TASKS"
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-tasks-read")
+                true
+            }
             listOf("read my notes", "show my notes", "notes padho", "mere notes dikhao").any { prompt.contains(it) } -> {
                 val notes = getSharedPreferences("myra_prefs", MODE_PRIVATE).getString("myra_voice_notes", "").orEmpty()
                 heardText = if (notes.isBlank()) "You have no saved voice notes yet." else "Your latest notes: " + notes.lines().take(5).joinToString(". ")
