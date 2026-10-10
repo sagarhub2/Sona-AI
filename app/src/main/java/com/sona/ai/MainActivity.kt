@@ -188,6 +188,8 @@ class MainActivity : ComponentActivity() {
                         status = "ANSWER COPIED TO CLIPBOARD"
                     }
                 }
+,
+                onAskText = { prompt -> askGemini(prompt) }
             )
             if (showMemory) {
                 var memoryDraft by remember { mutableStateOf(getSharedPreferences("sona_private", MODE_PRIVATE).getString("memory_notes", "") ?: "") }
@@ -535,7 +537,8 @@ private fun SonaHome(
     onReminder: () -> Unit,
     onPermissions: () -> Unit,
     onShareAnswer: () -> Unit,
-    onCopyAnswer: () -> Unit
+    onCopyAnswer: () -> Unit,
+    onAskText: (String) -> Unit
 ) {
     val transition = androidx.compose.animation.core.rememberInfiniteTransition(label = "sona-orb")
     val animatedPulse by transition.animateFloat(
@@ -670,6 +673,43 @@ private fun SonaHome(
             }
 
             Spacer(Modifier.height(16.dp))
+            var typedPrompt by remember { mutableStateOf("") }
+            OutlinedTextField(
+                value = typedPrompt,
+                onValueChange = { typedPrompt = it },
+                modifier = Modifier.fillMaxWidth(),
+                label = { Text("Ask Sona anything by typing") },
+                placeholder = { Text("Write your question…") },
+                enabled = !busy,
+                shape = RoundedCornerShape(16.dp),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedTextColor = Color.White,
+                    unfocusedTextColor = Color.White,
+                    focusedBorderColor = Cyan,
+                    unfocusedBorderColor = Color(0xFF29335B),
+                    focusedLabelColor = Cyan,
+                    unfocusedLabelColor = Color(0xFF9AA6C8),
+                    cursorColor = Cyan
+                ),
+                maxLines = 4
+            )
+            Spacer(Modifier.height(8.dp))
+            Button(
+                onClick = {
+                    val prompt = typedPrompt.trim()
+                    if (prompt.isNotBlank()) {
+                        onAskText(prompt)
+                        typedPrompt = ""
+                    }
+                },
+                enabled = !busy && typedPrompt.isNotBlank() && hasKey,
+                modifier = Modifier.fillMaxWidth().height(48.dp),
+                shape = RoundedCornerShape(15.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0E7490))
+            ) {
+                Text("➤  Send text question", color = Color.White, fontWeight = FontWeight.SemiBold)
+            }
+            Spacer(Modifier.height(14.dp))
             Button(
                 onClick = onStartVoice,
                 enabled = !busy,
