@@ -396,8 +396,19 @@ class MainActivity : ComponentActivity() {
                 var themeDraft by remember { mutableStateOf(prefs.getString("theme_style", "Holographic") ?: "Holographic") }
                 var rememberNotes by remember { mutableStateOf(prefs.getBoolean("use_memory", true)) }
                 AlertDialog(
+                    modifier = Modifier.fillMaxWidth(0.96f),
+                    shape = RoundedCornerShape(28.dp),
+                    containerColor = Color(0xFF080D1B),
+                    tonalElevation = 12.dp,
+                    properties = DialogProperties(usePlatformDefaultWidth = false),
                     onDismissRequest = { showSettings = false },
-                    title = { Text("MYRA AI • ALL SETTINGS", color = Cyan, fontWeight = FontWeight.Bold) },
+                    title = {
+                        Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                            Text("MYRA AI", color = Cyan, fontWeight = FontWeight.Black, fontSize = 11.sp, letterSpacing = 2.4.sp)
+                            Text("Command Center", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 22.sp)
+                            Text("PERSONALIZE YOUR ASSISTANT", color = Violet, fontWeight = FontWeight.Medium, fontSize = 9.sp, letterSpacing = 1.5.sp)
+                        }
+                    },
                     text = {
                         Column(
                             modifier = Modifier.heightIn(max = 480.dp).verticalScroll(androidx.compose.foundation.rememberScrollState()),
