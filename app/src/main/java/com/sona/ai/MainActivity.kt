@@ -788,6 +788,46 @@ class MainActivity : ComponentActivity() {
                 if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-tasks-cleared")
                 true
             }
+            prompt.startsWith("set media volume to ") || prompt.startsWith("volume set karo ") -> {
+                val requested = Regex("(?:set media volume to|volume set karo)\\s*(\\d{1,3})").find(prompt)?.groupValues?.get(1)?.toIntOrNull()
+                val audio = getSystemService(android.content.Context.AUDIO_SERVICE) as android.media.AudioManager
+                val maxVolume = audio.getStreamMaxVolume(android.media.AudioManager.STREAM_MUSIC)
+                if (requested == null || requested !in 0..100) {
+                    heardText = "Say, set media volume to 50. Choose a number from 0 to 100."
+                    status = "VOLUME VALUE NEEDED"
+                } else {
+                    val target = (maxVolume * requested / 100.0).toInt().coerceIn(0, maxVolume)
+                    audio.setStreamVolume(android.media.AudioManager.STREAM_MUSIC, target, 0)
+                    heardText = "Media volume set to approximately $requested percent."
+                    status = "MEDIA VOLUME UPDATED"
+                }
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-volume")
+                true
+            }
+            listOf("volume up", "increase volume", "awaz badhao", "volume badhao").any { prompt == it } -> {
+                val audio = getSystemService(android.content.Context.AUDIO_SERVICE) as android.media.AudioManager
+                audio.adjustStreamVolume(android.media.AudioManager.STREAM_MUSIC, android.media.AudioManager.ADJUST_RAISE, 0)
+                heardText = "Media volume increased."
+                status = "VOLUME INCREASED"
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-volume-up")
+                true
+            }
+            listOf("volume down", "decrease volume", "awaz kam karo", "volume kam karo").any { prompt == it } -> {
+                val audio = getSystemService(android.content.Context.AUDIO_SERVICE) as android.media.AudioManager
+                audio.adjustStreamVolume(android.media.AudioManager.STREAM_MUSIC, android.media.AudioManager.ADJUST_LOWER, 0)
+                heardText = "Media volume decreased."
+                status = "VOLUME DECREASED"
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-volume-down")
+                true
+            }
+            listOf("mute media", "media mute karo", "mute music").any { prompt == it } -> {
+                val audio = getSystemService(android.content.Context.AUDIO_SERVICE) as android.media.AudioManager
+                audio.adjustStreamVolume(android.media.AudioManager.STREAM_MUSIC, android.media.AudioManager.ADJUST_MUTE, 0)
+                heardText = "Media audio muted where supported by this phone."
+                status = "MEDIA MUTED"
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-mute")
+                true
+            }
             listOf("battery status", "phone battery kitni hai", "battery kitni hai", "check battery").any { prompt == it } -> {
                 val battery = registerReceiver(null, android.content.IntentFilter(Intent.ACTION_BATTERY_CHANGED))
                 val level = battery?.getIntExtra(android.os.BatteryManager.EXTRA_LEVEL, -1) ?: -1
