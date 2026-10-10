@@ -1700,6 +1700,14 @@ private fun MyraHome(
     onAskText: (String) -> Unit
 ) {
     val context = LocalContext.current
+    val displayName = context.getSharedPreferences("myra_private", 0)
+        .getString("user_name", "").orEmpty().trim().ifBlank { "there" }
+    val greeting = when (java.time.LocalTime.now().hour) {
+        in 5..11 -> "Good morning"
+        in 12..16 -> "Good afternoon"
+        in 17..20 -> "Good evening"
+        else -> "Welcome back"
+    }
     val transition = androidx.compose.animation.core.rememberInfiniteTransition(label = "sona-orb")
     val animatedPulse by transition.animateFloat(
         initialValue = 0.94f,
@@ -1794,7 +1802,7 @@ private fun MyraHome(
 
             Spacer(Modifier.height(12.dp))
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
-                Text("Welcome back, Sagar", color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold, letterSpacing = (-0.4).sp)
+                Text("$greeting, $displayName", color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold, letterSpacing = (-0.4).sp)
             }
             Text("One calm space for voice, ideas, and everyday actions.", color = Color(0xFF9FA8C8), fontSize = 13.sp, modifier = Modifier.fillMaxWidth().padding(top = 4.dp))
             Spacer(Modifier.height(8.dp))
