@@ -259,13 +259,30 @@ class MainActivity : ComponentActivity() {
             if (showHistory) {
                 val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
                 val savedHistory = prefs.getString("conversation_history", "").orEmpty()
+                var historyQuery by remember { mutableStateOf("") }
+                val visibleHistory = if (historyQuery.isBlank()) savedHistory else savedHistory
+                    .lines()
+                    .filter { it.contains(historyQuery, ignoreCase = true) }
+                    .joinToString("\\n")
                 AlertDialog(
                     onDismissRequest = { showHistory = false },
-                    title = { Text("Recent Conversations") },
+                    title = { Text("Searchable Conversation History") },
                     text = {
-                        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Column(
+                            modifier = Modifier.heightIn(max = 420.dp).verticalScroll(androidx.compose.foundation.rememberScrollState()),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            OutlinedTextField(
+                                value = historyQuery,
+                                onValueChange = { historyQuery = it },
+                                label = { Text("Search past conversations") },
+                                singleLine = true,
+                                modifier = Modifier.fillMaxWidth()
+                            )
                             Text(
-                                if (savedHistory.isBlank()) "No saved conversation history yet. Ask Myra a question to start." else savedHistory,
+                                if (savedHistory.isBlank()) "No saved conversation history yet. Ask Myra a question to start."
+                                else if (visibleHistory.isBlank()) "No matching history lines found."
+                                else visibleHistory,
                                 color = Color(0xFFD2D9F0),
                                 fontSize = 13.sp,
                                 lineHeight = 19.sp
@@ -373,7 +390,7 @@ class MainActivity : ComponentActivity() {
                             OutlinedTextField(value = userNameDraft, onValueChange = { userNameDraft = it }, label = { Text("What should Myra call you?") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             Text("AI PROVIDER & MODEL", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("Provider: Google Gemini", fontSize = 13.sp)
-                            Text("Voice model: Gemini Live (configured in this build)", fontSize = 11.sp, color = Color(0xFF9AA6C8))
+                            Text("Voice input: Android speech recognition • Replies: device TTS; Live audio availability depends on the session connection.", fontSize = 11.sp, color = Color(0xFF9AA6C8))
                             OutlinedTextField(
                                 value = keyDraft, onValueChange = { keyDraft = it },
                                 label = { Text("Gemini API key") }, singleLine = true,
@@ -389,7 +406,7 @@ class MainActivity : ComponentActivity() {
                             Slider(value = speechRate, onValueChange = { speechRate = it }, valueRange = 0.65f..1.35f)
                             Text("Voice pitch • ${String.format(Locale.US, "%.2f", speechPitch)}", color = Color(0xFFD2D9F0), fontSize = 13.sp)
                             Slider(value = speechPitch, onValueChange = { speechPitch = it }, valueRange = 0.75f..1.35f)
-                            SettingToggle("Auto-listen after voice reply (experimental)", autoListen, { autoListen = it })
+                            SettingToggle("Auto-listen preference (not active yet)", autoListen, { autoListen = it })
                             Text("Available voice depends on the speech engine installed on your phone.", color = Color(0xFF9AA6C8), fontSize = 11.sp)
                             Text("PERSONALITY & MEMORY", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("QUICK PERSONALITY", color = Color(0xFF9AA6C8), fontSize = 10.sp, fontWeight = FontWeight.Bold)
