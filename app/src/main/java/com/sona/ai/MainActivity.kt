@@ -289,67 +289,131 @@ private fun SonaHome(
     onStartVoice: () -> Unit,
     onSettings: () -> Unit
 ) {
+    val transition = androidx.compose.animation.core.rememberInfiniteTransition(label = "sona-orb")
+    val pulse by transition.animateFloat(
+        initialValue = 0.94f,
+        targetValue = 1.06f,
+        animationSpec = androidx.compose.animation.core.infiniteRepeatable(
+            animation = androidx.compose.animation.core.tween(1500, easing = androidx.compose.animation.core.FastOutSlowInEasing),
+            repeatMode = androidx.compose.animation.core.RepeatMode.Reverse
+        ),
+        label = "orb-pulse"
+    )
+    val scrollState = androidx.compose.foundation.rememberScrollState()
     Surface(modifier = Modifier.fillMaxSize(), color = Night) {
         Column(
             modifier = Modifier.fillMaxSize()
-                .background(Brush.verticalGradient(listOf(Color(0xFF10132D), Night, Color(0xFF080B18))))
-                .padding(horizontal = 24.dp, vertical = 28.dp),
+                .background(Brush.verticalGradient(listOf(Color(0xFF10132D), Color(0xFF030611), Color(0xFF080B18))))
+                .verticalScroll(scrollState)
+                .padding(horizontal = 20.dp, vertical = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                 Column {
-                    Text("SONA AI", color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.Bold)
-                    Text("PERSONAL AI ASSISTANT", color = Cyan, fontSize = 10.sp, letterSpacing = 2.sp)
+                    Text("SONA AI", color = Color.White, fontSize = 25.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Box(Modifier.size(7.dp).background(if (hasKey) Color(0xFF4ADE80) else Color(0xFFFBBF24), CircleShape))
+                        Spacer(Modifier.width(7.dp))
+                        Text(if (hasKey) "AI READY TO CONNECT" else "YOUR PERSONAL AI", color = Cyan, fontSize = 10.sp, letterSpacing = 1.5.sp)
+                    }
                 }
-                TextButton(onClick = onSettings) { Text("⚙ Settings", color = Cyan) }
+                TextButton(onClick = onSettings) {
+                    Text("⚙", color = Cyan, fontSize = 23.sp)
+                }
             }
-            Spacer(Modifier.height(42.dp))
-            Box(modifier = Modifier.size(220.dp).background(
-                Brush.radialGradient(listOf(Color(0x558B5CF6), Color(0x2238BDF8), Color.Transparent)), CircleShape
-            ), contentAlignment = Alignment.Center) {
-                Box(modifier = Modifier.size(150.dp).background(
-                    Brush.radialGradient(listOf(Color(0xFFB8A3FF), Violet, Color(0xFF243A83))), CircleShape
-                ), contentAlignment = Alignment.Center) {
-                    Box(modifier = Modifier.size(112.dp).background(
-                        Brush.radialGradient(listOf(Color(0xFF111B43), Color(0xFF070B1D))), CircleShape
-                    ), contentAlignment = Alignment.Center) {
-                        Text("S", color = Color.White, fontSize = 52.sp, fontWeight = FontWeight.Light)
+
+            Spacer(Modifier.height(24.dp))
+            Box(
+                modifier = Modifier.size((220 * pulse).dp)
+                    .background(Brush.radialGradient(listOf(Color(0x668B5CF6), Color(0x2238BDF8), Color.Transparent)), CircleShape),
+                contentAlignment = Alignment.Center
+            ) {
+                Box(Modifier.size(174.dp).background(Brush.radialGradient(listOf(Color(0xFF9F67FF), Color(0xFF4626B5), Color(0xFF111B43))), CircleShape), contentAlignment = Alignment.Center) {
+                    Box(Modifier.size(150.dp).background(Brush.radialGradient(listOf(Color(0xFF111B43), Color(0xFF050816))), CircleShape), contentAlignment = Alignment.Center) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text("✦", color = Cyan, fontSize = 28.sp)
+                            Text("SONA", color = Color.White, fontSize = 25.sp, fontWeight = FontWeight.Light, letterSpacing = 3.sp)
+                            Text("AI ORB", color = Color(0xFFBCA7FF), fontSize = 9.sp, letterSpacing = 2.sp)
+                        }
                     }
                 }
             }
-            Spacer(Modifier.height(26.dp))
-            Text("I’m Sona.", color = Color.White, fontSize = 30.sp, fontWeight = FontWeight.SemiBold)
             Spacer(Modifier.height(8.dp))
-            Text("Your personal AI companion", color = Color(0xFFB7C1DF), fontSize = 15.sp)
+            Text("Hey, welcome back ✨", color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.SemiBold)
+            Spacer(Modifier.height(6.dp))
+            Text("Your AI companion is here for you.", color = Color(0xFFADB8D8), fontSize = 13.sp)
             Spacer(Modifier.height(18.dp))
-            Text(status, color = if (hasKey) Color(0xFF86EFAC) else Cyan, fontSize = 11.sp, fontWeight = FontWeight.SemiBold, letterSpacing = 1.sp)
+
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(18.dp),
+                colors = CardDefaults.cardColors(containerColor = Color(0xFF10162B))
+            ) {
+                Column(Modifier.fillMaxWidth().padding(15.dp)) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Box(Modifier.size(9.dp).background(if (hasKey) Color(0xFF4ADE80) else Color(0xFFFBBF24), CircleShape))
+                        Spacer(Modifier.width(8.dp))
+                        Text(status, color = if (hasKey) Color(0xFF86EFAC) else Color(0xFFFDE68A), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 0.5.sp)
+                    }
+                    Spacer(Modifier.height(9.dp))
+                    Text(heardText, color = Color(0xFFD2D9F0), fontSize = 13.sp, lineHeight = 19.sp)
+                }
+            }
+
+            Spacer(Modifier.height(16.dp))
+            Button(
+                onClick = onStartVoice,
+                enabled = !busy,
+                modifier = Modifier.fillMaxWidth().height(58.dp),
+                shape = RoundedCornerShape(20.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF673DE6))
+            ) {
+                Text(if (busy) "✦  Sona is thinking…" else "🎙   Talk to Sona", color = Color.White, fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
+            }
             Spacer(Modifier.height(8.dp))
-            Text(heardText, color = Color(0xFFB7C1DF), fontSize = 13.sp)
-            Spacer(Modifier.height(20.dp))
-            Button(onClick = onStartVoice, enabled = !busy, modifier = Modifier.fillMaxWidth().height(54.dp),
-                shape = RoundedCornerShape(18.dp), colors = ButtonDefaults.buttonColors(containerColor = Violet)) {
-                Text(if (busy) "Thinking…" else "🎙  Talk to Sona", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+            Text("Tap to start a voice conversation", color = Color(0xFF7784AA), fontSize = 11.sp)
+
+            Spacer(Modifier.height(24.dp))
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                Text("QUICK ACCESS", color = Color.White, fontSize = 13.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                Spacer(Modifier.weight(1f))
+                Text("YOUR AI SPACE", color = Color(0xFF8B7CFF), fontSize = 9.sp, letterSpacing = 1.sp)
             }
-            Spacer(Modifier.height(22.dp))
-            Text("QUICK ACCESS", color = Color(0xFF7F8AAE), fontSize = 11.sp, letterSpacing = 2.sp)
             Spacer(Modifier.height(12.dp))
-            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                QuickTile("Memory", "Notes & recall", Modifier.weight(1f))
-                QuickTile("Explore", "Web search", Modifier.weight(1f))
-                QuickTile("Files", "PDF & images", Modifier.weight(1f))
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                QuickTile("🧠 Memory", "Notes & recall", Modifier.weight(1f))
+                QuickTile("🌐 Search", "Explore the web", Modifier.weight(1f))
             }
-            Spacer(Modifier.weight(1f))
-            Text("PHASE 1 • GEMINI VOICE PROTOTYPE", color = Color(0xFF66708F), fontSize = 10.sp, letterSpacing = 1.5.sp)
+            Spacer(Modifier.height(10.dp))
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                QuickTile("🗂 Files", "PDFs & images", Modifier.weight(1f))
+                QuickTile("⚙ Settings", "API & preferences", Modifier.weight(1f), onClick = onSettings)
+            }
+            Spacer(Modifier.height(20.dp))
+            Text("VOICE • MEMORY • DISCOVERY", color = Color(0xFF66708F), fontSize = 10.sp, letterSpacing = 2.sp)
+            Spacer(Modifier.height(8.dp))
         }
     }
 }
 
 @Composable
-private fun QuickTile(title: String, subtitle: String, modifier: Modifier = Modifier) {
-    Column(modifier = modifier.height(88.dp).background(Color(0xFF151A31), RoundedCornerShape(16.dp)).padding(10.dp),
-        verticalArrangement = Arrangement.Center) {
-        Text(title, color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 13.sp)
-        Spacer(Modifier.height(4.dp))
-        Text(subtitle, color = Color(0xFF9AA6C8), fontSize = 10.sp)
+private fun QuickTile(title: String, subtitle: String, modifier: Modifier = Modifier, onClick: (() -> Unit)? = null) {
+    val shape = RoundedCornerShape(17.dp)
+    Surface(
+        modifier = modifier.height(94.dp),
+        onClick = { onClick?.invoke() },
+        enabled = onClick != null,
+        shape = shape,
+        color = Color(0xFF10172E),
+        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF29335B))
+    ) {
+        Column(
+            modifier = Modifier.fillMaxSize().padding(13.dp),
+            verticalArrangement = Arrangement.Center
+        ) {
+            Text(title, color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
+            Spacer(Modifier.height(5.dp))
+            Text(subtitle, color = Color(0xFF9AA6C8), fontSize = 11.sp)
+        }
     }
 }
