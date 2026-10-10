@@ -992,6 +992,26 @@ class MainActivity : ComponentActivity() {
                 if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-task-completed")
                 true
             }
+            prompt.startsWith("search my tasks ") || prompt.startsWith("find task ") || prompt.startsWith("tasks mein search ") -> {
+                val query = rawPrompt.replace(Regex("(?i)^(search my tasks|find task|tasks mein search)\\s*"), "").trim()
+                val tasks = getSharedPreferences("myra_private", MODE_PRIVATE).getString("sona_tasks", "").orEmpty().lines().filter { it.isNotBlank() }
+                val matches = tasks.filter { it.contains(query, ignoreCase = true) }.take(10)
+                heardText = when {
+                    query.isBlank() -> "Say, search my tasks followed by a word."
+                    matches.isEmpty() -> "I couldn't find a task matching $query."
+                    else -> "Matching tasks: " + matches.joinToString(". ")
+                }
+                status = if (matches.isEmpty()) "NO MATCHING TASKS" else "TASK SEARCH COMPLETE"
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-task-search")
+                true
+            }
+            listOf("clear all tasks", "delete all tasks", "mere sare tasks delete karo").any { prompt == it } -> {
+                getSharedPreferences("myra_private", MODE_PRIVATE).edit().remove("sona_tasks").apply()
+                heardText = "All tasks have been cleared from this device."
+                status = "ALL TASKS CLEARED"
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-tasks-cleared")
+                true
+            }
             listOf("read my tasks", "show my tasks", "tasks padho", "mere tasks batao").any { prompt == it } -> {
                 val tasks = getSharedPreferences("myra_private", MODE_PRIVATE).getString("sona_tasks", "").orEmpty()
                 heardText = if (tasks.isBlank()) "You have no saved tasks yet." else "Your tasks: " + tasks.lines().take(10).joinToString(". ")
