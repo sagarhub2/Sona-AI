@@ -32,7 +32,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.json.JMYRArray
+import org.json.JSONArray
 import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL
@@ -478,7 +478,7 @@ class MainActivity : ComponentActivity() {
                 val bytes = contentResolver.openInputStream(uri)?.use { it.readBytes() }
                     ?: throw IllegalStateException("File could not be opened")
                 if (bytes.size > 15 * 1024 * 1024) throw IllegalArgumentException("File is over 15 MB. Choose a smaller file.")
-                val parts = JMYRArray()
+                val parts = JSONArray()
                 parts.put(JSONObject().put("text", "Analyze the attached file for the user. If it is a PDF, summarize its key points. If it is an image, describe what is visible. If it is text, summarize it. Answer in the user's language, clearly and accurately."))
                 if (mime.startsWith("text/") || mime == "application/json") {
                     parts.put(JSONObject().put("text", String(bytes, Charsets.UTF_8).take(30000)))
@@ -489,7 +489,7 @@ class MainActivity : ComponentActivity() {
                 } else {
                     throw IllegalArgumentException("Unsupported file type: $mime. Select a PDF, image, or text file.")
                 }
-                val body = JSONObject().put("contents", JMYRArray().put(JSONObject().put("parts", parts)))
+                val body = JSONObject().put("contents", JSONArray().put(JSONObject().put("parts", parts)))
                     .put("generationConfig", JSONObject().put("maxOutputTokens", 700))
                 val encodedKey = URLEncoder.encode(key, "UTF-8")
                 val conn = (URL("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=$encodedKey").openConnection() as HttpURLConnection)
@@ -503,8 +503,8 @@ class MainActivity : ComponentActivity() {
                     val code = conn.responseCode
                     val raw = (if (code in 200..299) conn.inputStream else conn.errorStream)?.bufferedReader()?.use { it.readText() }.orEmpty()
                     if (code in 200..299) {
-                        answer = JSONObject(raw).optJMYRArray("candidates")?.optJSONObject(0)
-                            ?.optJSONObject("content")?.optJMYRArray("parts")?.optJSONObject(0)
+                        answer = JSONObject(raw).optJSONArray("candidates")?.optJSONObject(0)
+                            ?.optJSONObject("content")?.optJSONArray("parts")?.optJSONObject(0)
                             ?.optString("text")?.takeIf { it.isNotBlank() && it != "null" }
                         if (answer == null) error = "Gemini returned no file analysis."
                     } else {
@@ -565,7 +565,7 @@ class MainActivity : ComponentActivity() {
                 val assistantName = prefs.getString("assistant_name", "Myra").orEmpty().ifBlank { "Myra" }
                 val companionPrompt = "You are $assistantName, a helpful AI assistant. Address the user as $userName when their name is provided. Personality and response style requested by the user: $personalityPreference. Voice style preference: $voicePreference. Language preference: $languagePreference. If language is Auto (match me), reply in the language the user used, especially natural Hindi/Hinglish when appropriate. Make answers sound natural when spoken aloud. Keep replies concise unless asked for detail, and avoid markdown when a short spoken answer is enough. Respect user privacy and be honest about actions you cannot perform.\n\nUser's saved notes (use only when relevant):\n$savedMemory\n\nRecent conversation history (for continuity):\n$conversationHistory\n\nUser says: $prompt"
                 val body = JSONObject()
-                    .put("contents", JMYRArray().put(JSONObject().put("parts", JMYRArray().put(JSONObject().put("text", companionPrompt)))))
+                    .put("contents", JSONArray().put(JSONObject().put("parts", JSONArray().put(JSONObject().put("text", companionPrompt)))))
                     .put("generationConfig", JSONObject().put("maxOutputTokens", 300))
                 connection.outputStream.use { it.write(body.toString().toByteArray(Charsets.UTF_8)) }
                 val code = connection.responseCode
@@ -573,9 +573,9 @@ class MainActivity : ComponentActivity() {
                 val raw = stream?.bufferedReader()?.use { it.readText() }.orEmpty()
                 if (code in 200..299) {
                     val root = JSONObject(raw)
-                    responseText = root.optJMYRArray("candidates")
+                    responseText = root.optJSONArray("candidates")
                         ?.optJSONObject(0)?.optJSONObject("content")
-                        ?.optJMYRArray("parts")?.optJSONObject(0)?.optString("text")
+                        ?.optJSONArray("parts")?.optJSONObject(0)?.optString("text")
                         ?.takeIf { !it.isNullOrBlank() && it != "null" }
                     if (responseText == null) errorText = "Gemini returned an empty answer. Try again."
                 } else {
