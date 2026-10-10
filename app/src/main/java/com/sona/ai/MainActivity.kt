@@ -744,6 +744,40 @@ class MainActivity : ComponentActivity() {
                 launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://fast.com")), "Opening internet speed test")
             listOf("open google drive", "google drive kholo", "drive kholo").any { prompt.contains(it) } ->
                 launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://drive.google.com")), "Opening Google Drive")
+            listOf("accessibility settings", "open accessibility", "accessibility kholo", "accessibility setting kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS), "Opening Accessibility settings")
+            listOf("installed services", "accessibility services").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS), "Opening installed accessibility services")
+            listOf("app permissions", "permission manager", "manage permissions", "permissions kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, android.net.Uri.parse("package:$packageName")), "Opening Myra AI app permissions")
+            listOf("app info", "myra app settings", "sona app settings").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, android.net.Uri.parse("package:$packageName")), "Opening assistant app info")
+            listOf("notification settings", "notifications settings", "notification setting kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS).putExtra(android.provider.Settings.EXTRA_APP_PACKAGE, packageName), "Opening assistant notification settings")
+            listOf("battery settings", "battery optimization", "battery saver settings").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_BATTERY_SAVER_SETTINGS), "Opening battery settings")
+            listOf("location settings", "gps settings", "location kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS), "Opening location settings")
+            listOf("display settings", "screen settings", "brightness settings", "display kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_DISPLAY_SETTINGS), "Opening display settings")
+            listOf("sound settings", "audio settings", "volume settings", "sound kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_SOUND_SETTINGS), "Opening sound settings")
+            listOf("date and time settings", "time settings", "date time kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_DATE_SETTINGS), "Opening date and time settings")
+            listOf("language settings", "keyboard settings", "input settings", "language kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_INPUT_METHOD_SETTINGS), "Opening keyboard and input settings")
+            listOf("default apps settings", "default applications", "default apps kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS), "Opening default apps settings")
+            listOf("storage settings", "phone storage", "storage kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_INTERNAL_STORAGE_SETTINGS), "Opening storage settings")
+            listOf("wifi settings", "wi-fi settings", "internet settings", "wifi kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_WIFI_SETTINGS), "Opening Wi-Fi settings")
+            listOf("bluetooth settings", "bluetooth kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS), "Opening Bluetooth settings")
+            listOf("privacy settings", "privacy kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_PRIVACY_SETTINGS), "Opening privacy settings")
+            listOf("security settings", "security kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS), "Opening security settings")
             listOf("notification access", "enable notification reader", "notification reader settings", "whatsapp read access").any { prompt.contains(it) } ->
                 launch(Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"), "Open Myra AI in notification access and enable it")
             listOf("read notifications", "read my notifications", "read whatsapp messages", "whatsapp messages padho", "messages padho").any { prompt.contains(it) } -> {
