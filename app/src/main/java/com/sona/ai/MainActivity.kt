@@ -673,6 +673,21 @@ class MainActivity : ComponentActivity() {
             }
         }
         return when {
+            listOf("notification access", "enable notification reader", "notification reader settings", "whatsapp read access").any { prompt.contains(it) } ->
+                launch(Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"), "Open Myra AI in notification access and enable it")
+            listOf("read notifications", "read my notifications", "read whatsapp messages", "whatsapp messages padho", "messages padho").any { prompt.contains(it) } -> {
+                val recent = getSharedPreferences("myra_notifications", MODE_PRIVATE).getString("recent", "").orEmpty()
+                if (recent.isBlank()) {
+                    heardText = "No saved notifications yet. Enable Myra AI in Notification access, then wait for a new notification."
+                    status = "NOTIFICATION ACCESS MAY BE OFF"
+                    if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-notifications")
+                } else {
+                    heardText = "Recent notifications: " + recent
+                    status = "RECENT NOTIFICATIONS"
+                    if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-notifications")
+                }
+                true
+            }
             listOf("define ", "meaning of ", "meaning batao ", "dictionary ").any { prompt.startsWith(it) } -> {
                 val query = rawPrompt.replace(Regex("(?i)^(define|meaning of|meaning batao|dictionary)\\s*"), "").trim()
                 val target = "https://www.google.com/search?q=" + URLEncoder.encode("define " + query, "UTF-8")
