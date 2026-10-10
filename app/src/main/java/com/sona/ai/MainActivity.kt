@@ -32,7 +32,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.json.JSONArray
+import org.json.JMYRArray
 import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL
@@ -61,7 +61,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        apiKey = getSharedPreferences("sona_private", MODE_PRIVATE).getString("gemini_key", "") ?: ""
+        apiKey = getSharedPreferences("myra_private", MODE_PRIVATE).getString("gemini_key", "") ?: ""
         heardText = if (apiKey.isBlank()) "Add your Gemini API key in Settings to enable AI." else "Gemini key saved • ready to connect"
         textToSpeech = TextToSpeech(this) { result ->
             ttsReady = result == TextToSpeech.SUCCESS
@@ -121,12 +121,12 @@ class MainActivity : ComponentActivity() {
         } else status = "SPEECH RECOGNITION NOT AVAILABLE"
 
         setContent {
-            SonaHome(
+            MyraHome(
                 status = status,
                 heardText = heardText,
                 hasKey = apiKey.isNotBlank(),
                 busy = busy,
-                animatedOrb = getSharedPreferences("sona_private", MODE_PRIVATE).getBoolean("animated_orb", true),
+                animatedOrb = getSharedPreferences("myra_private", MODE_PRIVATE).getBoolean("animated_orb", true),
                 onStartVoice = { requestOrStartVoice() },
                 onSettings = { showSettings = true },
                 onMemory = { showMemory = true },
@@ -180,7 +180,7 @@ class MainActivity : ComponentActivity() {
                                 type = "text/plain"
                                 putExtra(Intent.EXTRA_TEXT, textToShare)
                             }
-                            startActivity(Intent.createChooser(shareIntent, "Share Sona's answer"))
+                            startActivity(Intent.createChooser(shareIntent, "Share Myra's answer"))
                         } catch (_: Exception) { status = "SHARING UNAVAILABLE" }
                     }
                 }
@@ -192,7 +192,7 @@ class MainActivity : ComponentActivity() {
                     } else if (!ttsReady) {
                         status = "TEXT-TO-SPEECH IS NOT READY"
                     } else {
-                        textToSpeech?.speak(speech, TextToSpeech.QUEUE_FLUSH, null, "sona-latest-answer")
+                        textToSpeech?.speak(speech, TextToSpeech.QUEUE_FLUSH, null, "myra-latest-answer")
                         status = "SPEAKING LATEST ANSWER"
                     }
                 },
@@ -206,7 +206,7 @@ class MainActivity : ComponentActivity() {
                         status = "NO ANSWER TO COPY YET"
                     } else {
                         val clipboard = getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
-                        clipboard.setPrimaryClip(android.content.ClipData.newPlainText("Sona AI answer", textToCopy))
+                        clipboard.setPrimaryClip(android.content.ClipData.newPlainText("Myra AI answer", textToCopy))
                         status = "ANSWER COPIED TO CLIPBOARD"
                     }
                 }
@@ -228,14 +228,14 @@ class MainActivity : ComponentActivity() {
                             Text("Android: " + android.os.Build.VERSION.RELEASE + " (API " + android.os.Build.VERSION.SDK_INT + ")")
                             Text("Battery: " + (if (percent >= 0) percent.toString() + "%" else "Unavailable"))
                             Text(if (plugged != 0) "Power: Charging / connected" else "Power: Not charging")
-                            Text("Sona AI • " + packageName, fontSize = 11.sp, color = Color(0xFF9AA6C8))
+                            Text("Myra AI • " + packageName, fontSize = 11.sp, color = Color(0xFF9AA6C8))
                         }
                     },
                     confirmButton = { TextButton(onClick = { showDeviceInfo = false }) { Text("Done") } }
                 )
             }
             if (showHistory) {
-                val prefs = getSharedPreferences("sona_private", MODE_PRIVATE)
+                val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
                 val savedHistory = prefs.getString("conversation_history", "").orEmpty()
                 AlertDialog(
                     onDismissRequest = { showHistory = false },
@@ -243,7 +243,7 @@ class MainActivity : ComponentActivity() {
                     text = {
                         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                             Text(
-                                if (savedHistory.isBlank()) "No saved conversation history yet. Ask Sona a question to start." else savedHistory,
+                                if (savedHistory.isBlank()) "No saved conversation history yet. Ask Myra a question to start." else savedHistory,
                                 color = Color(0xFFD2D9F0),
                                 fontSize = 13.sp,
                                 lineHeight = 19.sp
@@ -264,11 +264,11 @@ class MainActivity : ComponentActivity() {
                 )
             }
             if (showTasks) {
-                val prefs = getSharedPreferences("sona_private", MODE_PRIVATE)
+                val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
                 var taskDraft by remember { mutableStateOf(prefs.getString("sona_tasks", "").orEmpty()) }
                 AlertDialog(
                     onDismissRequest = { showTasks = false },
-                    title = { Text("Sona Tasks") },
+                    title = { Text("Myra Tasks") },
                     text = {
                         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                             Text("One task per line. Your list stays saved on this phone.")
@@ -302,19 +302,19 @@ class MainActivity : ComponentActivity() {
                 )
             }
             if (showMemory) {
-                var memoryDraft by remember { mutableStateOf(getSharedPreferences("sona_private", MODE_PRIVATE).getString("memory_notes", "") ?: "") }
+                var memoryDraft by remember { mutableStateOf(getSharedPreferences("myra_private", MODE_PRIVATE).getString("memory_notes", "") ?: "") }
                 AlertDialog(
                     onDismissRequest = { showMemory = false },
-                    title = { Text("Sona Memory") },
+                    title = { Text("Myra Memory") },
                     text = {
                         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Text("Save notes for Sona to remember on this phone.")
+                            Text("Save notes for Myra to remember on this phone.")
                             OutlinedTextField(value = memoryDraft, onValueChange = { memoryDraft = it }, label = { Text("Your notes") }, minLines = 4, maxLines = 8)
                         }
                     },
                     confirmButton = {
                         TextButton(onClick = {
-                            getSharedPreferences("sona_private", MODE_PRIVATE).edit().putString("memory_notes", memoryDraft).apply()
+                            getSharedPreferences("myra_private", MODE_PRIVATE).edit().putString("memory_notes", memoryDraft).apply()
                             heardText = if (memoryDraft.isBlank()) "Memory cleared." else "Memory saved on this device."
                             status = "MEMORY UPDATED"
                             showMemory = false
@@ -324,10 +324,10 @@ class MainActivity : ComponentActivity() {
                 )
             }
             if (showSettings) {
-                val prefs = getSharedPreferences("sona_private", MODE_PRIVATE)
+                val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
                 var keyDraft by remember { mutableStateOf(apiKey) }
                 var userNameDraft by remember { mutableStateOf(prefs.getString("user_name", "").orEmpty()) }
-                var assistantNameDraft by remember { mutableStateOf(prefs.getString("assistant_name", "Sona").orEmpty()) }
+                var assistantNameDraft by remember { mutableStateOf(prefs.getString("assistant_name", "Myra").orEmpty()) }
                 var languageDraft by remember { mutableStateOf(prefs.getString("language", "Auto (match me)") ?: "Auto (match me)") }
                 var voiceDraft by remember { mutableStateOf(prefs.getString("voice_style", "Warm & natural") ?: "Warm & natural") }
                 var personalityDraft by remember { mutableStateOf(prefs.getString("personality", "Friendly, helpful, concise") ?: "Friendly, helpful, concise") }
@@ -336,7 +336,7 @@ class MainActivity : ComponentActivity() {
                 var rememberNotes by remember { mutableStateOf(prefs.getBoolean("use_memory", true)) }
                 AlertDialog(
                     onDismissRequest = { showSettings = false },
-                    title = { Text("SONA AI • ALL SETTINGS", color = Cyan, fontWeight = FontWeight.Bold) },
+                    title = { Text("MYRA AI • ALL SETTINGS", color = Cyan, fontWeight = FontWeight.Bold) },
                     text = {
                         Column(
                             modifier = Modifier.heightIn(max = 480.dp).verticalScroll(androidx.compose.foundation.rememberScrollState()),
@@ -344,7 +344,7 @@ class MainActivity : ComponentActivity() {
                         ) {
                             Text("ASSISTANT PROFILE", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             OutlinedTextField(value = assistantNameDraft, onValueChange = { assistantNameDraft = it }, label = { Text("Assistant name") }, singleLine = true, modifier = Modifier.fillMaxWidth())
-                            OutlinedTextField(value = userNameDraft, onValueChange = { userNameDraft = it }, label = { Text("What should Sona call you?") }, singleLine = true, modifier = Modifier.fillMaxWidth())
+                            OutlinedTextField(value = userNameDraft, onValueChange = { userNameDraft = it }, label = { Text("What should Myra call you?") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             Text("AI PROVIDER & MODEL", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("Provider: Google Gemini", fontSize = 13.sp)
                             Text("Voice model: Gemini Live (configured in this build)", fontSize = 11.sp, color = Color(0xFF9AA6C8))
@@ -358,13 +358,13 @@ class MainActivity : ComponentActivity() {
                             OutlinedTextField(value = languageDraft, onValueChange = { languageDraft = it }, label = { Text("Language (e.g. Hindi, English, Auto)") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             OutlinedTextField(value = voiceDraft, onValueChange = { voiceDraft = it }, label = { Text("Voice style preference") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             SettingToggle("Speak text replies aloud", speakReplies, { speakReplies = it })
-                            Text("PERSONALITY & MEMORY", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text("PERMYRALITY & MEMORY", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             OutlinedTextField(value = personalityDraft, onValueChange = { personalityDraft = it }, label = { Text("Assistant personality / instructions") }, minLines = 2, modifier = Modifier.fillMaxWidth())
                             SettingToggle("Use saved Memory notes in replies", rememberNotes, { rememberNotes = it })
                             Text("APPEARANCE", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             SettingToggle("Animated holographic orb", animatedOrb, { animatedOrb = it })
                             Text("PHONE, FILES & PERMISSIONS", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
-                            Text("Use Android app settings to review or change permissions available to Sona AI.", fontSize = 12.sp, color = Color(0xFF9AA6C8))
+                            Text("Use Android app settings to review or change permissions available to Myra AI.", fontSize = 12.sp, color = Color(0xFF9AA6C8))
                             TextButton(onClick = {
                                 try { startActivity(Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, android.net.Uri.parse("package:$packageName"))) }
                                 catch (_: Exception) { status = "APP SETTINGS UNAVAILABLE" }
@@ -383,7 +383,7 @@ class MainActivity : ComponentActivity() {
                             Text("DIAGNOSTICS", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("Status: $status\\nDevice: ${android.os.Build.MANUFACTURER} ${android.os.Build.MODEL}\\nAndroid: ${android.os.Build.VERSION.RELEASE} (SDK ${android.os.Build.VERSION.SDK_INT})\\nGemini key: ${if (apiKey.isBlank()) "not configured" else "saved"}", fontSize = 12.sp, color = Color(0xFF9AA6C8))
                             TextButton(onClick = { heardText = "Diagnostics refreshed • $status • Android ${android.os.Build.VERSION.RELEASE}" }) { Text("Refresh diagnostics", color = Cyan) }
-                            Text("Build: Sona AI • Android • Gemini", fontSize = 11.sp, color = Color(0xFF9AA6C8))
+                            Text("Build: Myra AI • Android • Gemini", fontSize = 11.sp, color = Color(0xFF9AA6C8))
                         }
                     },
                     confirmButton = {
@@ -392,7 +392,7 @@ class MainActivity : ComponentActivity() {
                             prefs.edit()
                                 .putString("gemini_key", apiKey)
                                 .putString("user_name", userNameDraft.trim())
-                                .putString("assistant_name", assistantNameDraft.trim().ifBlank { "Sona" })
+                                .putString("assistant_name", assistantNameDraft.trim().ifBlank { "Myra" })
                                 .putString("language", languageDraft.trim())
                                 .putString("voice_style", voiceDraft.trim())
                                 .putString("personality", personalityDraft.trim())
@@ -478,7 +478,7 @@ class MainActivity : ComponentActivity() {
                 val bytes = contentResolver.openInputStream(uri)?.use { it.readBytes() }
                     ?: throw IllegalStateException("File could not be opened")
                 if (bytes.size > 15 * 1024 * 1024) throw IllegalArgumentException("File is over 15 MB. Choose a smaller file.")
-                val parts = JSONArray()
+                val parts = JMYRArray()
                 parts.put(JSONObject().put("text", "Analyze the attached file for the user. If it is a PDF, summarize its key points. If it is an image, describe what is visible. If it is text, summarize it. Answer in the user's language, clearly and accurately."))
                 if (mime.startsWith("text/") || mime == "application/json") {
                     parts.put(JSONObject().put("text", String(bytes, Charsets.UTF_8).take(30000)))
@@ -489,7 +489,7 @@ class MainActivity : ComponentActivity() {
                 } else {
                     throw IllegalArgumentException("Unsupported file type: $mime. Select a PDF, image, or text file.")
                 }
-                val body = JSONObject().put("contents", JSONArray().put(JSONObject().put("parts", parts)))
+                val body = JSONObject().put("contents", JMYRArray().put(JSONObject().put("parts", parts)))
                     .put("generationConfig", JSONObject().put("maxOutputTokens", 700))
                 val encodedKey = URLEncoder.encode(key, "UTF-8")
                 val conn = (URL("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=$encodedKey").openConnection() as HttpURLConnection)
@@ -503,8 +503,8 @@ class MainActivity : ComponentActivity() {
                     val code = conn.responseCode
                     val raw = (if (code in 200..299) conn.inputStream else conn.errorStream)?.bufferedReader()?.use { it.readText() }.orEmpty()
                     if (code in 200..299) {
-                        answer = JSONObject(raw).optJSONArray("candidates")?.optJSONObject(0)
-                            ?.optJSONObject("content")?.optJSONArray("parts")?.optJSONObject(0)
+                        answer = JSONObject(raw).optJMYRArray("candidates")?.optJSONObject(0)
+                            ?.optJSONObject("content")?.optJMYRArray("parts")?.optJSONObject(0)
                             ?.optString("text")?.takeIf { it.isNotBlank() && it != "null" }
                         if (answer == null) error = "Gemini returned no file analysis."
                     } else {
@@ -524,7 +524,7 @@ class MainActivity : ComponentActivity() {
                 if (answer != null) {
                     heardText = answer!!
                     status = "FILE ANALYZED • GEMINI RESPONSE RECEIVED"
-                    if (ttsReady && getSharedPreferences("sona_private", MODE_PRIVATE).getBoolean("speak_replies", true))
+                    if (ttsReady && getSharedPreferences("myra_private", MODE_PRIVATE).getBoolean("speak_replies", true))
                         textToSpeech?.speak(answer, TextToSpeech.QUEUE_FLUSH, null, "sona-file-analysis")
                 } else {
                     heardText = error
@@ -555,17 +555,17 @@ class MainActivity : ComponentActivity() {
                     doOutput = true
                     setRequestProperty("Content-Type", "application/json; charset=utf-8")
                 }
-                val prefs = getSharedPreferences("sona_private", MODE_PRIVATE)
+                val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
                 val savedMemory = if (prefs.getBoolean("use_memory", true)) prefs.getString("memory_notes", "").orEmpty().take(4000) else ""
                 val languagePreference = prefs.getString("language", "Auto (match me)").orEmpty().trim().ifBlank { "Auto (match me)" }
                 val voicePreference = prefs.getString("voice_style", "Warm & natural").orEmpty().trim().ifBlank { "Warm & natural" }
                 val personalityPreference = prefs.getString("personality", "Friendly, helpful, concise").orEmpty().trim().ifBlank { "Friendly, helpful, concise" }
                 val conversationHistory = prefs.getString("conversation_history", "").orEmpty().takeLast(6000)
                 val userName = prefs.getString("user_name", "").orEmpty().trim()
-                val assistantName = prefs.getString("assistant_name", "Sona").orEmpty().ifBlank { "Sona" }
+                val assistantName = prefs.getString("assistant_name", "Myra").orEmpty().ifBlank { "Myra" }
                 val companionPrompt = "You are $assistantName, a helpful AI assistant. Address the user as $userName when their name is provided. Personality and response style requested by the user: $personalityPreference. Voice style preference: $voicePreference. Language preference: $languagePreference. If language is Auto (match me), reply in the language the user used, especially natural Hindi/Hinglish when appropriate. Make answers sound natural when spoken aloud. Keep replies concise unless asked for detail, and avoid markdown when a short spoken answer is enough. Respect user privacy and be honest about actions you cannot perform.\n\nUser's saved notes (use only when relevant):\n$savedMemory\n\nRecent conversation history (for continuity):\n$conversationHistory\n\nUser says: $prompt"
                 val body = JSONObject()
-                    .put("contents", JSONArray().put(JSONObject().put("parts", JSONArray().put(JSONObject().put("text", companionPrompt)))))
+                    .put("contents", JMYRArray().put(JSONObject().put("parts", JMYRArray().put(JSONObject().put("text", companionPrompt)))))
                     .put("generationConfig", JSONObject().put("maxOutputTokens", 300))
                 connection.outputStream.use { it.write(body.toString().toByteArray(Charsets.UTF_8)) }
                 val code = connection.responseCode
@@ -573,9 +573,9 @@ class MainActivity : ComponentActivity() {
                 val raw = stream?.bufferedReader()?.use { it.readText() }.orEmpty()
                 if (code in 200..299) {
                     val root = JSONObject(raw)
-                    responseText = root.optJSONArray("candidates")
+                    responseText = root.optJMYRArray("candidates")
                         ?.optJSONObject(0)?.optJSONObject("content")
-                        ?.optJSONArray("parts")?.optJSONObject(0)?.optString("text")
+                        ?.optJMYRArray("parts")?.optJSONObject(0)?.optString("text")
                         ?.takeIf { !it.isNullOrBlank() && it != "null" }
                     if (responseText == null) errorText = "Gemini returned an empty answer. Try again."
                 } else {
@@ -594,12 +594,12 @@ class MainActivity : ComponentActivity() {
                 busy = false
                 if (responseText != null) {
                     heardText = responseText!!
-                    val prefs = getSharedPreferences("sona_private", MODE_PRIVATE)
+                    val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
                     val previousHistory = prefs.getString("conversation_history", "").orEmpty()
-                    val updatedHistory = (previousHistory + "\\nUser: " + prompt + "\\nSona: " + responseText).takeLast(12000)
+                    val updatedHistory = (previousHistory + "\\nUser: " + prompt + "\\nMyra: " + responseText).takeLast(12000)
                     prefs.edit().putString("conversation_history", updatedHistory).apply()
                     status = "GEMINI CONNECTED • RESPONSE RECEIVED"
-                    if (ttsReady && getSharedPreferences("sona_private", MODE_PRIVATE).getBoolean("speak_replies", true)) textToSpeech?.speak(responseText, TextToSpeech.QUEUE_FLUSH, null, "sona-gemini-reply")
+                    if (ttsReady && getSharedPreferences("myra_private", MODE_PRIVATE).getBoolean("speak_replies", true)) textToSpeech?.speak(responseText, TextToSpeech.QUEUE_FLUSH, null, "sona-gemini-reply")
                 } else {
                     heardText = errorText
                     status = "AI CONNECTION FAILED"
@@ -629,7 +629,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-private fun SonaHome(
+private fun MyraHome(
     status: String,
     heardText: String,
     hasKey: Boolean,
@@ -706,10 +706,10 @@ private fun SonaHome(
     var decisionOptions by remember { mutableStateOf("") }
     var decisionPriority by remember { mutableStateOf("Best long-term value") }
     var showJournalDialog by remember { mutableStateOf(false) }
-    val journalKey = "sona_journal_" + java.time.LocalDate.now().toString()
-    var journalEntry by remember { mutableStateOf(context.getSharedPreferences("sona_prefs", 0).getString(journalKey, "") ?: "") }
+    val journalKey = "myra_journal_" + java.time.LocalDate.now().toString()
+    var journalEntry by remember { mutableStateOf(context.getSharedPreferences("myra_prefs", 0).getString(journalKey, "") ?: "") }
     var showNotesDialog by remember { mutableStateOf(false) }
-    var notesText by remember { mutableStateOf(context.getSharedPreferences("sona_prefs", 0).getString("sona_quick_notes", "") ?: "") }
+    var notesText by remember { mutableStateOf(context.getSharedPreferences("myra_prefs", 0).getString("myra_quick_notes", "") ?: "") }
     Surface(modifier = Modifier.fillMaxSize(), color = Night) {
         Column(
             modifier = Modifier.fillMaxSize()
@@ -720,11 +720,11 @@ private fun SonaHome(
         ) {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                 Column {
-                    Text("SONA AI", color = Color.White, fontSize = 26.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 2.2.sp)
+                    Text("MYRA AI", color = Color.White, fontSize = 26.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 2.2.sp)
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Box(Modifier.size(7.dp).background(if (hasKey) Color(0xFF4ADE80) else Color(0xFFFBBF24), CircleShape))
                         Spacer(Modifier.width(7.dp))
-                        Text(if (hasKey) "✦ YOUR AI IS READY" else "YOUR PERSONAL AI COMPANION", color = Cyan, fontSize = 9.sp, letterSpacing = 1.4.sp)
+                        Text(if (hasKey) "✦ YOUR AI IS READY" else "YOUR PERMYRAL AI COMPANION", color = Cyan, fontSize = 9.sp, letterSpacing = 1.4.sp)
                     }
                 }
                 TextButton(onClick = onSettings) {
@@ -781,7 +781,7 @@ private fun SonaHome(
                         Box(Modifier.size(142.dp).background(Brush.radialGradient(listOf(Color(0xFF111B43), Color(0xFF050816))), CircleShape), contentAlignment = Alignment.Center) {
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                 Text("✦", color = Cyan, fontSize = 28.sp)
-                                Text("SONA", color = Color.White, fontSize = 25.sp, fontWeight = FontWeight.Light, letterSpacing = 3.sp)
+                                Text("MYRA", color = Color.White, fontSize = 25.sp, fontWeight = FontWeight.Light, letterSpacing = 3.sp)
                                 Text("AI ORB", color = Color(0xFFBCA7FF), fontSize = 9.sp, letterSpacing = 2.sp)
                             }
                         }
@@ -789,7 +789,7 @@ private fun SonaHome(
                 }
             }
             Spacer(Modifier.height(8.dp))
-            Text("Hello, I’m Sona ✨", color = Color.White, fontSize = 27.sp, fontWeight = FontWeight.Bold)
+            Text("Hello, I’m Myra ✨", color = Color.White, fontSize = 27.sp, fontWeight = FontWeight.Bold)
             Spacer(Modifier.height(6.dp))
             Text("Your personal AI space. What’s on your mind?", color = Color(0xFFC4B9E8), fontSize = 13.sp)
             Spacer(Modifier.height(18.dp))
@@ -816,7 +816,7 @@ private fun SonaHome(
                 value = typedPrompt,
                 onValueChange = { typedPrompt = it },
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text("Message Sona") },
+                label = { Text("Message Myra") },
                 placeholder = { Text("Ask anything…") },
                 enabled = !busy,
                 shape = RoundedCornerShape(16.dp),
@@ -855,7 +855,7 @@ private fun SonaHome(
                 shape = RoundedCornerShape(20.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF8B45E8))
             ) {
-                Text(if (busy) "✦  Sona is thinking…" else "🎙   Talk with Sona", color = Color.White, fontSize = 17.sp, fontWeight = FontWeight.Bold)
+                Text(if (busy) "✦  Myra is thinking…" else "🎙   Talk with Myra", color = Color.White, fontSize = 17.sp, fontWeight = FontWeight.Bold)
             }
             Spacer(Modifier.height(8.dp))
             Text("Tap to start a voice conversation", color = Color(0xFF7784AA), fontSize = 11.sp)
@@ -901,7 +901,7 @@ private fun SonaHome(
             Spacer(Modifier.height(10.dp))
             QuickTile("📊 Device Info", "Battery, Android version & model", Modifier.fillMaxWidth(), onClick = onDeviceInfo)
             Spacer(Modifier.height(10.dp))
-            QuickTile("🌍 Quick Translate", "Translate text with Sona AI", Modifier.fillMaxWidth(), onClick = { showTranslateDialog = true })
+            QuickTile("🌍 Quick Translate", "Translate text with Myra AI", Modifier.fillMaxWidth(), onClick = { showTranslateDialog = true })
             Spacer(Modifier.height(10.dp))
             QuickTile("🎓 Study Mode", "Learn topics, quiz yourself, make notes", Modifier.fillMaxWidth(), onClick = { showStudyDialog = true })
             Spacer(Modifier.height(10.dp))
@@ -912,20 +912,20 @@ private fun SonaHome(
             QuickTile("⚖️ Decision Helper", "Compare options, trade-offs and next steps", Modifier.fillMaxWidth(), onClick = { showDecisionDialog = true })
             Spacer(Modifier.height(10.dp))
             QuickTile("📔 Daily Journal", "Write and save today's thoughts privately on this phone", Modifier.fillMaxWidth(), onClick = {
-                journalEntry = context.getSharedPreferences("sona_prefs", 0).getString(journalKey, "") ?: ""
+                journalEntry = context.getSharedPreferences("myra_prefs", 0).getString(journalKey, "") ?: ""
                 showJournalDialog = true
             })
             Spacer(Modifier.height(10.dp))
             QuickTile("📝 Quick Notes", "Save ideas and important details on this phone", Modifier.fillMaxWidth(), onClick = {
-                notesText = context.getSharedPreferences("sona_prefs", 0).getString("sona_quick_notes", "") ?: ""
+                notesText = context.getSharedPreferences("myra_prefs", 0).getString("myra_quick_notes", "") ?: ""
                 showNotesDialog = true
             })
             Spacer(Modifier.height(10.dp))
-            QuickTile("↗ Share latest answer", "Send Sona's reply to another app", Modifier.fillMaxWidth(), onClick = onShareAnswer)
+            QuickTile("↗ Share latest answer", "Send Myra's reply to another app", Modifier.fillMaxWidth(), onClick = onShareAnswer)
             Spacer(Modifier.height(10.dp))
-            QuickTile("📋 Copy latest answer", "Copy Sona's reply to clipboard", Modifier.fillMaxWidth(), onClick = onCopyAnswer)
+            QuickTile("📋 Copy latest answer", "Copy Myra's reply to clipboard", Modifier.fillMaxWidth(), onClick = onCopyAnswer)
             Spacer(Modifier.height(10.dp))
-            QuickTile("🔊 Speak latest answer", "Read Sona's reply aloud", Modifier.fillMaxWidth(), onClick = onSpeakAnswer)
+            QuickTile("🔊 Speak latest answer", "Read Myra's reply aloud", Modifier.fillMaxWidth(), onClick = onSpeakAnswer)
             Spacer(Modifier.height(10.dp))
             QuickTile("⏹ Stop speaking", "Stop voice playback immediately", Modifier.fillMaxWidth(), onClick = onStopSpeaking)
             Spacer(Modifier.height(20.dp))
@@ -939,7 +939,7 @@ private fun SonaHome(
             title = { Text("Study Mode", color = Cyan, fontWeight = FontWeight.Bold) },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Text("Choose how Sona should help you learn.")
+                    Text("Choose how Myra should help you learn.")
                     listOf("Explain simply", "Make revision notes", "Quiz me", "Give examples").forEach { mode ->
                         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                             RadioButton(selected = studyMode == mode, onClick = { studyMode = mode })
@@ -992,7 +992,7 @@ private fun SonaHome(
                     OutlinedTextField(
                         value = writingRequest,
                         onValueChange = { writingRequest = it },
-                        label = { Text("What should Sona write?") },
+                        label = { Text("What should Myra write?") },
                         placeholder = { Text("Add purpose, details and preferred tone…") },
                         minLines = 3,
                         maxLines = 5,
@@ -1019,7 +1019,7 @@ private fun SonaHome(
             title = { Text("AI Goal Planner", color = Cyan, fontWeight = FontWeight.Bold) },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Text("Tell Sona what you want to accomplish.")
+                    Text("Tell Myra what you want to accomplish.")
                     listOf("Balanced daily plan", "Quick starter steps", "Detailed weekly plan").forEach { style ->
                         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                             RadioButton(selected = plannerStyle == style, onClick = { plannerStyle = style })
@@ -1078,14 +1078,14 @@ private fun SonaHome(
             },
             confirmButton = {
                 TextButton(onClick = {
-                    context.getSharedPreferences("sona_prefs", 0).edit().putString(journalKey, journalEntry).apply()
+                    context.getSharedPreferences("myra_prefs", 0).edit().putString(journalKey, journalEntry).apply()
                     showJournalDialog = false
                 }) { Text("Save entry") }
             },
             dismissButton = {
                 TextButton(onClick = {
                     journalEntry = ""
-                    context.getSharedPreferences("sona_prefs", 0).edit().remove(journalKey).apply()
+                    context.getSharedPreferences("myra_prefs", 0).edit().remove(journalKey).apply()
                     showJournalDialog = false
                 }) { Text("Clear") }
             }
@@ -1111,14 +1111,14 @@ private fun SonaHome(
             },
             confirmButton = {
                 TextButton(onClick = {
-                    context.getSharedPreferences("sona_prefs", 0).edit().putString("sona_quick_notes", notesText).apply()
+                    context.getSharedPreferences("myra_prefs", 0).edit().putString("myra_quick_notes", notesText).apply()
                     showNotesDialog = false
                 }) { Text("Save notes") }
             },
             dismissButton = {
                 TextButton(onClick = {
                     notesText = ""
-                    context.getSharedPreferences("sona_prefs", 0).edit().remove("sona_quick_notes").apply()
+                    context.getSharedPreferences("myra_prefs", 0).edit().remove("myra_quick_notes").apply()
                     showNotesDialog = false
                 }) { Text("Clear") }
             }
@@ -1130,7 +1130,7 @@ private fun SonaHome(
             title = { Text("AI Decision Helper", color = Cyan, fontWeight = FontWeight.Bold) },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Text("Sona will compare the options and explain the trade-offs.")
+                    Text("Myra will compare the options and explain the trade-offs.")
                     OutlinedTextField(
                         value = decisionQuestion,
                         onValueChange = { decisionQuestion = it },
