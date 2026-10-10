@@ -316,7 +316,8 @@ class MainActivity : ComponentActivity() {
                 val languagePreference = prefs.getString("language", "Auto (match me)").orEmpty().trim().ifBlank { "Auto (match me)" }
                 val voicePreference = prefs.getString("voice_style", "Warm & natural").orEmpty().trim().ifBlank { "Warm & natural" }
                 val personalityPreference = prefs.getString("personality", "Friendly, helpful, concise").orEmpty().trim().ifBlank { "Friendly, helpful, concise" }
-                val companionPrompt = "You are Sona, a helpful AI assistant. Personality and response style requested by the user: $personalityPreference. Voice style preference: $voicePreference. Language preference: $languagePreference. If language is Auto (match me), reply in the language the user used, especially natural Hindi/Hinglish when appropriate. Make answers sound natural when spoken aloud. Keep replies concise unless asked for detail, and avoid markdown when a short spoken answer is enough. Respect user privacy and be honest about actions you cannot perform.\n\nUser's saved notes (use only when relevant):\n$savedMemory\n\nUser says: $prompt"
+                val conversationHistory = prefs.getString("conversation_history", "").orEmpty().takeLast(6000)
+                val companionPrompt = "You are Sona, a helpful AI assistant. Personality and response style requested by the user: $personalityPreference. Voice style preference: $voicePreference. Language preference: $languagePreference. If language is Auto (match me), reply in the language the user used, especially natural Hindi/Hinglish when appropriate. Make answers sound natural when spoken aloud. Keep replies concise unless asked for detail, and avoid markdown when a short spoken answer is enough. Respect user privacy and be honest about actions you cannot perform.\n\nUser's saved notes (use only when relevant):\n$savedMemory\n\nRecent conversation history (for continuity):\n$conversationHistory\n\nUser says: $prompt"
                 val body = JSONObject()
                     .put("contents", JSONArray().put(JSONObject().put("parts", JSONArray().put(JSONObject().put("text", companionPrompt)))))
                     .put("generationConfig", JSONObject().put("maxOutputTokens", 300))
@@ -347,6 +348,10 @@ class MainActivity : ComponentActivity() {
                 busy = false
                 if (responseText != null) {
                     heardText = responseText!!
+                    val prefs = getSharedPreferences("sona_private", MODE_PRIVATE)
+                    val previousHistory = prefs.getString("conversation_history", "").orEmpty()
+                    val updatedHistory = (previousHistory + "\\nUser: " + prompt + "\\nSona: " + responseText).takeLast(12000)
+                    prefs.edit().putString("conversation_history", updatedHistory).apply()
                     status = "GEMINI CONNECTED • RESPONSE RECEIVED"
                     if (ttsReady && getSharedPreferences("sona_private", MODE_PRIVATE).getBoolean("speak_replies", true)) textToSpeech?.speak(responseText, TextToSpeech.QUEUE_FLUSH, null, "sona-gemini-reply")
                 } else {
