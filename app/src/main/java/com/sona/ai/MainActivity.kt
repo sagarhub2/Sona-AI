@@ -777,6 +777,7 @@ private fun MyraHome(
     val journalKey = "myra_journal_" + java.time.LocalDate.now().toString()
     var journalEntry by remember { mutableStateOf(context.getSharedPreferences("myra_prefs", 0).getString(journalKey, "") ?: "") }
     var showNotesDialog by remember { mutableStateOf(false) }
+    var showAllTools by remember { mutableStateOf(false) }
     var notesText by remember { mutableStateOf(context.getSharedPreferences("myra_prefs", 0).getString("myra_quick_notes", "") ?: "") }
     Surface(modifier = Modifier.fillMaxSize(), color = Night) {
         Column(
@@ -940,6 +941,7 @@ private fun MyraHome(
                 QuickTile("🌐 Search", "Explore the web", Modifier.weight(1f), onClick = { showSearchDialog = true })
             }
             Spacer(Modifier.height(10.dp))
+            if (showAllTools) {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 QuickTile("📱 Phone Control", "Device settings", Modifier.weight(1f), onClick = onDeviceSettings)
                 QuickTile("🎵 Media", "Open YouTube", Modifier.weight(1f), onClick = onMedia)
@@ -996,6 +998,16 @@ private fun MyraHome(
             QuickTile("🔊 Speak latest answer", "Read Myra's reply aloud", Modifier.fillMaxWidth(), onClick = onSpeakAnswer)
             Spacer(Modifier.height(10.dp))
             QuickTile("⏹ Stop speaking", "Stop voice playback immediately", Modifier.fillMaxWidth(), onClick = onStopSpeaking)
+            }
+            Spacer(Modifier.height(10.dp))
+            OutlinedButton(
+                onClick = { showAllTools = !showAllTools },
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.outlinedButtonColors(contentColor = Cyan),
+                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF39416D))
+            ) {
+                Text(if (showAllTools) "⌃  Show fewer tools" else "⌄  Explore all Myra tools")
+            }
             Spacer(Modifier.height(20.dp))
             Text("VOICE • MEMORY • SEARCH • TOOLS", color = Color(0xFF66708F), fontSize = 10.sp, letterSpacing = 2.sp)
             Spacer(Modifier.height(8.dp))
