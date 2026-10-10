@@ -695,6 +695,10 @@ private fun SonaHome(
     var showWritingStudio by remember { mutableStateOf(false) }
     var writingRequest by remember { mutableStateOf("") }
     var writingMode by remember { mutableStateOf("Professional message") }
+    var showPlannerDialog by remember { mutableStateOf(false) }
+    var plannerGoal by remember { mutableStateOf("") }
+    var plannerDuration by remember { mutableStateOf("7 days") }
+    var plannerStyle by remember { mutableStateOf("Balanced daily plan") }
     Surface(modifier = Modifier.fillMaxSize(), color = Night) {
         Column(
             modifier = Modifier.fillMaxSize()
@@ -892,6 +896,8 @@ private fun SonaHome(
             Spacer(Modifier.height(10.dp))
             QuickTile("✍️ Writing Studio", "Draft messages, captions, emails and ideas", Modifier.fillMaxWidth(), onClick = { showWritingStudio = true })
             Spacer(Modifier.height(10.dp))
+            QuickTile("🗓️ Goal Planner", "Turn a goal into clear, manageable steps", Modifier.fillMaxWidth(), onClick = { showPlannerDialog = true })
+            Spacer(Modifier.height(10.dp))
             QuickTile("↗ Share latest answer", "Send Sona's reply to another app", Modifier.fillMaxWidth(), onClick = onShareAnswer)
             Spacer(Modifier.height(10.dp))
             QuickTile("📋 Copy latest answer", "Copy Sona's reply to clipboard", Modifier.fillMaxWidth(), onClick = onCopyAnswer)
@@ -982,6 +988,50 @@ private fun SonaHome(
                 }) { Text("Create draft") }
             },
             dismissButton = { TextButton(onClick = { showWritingStudio = false }) { Text("Cancel") } }
+        )
+    }
+    if (showPlannerDialog) {
+        AlertDialog(
+            onDismissRequest = { showPlannerDialog = false },
+            title = { Text("AI Goal Planner", color = Cyan, fontWeight = FontWeight.Bold) },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    Text("Tell Sona what you want to accomplish.")
+                    listOf("Balanced daily plan", "Quick starter steps", "Detailed weekly plan").forEach { style ->
+                        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                            RadioButton(selected = plannerStyle == style, onClick = { plannerStyle = style })
+                            Text(style, color = Color.White)
+                        }
+                    }
+                    Text("Timeline", color = Cyan, fontWeight = FontWeight.Medium)
+                    listOf("Today", "7 days", "30 days").forEach { duration ->
+                        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                            RadioButton(selected = plannerDuration == duration, onClick = { plannerDuration = duration })
+                            Text(duration, color = Color.White)
+                        }
+                    }
+                    OutlinedTextField(
+                        value = plannerGoal,
+                        onValueChange = { plannerGoal = it },
+                        label = { Text("Your goal") },
+                        placeholder = { Text("e.g. learn React basics") },
+                        minLines = 2,
+                        maxLines = 4,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    val goal = plannerGoal.trim()
+                    if (goal.isNotBlank()) {
+                        onAskText("Create a $plannerDuration plan for this goal: $goal. Plan style: $plannerStyle. Break it into realistic steps with priorities, time estimates, a simple checklist, and a progress review. Avoid unrealistic promises and ask no follow-up questions; state reasonable assumptions.")
+                        showPlannerDialog = false
+                        plannerGoal = ""
+                    }
+                }) { Text("Build my plan") }
+            },
+            dismissButton = { TextButton(onClick = { showPlannerDialog = false }) { Text("Cancel") } }
         )
     }
     if (showSearchDialog) {
