@@ -699,6 +699,9 @@ private fun SonaHome(
     var plannerGoal by remember { mutableStateOf("") }
     var plannerDuration by remember { mutableStateOf("7 days") }
     var plannerStyle by remember { mutableStateOf("Balanced daily plan") }
+    var showJournalDialog by remember { mutableStateOf(false) }
+    val journalKey = "sona_journal_" + java.time.LocalDate.now().toString()
+    var journalEntry by remember { mutableStateOf(context.getSharedPreferences("sona_prefs", 0).getString(journalKey, "") ?: "") }
     Surface(modifier = Modifier.fillMaxSize(), color = Night) {
         Column(
             modifier = Modifier.fillMaxSize()
@@ -898,6 +901,11 @@ private fun SonaHome(
             Spacer(Modifier.height(10.dp))
             QuickTile("🗓️ Goal Planner", "Turn a goal into clear, manageable steps", Modifier.fillMaxWidth(), onClick = { showPlannerDialog = true })
             Spacer(Modifier.height(10.dp))
+            QuickTile("📔 Daily Journal", "Write and save today's thoughts privately on this phone", Modifier.fillMaxWidth(), onClick = {
+                journalEntry = context.getSharedPreferences("sona_prefs", 0).getString(journalKey, "") ?: ""
+                showJournalDialog = true
+            })
+            Spacer(Modifier.height(10.dp))
             QuickTile("↗ Share latest answer", "Send Sona's reply to another app", Modifier.fillMaxWidth(), onClick = onShareAnswer)
             Spacer(Modifier.height(10.dp))
             QuickTile("📋 Copy latest answer", "Copy Sona's reply to clipboard", Modifier.fillMaxWidth(), onClick = onCopyAnswer)
@@ -1032,6 +1040,42 @@ private fun SonaHome(
                 }) { Text("Build my plan") }
             },
             dismissButton = { TextButton(onClick = { showPlannerDialog = false }) { Text("Cancel") } }
+        )
+    }
+    if (showJournalDialog) {
+        AlertDialog(
+            onDismissRequest = { showJournalDialog = false },
+            title = { Text("Daily Journal", color = Cyan, fontWeight = FontWeight.Bold) },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text("Today • " + java.time.LocalDate.now().toString(), color = Cyan)
+                    Text("Write down what happened, what you learned, or what you want to remember.")
+                    OutlinedTextField(
+                        value = journalEntry,
+                        onValueChange = { journalEntry = it },
+                        placeholder = { Text("Dear journal…") },
+                        minLines = 5,
+                        maxLines = 9,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Text("Saved on this device only. This is not cloud-synced.", color = Color.Gray, fontSize = 11.sp)
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    context.getSharedPreferences("sona_prefs", 0).edit().putString(journalKey, journalEntry).apply()
+                    showJournalDialog = false
+                    status = "TODAY'S JOURNAL SAVED"
+                }) { Text("Save entry") }
+            },
+            dismissButton = {
+                TextButton(onClick = {
+                    journalEntry = ""
+                    context.getSharedPreferences("sona_prefs", 0).edit().remove(journalKey).apply()
+                    showJournalDialog = false
+                    status = "TODAY'S JOURNAL CLEARED"
+                }) { Text("Clear") }
+            }
         )
     }
     if (showSearchDialog) {
