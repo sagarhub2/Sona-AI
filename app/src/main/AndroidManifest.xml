@@ -15,6 +15,18 @@
             </intent-filter>
         </activity>
         <service
+            android:name=".MyraAccessibilityService"
+            android:label="Myra AI accessibility navigation"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/myra_accessibility_service" />
+        </service>
+        <service
             android:name=".MyraNotificationListenerService"
             android:label="Myra AI notification reader"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
