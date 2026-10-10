@@ -45,9 +45,22 @@ import java.net.URLEncoder
 import java.util.Locale
 import kotlinx.coroutines.launch
 
-private val Night = Color(0xFF05040D)
-private val Violet = Color(0xFFB86BFF)
-private val Cyan = Color(0xFF7DEBFF)
+private var activeThemeName by mutableStateOf("Holographic")
+private val Night: Color get() = when (activeThemeName) {
+    "Aurora" -> Color(0xFF04110F)
+    "Rose" -> Color(0xFF140711)
+    else -> Color(0xFF05040D)
+}
+private val Violet: Color get() = when (activeThemeName) {
+    "Aurora" -> Color(0xFF52E0B5)
+    "Rose" -> Color(0xFFFF78B7)
+    else -> Color(0xFFB86BFF)
+}
+private val Cyan: Color get() = when (activeThemeName) {
+    "Aurora" -> Color(0xFF9CFFD8)
+    "Rose" -> Color(0xFFFFB3D6)
+    else -> Color(0xFF7DEBFF)
+}
 private const val AUDIO_PERMISSION_REQUEST = 410
 
 class MainActivity : ComponentActivity() {
@@ -68,6 +81,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         migrateLegacyPreferences()
+        activeThemeName = getSharedPreferences("myra_private", MODE_PRIVATE).getString("theme_style", "Holographic") ?: "Holographic"
         apiKey = getSharedPreferences("myra_private", MODE_PRIVATE).getString("gemini_key", "") ?: ""
         heardText = if (apiKey.isBlank()) "Add your Gemini API key in Settings to enable AI." else "Gemini key saved • ready to connect"
         textToSpeech = TextToSpeech(this) { result ->
@@ -379,6 +393,7 @@ class MainActivity : ComponentActivity() {
                 var speechPitch by remember { mutableFloatStateOf(prefs.getFloat("speech_pitch", 1.06f)) }
                 var autoListen by remember { mutableStateOf(prefs.getBoolean("auto_listen", false)) }
                 var animatedOrb by remember { mutableStateOf(prefs.getBoolean("animated_orb", true)) }
+                var themeDraft by remember { mutableStateOf(prefs.getString("theme_style", "Holographic") ?: "Holographic") }
                 var rememberNotes by remember { mutableStateOf(prefs.getBoolean("use_memory", true)) }
                 AlertDialog(
                     onDismissRequest = { showSettings = false },
@@ -437,7 +452,27 @@ class MainActivity : ComponentActivity() {
                             }
                             OutlinedTextField(value = personalityDraft, onValueChange = { personalityDraft = it }, label = { Text("Custom personality / instructions") }, minLines = 2, modifier = Modifier.fillMaxWidth())
                             SettingToggle("Use saved Memory notes in replies", rememberNotes, { rememberNotes = it })
-                            Text("APPEARANCE", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text("APPEARANCE & STYLE", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text("Choose Myra's accent palette. Changes apply across the interface.", color = Color(0xFF9AA6C8), fontSize = 12.sp)
+                            listOf(
+                                "Holographic" to "Cyan + violet",
+                                "Aurora" to "Mint + emerald",
+                                "Rose" to "Pink + magenta"
+                            ).forEach { (themeName, themeDescription) ->
+                                Row(
+                                    Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp))
+                                        .background(if (themeDraft == themeName) Color(0x332CDBFF) else Color(0xFF10162A))
+                                        .clickable { themeDraft = themeName }
+                                        .padding(horizontal = 10.dp, vertical = 10.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Column(Modifier.weight(1f)) {
+                                        Text(themeName, color = Color.White, fontWeight = FontWeight.Medium, fontSize = 13.sp)
+                                        Text(themeDescription, color = Color(0xFF9AA6C8), fontSize = 11.sp)
+                                    }
+                                    RadioButton(selected = themeDraft == themeName, onClick = { themeDraft = themeName })
+                                }
+                            }
                             SettingToggle("Animated holographic orb", animatedOrb, { animatedOrb = it })
                             Text("PHONE, FILES & PERMISSIONS", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("Use Android app settings to review or change permissions available to Myra AI.", fontSize = 12.sp, color = Color(0xFF9AA6C8))
@@ -477,8 +512,10 @@ class MainActivity : ComponentActivity() {
                                 .putFloat("speech_pitch", speechPitch)
                                 .putBoolean("auto_listen", autoListen)
                                 .putBoolean("animated_orb", animatedOrb)
+                                .putString("theme_style", themeDraft)
                                 .putBoolean("use_memory", rememberNotes)
                                 .apply()
+                            activeThemeName = themeDraft
                             showSettings = false
                             heardText = if (apiKey.isBlank()) "API key removed." else "Settings saved • Gemini key stored"
                             status = if (apiKey.isBlank()) "AI NOT CONNECTED" else "SETTINGS SAVED • READY TO CONNECT"
