@@ -765,7 +765,54 @@ class MainActivity : ComponentActivity() {
                 launch(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_APP_CLOCK), "Opening clock")
             listOf("open gallery", "gallery kholo", "open photos", "photos kholo").any { prompt.contains(it) } ->
                 launch(Intent(Intent.ACTION_VIEW).setDataAndType(android.net.Uri.parse("content://media/internal/images/media"), "image/*"), "Opening gallery")
+            listOf("play", "youtube par chalao", "song play", "video play").any { prompt.startsWith(it) } -> {
+                val query = rawPrompt.trim().replace(Regex("(?i)^(play|youtube par chalao|song play|video play)\\s*"), "").trim()
+                val target = if (query.isBlank()) "https://www.youtube.com" else "https://www.youtube.com/results?search_query=" + URLEncoder.encode(query, "UTF-8")
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse(target)), if (query.isBlank()) "Opening YouTube" else "Searching YouTube for: $query")
+            }
+            listOf("open youtube", "youtube kholo", "youtube open karo").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.youtube.com")), "Opening YouTube")
+            listOf("stop video", "video stop", "pause video", "pause karo", "video rok do", "song stop", "music stop").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_APP_MUSIC), "Opened media app; tap pause if playback continues")
+            listOf("scroll down", "neeche scroll", "page down", "scroll karo neeche").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.google.com")), "Open Myra Accessibility in phone settings to enable hands-free scrolling")
+            listOf("scroll up", "upar scroll", "page up").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS), "Open accessibility settings to enable scrolling controls")
+            listOf("make a call to", "call ", "phone lagao ").any { prompt.startsWith(it) } -> {
+                val number = rawPrompt.replace(Regex("(?i)^(make a call to|call|phone lagao)\\s*"), "").trim()
+                if (number.isBlank()) launch(Intent(Intent.ACTION_DIAL), "Opening phone dialer")
+                else launch(Intent(Intent.ACTION_DIAL, android.net.Uri.parse("tel:" + android.net.Uri.encode(number))), "Opening dialer for $number")
+            }
+            listOf("message ", "sms ", "text ").any { prompt.startsWith(it) } -> {
+                val body = rawPrompt.replace(Regex("(?i)^(message|sms|text)\\s*"), "").trim()
+                launch(Intent(Intent.ACTION_SENDTO, android.net.Uri.parse("smsto:")).apply { putExtra("sms_body", body) }, "Message draft opened; review recipient and send")
+            }
+            listOf("open instagram", "instagram kholo").any { prompt.contains(it) } ->
+                launchAppOrWeb("com.instagram.android", "https://www.instagram.com", "Opening Instagram")
+            listOf("open whatsapp", "whatsapp kholo").any { prompt.contains(it) } ->
+                launchAppOrWeb("com.whatsapp", "https://web.whatsapp.com", "Opening WhatsApp")
+            listOf("open facebook", "facebook kholo").any { prompt.contains(it) } ->
+                launchAppOrWeb("com.facebook.katana", "https://www.facebook.com", "Opening Facebook")
+            listOf("open x", "open twitter", "twitter kholo", "x kholo").any { prompt.contains(it) } ->
+                launchAppOrWeb("com.twitter.android", "https://x.com", "Opening X")
+            listOf("open spotify", "spotify kholo").any { prompt.contains(it) } ->
+                launchAppOrWeb("com.spotify.music", "https://open.spotify.com", "Opening Spotify")
             else -> false
+        }
+    }
+
+    private fun launchAppOrWeb(packageId: String, url: String, message: String): Boolean {
+        return try {
+            val appIntent = packageManager.getLaunchIntentForPackage(packageId)
+            if (appIntent != null) startActivity(appIntent)
+            else startActivity(Intent(Intent.ACTION_VIEW, android.net.Uri.parse(url)))
+            status = message
+            heardText = message
+            true
+        } catch (_: Exception) {
+            status = "APP NOT AVAILABLE"
+            heardText = status
+            true
         }
     }
 
