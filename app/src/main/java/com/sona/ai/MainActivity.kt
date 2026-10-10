@@ -15,6 +15,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.border
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.*
@@ -38,6 +39,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLEncoder
 import java.util.Locale
+import kotlinx.coroutines.launch
 
 private val Night = Color(0xFF05040D)
 private val Violet = Color(0xFFB86BFF)
@@ -778,11 +780,16 @@ private fun MyraHome(
     var journalEntry by remember { mutableStateOf(context.getSharedPreferences("myra_prefs", 0).getString(journalKey, "") ?: "") }
     var showNotesDialog by remember { mutableStateOf(false) }
     var showAllTools by remember { mutableStateOf(false) }
+    var selectedNav by remember { mutableStateOf("Assistant") }
+    val navScope = rememberCoroutineScope()
     var notesText by remember { mutableStateOf(context.getSharedPreferences("myra_prefs", 0).getString("myra_quick_notes", "") ?: "") }
     Surface(modifier = Modifier.fillMaxSize(), color = Night) {
         Column(
             modifier = Modifier.fillMaxSize()
                 .background(Brush.verticalGradient(listOf(Color(0xFF1A1030), Color(0xFF070611), Color(0xFF100A20))))
+        ) {
+        Column(
+            modifier = Modifier.weight(1f).fillMaxWidth()
                 .verticalScroll(scrollState)
                 .padding(horizontal = 20.dp, vertical = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -1011,6 +1018,16 @@ private fun MyraHome(
             Spacer(Modifier.height(20.dp))
             Text("VOICE • MEMORY • SEARCH • TOOLS", color = Color(0xFF66708F), fontSize = 10.sp, letterSpacing = 2.sp)
             Spacer(Modifier.height(8.dp))
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth().background(Color(0xF20A0B18)).border(1.dp, Color(0x332DDAFF)).padding(horizontal = 8.dp, vertical = 7.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(Modifier.weight(1f).background(if (selectedNav == "Assistant") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(14.dp)).clickable { selectedNav = "Assistant"; showAllTools = false; navScope.launch { scrollState.animateScrollTo(0) } }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("✧", color = if (selectedNav == "Assistant") Cyan else Color(0xFF8993B7), fontSize = 19.sp); Text("Myra", color = if (selectedNav == "Assistant") Color.White else Color(0xFF8993B7), fontSize = 10.sp) }
+            Column(Modifier.weight(1f).background(if (selectedNav == "Memory") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(14.dp)).clickable { selectedNav = "Memory"; onMemory() }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("◉", color = if (selectedNav == "Memory") Cyan else Color(0xFF8993B7), fontSize = 19.sp); Text("Memory", color = if (selectedNav == "Memory") Color.White else Color(0xFF8993B7), fontSize = 10.sp) }
+            Column(Modifier.weight(1f).background(if (selectedNav == "Tools") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(14.dp)).clickable { selectedNav = "Tools"; showAllTools = true; navScope.launch { scrollState.animateScrollTo(scrollState.maxValue) } }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("⌘", color = if (selectedNav == "Tools") Cyan else Color(0xFF8993B7), fontSize = 19.sp); Text("Tools", color = if (selectedNav == "Tools") Color.White else Color(0xFF8993B7), fontSize = 10.sp) }
+            Column(Modifier.weight(1f).background(if (selectedNav == "Settings") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(14.dp)).clickable { selectedNav = "Settings"; onSettings() }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("⚙", color = if (selectedNav == "Settings") Cyan else Color(0xFF8993B7), fontSize = 19.sp); Text("Settings", color = if (selectedNav == "Settings") Color.White else Color(0xFF8993B7), fontSize = 10.sp) }
+        }
         }
     }
     if (showStudyDialog) {
