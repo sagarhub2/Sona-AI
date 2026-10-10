@@ -61,6 +61,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        migrateLegacyPreferences()
         apiKey = getSharedPreferences("myra_private", MODE_PRIVATE).getString("gemini_key", "") ?: ""
         heardText = if (apiKey.isBlank()) "Add your Gemini API key in Settings to enable AI." else "Gemini key saved • ready to connect"
         textToSpeech = TextToSpeech(this) { result ->
@@ -413,6 +414,50 @@ class MainActivity : ComponentActivity() {
                 )
             }
         }
+    }
+
+
+    /**
+     * Preserve settings and locally saved notes from earlier Sona AI installs
+     * after the app was rebranded to Myra AI. Legacy values are copied only
+     * when the new preference does not already contain that value.
+     */
+    private fun migrateLegacyPreferences() {
+        copyPreferences("sona_private", "myra_private") { key -> key }
+        copyPreferences("sona_prefs", "myra_prefs") { key ->
+            when {
+                key.startsWith("sona_journal_") -> key.replaceFirst("sona_journal_", "myra_journal_")
+                key == "sona_quick_notes" -> "myra_quick_notes"
+                else -> key
+            }
+        }
+    }
+
+    private fun copyPreferences(
+        oldName: String,
+        newName: String,
+        migrateKey: (String) -> String
+    ) {
+        val oldPrefs = getSharedPreferences(oldName, MODE_PRIVATE)
+        val newPrefs = getSharedPreferences(newName, MODE_PRIVATE)
+        val editor = newPrefs.edit()
+        oldPrefs.all.forEach { (oldKey, value) ->
+            val newKey = migrateKey(oldKey)
+            if (!newPrefs.contains(newKey) && value != null) {
+                when (value) {
+                    is String -> editor.putString(newKey, value)
+                    is Boolean -> editor.putBoolean(newKey, value)
+                    is Int -> editor.putInt(newKey, value)
+                    is Long -> editor.putLong(newKey, value)
+                    is Float -> editor.putFloat(newKey, value)
+                    is Set<*> -> {
+                        val strings = value.filterIsInstance<String>().toSet()
+                        if (strings.size == value.size) editor.putStringSet(newKey, strings)
+                    }
+                }
+            }
+        }
+        editor.apply()
     }
 
     private fun requestOrStartVoice() {
