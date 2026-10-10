@@ -911,14 +911,14 @@ private fun SonaHome(
             Spacer(Modifier.height(10.dp))
             QuickTile("⚖️ Decision Helper", "Compare options, trade-offs and next steps", Modifier.fillMaxWidth(), onClick = { showDecisionDialog = true })
             Spacer(Modifier.height(10.dp))
-            QuickTile("📔 Daily Journal", "Write and save today's thoughts privately on this phone", Mod
+            QuickTile("📔 Daily Journal", "Write and save today's thoughts privately on this phone", Modifier.fillMaxWidth(), onClick = {
+                journalEntry = context.getSharedPreferences("sona_prefs", 0).getString(journalKey, "") ?: ""
+                showJournalDialog = true
+            })
             Spacer(Modifier.height(10.dp))
             QuickTile("📝 Quick Notes", "Save ideas and important details on this phone", Modifier.fillMaxWidth(), onClick = {
                 notesText = context.getSharedPreferences("sona_prefs", 0).getString("sona_quick_notes", "") ?: ""
                 showNotesDialog = true
-            })ifier.fillMaxWidth(), onClick = {
-                journalEntry = context.getSharedPreferences("sona_prefs", 0).getString(journalKey, "") ?: ""
-                showJournalDialog = true
             })
             Spacer(Modifier.height(10.dp))
             QuickTile("↗ Share latest answer", "Send Sona's reply to another app", Modifier.fillMaxWidth(), onClick = onShareAnswer)
