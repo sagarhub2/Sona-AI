@@ -134,6 +134,22 @@ class MainActivity : ComponentActivity() {
                             putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("application/pdf", "image/*", "text/*"))
                         }, 411)
                     } catch (_: Exception) { status = "FILE PICKER UNAVAILABLE" }
+                },
+                onDeviceSettings = {
+                    try { startActivity(Intent(android.provider.Settings.ACTION_SETTINGS)) }
+                    catch (_: Exception) { status = "SETTINGS UNAVAILABLE" }
+                },
+                onCamera = {
+                    try { startActivity(Intent("android.media.action.IMAGE_CAPTURE")) }
+                    catch (_: Exception) { status = "CAMERA UNAVAILABLE" }
+                },
+                onContacts = {
+                    try { startActivity(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("content://contacts/people/"))) }
+                    catch (_: Exception) { status = "CONTACTS UNAVAILABLE" }
+                },
+                onMedia = {
+                    try { startActivity(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.youtube.com"))) }
+                    catch (_: Exception) { status = "MEDIA APP UNAVAILABLE" }
                 }
             )
             if (showMemory) {
@@ -329,7 +345,11 @@ private fun SonaHome(
     onSettings: () -> Unit,
     onMemory: () -> Unit,
     onSearch: (String) -> Unit,
-    onFiles: () -> Unit
+    onFiles: () -> Unit,
+    onDeviceSettings: () -> Unit,
+    onCamera: () -> Unit,
+    onContacts: () -> Unit,
+    onMedia: () -> Unit
 ) {
     val transition = androidx.compose.animation.core.rememberInfiniteTransition(label = "sona-orb")
     val pulse by transition.animateFloat(
@@ -427,6 +447,16 @@ private fun SonaHome(
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 QuickTile("🧠 Memory", "Notes & recall", Modifier.weight(1f), onClick = onMemory)
                 QuickTile("🌐 Search", "Explore the web", Modifier.weight(1f), onClick = { showSearchDialog = true })
+            }
+            Spacer(Modifier.height(10.dp))
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                QuickTile("📱 Phone Control", "Device settings", Modifier.weight(1f), onClick = onDeviceSettings)
+                QuickTile("🎵 Media", "Open YouTube", Modifier.weight(1f), onClick = onMedia)
+            }
+            Spacer(Modifier.height(10.dp))
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                QuickTile("📷 Camera", "Open camera", Modifier.weight(1f), onClick = onCamera)
+                QuickTile("📇 Contacts", "Open contacts", Modifier.weight(1f), onClick = onContacts)
             }
             Spacer(Modifier.height(10.dp))
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
