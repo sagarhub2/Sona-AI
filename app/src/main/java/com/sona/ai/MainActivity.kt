@@ -657,6 +657,41 @@ class MainActivity : ComponentActivity() {
         }.start()
     }
 
+    private fun isMyraAccessibilityEnabled(): Boolean {
+        val enabled = android.provider.Settings.Secure.getString(
+            contentResolver,
+            android.provider.Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
+        ).orEmpty()
+        val expected = android.content.ComponentName(this, MyraAccessibilityService::class.java).flattenToString()
+        return enabled.split(':').any { it.equals(expected, ignoreCase = true) }
+    }
+
+    private fun runAccessibilityAction(action: String, description: String): Boolean {
+        if (!isMyraAccessibilityEnabled()) {
+            status = "ENABLE MYRA ACCESSIBILITY FIRST"
+            heardText = "Please enable Myra AI accessibility navigation in Android Accessibility settings. Then say the command again."
+            if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-accessibility-help")
+            return try {
+                startActivity(Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS))
+                true
+            } catch (_: Exception) {
+                status = "ACCESSIBILITY SETTINGS UNAVAILABLE"
+                true
+            }
+        }
+        return try {
+            startService(Intent(this, MyraAccessibilityService::class.java).setAction(action))
+            status = description
+            heardText = description
+            if (ttsReady) textToSpeech?.speak(description, TextToSpeech.QUEUE_FLUSH, null, "myra-accessibility-action")
+            true
+        } catch (_: Exception) {
+            status = "ACCESSIBILITY ACTION FAILED"
+            heardText = "Could not perform that navigation action."
+            true
+        }
+    }
+
     private fun handleLocalCommand(rawPrompt: String): Boolean {
         val prompt = rawPrompt.trim().lowercase(Locale.ROOT)
         fun launch(intent: Intent, success: String): Boolean {
@@ -744,6 +779,16 @@ class MainActivity : ComponentActivity() {
                 launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://fast.com")), "Opening internet speed test")
             listOf("open google drive", "google drive kholo", "drive kholo").any { prompt.contains(it) } ->
                 launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://drive.google.com")), "Opening Google Drive")
+            listOf("go back", "press back", "back jao", "peeche jao").any { prompt == it } ->
+                runAccessibilityAction(MyraAccessibilityService.ACTION_BACK, "Going back")
+            listOf("go home", "home screen kholo", "home jao", "ghar screen kholo").any { prompt == it } ->
+                runAccessibilityAction(MyraAccessibilityService.ACTION_HOME, "Going to Home screen")
+            listOf("open notifications", "show notifications", "notification panel kholo", "notifications kholo").any { prompt == it } ->
+                runAccessibilityAction(MyraAccessibilityService.ACTION_NOTIFICATIONS, "Opening notifications")
+            listOf("open quick settings", "quick settings kholo", "control center kholo", "quick panel kholo").any { prompt == it } ->
+                runAccessibilityAction(MyraAccessibilityService.ACTION_QUICK_SETTINGS, "Opening Quick Settings")
+            listOf("open recent apps", "recent apps kholo", "app switcher kholo").any { prompt == it } ->
+                runAccessibilityAction(MyraAccessibilityService.ACTION_RECENTS, "Opening recent apps")
             listOf("accessibility settings", "open accessibility", "accessibility kholo", "accessibility setting kholo").any { prompt.contains(it) } ->
                 launch(Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS), "Opening Accessibility settings")
             listOf("installed services", "accessibility services").any { prompt.contains(it) } ->
