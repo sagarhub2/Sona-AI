@@ -119,6 +119,7 @@ class MainActivity : ComponentActivity() {
                 heardText = heardText,
                 hasKey = apiKey.isNotBlank(),
                 busy = busy,
+                animatedOrb = getSharedPreferences("sona_private", MODE_PRIVATE).getBoolean("animated_orb", true),
                 onStartVoice = { requestOrStartVoice() },
                 onSettings = { showSettings = true },
                 onMemory = { showMemory = true },
@@ -380,6 +381,7 @@ private fun SonaHome(
     heardText: String,
     hasKey: Boolean,
     busy: Boolean,
+    animatedOrb: Boolean,
     onStartVoice: () -> Unit,
     onSettings: () -> Unit,
     onMemory: () -> Unit,
@@ -391,7 +393,7 @@ private fun SonaHome(
     onMedia: () -> Unit
 ) {
     val transition = androidx.compose.animation.core.rememberInfiniteTransition(label = "sona-orb")
-    val pulse by transition.animateFloat(
+    val animatedPulse by transition.animateFloat(
         initialValue = 0.94f,
         targetValue = 1.06f,
         animationSpec = androidx.compose.animation.core.infiniteRepeatable(
@@ -400,6 +402,7 @@ private fun SonaHome(
         ),
         label = "orb-pulse"
     )
+    val pulse = if (animatedOrb) animatedPulse else 1f
     val scrollState = androidx.compose.foundation.rememberScrollState()
     var showSearchDialog by remember { mutableStateOf(false) }
     var searchQuery by remember { mutableStateOf("") }
