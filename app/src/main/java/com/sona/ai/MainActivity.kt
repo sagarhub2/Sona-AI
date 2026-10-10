@@ -1119,17 +1119,11 @@ private fun MyraHome(
             modifier = Modifier.fillMaxWidth().background(Color(0xF20A0B18)).border(1.dp, Color(0x332DDAFF)).padding(horizontal = 5.dp, vertical = 6.dp),
             horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically
         ) {
-            @Composable fun NavItem(icon: String, label: String, active: Boolean, action: () -> Unit) {
-                Column(Modifier.weight(1f).background(if (active) Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(13.dp)).clickable(onClick = action).padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(icon, color = if (active) Cyan else Color(0xFF8993B7), fontSize = 18.sp)
-                    Text(label, color = if (active) Color.White else Color(0xFF8993B7), fontSize = 9.sp)
-                }
-            }
-            NavItem("⌂", "Home", selectedNav == "Assistant") { selectedNav = "Assistant"; showAllTools = false; navScope.launch { scrollState.animateScrollTo(0) } }
-            NavItem("▤", "Chat", selectedNav == "Chat") { selectedNav = "Chat"; showAllTools = false; navScope.launch { scrollState.animateScrollTo(0) } }
-            NavItem("✦", "Voice", selectedNav == "Voice") { selectedNav = "Voice"; onStartVoice() }
-            NavItem("◷", "History", selectedNav == "History") { selectedNav = "History"; onHistory() }
-            NavItem("⚙", "Settings", selectedNav == "Settings") { selectedNav = "Settings"; onSettings() }
+            Column(Modifier.weight(1f).background(if (selectedNav == "Assistant") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(13.dp)).clickable { selectedNav = "Assistant"; showAllTools = false; navScope.launch { scrollState.animateScrollTo(0) } }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("⌂", color = if (selectedNav == "Assistant") Cyan else Color(0xFF8993B7), fontSize = 18.sp); Text("Home", color = if (selectedNav == "Assistant") Color.White else Color(0xFF8993B7), fontSize = 9.sp) }
+            Column(Modifier.weight(1f).background(if (selectedNav == "Chat") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(13.dp)).clickable { selectedNav = "Chat"; showAllTools = false; navScope.launch { scrollState.animateScrollTo(0) } }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("▤", color = if (selectedNav == "Chat") Cyan else Color(0xFF8993B7), fontSize = 18.sp); Text("Chat", color = if (selectedNav == "Chat") Color.White else Color(0xFF8993B7), fontSize = 9.sp) }
+            Column(Modifier.weight(1f).background(if (selectedNav == "Voice") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(13.dp)).clickable { selectedNav = "Voice"; onStartVoice() }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("✦", color = if (selectedNav == "Voice") Cyan else Color(0xFF8993B7), fontSize = 18.sp); Text("Voice", color = if (selectedNav == "Voice") Color.White else Color(0xFF8993B7), fontSize = 9.sp) }
+            Column(Modifier.weight(1f).background(if (selectedNav == "History") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(13.dp)).clickable { selectedNav = "History"; onHistory() }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("◷", color = if (selectedNav == "History") Cyan else Color(0xFF8993B7), fontSize = 18.sp); Text("History", color = if (selectedNav == "History") Color.White else Color(0xFF8993B7), fontSize = 9.sp) }
+            Column(Modifier.weight(1f).background(if (selectedNav == "Settings") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(13.dp)).clickable { selectedNav = "Settings"; onSettings() }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("⚙", color = if (selectedNav == "Settings") Cyan else Color(0xFF8993B7), fontSize = 18.sp); Text("Settings", color = if (selectedNav == "Settings") Color.White else Color(0xFF8993B7), fontSize = 9.sp) }
         }
         }
     }
