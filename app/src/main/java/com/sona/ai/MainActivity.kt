@@ -699,6 +699,10 @@ private fun SonaHome(
     var plannerGoal by remember { mutableStateOf("") }
     var plannerDuration by remember { mutableStateOf("7 days") }
     var plannerStyle by remember { mutableStateOf("Balanced daily plan") }
+    var showDecisionDialog by remember { mutableStateOf(false) }
+    var decisionQuestion by remember { mutableStateOf("") }
+    var decisionOptions by remember { mutableStateOf("") }
+    var decisionPriority by remember { mutableStateOf("Best long-term value") }
     var showJournalDialog by remember { mutableStateOf(false) }
     val journalKey = "sona_journal_" + java.time.LocalDate.now().toString()
     var journalEntry by remember { mutableStateOf(context.getSharedPreferences("sona_prefs", 0).getString(journalKey, "") ?: "") }
@@ -901,6 +905,8 @@ private fun SonaHome(
             Spacer(Modifier.height(10.dp))
             QuickTile("🗓️ Goal Planner", "Turn a goal into clear, manageable steps", Modifier.fillMaxWidth(), onClick = { showPlannerDialog = true })
             Spacer(Modifier.height(10.dp))
+            QuickTile("⚖️ Decision Helper", "Compare options, trade-offs and next steps", Modifier.fillMaxWidth(), onClick = { showDecisionDialog = true })
+            Spacer(Modifier.height(10.dp))
             QuickTile("📔 Daily Journal", "Write and save today's thoughts privately on this phone", Modifier.fillMaxWidth(), onClick = {
                 journalEntry = context.getSharedPreferences("sona_prefs", 0).getString(journalKey, "") ?: ""
                 showJournalDialog = true
@@ -1076,6 +1082,55 @@ private fun SonaHome(
                     status = "TODAY'S JOURNAL CLEARED"
                 }) { Text("Clear") }
             }
+        )
+    }
+    if (showDecisionDialog) {
+        AlertDialog(
+            onDismissRequest = { showDecisionDialog = false },
+            title = { Text("AI Decision Helper", color = Cyan, fontWeight = FontWeight.Bold) },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    Text("Sona will compare the options and explain the trade-offs.")
+                    OutlinedTextField(
+                        value = decisionQuestion,
+                        onValueChange = { decisionQuestion = it },
+                        label = { Text("What are you deciding?") },
+                        placeholder = { Text("e.g. which project should I start?") },
+                        minLines = 2,
+                        maxLines = 3,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    OutlinedTextField(
+                        value = decisionOptions,
+                        onValueChange = { decisionOptions = it },
+                        label = { Text("Options (one per line)") },
+                        placeholder = { Text("Option A\nOption B\nOption C") },
+                        minLines = 2,
+                        maxLines = 4,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Text("What matters most?", color = Cyan)
+                    listOf("Best long-term value", "Lowest cost", "Fastest result", "Simplest option").forEach { priority ->
+                        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                            RadioButton(selected = decisionPriority == priority, onClick = { decisionPriority = priority })
+                            Text(priority, color = Color.White)
+                        }
+                    }
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    val question = decisionQuestion.trim()
+                    val options = decisionOptions.trim()
+                    if (question.isNotBlank() && options.isNotBlank()) {
+                        onAskText("Help me make this decision: $question. Options:\n$options\nPriority: $decisionPriority. Compare pros and cons, note uncertainties, give a clear recommendation with reasons, and suggest one practical next step. Do not pretend to know facts not provided.")
+                        showDecisionDialog = false
+                        decisionQuestion = ""
+                        decisionOptions = ""
+                    }
+                }) { Text("Compare options") }
+            },
+            dismissButton = { TextButton(onClick = { showDecisionDialog = false }) { Text("Cancel") } }
         )
     }
     if (showSearchDialog) {
