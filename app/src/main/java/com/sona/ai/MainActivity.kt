@@ -157,6 +157,12 @@ class MainActivity : ComponentActivity() {
                     error = Color(0xFFFF6B8A)
                 )
             ) {
+            var showPremiumIntro by remember { mutableStateOf(true) }
+            LaunchedEffect(Unit) {
+                kotlinx.coroutines.delay(2400)
+                showPremiumIntro = false
+            }
+            Box(modifier = Modifier.fillMaxSize()) {
             MyraHome(
                 status = status,
                 heardText = heardText,
@@ -252,6 +258,10 @@ class MainActivity : ComponentActivity() {
 ,
                 onAskText = { prompt -> askGemini(prompt) }
             )
+                if (showPremiumIntro) {
+                    MyraPremiumIntro()
+                }
+            }
             if (showDeviceInfo) {
                 val batteryIntent = registerReceiver(null, android.content.IntentFilter(Intent.ACTION_BATTERY_CHANGED))
                 val level = batteryIntent?.getIntExtra(android.os.BatteryManager.EXTRA_LEVEL, -1) ?: -1
@@ -2605,6 +2615,101 @@ private fun MyraHome(
             },
             dismissButton = { TextButton(onClick = { showSearchDialog = false }) { Text("Cancel") } }
         )
+    }
+}
+
+
+@Composable
+private fun MyraPremiumIntro() {
+    val transition = androidx.compose.animation.core.rememberInfiniteTransition(label = "myra-intro")
+    val pulse by transition.animateFloat(
+        initialValue = 0.94f,
+        targetValue = 1.08f,
+        animationSpec = androidx.compose.animation.core.infiniteRepeatable(
+            animation = androidx.compose.animation.core.tween(1100, easing = androidx.compose.animation.core.FastOutSlowInEasing),
+            repeatMode = androidx.compose.animation.core.RepeatMode.Reverse
+        ),
+        label = "myra-intro-pulse"
+    )
+    val rotation by transition.animateFloat(
+        initialValue = 0f,
+        targetValue = 360f,
+        animationSpec = androidx.compose.animation.core.infiniteRepeatable(
+            animation = androidx.compose.animation.core.tween(7000, easing = androidx.compose.animation.core.LinearEasing)
+        ),
+        label = "myra-intro-rotation"
+    )
+    Box(
+        modifier = Modifier.fillMaxSize().background(
+            Brush.radialGradient(
+                colors = listOf(Color(0xFF18234A), Color(0xFF09091B), Color(0xFF03040B))
+            )
+        ),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            modifier = Modifier.fillMaxSize().padding(28.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Box(
+                modifier = Modifier.size(224.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Box(
+                    modifier = Modifier.size(218.dp).rotate(rotation)
+                        .border(1.dp, Color(0x557DEBFF), CircleShape)
+                )
+                Box(
+                    modifier = Modifier.size(184.dp).rotate(-rotation * 0.7f)
+                        .border(1.dp, Color(0x66B86BFF), CircleShape)
+                )
+                Box(
+                    modifier = Modifier.size((126 * pulse).dp).background(
+                        Brush.radialGradient(
+                            colors = listOf(Color(0xFFB86BFF), Color(0xFF4868FF), Color(0xFF10233D))
+                        ),
+                        CircleShape
+                    ).border(1.dp, Color(0xFF9CF4FF), CircleShape),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text("M", color = Color.White, fontSize = 58.sp, fontWeight = FontWeight.ExtraBold)
+                }
+            }
+            Spacer(Modifier.height(30.dp))
+            Text(
+                "MYRA AI",
+                color = Color.White,
+                fontSize = 34.sp,
+                fontWeight = FontWeight.ExtraBold,
+                letterSpacing = 5.sp
+            )
+            Spacer(Modifier.height(10.dp))
+            Text(
+                "YOUR PERSONAL AI ASSISTANT",
+                color = Cyan,
+                fontSize = 11.sp,
+                fontWeight = FontWeight.SemiBold,
+                letterSpacing = 2.sp
+            )
+            Spacer(Modifier.height(34.dp))
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(16.dp),
+                    color = Cyan,
+                    strokeWidth = 2.dp
+                )
+                Spacer(Modifier.width(10.dp))
+                Text("INITIALIZING YOUR AI", color = Color(0xFFB9C5E8), fontSize = 11.sp, letterSpacing = 1.5.sp)
+            }
+            Spacer(Modifier.height(42.dp))
+            Text(
+                "VOICE  •  MEMORY  •  SMART TOOLS",
+                color = Color(0xFF7887B5),
+                fontSize = 10.sp,
+                letterSpacing = 1.4.sp
+            )
+        }
     }
 }
 
