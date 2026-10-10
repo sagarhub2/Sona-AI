@@ -692,6 +692,9 @@ private fun SonaHome(
     var showStudyDialog by remember { mutableStateOf(false) }
     var studyTopic by remember { mutableStateOf("") }
     var studyMode by remember { mutableStateOf("Explain simply") }
+    var showWritingStudio by remember { mutableStateOf(false) }
+    var writingRequest by remember { mutableStateOf("") }
+    var writingMode by remember { mutableStateOf("Professional message") }
     Surface(modifier = Modifier.fillMaxSize(), color = Night) {
         Column(
             modifier = Modifier.fillMaxSize()
@@ -887,6 +890,8 @@ private fun SonaHome(
             Spacer(Modifier.height(10.dp))
             QuickTile("🎓 Study Mode", "Learn topics, quiz yourself, make notes", Modifier.fillMaxWidth(), onClick = { showStudyDialog = true })
             Spacer(Modifier.height(10.dp))
+            QuickTile("✍️ Writing Studio", "Draft messages, captions, emails and ideas", Modifier.fillMaxWidth(), onClick = { showWritingStudio = true })
+            Spacer(Modifier.height(10.dp))
             QuickTile("↗ Share latest answer", "Send Sona's reply to another app", Modifier.fillMaxWidth(), onClick = onShareAnswer)
             Spacer(Modifier.height(10.dp))
             QuickTile("📋 Copy latest answer", "Copy Sona's reply to clipboard", Modifier.fillMaxWidth(), onClick = onCopyAnswer)
@@ -940,6 +945,43 @@ private fun SonaHome(
                 }) { Text("Start learning") }
             },
             dismissButton = { TextButton(onClick = { showStudyDialog = false }) { Text("Cancel") } }
+        )
+    }
+    if (showWritingStudio) {
+        AlertDialog(
+            onDismissRequest = { showWritingStudio = false },
+            title = { Text("Writing Studio", color = Cyan, fontWeight = FontWeight.Bold) },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    Text("Choose a format and describe what you want to write.")
+                    listOf("Professional message", "Email", "Instagram caption", "Application letter", "Creative ideas").forEach { mode ->
+                        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                            RadioButton(selected = writingMode == mode, onClick = { writingMode = mode })
+                            Text(mode, color = Color.White)
+                        }
+                    }
+                    OutlinedTextField(
+                        value = writingRequest,
+                        onValueChange = { writingRequest = it },
+                        label = { Text("What should Sona write?") },
+                        placeholder = { Text("Add purpose, details and preferred tone…") },
+                        minLines = 3,
+                        maxLines = 5,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    val request = writingRequest.trim()
+                    if (request.isNotBlank()) {
+                        onAskText("Writing Studio task: Create a $writingMode based on this brief: $request. Make it polished, natural, original, ready to edit, and match the language used in the brief. Return only the draft unless a brief clarification is essential.")
+                        showWritingStudio = false
+                        writingRequest = ""
+                    }
+                }) { Text("Create draft") }
+            },
+            dismissButton = { TextButton(onClick = { showWritingStudio = false }) { Text("Cancel") } }
         )
     }
     if (showSearchDialog) {
