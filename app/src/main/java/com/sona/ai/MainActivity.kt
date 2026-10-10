@@ -923,6 +923,30 @@ private fun MyraHome(
             }
             if (interactionMode != "Voice") {
             Spacer(Modifier.height(12.dp))
+            Text("TRY ASKING", color = Color(0xFF9AA6C8), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+            Spacer(Modifier.height(8.dp))
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(7.dp)) {
+                listOf("Explain simply", "Plan my day", "Write for me").forEach { suggestion ->
+                    Box(
+                        Modifier.weight(1f)
+                            .border(1.dp, Color(0xFF39305C), RoundedCornerShape(12.dp))
+                            .background(Color(0xFF111027), RoundedCornerShape(12.dp))
+                            .clickable {
+                                val request = when (suggestion) {
+                                    "Explain simply" -> "Explain a difficult topic to me in simple Hindi/Hinglish."
+                                    "Plan my day" -> "Help me make a realistic plan for my day. Ask what you need to know."
+                                    else -> "Help me write something clearly and professionally. Ask what I need."
+                                }
+                                onAskText(request)
+                            }
+                            .padding(horizontal = 6.dp, vertical = 11.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(suggestion, color = Color(0xFFD9D1F5), fontSize = 10.sp, fontWeight = FontWeight.Medium)
+                    }
+                }
+            }
+            Spacer(Modifier.height(8.dp))
             var typedPrompt by remember { mutableStateOf("") }
             OutlinedTextField(
                 value = typedPrompt,
