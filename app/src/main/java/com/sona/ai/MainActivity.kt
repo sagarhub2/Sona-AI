@@ -729,6 +729,24 @@ class MainActivity : ComponentActivity() {
                 launch(Intent(android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS).putExtra(android.provider.Settings.EXTRA_APP_PACKAGE, packageName), "Opening Myra notification settings")
             listOf("share app", "share myra", "share myra ai").any { prompt.contains(it) } ->
                 launch(Intent(Intent.ACTION_SEND).apply { type = "text/plain"; putExtra(Intent.EXTRA_TEXT, "Try Myra AI: https://github.com/sagarhub2/Sona-AI") }.let { Intent.createChooser(it, "Share Myra AI") }, "Opening share sheet")
+            listOf("open timer", "start timer", "timer kholo").any { prompt.contains(it) } ->
+                launch(Intent(AlarmClock.ACTION_SET_TIMER), "Opening timer")
+            listOf("open quick settings", "quick settings kholo", "quick panel").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_SETTINGS), "Opening phone settings")
+            listOf("privacy settings", "open privacy", "privacy kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_PRIVACY_SETTINGS), "Opening privacy settings")
+            listOf("security settings", "open security", "security kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS), "Opening security settings")
+            listOf("accounts settings", "open accounts", "accounts kholo").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_SYNC_SETTINGS), "Opening account sync settings")
+            listOf("app notifications", "myra notification settings", "notification settings").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS).putExtra(android.provider.Settings.EXTRA_APP_PACKAGE, packageName), "Opening Myra notification settings")
+            listOf("open app info", "myra app info", "app information").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, android.net.Uri.parse("package:$packageName")), "Opening Myra app information")
+            listOf("open web search", "search the web", "web search kholo").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.google.com")), "Opening web search")
+            listOf("open downloads", "downloads kholo", "download folder").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_VIEW).setDataAndType(android.net.Uri.parse("content://com.android.providers.downloads.documents/root/downloads"), "vnd.android.document/root"), "Opening downloads")
             else -> false
         }
     }
