@@ -180,6 +180,8 @@ class MainActivity : ComponentActivity() {
             if (showSettings) {
                 val prefs = getSharedPreferences("sona_private", MODE_PRIVATE)
                 var keyDraft by remember { mutableStateOf(apiKey) }
+                var userNameDraft by remember { mutableStateOf(prefs.getString("user_name", "").orEmpty()) }
+                var assistantNameDraft by remember { mutableStateOf(prefs.getString("assistant_name", "Sona").orEmpty()) }
                 var languageDraft by remember { mutableStateOf(prefs.getString("language", "Auto (match me)") ?: "Auto (match me)") }
                 var voiceDraft by remember { mutableStateOf(prefs.getString("voice_style", "Warm & natural") ?: "Warm & natural") }
                 var personalityDraft by remember { mutableStateOf(prefs.getString("personality", "Friendly, helpful, concise") ?: "Friendly, helpful, concise") }
@@ -194,6 +196,9 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier.heightIn(max = 480.dp).verticalScroll(androidx.compose.foundation.rememberScrollState()),
                             verticalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
+                            Text("ASSISTANT PROFILE", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            OutlinedTextField(value = assistantNameDraft, onValueChange = { assistantNameDraft = it }, label = { Text("Assistant name") }, singleLine = true, modifier = Modifier.fillMaxWidth())
+                            OutlinedTextField(value = userNameDraft, onValueChange = { userNameDraft = it }, label = { Text("What should Sona call you?") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             Text("AI PROVIDER & MODEL", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("Provider: Google Gemini", fontSize = 13.sp)
                             Text("Voice model: Gemini Live (configured in this build)", fontSize = 11.sp, color = Color(0xFF9AA6C8))
@@ -218,6 +223,13 @@ class MainActivity : ComponentActivity() {
                             Text("Web search opens your browser. Search history is not stored by this settings panel.", fontSize = 12.sp, color = Color(0xFF9AA6C8))
                             Text("PRIVACY & DIAGNOSTICS", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("API key and preferences are stored in this app's private local preferences. Never share your API key.", fontSize = 12.sp, color = Color(0xFF9AA6C8))
+                            Text("CONVERSATION HISTORY", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text("Recent turns are saved locally to provide context to future replies.", fontSize = 12.sp, color = Color(0xFF9AA6C8))
+                            TextButton(onClick = {
+                                prefs.edit().remove("conversation_history").apply()
+                                heardText = "Conversation history cleared on this device."
+                                status = "HISTORY CLEARED"
+                            }) { Text("Clear conversation history", color = Cyan) }
                             Text("Build: Sona AI • Android • Gemini", fontSize = 11.sp, color = Color(0xFF9AA6C8))
                         }
                     },
@@ -226,6 +238,8 @@ class MainActivity : ComponentActivity() {
                             apiKey = keyDraft.trim()
                             prefs.edit()
                                 .putString("gemini_key", apiKey)
+                                .putString("user_name", userNameDraft.trim())
+                                .putString("assistant_name", assistantNameDraft.trim().ifBlank { "Sona" })
                                 .putString("language", languageDraft.trim())
                                 .putString("voice_style", voiceDraft.trim())
                                 .putString("personality", personalityDraft.trim())
@@ -317,7 +331,9 @@ class MainActivity : ComponentActivity() {
                 val voicePreference = prefs.getString("voice_style", "Warm & natural").orEmpty().trim().ifBlank { "Warm & natural" }
                 val personalityPreference = prefs.getString("personality", "Friendly, helpful, concise").orEmpty().trim().ifBlank { "Friendly, helpful, concise" }
                 val conversationHistory = prefs.getString("conversation_history", "").orEmpty().takeLast(6000)
-                val companionPrompt = "You are Sona, a helpful AI assistant. Personality and response style requested by the user: $personalityPreference. Voice style preference: $voicePreference. Language preference: $languagePreference. If language is Auto (match me), reply in the language the user used, especially natural Hindi/Hinglish when appropriate. Make answers sound natural when spoken aloud. Keep replies concise unless asked for detail, and avoid markdown when a short spoken answer is enough. Respect user privacy and be honest about actions you cannot perform.\n\nUser's saved notes (use only when relevant):\n$savedMemory\n\nRecent conversation history (for continuity):\n$conversationHistory\n\nUser says: $prompt"
+                val userName = prefs.getString("user_name", "").orEmpty().trim()
+                val assistantName = prefs.getString("assistant_name", "Sona").orEmpty().ifBlank { "Sona" }
+                val companionPrompt = "You are $assistantName, a helpful AI assistant. Address the user as $userName when their name is provided. Personality and response style requested by the user: $personalityPreference. Voice style preference: $voicePreference. Language preference: $languagePreference. If language is Auto (match me), reply in the language the user used, especially natural Hindi/Hinglish when appropriate. Make answers sound natural when spoken aloud. Keep replies concise unless asked for detail, and avoid markdown when a short spoken answer is enough. Respect user privacy and be honest about actions you cannot perform.\n\nUser's saved notes (use only when relevant):\n$savedMemory\n\nRecent conversation history (for continuity):\n$conversationHistory\n\nUser says: $prompt"
                 val body = JSONObject()
                     .put("contents", JSONArray().put(JSONObject().put("parts", JSONArray().put(JSONObject().put("text", companionPrompt)))))
                     .put("generationConfig", JSONObject().put("maxOutputTokens", 300))
