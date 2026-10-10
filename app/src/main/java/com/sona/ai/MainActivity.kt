@@ -740,7 +740,7 @@ class MainActivity : ComponentActivity() {
                 launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse(target)), if (query.isBlank()) "Opening shopping search" else "Searching products: $query")
             }
             listOf("hotspot settings", "open hotspot", "portable hotspot", "hotspot kholo").any { prompt.contains(it) } ->
-                launch(Intent(android.provider.Settings.ACTION_TETHER_SETTINGS), "Opening hotspot and tethering settings")
+                launch(Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS), "Opening hotspot and tethering settings")
             listOf("nfc settings", "open nfc", "nfc kholo").any { prompt.contains(it) } ->
                 launch(Intent(android.provider.Settings.ACTION_NFC_SETTINGS), "Opening NFC settings")
             listOf("vpn settings", "open vpn", "vpn kholo").any { prompt.contains(it) } ->
