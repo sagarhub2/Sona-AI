@@ -1655,6 +1655,28 @@ private fun MyraHome(
                 }
             }
             Spacer(Modifier.height(8.dp))
+            Text("TRY ASKING MYRA", modifier = Modifier.fillMaxWidth(), color = Color(0xFFB9A3FF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.8.sp)
+            Spacer(Modifier.height(8.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth().horizontalScroll(androidx.compose.foundation.rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                listOf(
+                    "Aaj ka plan bana do" to "Make a realistic plan for today with priorities and breaks.",
+                    "Mujhe kuch sikhao" to "Teach me an interesting useful concept in simple Hinglish.",
+                    "Idea do" to "Suggest three practical creative ideas I can start with limited resources."
+                ).forEach { (label, prompt) ->
+                    Surface(
+                        onClick = { onAskText(prompt) },
+                        color = Color(0xAA21183B),
+                        shape = RoundedCornerShape(14.dp),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x664F4380))
+                    ) {
+                        Text(label, modifier = Modifier.padding(horizontal = 13.dp, vertical = 11.dp), color = Color(0xFFE9DDFF), fontSize = 12.sp)
+                    }
+                }
+            }
+            Spacer(Modifier.height(12.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
