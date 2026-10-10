@@ -746,6 +746,22 @@ class MainActivity : ComponentActivity() {
             }
         }
         return when {
+            listOf("what can you do", "show commands", "help me", "myra help", "myra kya kar sakti hai", "help commands").any { prompt == it } -> {
+                heardText = """I can help with:
+• Ask questions using Gemini AI (API key required)
+• Save, search, read and clear voice notes
+• Add, complete, delete and read tasks
+• Set an alarm with your confirmation
+• Open apps, websites, Maps, camera, contacts and files
+• Open Android settings and use Back, Home, notifications, Quick Settings and Recents when Accessibility is enabled
+• Read recent notification previews after you enable notification access
+• Translate, search the web, study, write drafts and make plans
+For privacy, I do not silently send messages or place calls. Android may ask you to confirm actions and permissions."""
+                status = "HELP • AVAILABLE FEATURES"
+                if (ttsReady) textToSpeech?.speak(heardText, TextToSpeech.QUEUE_FLUSH, null, "myra-help")
+                true
+            }
+        return when {
             listOf("save memory ", "remember about me ", "yaad rakhna ").any { prompt.startsWith(it) } -> {
                 val fact = rawPrompt.replace(Regex("(?i)^(save memory|remember about me|yaad rakhna)\\s*"), "").trim()
                 val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
