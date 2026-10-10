@@ -334,6 +334,83 @@ class MainActivity : ComponentActivity() {
         liveVoiceSession?.start()
     }
 
+    @Deprecated("Use Activity Result APIs when modernizing this screen")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode != 411 || resultCode != RESULT_OK) return
+        val uri = data?.data ?: run { status = "NO FILE SELECTED"; return }
+        val key = apiKey
+        if (key.isBlank()) {
+            status = "ADD GEMINI KEY IN SETTINGS"
+            showSettings = true
+            return
+        }
+        busy = true
+        status = "READING FILE FOR GEMINI…"
+        Thread {
+            var answer: String? = null
+            var error = "Could not read this file. Try a PDF, image, or text file."
+            try {
+                val mime = contentResolver.getType(uri) ?: "application/octet-stream"
+                val bytes = contentResolver.openInputStream(uri)?.use { it.readBytes() }
+                    ?: throw IllegalStateException("File could not be opened")
+                if (bytes.size > 15 * 1024 * 1024) throw IllegalArgumentException("File is over 15 MB. Choose a smaller file.")
+                val parts = JSONArray()
+                parts.put(JSONObject().put("text", "Analyze the attached file for the user. If it is a PDF, summarize its key points. If it is an image, describe what is visible. If it is text, summarize it. Answer in the user's language, clearly and accurately."))
+                if (mime.startsWith("text/") || mime == "application/json") {
+                    parts.put(JSONObject().put("text", String(bytes, Charsets.UTF_8).take(30000)))
+                } else if (mime == "application/pdf" || mime.startsWith("image/")) {
+                    parts.put(JSONObject().put("inline_data", JSONObject()
+                        .put("mime_type", mime)
+                        .put("data", android.util.Base64.encodeToString(bytes, android.util.Base64.NO_WRAP))))
+                } else {
+                    throw IllegalArgumentException("Unsupported file type: $mime. Select a PDF, image, or text file.")
+                }
+                val body = JSONObject().put("contents", JSONArray().put(JSONObject().put("parts", parts)))
+                    .put("generationConfig", JSONObject().put("maxOutputTokens", 700))
+                val encodedKey = URLEncoder.encode(key, "UTF-8")
+                val conn = (URL("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=$encodedKey").openConnection() as HttpURLConnection)
+                try {
+                    conn.requestMethod = "POST"
+                    conn.connectTimeout = 20000
+                    conn.readTimeout = 60000
+                    conn.doOutput = true
+                    conn.setRequestProperty("Content-Type", "application/json; charset=utf-8")
+                    conn.outputStream.use { it.write(body.toString().toByteArray(Charsets.UTF_8)) }
+                    val code = conn.responseCode
+                    val raw = (if (code in 200..299) conn.inputStream else conn.errorStream)?.bufferedReader()?.use { it.readText() }.orEmpty()
+                    if (code in 200..299) {
+                        answer = JSONObject(raw).optJSONArray("candidates")?.optJSONObject(0)
+                            ?.optJSONObject("content")?.optJSONArray("parts")?.optJSONObject(0)
+                            ?.optString("text")?.takeIf { it.isNotBlank() && it != "null" }
+                        if (answer == null) error = "Gemini returned no file analysis."
+                    } else {
+                        error = when (code) {
+                            400, 403 -> "Gemini rejected the request. Check your API key and enabled API."
+                            413 -> "File is too large for this request. Choose a smaller file."
+                            429 -> "Gemini usage limit reached. Try again later."
+                            else -> "File analysis failed (HTTP $code)."
+                        }
+                    }
+                } finally { conn.disconnect() }
+            } catch (e: Exception) {
+                error = e.message?.takeIf { it.isNotBlank() } ?: error
+            }
+            runOnUiThread {
+                busy = false
+                if (answer != null) {
+                    heardText = answer!!
+                    status = "FILE ANALYZED • GEMINI RESPONSE RECEIVED"
+                    if (ttsReady && getSharedPreferences("sona_private", MODE_PRIVATE).getBoolean("speak_replies", true))
+                        textToSpeech?.speak(answer, TextToSpeech.QUEUE_FLUSH, null, "sona-file-analysis")
+                } else {
+                    heardText = error
+                    status = "FILE ANALYSIS FAILED"
+                }
+            }
+        }.start()
+    }
+
     private fun askGemini(prompt: String) {
         val key = apiKey
         if (key.isBlank()) {
