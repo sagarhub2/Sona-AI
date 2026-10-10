@@ -2031,8 +2031,6 @@ private fun MyraHome(
                 Button(onClick = {
                     profilePrefs.edit().putString("profile_display_name", profileName.trim()).putString("profile_bio", profileBio.trim()).putString("profile_language", profileLanguage).apply()
                     profileSaved = true
-                    status = "PROFILE SAVED"
-                    heardText = "Your Myra profile has been saved on this device."
                 }, modifier = Modifier.fillMaxWidth().height(50.dp), shape = RoundedCornerShape(16.dp), colors = ButtonDefaults.buttonColors(containerColor = Violet)) {
                     Text(if (profileSaved) "✓  Profile saved" else "Save profile", color = Color.White, fontWeight = FontWeight.Bold)
                 }
