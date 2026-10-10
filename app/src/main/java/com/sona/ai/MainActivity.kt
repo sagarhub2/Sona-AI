@@ -669,6 +669,9 @@ private fun SonaHome(
     val scrollState = androidx.compose.foundation.rememberScrollState()
     var showSearchDialog by remember { mutableStateOf(false) }
     var searchQuery by remember { mutableStateOf("") }
+    var showTranslateDialog by remember { mutableStateOf(false) }
+    var translationSource by remember { mutableStateOf("") }
+    var translationLanguage by remember { mutableStateOf("Hindi") }
     Surface(modifier = Modifier.fillMaxSize(), color = Night) {
         Column(
             modifier = Modifier.fillMaxSize()
@@ -859,6 +862,8 @@ private fun SonaHome(
             QuickTile("🕘 Recent Conversations", "View or clear saved chat context", Modifier.fillMaxWidth(), onClick = onHistory)
             Spacer(Modifier.height(10.dp))
             QuickTile("📊 Device Info", "Battery, Android version & model", Modifier.fillMaxWidth(), onClick = onDeviceInfo)
+            Spacer(Modifier.height(10.dp))
+            QuickTile("🌍 Quick Translate", "Translate text with Sona AI", Modifier.fillMaxWidth(), onClick = { showTranslateDialog = true })
             Spacer(Modifier.height(10.dp))
             QuickTile("↗ Share latest answer", "Send Sona's reply to another app", Modifier.fillMaxWidth(), onClick = onShareAnswer)
             Spacer(Modifier.height(10.dp))
