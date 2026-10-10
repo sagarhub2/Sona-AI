@@ -684,6 +684,9 @@ private fun SonaHome(
     var showTranslateDialog by remember { mutableStateOf(false) }
     var translationSource by remember { mutableStateOf("") }
     var translationLanguage by remember { mutableStateOf("Hindi") }
+    var showStudyDialog by remember { mutableStateOf(false) }
+    var studyTopic by remember { mutableStateOf("") }
+    var studyMode by remember { mutableStateOf("Explain simply") }
     Surface(modifier = Modifier.fillMaxSize(), color = Night) {
         Column(
             modifier = Modifier.fillMaxSize()
@@ -877,6 +880,8 @@ private fun SonaHome(
             Spacer(Modifier.height(10.dp))
             QuickTile("🌍 Quick Translate", "Translate text with Sona AI", Modifier.fillMaxWidth(), onClick = { showTranslateDialog = true })
             Spacer(Modifier.height(10.dp))
+            QuickTile("🎓 Study Mode", "Learn topics, quiz yourself, make notes", Modifier.fillMaxWidth(), onClick = { showStudyDialog = true })
+            Spacer(Modifier.height(10.dp))
             QuickTile("↗ Share latest answer", "Send Sona's reply to another app", Modifier.fillMaxWidth(), onClick = onShareAnswer)
             Spacer(Modifier.height(10.dp))
             QuickTile("📋 Copy latest answer", "Copy Sona's reply to clipboard", Modifier.fillMaxWidth(), onClick = onCopyAnswer)
@@ -886,6 +891,49 @@ private fun SonaHome(
             Text("VOICE • MEMORY • SEARCH • TOOLS", color = Color(0xFF66708F), fontSize = 10.sp, letterSpacing = 2.sp)
             Spacer(Modifier.height(8.dp))
         }
+    }
+    if (showStudyDialog) {
+        AlertDialog(
+            onDismissRequest = { showStudyDialog = false },
+            title = { Text("Study Mode", color = Cyan, fontWeight = FontWeight.Bold) },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    Text("Choose how Sona should help you learn.")
+                    listOf("Explain simply", "Make revision notes", "Quiz me", "Give examples").forEach { mode ->
+                        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                            RadioButton(selected = studyMode == mode, onClick = { studyMode = mode })
+                            Text(mode, color = Color.White)
+                        }
+                    }
+                    OutlinedTextField(
+                        value = studyTopic,
+                        onValueChange = { studyTopic = it },
+                        label = { Text("Topic or question") },
+                        placeholder = { Text("e.g. demand and supply") },
+                        minLines = 2,
+                        maxLines = 4,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    val topic = studyTopic.trim()
+                    if (topic.isNotBlank()) {
+                        val instruction = when (studyMode) {
+                            "Make revision notes" -> "Create clear, exam-friendly revision notes with headings and key points"
+                            "Quiz me" -> "Act as a tutor and quiz me one question at a time. Ask the first question and wait for my answer"
+                            "Give examples" -> "Teach this topic using simple, practical examples"
+                            else -> "Explain this topic in simple language step by step, with a short example"
+                        }
+                        onAskText("$instruction about: $topic. Match the language I use and keep the response easy to understand.")
+                        showStudyDialog = false
+                        studyTopic = ""
+                    }
+                }) { Text("Start learning") }
+            },
+            dismissButton = { TextButton(onClick = { showStudyDialog = false }) { Text("Cancel") } }
+        )
     }
     if (showSearchDialog) {
         AlertDialog(
