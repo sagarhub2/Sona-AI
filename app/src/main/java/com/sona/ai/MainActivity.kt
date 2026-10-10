@@ -184,6 +184,17 @@ class MainActivity : ComponentActivity() {
                     }
                 }
 ,
+                onSpeakAnswer = {
+                    val speech = heardText.trim()
+                    if (speech.isBlank()) {
+                        status = "NO ANSWER TO SPEAK YET"
+                    } else if (!ttsReady) {
+                        status = "TEXT-TO-SPEECH IS NOT READY"
+                    } else {
+                        textToSpeech?.speak(speech, TextToSpeech.QUEUE_FLUSH, null, "sona-latest-answer")
+                        status = "SPEAKING LATEST ANSWER"
+                    }
+                },
                 onCopyAnswer = {
                     val textToCopy = heardText.trim()
                     if (textToCopy.isBlank()) {
@@ -635,6 +646,7 @@ private fun SonaHome(
     onPermissions: () -> Unit,
     onShareAnswer: () -> Unit,
     onCopyAnswer: () -> Unit,
+    onSpeakAnswer: () -> Unit,
     onAskText: (String) -> Unit
 ) {
     val transition = androidx.compose.animation.core.rememberInfiniteTransition(label = "sona-orb")
@@ -868,6 +880,8 @@ private fun SonaHome(
             QuickTile("↗ Share latest answer", "Send Sona's reply to another app", Modifier.fillMaxWidth(), onClick = onShareAnswer)
             Spacer(Modifier.height(10.dp))
             QuickTile("📋 Copy latest answer", "Copy Sona's reply to clipboard", Modifier.fillMaxWidth(), onClick = onCopyAnswer)
+            Spacer(Modifier.height(10.dp))
+            QuickTile("🔊 Speak latest answer", "Read Sona's reply aloud", Modifier.fillMaxWidth(), onClick = onSpeakAnswer)
             Spacer(Modifier.height(20.dp))
             Text("VOICE • MEMORY • SEARCH • TOOLS", color = Color(0xFF66708F), fontSize = 10.sp, letterSpacing = 2.sp)
             Spacer(Modifier.height(8.dp))
