@@ -466,6 +466,27 @@ private fun SonaHome(
                         Modifier.size(184.dp).rotate(ringRotation * 0.55f)
                             .border(2.dp, Brush.sweepGradient(listOf(Color.Transparent, Color(0x668B5CF6), Cyan, Color.Transparent)), CircleShape)
                     )
+                    Box(Modifier.size(224.dp).rotate(ringRotation), contentAlignment = Alignment.TopCenter) {
+                        Box(Modifier.padding(top = 1.dp).size(10.dp).background(Cyan, CircleShape)
+                            .border(2.dp, Color(0x6648E8FF), CircleShape))
+                    }
+                    Box(Modifier.size(202.dp).rotate(counterRotation), contentAlignment = Alignment.BottomCenter) {
+                        Box(Modifier.padding(bottom = 1.dp).size(7.dp).background(Violet, CircleShape)
+                            .border(2.dp, Color(0x668B5CF6), CircleShape))
+                    }
+                    androidx.compose.foundation.Canvas(
+                        modifier = Modifier.size(236.dp).rotate(ringRotation * 1.2f)
+                    ) {
+                        drawArc(
+                            brush = Brush.sweepGradient(listOf(Color.Transparent, Cyan, Violet, Color.Transparent)),
+                            startAngle = 215f,
+                            sweepAngle = 72f,
+                            useCenter = false,
+                            style = androidx.compose.ui.graphics.drawscope.Stroke(width = 3.dp.toPx(), cap = androidx.compose.ui.graphics.StrokeCap.Round),
+                            topLeft = androidx.compose.ui.geometry.Offset(5.dp.toPx(), 5.dp.toPx()),
+                            size = androidx.compose.ui.geometry.Size(size.width - 10.dp.toPx(), size.height - 10.dp.toPx())
+                        )
+                    }
                 }
                 Box(
                     modifier = Modifier.size((176 * pulse).dp)
