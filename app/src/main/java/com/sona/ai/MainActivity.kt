@@ -708,6 +708,8 @@ private fun SonaHome(
     var showJournalDialog by remember { mutableStateOf(false) }
     val journalKey = "sona_journal_" + java.time.LocalDate.now().toString()
     var journalEntry by remember { mutableStateOf(context.getSharedPreferences("sona_prefs", 0).getString(journalKey, "") ?: "") }
+    var showNotesDialog by remember { mutableStateOf(false) }
+    var notesText by remember { mutableStateOf(context.getSharedPreferences("sona_prefs", 0).getString("sona_quick_notes", "") ?: "") }
     Surface(modifier = Modifier.fillMaxSize(), color = Night) {
         Column(
             modifier = Modifier.fillMaxSize()
@@ -909,7 +911,12 @@ private fun SonaHome(
             Spacer(Modifier.height(10.dp))
             QuickTile("⚖️ Decision Helper", "Compare options, trade-offs and next steps", Modifier.fillMaxWidth(), onClick = { showDecisionDialog = true })
             Spacer(Modifier.height(10.dp))
-            QuickTile("📔 Daily Journal", "Write and save today's thoughts privately on this phone", Modifier.fillMaxWidth(), onClick = {
+            QuickTile("📔 Daily Journal", "Write and save today's thoughts privately on this phone", Mod
+            Spacer(Modifier.height(10.dp))
+            QuickTile("📝 Quick Notes", "Save ideas and important details on this phone", Modifier.fillMaxWidth(), onClick = {
+                notesText = context.getSharedPreferences("sona_prefs", 0).getString("sona_quick_notes", "") ?: ""
+                showNotesDialog = true
+            })ifier.fillMaxWidth(), onClick = {
                 journalEntry = context.getSharedPreferences("sona_prefs", 0).getString(journalKey, "") ?: ""
                 showJournalDialog = true
             })
@@ -1082,6 +1089,41 @@ private fun SonaHome(
                     context.getSharedPreferences("sona_prefs", 0).edit().remove(journalKey).apply()
                     showJournalDialog = false
                     status = "TODAY'S JOURNAL CLEARED"
+                }) { Text("Clear") }
+            }
+        )
+    }
+    if (showNotesDialog) {
+        AlertDialog(
+            onDismissRequest = { showNotesDialog = false },
+            title = { Text("Quick Notes", color = Cyan, fontWeight = FontWeight.Bold) },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text("Keep useful ideas, lists, or details saved locally.")
+                    OutlinedTextField(
+                        value = notesText,
+                        onValueChange = { notesText = it },
+                        placeholder = { Text("Write a note…") },
+                        minLines = 5,
+                        maxLines = 10,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Text("Stored on this phone only.", color = Color.Gray, fontSize = 11.sp)
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    context.getSharedPreferences("sona_prefs", 0).edit().putString("sona_quick_notes", notesText).apply()
+                    showNotesDialog = false
+                    status = "NOTES SAVED ON THIS DEVICE"
+                }) { Text("Save notes") }
+            },
+            dismissButton = {
+                TextButton(onClick = {
+                    notesText = ""
+                    context.getSharedPreferences("sona_prefs", 0).edit().remove("sona_quick_notes").apply()
+                    showNotesDialog = false
+                    status = "NOTES CLEARED"
                 }) { Text("Clear") }
             }
         )
