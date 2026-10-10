@@ -682,7 +682,7 @@ class MainActivity : ComponentActivity() {
                     val prefs = getSharedPreferences("myra_prefs", MODE_PRIVATE)
                     val oldNotes = prefs.getString("myra_voice_notes", "").orEmpty()
                     val stamp = java.text.SimpleDateFormat("dd MMM, HH:mm", Locale.getDefault()).format(java.util.Date())
-                    prefs.edit().putString("myra_voice_notes", ("[$stamp] $note\\n" + oldNotes).lines().take(50).joinToString("\\n")).apply()
+                    prefs.edit().putString("myra_voice_notes", ("[$stamp] $note\n" + oldNotes).lines().take(50).joinToString("\n")).apply()
                     heardText = "Note saved: $note"
                     status = "NOTE SAVED"
                 }
