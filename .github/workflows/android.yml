@@ -33,14 +33,16 @@ jobs:
           "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install "platform-tools" "platforms;android-35" "build-tools;35.0.0"
       - name: Build debug APK
         run: gradle --no-daemon assembleDebug
-      - name: Verify APK output
+      - name: Name final APK MYRA.apk
         run: |
           test -s app/build/outputs/apk/debug/app-debug.apk
-          ls -lh app/build/outputs/apk/debug/app-debug.apk
+          cp app/build/outputs/apk/debug/app-debug.apk MYRA.apk
+          test -s MYRA.apk
+          ls -lh MYRA.apk
       - name: Upload installable APK
         uses: actions/upload-artifact@v4
         with:
-          name: Myra-AI-debug
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: MYRA.apk
+          path: MYRA.apk
           if-no-files-found: error
           retention-days: 14
