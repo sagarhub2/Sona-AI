@@ -603,14 +603,19 @@ class MainActivity : ComponentActivity() {
                     setRequestProperty("Content-Type", "application/json; charset=utf-8")
                 }
                 val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
-                val savedMemory = if (prefs.getBoolean("use_memory", true)) prefs.getString("memory_notes", "").orEmpty().take(4000) else ""
+                val useMemory = prefs.getBoolean("use_memory", true)
+                val savedMemory = if (useMemory) prefs.getString("memory_notes", "").orEmpty().take(4000) else ""
+                val memoryPrefs = getSharedPreferences("myra_prefs", MODE_PRIVATE)
+                val quickNotes = if (useMemory) memoryPrefs.getString("myra_quick_notes", "").orEmpty().take(3000) else ""
+                val todayJournalKey = "myra_journal_" + java.time.LocalDate.now().toString()
+                val todayJournal = if (useMemory) memoryPrefs.getString(todayJournalKey, "").orEmpty().take(3000) else ""
                 val languagePreference = prefs.getString("language", "Auto (match me)").orEmpty().trim().ifBlank { "Auto (match me)" }
                 val voicePreference = prefs.getString("voice_style", "Warm & natural").orEmpty().trim().ifBlank { "Warm & natural" }
                 val personalityPreference = prefs.getString("personality", "Friendly, helpful, concise").orEmpty().trim().ifBlank { "Friendly, helpful, concise" }
                 val conversationHistory = prefs.getString("conversation_history", "").orEmpty().takeLast(6000)
                 val userName = prefs.getString("user_name", "").orEmpty().trim()
                 val assistantName = prefs.getString("assistant_name", "Myra").orEmpty().ifBlank { "Myra" }
-                val companionPrompt = "You are $assistantName, a helpful AI assistant. Address the user as $userName when their name is provided. Personality and response style requested by the user: $personalityPreference. Voice style preference: $voicePreference. Language preference: $languagePreference. If language is Auto (match me), reply in the language the user used, especially natural Hindi/Hinglish when appropriate. Make answers sound natural when spoken aloud. Keep replies concise unless asked for detail, and avoid markdown when a short spoken answer is enough. Respect user privacy and be honest about actions you cannot perform.\n\nUser's saved notes (use only when relevant):\n$savedMemory\n\nRecent conversation history (for continuity):\n$conversationHistory\n\nUser says: $prompt"
+                val companionPrompt = "You are $assistantName, a helpful AI assistant. Address the user as $userName when their name is provided. Personality and response style requested by the user: $personalityPreference. Voice style preference: $voicePreference. Language preference: $languagePreference. If language is Auto (match me), reply in the language the user used, especially natural Hindi/Hinglish when appropriate. Make answers sound natural when spoken aloud. Keep replies concise unless asked for detail, and avoid markdown when a short spoken answer is enough. Respect user privacy and be honest about actions you cannot perform.\\n\\nUser memory (use only when relevant):\\n$savedMemory\\n\\nQuick notes (use only when relevant):\\n$quickNotes\\n\\nToday’s journal entry (use only when relevant):\\n$todayJournal\\n\\nRecent conversation history (for continuity):\\n$conversationHistory\\n\\nUser says: $prompt"
                 val body = JSONObject()
                     .put("contents", JSONArray().put(JSONObject().put("parts", JSONArray().put(JSONObject().put("text", companionPrompt)))))
                     .put("generationConfig", JSONObject().put("maxOutputTokens", 300))
@@ -771,7 +776,7 @@ private fun MyraHome(
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Box(Modifier.size(7.dp).background(if (hasKey) Color(0xFF4ADE80) else Color(0xFFFBBF24), CircleShape))
                         Spacer(Modifier.width(7.dp))
-                        Text(if (hasKey) "✦ YOUR AI IS READY" else "YOUR PERMYRAL AI COMPANION", color = Cyan, fontSize = 9.sp, letterSpacing = 1.4.sp)
+                        Text(if (hasKey) "✦ YOUR AI IS READY" else "YOUR PERSONAL AI COMPANION", color = Cyan, fontSize = 9.sp, letterSpacing = 1.4.sp)
                     }
                 }
                 TextButton(onClick = onSettings) {
