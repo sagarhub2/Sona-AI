@@ -308,8 +308,12 @@ class MainActivity : ComponentActivity() {
                     doOutput = true
                     setRequestProperty("Content-Type", "application/json; charset=utf-8")
                 }
-                val savedMemory = if (getSharedPreferences("sona_private", MODE_PRIVATE).getBoolean("use_memory", true)) getSharedPreferences("sona_private", MODE_PRIVATE).getString("memory_notes", "").orEmpty().take(4000) else ""
-                val companionPrompt = "You are Sona, a warm, natural, friendly AI companion with a feminine voice. Speak like a kind Indian friend, not a robot. Reply in the user's language, especially natural Hindi or Hinglish when they use it. Keep spoken answers conversational and easy to say aloud; avoid markdown, lists, emojis, and overly long replies unless requested. Be respectful and supportive.\n\nUser's saved notes (use only when relevant):\n$savedMemory\n\nUser says: $prompt"
+                val prefs = getSharedPreferences("sona_private", MODE_PRIVATE)
+                val savedMemory = if (prefs.getBoolean("use_memory", true)) prefs.getString("memory_notes", "").orEmpty().take(4000) else ""
+                val languagePreference = prefs.getString("language", "Auto (match me)").orEmpty().trim().ifBlank { "Auto (match me)" }
+                val voicePreference = prefs.getString("voice_style", "Warm & natural").orEmpty().trim().ifBlank { "Warm & natural" }
+                val personalityPreference = prefs.getString("personality", "Friendly, helpful, concise").orEmpty().trim().ifBlank { "Friendly, helpful, concise" }
+                val companionPrompt = "You are Sona, a helpful AI assistant. Personality and response style requested by the user: $personalityPreference. Voice style preference: $voicePreference. Language preference: $languagePreference. If language is Auto (match me), reply in the language the user used, especially natural Hindi/Hinglish when appropriate. Make answers sound natural when spoken aloud. Keep replies concise unless asked for detail, and avoid markdown when a short spoken answer is enough. Respect user privacy and be honest about actions you cannot perform.\n\nUser's saved notes (use only when relevant):\n$savedMemory\n\nUser says: $prompt"
                 val body = JSONObject()
                     .put("contents", JSONArray().put(JSONObject().put("parts", JSONArray().put(JSONObject().put("text", companionPrompt)))))
                     .put("generationConfig", JSONObject().put("maxOutputTokens", 300))
