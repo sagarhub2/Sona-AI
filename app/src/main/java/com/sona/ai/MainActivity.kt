@@ -49,6 +49,7 @@ class MainActivity : ComponentActivity() {
     private var apiKey by mutableStateOf("")
     private var showSettings by mutableStateOf(false)
     private var showMemory by mutableStateOf(false)
+    private var showTasks by mutableStateOf(false)
     private var busy by mutableStateOf(false)
     private var speechRecognizer: SpeechRecognizer? = null
     private var liveVoiceSession: LiveVoiceSession? = null
@@ -126,6 +127,7 @@ class MainActivity : ComponentActivity() {
                 onStartVoice = { requestOrStartVoice() },
                 onSettings = { showSettings = true },
                 onMemory = { showMemory = true },
+                onTasks = { showTasks = true },
                 onSearch = { query ->
                     try { startActivity(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.google.com/search?q=" + URLEncoder.encode(query, "UTF-8")))) }
                     catch (_: Exception) { status = "NO BROWSER AVAILABLE" }
@@ -191,6 +193,44 @@ class MainActivity : ComponentActivity() {
 ,
                 onAskText = { prompt -> askGemini(prompt) }
             )
+            if (showTasks) {
+                val prefs = getSharedPreferences("sona_private", MODE_PRIVATE)
+                var taskDraft by remember { mutableStateOf(prefs.getString("sona_tasks", "").orEmpty()) }
+                AlertDialog(
+                    onDismissRequest = { showTasks = false },
+                    title = { Text("Sona Tasks") },
+                    text = {
+                        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Text("One task per line. Your list stays saved on this phone.")
+                            OutlinedTextField(
+                                value = taskDraft,
+                                onValueChange = { taskDraft = it },
+                                label = { Text("My tasks") },
+                                placeholder = { Text("Finish homework\nDrink water\nReview my plans") },
+                                minLines = 4,
+                                maxLines = 8
+                            )
+                            Text("Tip: add [x] before a task when you finish it.", color = Color(0xFF7784AA), fontSize = 12.sp)
+                        }
+                    },
+                    confirmButton = {
+                        TextButton(onClick = {
+                            prefs.edit().putString("sona_tasks", taskDraft).apply()
+                            heardText = if (taskDraft.isBlank()) "Task list cleared." else "Tasks saved on this device."
+                            status = "TASKS UPDATED"
+                            showTasks = false
+                        }) { Text("Save tasks") }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = {
+                            taskDraft = ""
+                            prefs.edit().putString("sona_tasks", "").apply()
+                            status = "TASKS CLEARED"
+                            showTasks = false
+                        }) { Text("Clear all") }
+                    }
+                )
+            }
             if (showMemory) {
                 var memoryDraft by remember { mutableStateOf(getSharedPreferences("sona_private", MODE_PRIVATE).getString("memory_notes", "") ?: "") }
                 AlertDialog(
@@ -528,6 +568,7 @@ private fun SonaHome(
     onStartVoice: () -> Unit,
     onSettings: () -> Unit,
     onMemory: () -> Unit,
+    onTasks: () -> Unit,
     onSearch: (String) -> Unit,
     onFiles: () -> Unit,
     onDeviceSettings: () -> Unit,
@@ -750,7 +791,7 @@ private fun SonaHome(
             }
             Spacer(Modifier.height(10.dp))
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                QuickTile("📝 Notes & Tasks", "Save notes with Memory", Modifier.weight(1f), onClick = onMemory)
+                QuickTile("📝 Notes & Tasks", "Save notes with Memory", Modifier.weight(1f), onClick = onTasks)
                 QuickTile("🪄 Wallpaper", "Open display settings", Modifier.weight(1f), onClick = onDeviceSettings)
             }
             Spacer(Modifier.height(10.dp))
