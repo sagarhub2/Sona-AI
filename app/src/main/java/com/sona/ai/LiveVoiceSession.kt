@@ -31,7 +31,11 @@ class LiveVoiceSession(
     @Volatile private var pendingOutputTranscript = ""
     private val running = AtomicBoolean(false)
     private val setupCompleted = AtomicBoolean(false)
-    private val client = OkHttpClient.Builder().readTimeout(0, TimeUnit.MILLISECONDS).build()
+    private val client = OkHttpClient.Builder()
+        .connectTimeout(20, TimeUnit.SECONDS)
+        .readTimeout(0, TimeUnit.MILLISECONDS)
+        .pingInterval(20, TimeUnit.SECONDS)
+        .build()
     @Volatile private var socket: WebSocket? = null
     @Volatile private var recorder: AudioRecord? = null
     @Volatile private var player: AudioTrack? = null
@@ -44,12 +48,18 @@ class LiveVoiceSession(
         val url = "wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key=" + URLEncoder.encode(apiKey, "UTF-8")
         socket = client.newWebSocket(Request.Builder().url(url).build(), object : WebSocketListener() {
             override fun onOpen(ws: WebSocket, response: Response) {
-                // Use the documented v1beta Live API setup schema.
+                // Match LIA's Gemini Live setup: audio modality + explicit voice,
+                // with transcription settings at the setup level.
                 val setup = JSONObject().put("setup", JSONObject()
                     .put("model", "models/$model")
-                    .put("responseModalities", JSONArray().put("AUDIO"))
+                    .put("generationConfig", JSONObject()
+                        .put("responseModalities", JSONArray().put("AUDIO"))
+                        .put("speechConfig", JSONObject().put("voiceConfig", JSONObject()
+                            .put("prebuiltVoiceConfig", JSONObject().put("voiceName", "Aoede")))))
+                    .put("inputAudioTranscription", JSONObject())
+                    .put("outputAudioTranscription", JSONObject())
                     .put("systemInstruction", JSONObject().put("parts", JSONArray().put(JSONObject().put("text",
-                        "You are Sona, a warm and natural female AI companion. Talk like a kind Indian friend. Understand and reply naturally in Hindi or Hinglish. Keep spoken answers conversational and concise."))))
+                        "You are Sona, using LIA-style natural real-time voice. Speak warmly in Hindi or Hinglish like a helpful Indian friend. Keep replies conversational and concise."))))
                     )
                 val sent = ws.send(setup.toString())
                 if (!sent) {
@@ -67,6 +77,10 @@ class LiveVoiceSession(
                         socket?.cancel()
                     }
                 }, "Sona-Setup-Watchdog").apply { isDaemon = true; start() }
+            }
+            override fun onMessage(ws: WebSocket, bytes: okio.ByteString) {
+                // Gemini may send JSON control messages in binary frames too.
+                onMessage(ws, bytes.utf8())
             }
             override fun onMessage(ws: WebSocket, text: String) {
                 try {
