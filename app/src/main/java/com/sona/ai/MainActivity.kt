@@ -748,7 +748,7 @@ class MainActivity : ComponentActivity() {
             listOf("open downloads", "downloads kholo", "download folder").any { prompt.contains(it) } ->
                 launch(Intent(Intent.ACTION_VIEW).setDataAndType(android.net.Uri.parse("content://com.android.providers.downloads.documents/root/downloads"), "vnd.android.document/root"), "Opening downloads")
             listOf("open do not disturb settings", "dnd settings", "do not disturb kholo").any { prompt.contains(it) } ->
-                launch(Intent(android.provider.Settings.ACTION_ZEN_MODE_SETTINGS), "Opening Do Not Disturb settings")
+                launch(Intent(android.provider.Settings.ACTION_SOUND_SETTINGS), "Opening sound and Do Not Disturb related settings")
             listOf("open data usage", "mobile data settings", "data settings kholo").any { prompt.contains(it) } ->
                 launch(Intent(android.provider.Settings.ACTION_DATA_USAGE_SETTINGS), "Opening data usage settings")
             listOf("open default apps", "default apps settings", "default apps kholo").any { prompt.contains(it) } ->
@@ -762,7 +762,7 @@ class MainActivity : ComponentActivity() {
             listOf("open music", "music kholo", "open music player").any { prompt.contains(it) } ->
                 launch(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_APP_MUSIC), "Opening music player")
             listOf("open clock", "clock kholo", "open clock app").any { prompt.contains(it) } ->
-                launch(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_APP_CLOCK), "Opening clock")
+                launch(Intent(AlarmClock.ACTION_SHOW_ALARMS), "Opening clock and alarms")
             listOf("open gallery", "gallery kholo", "open photos", "photos kholo").any { prompt.contains(it) } ->
                 launch(Intent(Intent.ACTION_VIEW).setDataAndType(android.net.Uri.parse("content://media/internal/images/media"), "image/*"), "Opening gallery")
             listOf("play ", "youtube par chalao", "song play", "video play", " play karo", " song chalao", " gaana chalao").any { prompt.startsWith(it) || prompt.contains(it) } -> {
