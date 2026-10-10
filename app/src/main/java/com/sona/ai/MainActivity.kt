@@ -1565,6 +1565,44 @@ private fun MyraHome(
                 modifier = Modifier.fillMaxWidth().height(270.dp),
                 contentAlignment = Alignment.Center
             ) {
+                // Cosmic horizon / holographic HUD backdrop matching the saved reference look.
+                androidx.compose.foundation.Canvas(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    val horizonY = size.height * 0.79f
+                    drawRect(
+                        brush = Brush.verticalGradient(
+                            colors = listOf(Color(0x00050A20), Color(0x222E1A72), Color(0x663A1C91), Color(0x0038DDF5)),
+                            startY = size.height * 0.42f,
+                            endY = size.height
+                        )
+                    )
+                    drawOval(
+                        brush = Brush.radialGradient(
+                            colors = listOf(Color(0x663D36FF), Color(0x333B8DFF), Color.Transparent),
+                            center = androidx.compose.ui.geometry.Offset(size.width / 2f, horizonY),
+                            radius = size.width * 0.65f
+                        ),
+                        topLeft = androidx.compose.ui.geometry.Offset(-size.width * 0.15f, horizonY - 24.dp.toPx()),
+                        size = androidx.compose.ui.geometry.Size(size.width * 1.3f, 88.dp.toPx())
+                    )
+                    drawArc(
+                        brush = Brush.horizontalGradient(listOf(Color.Transparent, Cyan, Violet, Color(0xFFFF5EDB), Color.Transparent)),
+                        startAngle = 180f,
+                        sweepAngle = 180f,
+                        useCenter = false,
+                        topLeft = androidx.compose.ui.geometry.Offset(size.width * 0.08f, horizonY - 28.dp.toPx()),
+                        size = androidx.compose.ui.geometry.Size(size.width * 0.84f, 58.dp.toPx()),
+                        style = androidx.compose.ui.graphics.drawscope.Stroke(width = 1.2.dp.toPx())
+                    )
+                }
+                Column(
+                    modifier = Modifier.align(Alignment.TopCenter).padding(top = 4.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text("AI OS  •  HOLOGRAPHIC CORE", color = Color(0xFF9AA6C8), fontSize = 8.sp, letterSpacing = 2.sp)
+                    Text(if (busy) "● LIVE SESSION" else "● SYSTEM ONLINE", color = if (busy) Cyan else Color(0xFF7CF7C6), fontSize = 9.sp, letterSpacing = 1.4.sp)
+                }
                 if (animatedOrb) {
                     Box(
                         Modifier.size(224.dp).rotate(ringRotation)
@@ -1617,6 +1655,34 @@ private fun MyraHome(
                 }
             }
             Spacer(Modifier.height(8.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                listOf(
+                    Triple("☎", "Phone", onContacts),
+                    Triple("▦", "Apps", onDeviceSettings),
+                    Triple("◉", "Camera", onCamera),
+                    Triple("▶", "Media", onMedia),
+                    Triple("⌕", "Search", { showSearchDialog = true })
+                ).forEach { item ->
+                    Surface(
+                        modifier = Modifier.weight(1f).height(64.dp).clickable { item.third.invoke() },
+                        color = Color(0xAA10172E),
+                        shape = RoundedCornerShape(15.dp),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x553E9CFF))
+                    ) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Text(item.first, color = Cyan, fontSize = 19.sp, fontWeight = FontWeight.Bold)
+                            Text(item.second, color = Color(0xFFD9D1F5), fontSize = 9.sp)
+                        }
+                    }
+                }
+            }
+            Spacer(Modifier.height(12.dp))
             Text("Hello, I’m Myra ✨", color = Color.White, fontSize = 27.sp, fontWeight = FontWeight.Bold)
             Spacer(Modifier.height(6.dp))
             Text("Your personal AI for voice, chat, memory and everyday control.", color = Color(0xFFC4B9E8), fontSize = 13.sp)
