@@ -75,8 +75,8 @@ class MainActivity : ComponentActivity() {
     private var textToSpeech: TextToSpeech? = null
     private var ttsReady = false
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray, deviceId: Int) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults, deviceId)
         if (requestCode == CAMERA_PERMISSION_REQUEST) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openCameraForNeuralLens()
@@ -209,11 +209,11 @@ class MainActivity : ComponentActivity() {
                     catch (_: Exception) { status = "SETTINGS UNAVAILABLE" }
                 },
                 onCamera = {
-                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(this@MainActivity, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                         openCameraForNeuralLens()
                     } else {
                         ActivityCompat.requestPermissions(
-                            this,
+                            this@MainActivity,
                             arrayOf(Manifest.permission.CAMERA),
                             CAMERA_PERMISSION_REQUEST
                         )
