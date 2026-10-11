@@ -1910,11 +1910,11 @@ private fun MyraHome(
             }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(7.dp)) {
                 listOf(
-                    (Triple("Reminders", "◷", Color(0xFFB98AFF)) to onReminder),
-                    (Triple("Memory", "✦", Color(0xFFB98AFF)) to onMemory),
-                    (Triple("History", "☷", Color(0xFFB98AFF)) to onHistory),
-                    (Triple("Privacy", "⛨", Color(0xFFB98AFF)) to onPermissions)
-                ).forEach { (tile, action) ->
+                    Triple("Reminders", "◷", onReminder),
+                    Triple("Memory", "✦", onMemory),
+                    Triple("History", "☷", onHistory),
+                    Triple("Privacy", "⛨", onPermissions)
+                ).forEach { (label, symbol, action) ->
                     Surface(
                         onClick = action, modifier = Modifier.weight(1f),
                         shape = RoundedCornerShape(12.dp), color = Color(0xFF0A1226),
@@ -1922,9 +1922,9 @@ private fun MyraHome(
                     ) {
                         Row(Modifier.padding(vertical = 9.dp, horizontal = 3.dp),
                             horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
-                            Text(tile.second, color = Color(0xFFB98AFF), fontSize = 13.sp)
+                            Text(symbol, color = Color(0xFFB98AFF), fontSize = 13.sp)
                             Spacer(Modifier.width(4.dp))
-                            Text(tile.first, color = Color(0xFFCAD4F0), fontSize = 8.sp, maxLines = 1)
+                            Text(label, color = Color(0xFFCAD4F0), fontSize = 8.sp, maxLines = 1)
                         }
                     }
                 }
