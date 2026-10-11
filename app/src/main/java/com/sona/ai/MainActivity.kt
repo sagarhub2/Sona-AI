@@ -226,10 +226,21 @@ class MainActivity : ComponentActivity() {
                         status = "TEXT-TO-SPEECH IS NOT READY"
                     } else {
                         val voicePrefs = getSharedPreferences("myra_private", MODE_PRIVATE)
+                        val languageChoice = (voicePrefs.getString("language", "Auto (match me)") ?: "Auto (match me)").trim().lowercase(Locale.ROOT)
+                        val requestedLocale = when {
+                            languageChoice.contains("hindi") || languageChoice == "हिंदी" -> Locale("hi", "IN")
+                            languageChoice.contains("english") || languageChoice == "अंग्रेज़ी" -> Locale("en", "IN")
+                            else -> Locale("hi", "IN")
+                        }
+                        val localeResult = textToSpeech?.setLanguage(requestedLocale)
                         textToSpeech?.setSpeechRate(voicePrefs.getFloat("speech_rate", 0.94f))
                         textToSpeech?.setPitch(voicePrefs.getFloat("speech_pitch", 1.06f))
-                        textToSpeech?.speak(speech, TextToSpeech.QUEUE_FLUSH, null, "myra-latest-answer")
-                        status = "SPEAKING LATEST ANSWER"
+                        if (localeResult == TextToSpeech.LANG_MISSING_DATA || localeResult == TextToSpeech.LANG_NOT_SUPPORTED) {
+                            status = "SELECTED VOICE LANGUAGE UNAVAILABLE"
+                        } else {
+                            textToSpeech?.speak(speech, TextToSpeech.QUEUE_FLUSH, null, "myra-latest-answer")
+                            status = "SPEAKING LATEST ANSWER"
+                        }
                     }
                 },
                 onStopSpeaking = {
