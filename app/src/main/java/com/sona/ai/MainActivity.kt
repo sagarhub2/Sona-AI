@@ -835,7 +835,7 @@ class MainActivity : ComponentActivity() {
                             verticalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
                             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                                Box(Modifier.size(38.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Violet, Color(0xFF9E1027), Color(0xFF171012)))), contentAlignment = Alignment.Center) {
+                                Box(Modifier.size(38.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Violet, Color(0xFF5630A8), Color(0xFF071523)))), contentAlignment = Alignment.Center) {
                                     Text("✦", color = Color.White, fontSize = 22.sp)
                                 }
                                 Spacer(Modifier.width(10.dp))
