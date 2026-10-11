@@ -639,7 +639,7 @@ class MainActivity : ComponentActivity() {
                     Surface(
                         modifier = Modifier.fillMaxWidth(0.96f).fillMaxHeight(0.88f),
                         shape = RoundedCornerShape(26.dp),
-                        color = Color(0xFFFFFCFC),
+                        color = Color.White,
                         border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0B8C1)),
                         tonalElevation = 0.dp
                     ) {
@@ -727,14 +727,14 @@ class MainActivity : ComponentActivity() {
                                     onValueChange = { chatDraft = it },
                                     modifier = Modifier.fillMaxWidth(),
                                     placeholder = { Text(if (busy) "Myra is replying…" else "Message Myra…", color = Color(0xFF8C7E83)) },
-                                    label = { Text("Your message", color = Violet) },
+                                    label = { Text("Your message", color = Color(0xFFCB1731)) },
                                     minLines = 1,
                                     maxLines = 4,
                                     enabled = !busy,
                                     shape = RoundedCornerShape(20.dp),
                                     colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
-                                        focusedTextColor = Color(0xFFF7F4FF),
-                                        unfocusedTextColor = Color(0xFFF7F4FF),
+                                        focusedTextColor = Color(0xFF282126),
+                                        unfocusedTextColor = Color(0xFF282126),
                                         focusedBorderColor = Color(0xFFCB1731),
                                         unfocusedBorderColor = Color(0xFFF0B8C1),
                                         focusedLabelColor = Color(0xFFCB1731),
@@ -742,7 +742,7 @@ class MainActivity : ComponentActivity() {
                                         focusedContainerColor = Color.White,
                                         unfocusedContainerColor = Color.White,
                                         cursorColor = Color(0xFFCB1731),
-                                        disabledTextColor = Color(0xFFAAA3C8),
+                                        disabledTextColor = Color(0xFF8C7E83),
                                         disabledBorderColor = Color(0xFFF0B8C1)
                                     )
                                 )
