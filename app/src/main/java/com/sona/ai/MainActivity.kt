@@ -897,8 +897,12 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                             }
-                            Divider(color = Violet.copy(alpha = .45f))
-                            Text("ASSISTANT PROFILE", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                                Divider(Modifier.weight(1f), color = Violet.copy(alpha = .65f), thickness = 1.dp)
+                                Text("PROFILE", color = Violet, fontWeight = FontWeight.Black, fontSize = 9.sp, letterSpacing = 1.6.sp)
+                                Divider(Modifier.weight(1f), color = Violet.copy(alpha = .65f), thickness = 1.dp)
+                            }
+                            Text("ASSISTANT PROFILE", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp, letterSpacing = .8.sp)
                             OutlinedTextField(value = assistantNameDraft, onValueChange = { assistantNameDraft = it }, label = { Text("Assistant name") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             OutlinedTextField(value = userNameDraft, onValueChange = { userNameDraft = it }, label = { Text("What should Myra call you?") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             Text("AI PROVIDER & MODEL", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
