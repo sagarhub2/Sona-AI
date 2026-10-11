@@ -2516,7 +2516,7 @@ private fun MyraHome(
         ) {
             Column(Modifier.weight(1f)) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(2.dp)) {
-                    Text("MYR", color = Color.White, fontSize = 27.sp, fontWeight = FontWeight.Black, letterSpacing = (-1).sp)
+                    Text("MYR", color = Color(0xFF282126), fontSize = 27.sp, fontWeight = FontWeight.Black, letterSpacing = (-1).sp)
                     Text("A", color = Violet, fontSize = 27.sp, fontWeight = FontWeight.Black, letterSpacing = (-1).sp)
                     Box(Modifier.padding(start = 5.dp).size(6.dp).clip(CircleShape).background(if (hasKey) Cyan else Color(0xFFFFB36B)))
                 }
@@ -2614,7 +2614,7 @@ private fun MyraHome(
                     Surface(onClick = onFiles, shape = CircleShape, color = Color(0xFFFFF0F2),
                         border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0B8C1))) {
                         Box(Modifier.size(40.dp), contentAlignment = Alignment.Center) {
-                            Text("♧", color = Color(0xFFBFA0FF), fontSize = 22.sp)
+                            Text("♧", color = Color(0xFFCB1731), fontSize = 22.sp)
                         }
                     }
                     androidx.compose.foundation.text.BasicTextField(
@@ -2642,16 +2642,16 @@ private fun MyraHome(
                 Surface(
                     Modifier.fillMaxWidth().padding(top = 14.dp),
                     shape = RoundedCornerShape(22.dp), color = Color(0xFFFFF5F6), shadowElevation = 3.dp,
-                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF56317D))
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0B8C1))
                 ) {
                     Column(Modifier.padding(15.dp)) {
                         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                             Box(Modifier.size(30.dp).clip(CircleShape).background(Violet.copy(alpha = .16f))
                                 .border(1.dp, Color(0xFFF0B8C1), CircleShape), contentAlignment = Alignment.Center) {
-                                Text("✦", color = Cyan, fontSize = 17.sp)
+                                Text("✦", color = Color(0xFFCB1731), fontSize = 17.sp)
                             }
                             Column(Modifier.weight(1f).padding(start = 9.dp)) {
-                                Text("MYRA AI", color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                                Text("MYRA AI", color = Color(0xFF282126), fontSize = 12.sp, fontWeight = FontWeight.Bold)
                                 Text(if (busy) "Preparing response…" else "LATEST RESPONSE", color = Color(0xFFCB1731), fontSize = 8.sp, letterSpacing = .8.sp)
                             }
                             Text("AI", color = Color(0xFFCB1731), fontSize = 10.sp, fontWeight = FontWeight.Black)
@@ -2734,7 +2734,7 @@ private fun MyraHome(
                                     .background(Brush.radialGradient(listOf(Color(0xFFFFA4B1), Color(0xFFCB1731), Color(0xFF8F1028))))
                                     .border(1.dp, Color(0xFFCB1731), CircleShape),
                                     contentAlignment = Alignment.Center
-                                ) { Text("◎", color = Color(0xFFCB1731), fontSize = 25.sp, fontWeight = FontWeight.Bold) }
+                                ) { Text("◎", color = Color.White, fontSize = 25.sp, fontWeight = FontWeight.Bold) }
                             }
                             Surface(
                                 shape = RoundedCornerShape(50),
