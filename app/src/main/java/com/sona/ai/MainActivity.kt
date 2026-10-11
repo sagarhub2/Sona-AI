@@ -856,7 +856,15 @@ class MainActivity : ComponentActivity() {
                                 )
                             Spacer(Modifier.height(8.dp))
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
-                                Text(if (busy) "Myra is thinking…" else "Private chat • Replies appear here", color = Color(0xFF8C7E83), fontSize = 10.sp, modifier = Modifier.weight(1f))
+                                Text(
+                                    if (busy) "Myra is thinking…" else if (chatDraft.isNotBlank()) "${chatDraft.length} characters • Draft not sent" else "Private chat • Replies appear here",
+                                    color = Color(0xFF8C7E83), fontSize = 10.sp, modifier = Modifier.weight(1f)
+                                )
+                                if (chatDraft.isNotBlank() && !busy) {
+                                    TextButton(onClick = { chatDraft = "" }) {
+                                        Text("Clear", color = Color(0xFFCB1731), fontSize = 11.sp)
+                                    }
+                                }
                                 Button(
                                     onClick = {
                                         val message = chatDraft.trim()
