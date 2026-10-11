@@ -1301,6 +1301,7 @@ class MainActivity : ComponentActivity() {
                 var assistantNameDraft by remember { mutableStateOf(prefs.getString("assistant_name", "Myra").orEmpty()) }
                 var profileAvatarDraft by remember { mutableStateOf(prefs.getString("profile_avatar", "✦") ?: "✦") }
                 var profileBioDraft by remember { mutableStateOf(prefs.getString("profile_bio", "").orEmpty()) }
+                var confirmProfileReset by remember { mutableStateOf(false) }
                 var languageDraft by remember { mutableStateOf(prefs.getString("language", "Auto (match me)") ?: "Auto (match me)") }
                 var voiceDraft by remember { mutableStateOf(prefs.getString("voice_style", "Warm & natural") ?: "Warm & natural") }
                 var personalityDraft by remember { mutableStateOf(prefs.getString("personality", "Friendly, helpful, concise") ?: "Friendly, helpful, concise") }
@@ -1313,6 +1314,26 @@ class MainActivity : ComponentActivity() {
                 var rememberNotes by remember { mutableStateOf(prefs.getBoolean("use_memory", true)) }
                 val settingsScrollState = androidx.compose.foundation.rememberScrollState()
                 val settingsScope = rememberCoroutineScope()
+                if (confirmProfileReset) {
+                    AlertDialog(
+                        onDismissRequest = { confirmProfileReset = false },
+                        title = { Text("Reset personal profile?") },
+                        text = { Text("This clears your display name, bio, photo and profile symbol. Assistant name, voice, theme, API key, notes and saved memories will stay unchanged.") },
+                        confirmButton = {
+                            TextButton(onClick = {
+                                userNameDraft = ""
+                                profileBioDraft = ""
+                                profileAvatarDraft = "✦"
+                                profilePhotoUri = ""
+                                prefs.edit().remove("user_name").remove("profile_bio").remove("profile_photo_uri").putString("profile_avatar", "✦").apply()
+                                confirmProfileReset = false
+                                heardText = "Personal profile reset. Assistant settings were kept."
+                                status = "PROFILE RESET"
+                            }) { Text("Reset profile", color = Color(0xFFCB1731)) }
+                        },
+                        dismissButton = { TextButton(onClick = { confirmProfileReset = false }) { Text("Keep profile") } }
+                    )
+                }
                 AlertDialog(
                     modifier = Modifier.fillMaxSize(),
                     shape = RoundedCornerShape(0.dp),
@@ -1472,20 +1493,7 @@ class MainActivity : ComponentActivity() {
                                 Text(if (profileCompletion == 100) "Looking good — your personal profile is filled in." else "Add your name, a short bio, or a custom photo/symbol to personalize your profile.", color = Color(0xFF6F5C62), fontSize = 10.sp)
                             }
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                                TextButton(onClick = {
-                                    userNameDraft = ""
-                                    profileBioDraft = ""
-                                    profileAvatarDraft = "✦"
-                                    profilePhotoUri = ""
-                                    prefs.edit()
-                                        .remove("user_name")
-                                        .remove("profile_bio")
-                                        .remove("profile_photo_uri")
-                                        .putString("profile_avatar", "✦")
-                                        .apply()
-                                    heardText = "Personal profile reset. Assistant settings were kept."
-                                    status = "PROFILE RESET"
-                                }) {
+                                TextButton(onClick = { confirmProfileReset = true }) {
                                     Text("Reset personal profile", color = Color(0xFFCB1731), fontWeight = FontWeight.SemiBold)
                                 }
                             }
