@@ -2251,53 +2251,74 @@ private fun MyraHome(
                         fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .8.sp)
                 }
             }
-            Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("Hello, Sagar", color = ink, fontSize = 30.sp, fontWeight = FontWeight.Bold)
-                Text("Your personal AI companion", color = muted, fontSize = 14.sp,
-                    modifier = Modifier.padding(top = 2.dp, bottom = 18.dp))
+            Column(Modifier.fillMaxWidth().padding(bottom = 4.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                Text("Hello, Sagar", color = Color.White, fontSize = 30.sp, fontWeight = FontWeight.Bold, letterSpacing = (-.4).sp)
+                Text("Your personal AI companion", color = muted, fontSize = 13.sp,
+                    modifier = Modifier.padding(top = 3.dp, bottom = 16.dp))
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    Box(Modifier.width(24.dp).height(1.dp).background(Violet.copy(alpha = .75f)))
+                    Text(if (busy) "THINKING WITH YOU" else "READY WHEN YOU ARE",
+                        color = if (busy) Cyan else Color(0xFFBFA0FF), fontSize = 8.sp, letterSpacing = 1.1.sp, fontWeight = FontWeight.Bold)
+                    Box(Modifier.width(24.dp).height(1.dp).background(Violet.copy(alpha = .75f)))
+                }
             }
             Surface(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(40.dp), color = Color(0xFF09091B), shadowElevation = 3.dp,
-                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF4A347B))
+                shape = RoundedCornerShape(28.dp), color = Color(0xFF09091B), shadowElevation = 4.dp,
+                border = androidx.compose.foundation.BorderStroke(1.dp, Violet.copy(alpha = .72f))
             ) {
-                Row(Modifier.padding(horizontal = 13.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Surface(onClick = onFiles, shape = CircleShape, color = Color.Transparent) {
-                        Text("♧", color = muted, fontSize = 24.sp, modifier = Modifier.padding(horizontal = 5.dp, vertical = 4.dp))
+                Row(Modifier.padding(horizontal = 12.dp, vertical = 9.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Surface(onClick = onFiles, shape = CircleShape, color = Color(0xFF17102F),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Violet.copy(alpha = .45f))) {
+                        Box(Modifier.size(40.dp), contentAlignment = Alignment.Center) {
+                            Text("♧", color = Color(0xFFBFA0FF), fontSize = 22.sp)
+                        }
                     }
                     androidx.compose.foundation.text.BasicTextField(
                         value = prompt, onValueChange = { prompt = it },
                         modifier = Modifier.weight(1f).padding(horizontal = 10.dp, vertical = 8.dp),
-                        singleLine = true, textStyle = androidx.compose.ui.text.TextStyle(color = ink, fontSize = 16.sp),
-                        cursorBrush = androidx.compose.ui.graphics.SolidColor(red),
+                        singleLine = true, textStyle = androidx.compose.ui.text.TextStyle(color = ink, fontSize = 15.sp),
+                        cursorBrush = androidx.compose.ui.graphics.SolidColor(Cyan),
                         decorationBox = { inner ->
-                            if (prompt.isEmpty()) Text("Type a message...", color = muted, fontSize = 16.sp)
+                            if (prompt.isEmpty()) Text("Ask Myra anything…", color = muted, fontSize = 14.sp)
                             inner()
                         }
                     )
                     Surface(
                         onClick = { if (prompt.isNotBlank()) { onAskText(prompt.trim()); prompt = "" } },
-                        shape = CircleShape, color = red, shadowElevation = 4.dp
+                        shape = CircleShape, color = Violet, shadowElevation = 5.dp,
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Cyan.copy(alpha = .55f))
                     ) {
-                        Box(Modifier.size(48.dp), contentAlignment = Alignment.Center) {
-                            Text("➤", color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold)
+                        Box(Modifier.size(46.dp), contentAlignment = Alignment.Center) {
+                            Text("➤", color = Color.White, fontSize = 23.sp, fontWeight = FontWeight.Bold)
                         }
                     }
                 }
             }
             if (heardText.isNotBlank() && heardText != "Add your Gemini API key in Settings to enable AI.") {
                 Surface(
-                    Modifier.fillMaxWidth().padding(top = 12.dp),
-                    shape = RoundedCornerShape(18.dp), color = Color(0xFF0A1026),
-                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF56317D)), shadowElevation = 2.dp
+                    Modifier.fillMaxWidth().padding(top = 14.dp),
+                    shape = RoundedCornerShape(22.dp), color = Color(0xFF0A1026), shadowElevation = 3.dp,
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF56317D))
                 ) {
-                    Column(Modifier.padding(14.dp)) {
-                        Text("MYRA  •  RESPONSE", color = Cyan, fontSize = 10.sp, letterSpacing = 1.sp)
-                        Text(heardText, color = ink, fontSize = 14.sp, lineHeight = 20.sp, modifier = Modifier.padding(top = 6.dp))
-                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                            TextButton(onClick = onSpeakAnswer) { Text("Speak", color = red) }
-                            TextButton(onClick = onCopyAnswer) { Text("Copy", color = red) }
-                            TextButton(onClick = onShareAnswer) { Text("Share", color = red) }
+                    Column(Modifier.padding(15.dp)) {
+                        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                            Box(Modifier.size(30.dp).clip(CircleShape).background(Violet.copy(alpha = .16f))
+                                .border(1.dp, Violet.copy(alpha = .55f), CircleShape), contentAlignment = Alignment.Center) {
+                                Text("✦", color = Cyan, fontSize = 17.sp)
+                            }
+                            Column(Modifier.weight(1f).padding(start = 9.dp)) {
+                                Text("MYRA AI", color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                                Text(if (busy) "Preparing response…" else "LATEST RESPONSE", color = Cyan, fontSize = 8.sp, letterSpacing = .8.sp)
+                            }
+                            Text("AI", color = Violet, fontSize = 10.sp, fontWeight = FontWeight.Black)
+                        }
+                        Box(Modifier.padding(top = 11.dp).fillMaxWidth().height(1.dp).background(Violet.copy(alpha = .28f)))
+                        Text(heardText, color = ink, fontSize = 14.sp, lineHeight = 21.sp, modifier = Modifier.padding(top = 10.dp))
+                        Row(Modifier.fillMaxWidth().padding(top = 5.dp), horizontalArrangement = Arrangement.End) {
+                            TextButton(onClick = onSpeakAnswer) { Text("Speak", color = Cyan) }
+                            TextButton(onClick = onCopyAnswer) { Text("Copy", color = Violet) }
+                            TextButton(onClick = onShareAnswer) { Text("Share", color = Violet) }
                         }
                     }
                 }
