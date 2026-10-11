@@ -837,7 +837,10 @@ class MainActivity : ComponentActivity() {
                                 listOf(
                                     "Explain simply" to "Explain this in simple words: ",
                                     "Summarize" to "Summarize this clearly: ",
-                                    "Hindi translation" to "Translate this into Hindi: "
+                                    "Hindi translation" to "Translate this into Hindi: ",
+                                    "Give examples" to "Explain this with 3 clear examples: ",
+                                    "Improve writing" to "Rewrite this to sound clearer and more polished: ",
+                                    "Make shorter" to "Make this shorter while keeping the key points: "
                                 ).forEach { (label, template) ->
                                     androidx.compose.material3.AssistChip(
                                         onClick = { if (!busy) chatDraft = template },
