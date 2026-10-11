@@ -2743,7 +2743,7 @@ private fun MyraHome(
                                     .background(Color(0xFFFFE8EC))
                                     .border(1.dp, Color(0xFFF0B8C1), CircleShape))
                                 Box(Modifier.size(48.dp).clip(CircleShape)
-                                    .background(Brush.radialGradient(listOf(Color(0xFFFF6078), Color(0xFFCB1731), Color(0xFFFFE8EC))))
+                                    .background(Brush.radialGradient(listOf(Color(0xFFFFA4B1), Color(0xFFCB1731), Color(0xFF8F1028))))
                                     .border(1.dp, Color(0xFFCB1731), CircleShape),
                                     contentAlignment = Alignment.Center
                                 ) { Text("◎", color = Color(0xFFCB1731), fontSize = 25.sp, fontWeight = FontWeight.Bold) }
@@ -2773,7 +2773,7 @@ private fun MyraHome(
                     onClick = onMemory,
                     modifier = Modifier.weight(1f).height(100.dp),
                     shape = RoundedCornerShape(20.dp),
-                    color = Color(0xFFFFF7F8),
+                    color = Color.White,
                     border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0B8C1)),
                     shadowElevation = 5.dp
                 ) {
@@ -2799,7 +2799,7 @@ private fun MyraHome(
                     onClick = onTasks,
                     modifier = Modifier.weight(1f).height(100.dp),
                     shape = RoundedCornerShape(20.dp),
-                    color = Color(0xFFFFF5F6),
+                    color = Color.White,
                     border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0B8C1)),
                     shadowElevation = 5.dp
                 ) {
@@ -2841,11 +2841,11 @@ private fun MyraHome(
             Column(Modifier.weight(1f).clip(RoundedCornerShape(18.dp)).clickable { onStartVoice() }.padding(vertical = 4.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(if (busy) "•••" else "≋", color = if (busy) Color(0xFFCB1731) else muted, fontSize = 23.sp, fontWeight = FontWeight.Bold)
-                Text("Voice", color = if (busy) Cyan else muted, fontSize = 11.sp)
+                Text("Voice", color = if (busy) Color(0xFFCB1731) else muted, fontSize = 11.sp)
             }
             Column(
                 Modifier.weight(1f).clip(RoundedCornerShape(18.dp))
-                    .background(Violet.copy(alpha = .12f))
+                    .background(Color(0xFFFFE8EC))
                     .border(1.dp, Color(0xFFF0B8C1), RoundedCornerShape(18.dp))
                     .clickable { onReminder() }
                     .padding(vertical = 5.dp),
