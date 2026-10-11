@@ -186,6 +186,15 @@ class MainActivity : ComponentActivity() {
                 showPremiumIntro = false
             }
             Box(modifier = Modifier.fillMaxSize()) {
+            var profilePhotoUri by remember { mutableStateOf(getSharedPreferences("myra_private", MODE_PRIVATE).getString("profile_photo_uri", "").orEmpty()) }
+            val profilePhotoPicker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+                if (uri != null) {
+                    try { contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION) } catch (_: Exception) { }
+                    profilePhotoUri = uri.toString()
+                    getSharedPreferences("myra_private", MODE_PRIVATE).edit().putString("profile_photo_uri", profilePhotoUri).apply()
+                    status = "PROFILE PHOTO UPDATED"
+                }
+            }
             MyraHome(
                 status = status,
                 heardText = heardText,
@@ -1431,13 +1440,21 @@ class MainActivity : ComponentActivity() {
                                         Modifier.size(58.dp).clip(CircleShape)
                                             .background(Brush.radialGradient(listOf(Violet, Color(0xFF75182B), Color(0xFF18090D)))),
                                         contentAlignment = Alignment.Center
-                                    ) { Text(profileAvatarDraft, fontSize = 27.sp, color = Color.White) }
+                                    ) {
+                                        if (profilePhotoUri.isNotBlank()) {
+                                            coil.compose.AsyncImage(model = profilePhotoUri, contentDescription = "Profile photo", modifier = Modifier.fillMaxSize().clip(CircleShape))
+                                        } else Text(profileAvatarDraft, fontSize = 27.sp, color = Color.White)
+                                    }
                                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                         Text(userNameDraft.trim().ifBlank { "Your profile" }, color = Color(0xFF282126), fontWeight = FontWeight.Bold, fontSize = 15.sp)
                                         Text("PERSONAL PROFILE PREVIEW", color = Color(0xFF8C7E83), fontSize = 9.sp, letterSpacing = .8.sp)
                                         Text(profileBioDraft.trim().ifBlank { "Add a short bio to personalize Myra" }, color = Color(0xFF6F5C62), fontSize = 11.sp, maxLines = 2)
                                     }
                                 }
+                            }
+                            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+                                OutlinedButton(onClick = { profilePhotoPicker.launch(arrayOf("image/*")) }, modifier = Modifier.weight(1f)) { Text(if (profilePhotoUri.isBlank()) "Choose profile photo" else "Change photo") }
+                                TextButton(onClick = { profilePhotoUri = ""; prefs.edit().remove("profile_photo_uri").apply() }, enabled = profilePhotoUri.isNotBlank()) { Text("Remove") }
                             }
                             Text("PROFILE SYMBOL", color = Color(0xFF6F5C62), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -1667,6 +1684,7 @@ class MainActivity : ComponentActivity() {
                                 .putString("user_name", userNameDraft.trim().take(50))
                                 .putString("profile_avatar", profileAvatarDraft)
                                 .putString("profile_bio", profileBioDraft.trim().take(120))
+                                .putString("profile_photo_uri", profilePhotoUri)
                                 .putString("assistant_name", assistantNameDraft.trim().take(32).ifBlank { "Myra" })
                                 .putString("language", languageDraft.trim())
                                 .putString("voice_style", voiceDraft.trim())
