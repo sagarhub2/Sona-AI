@@ -571,12 +571,12 @@ class MainActivity : ComponentActivity() {
                     title = {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(20.dp))
-                                .background(Brush.horizontalGradient(listOf(Color(0xFF27070D), Color(0xFF12090C), Color(0xFF070708))))
-                                .border(1.dp, Color(0xFF7A1B2C), RoundedCornerShape(20.dp)).padding(16.dp),
+                                .background(Brush.horizontalGradient(listOf(Color(0xFF21103F), Color(0xFF100D27), Color(0xFF070817))))
+                                .border(1.dp, Violet.copy(alpha = .8f), RoundedCornerShape(20.dp)).padding(16.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                Box(Modifier.size(42.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Violet, Color(0xFF9E1027), Color(0xFF171012)))), contentAlignment = Alignment.Center) {
+                                Box(Modifier.size(42.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Violet, Color(0xFF5630A8), Color(0xFF080D2A)))), contentAlignment = Alignment.Center) {
                                     Text("✦", color = Color.White, fontSize = 24.sp)
                                 }
                                 Spacer(Modifier.width(11.dp))
@@ -585,15 +585,15 @@ class MainActivity : ComponentActivity() {
                                     Text("Your command center", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 20.sp)
                                 }
                             }
-                            Text("PERSONALIZE YOUR ASSISTANT", color = Violet, fontWeight = FontWeight.Medium, fontSize = 9.sp, letterSpacing = 1.5.sp)
+                            Text("PERSONALIZE YOUR ASSISTANT", color = Cyan, fontWeight = FontWeight.Medium, fontSize = 9.sp, letterSpacing = 1.5.sp)
                         }
                     },
                     text = {
                         Column(
                             modifier = Modifier.fillMaxWidth().fillMaxHeight(0.82f).verticalScroll(settingsScrollState)
                                 .clip(RoundedCornerShape(22.dp))
-                                .background(Color(0xFF0B090B))
-                                .border(1.dp, Color(0xFF57202A), RoundedCornerShape(22.dp))
+                                .background(Color(0xFF09091B))
+                                .border(1.dp, Violet.copy(alpha = .5f), RoundedCornerShape(22.dp))
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
@@ -609,8 +609,8 @@ class MainActivity : ComponentActivity() {
                             }
                             Row(
                                 Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp))
-                                    .background(Color(0xFF140B0E))
-                                    .border(1.dp, Color(0xFF57202A), RoundedCornerShape(16.dp))
+                                    .background(Color(0xFF100D27))
+                                    .border(1.dp, Violet.copy(alpha = .5f), RoundedCornerShape(16.dp))
                                     .padding(12.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
@@ -622,7 +622,7 @@ class MainActivity : ComponentActivity() {
                                 Spacer(Modifier.width(12.dp))
                                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                     Text(userNameDraft.ifBlank { "My Profile" }, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
-                                    Text("MYRA AI • PERSONAL PROFILE", color = Color(0xFFFF8A9A), fontSize = 9.sp, letterSpacing = 1.sp)
+                                    Text("MYRA AI • PERSONAL PROFILE", color = Cyan, fontSize = 9.sp, letterSpacing = 1.sp)
                                     Text(if (apiKey.isBlank()) "AI setup required" else "Gemini key saved", color = Color(0xFFB5A9AC), fontSize = 11.sp)
                                 }
                             }
@@ -630,7 +630,7 @@ class MainActivity : ComponentActivity() {
                                 listOf(Triple("VOICE", "♫", 1700), Triple("MEMORY", "◈", 3300), Triple("PRIVACY", "⌑", 5200)).forEach { item ->
                                     Column(
                                         Modifier.weight(1f).clip(RoundedCornerShape(12.dp))
-                                            .background(Color(0xFF160B0F)).border(1.dp, Color(0xFF57202A), RoundedCornerShape(12.dp))
+                                            .background(Color(0xFF100D27)).border(1.dp, Violet.copy(alpha = .5f), RoundedCornerShape(12.dp))
                                             .clickable { settingsScope.launch { settingsScrollState.animateScrollTo(item.third) } }
                                             .padding(vertical = 11.dp, horizontal = 4.dp),
                                         horizontalAlignment = Alignment.CenterHorizontally
@@ -640,7 +640,7 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                             }
-                            Divider(color = Color(0xFF57202A))
+                            Divider(color = Violet.copy(alpha = .45f))
                             Text("ASSISTANT PROFILE", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             OutlinedTextField(value = assistantNameDraft, onValueChange = { assistantNameDraft = it }, label = { Text("Assistant name") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             OutlinedTextField(value = userNameDraft, onValueChange = { userNameDraft = it }, label = { Text("What should Myra call you?") }, singleLine = true, modifier = Modifier.fillMaxWidth())
