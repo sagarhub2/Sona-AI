@@ -712,38 +712,38 @@ class MainActivity : ComponentActivity() {
                 AlertDialog(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(26.dp),
-                    containerColor = Color(0xFF070817),
-                    titleContentColor = Violet,
-                    textContentColor = Color(0xFFE6E5FF),
+                    containerColor = Color.White,
+                    titleContentColor = Color(0xFFCB1731),
+                    textContentColor = Color(0xFF51464A),
                     tonalElevation = 0.dp,
                     onDismissRequest = { showMemory = false },
                     title = {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
-                                .background(Brush.horizontalGradient(listOf(Color(0xFF21103F), Color(0xFF100D27), Color(0xFF070817))))
-                                .border(1.dp, Violet.copy(alpha = .8f), RoundedCornerShape(18.dp))
+                                .background(Brush.horizontalGradient(listOf(Color(0xFFFFE8EC), Color.White, Color(0xFFFFF7F8))))
+                                .border(1.dp, Color(0xFFF0B8C1), RoundedCornerShape(18.dp))
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
-                            Text("◈  MYRA AI • SMART MEMORY", color = Cyan, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
-                            Text("Your memory vault", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                            Text("Notes are saved locally on this phone.", color = Color(0xFFB9B5D4), fontSize = 12.sp)
+                            Text("◈  MYRA AI • SMART MEMORY", color = Color(0xFFCB1731), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                            Text("Your memory vault", color = Color(0xFF282126), fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                            Text("Notes are saved locally on this phone.", color = Color(0xFF8C7E83), fontSize = 12.sp)
                         }
                     },
                     text = {
                         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                             Row(
                                 Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp))
-                                    .background(Color(0xFF100D27))
-                                    .border(1.dp, Violet.copy(alpha = .45f), RoundedCornerShape(14.dp))
+                                    .background(Color(0xFFFFF7F8))
+                                    .border(1.dp, Color(0xFFF0B8C1), RoundedCornerShape(14.dp))
                                     .padding(12.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text("✦", color = Violet, fontSize = 25.sp)
+                                Text("✦", color = Color(0xFFCB1731), fontSize = 25.sp)
                                 Spacer(Modifier.width(10.dp))
                                 Column {
-                                    Text(if (memoryDraft.isBlank()) "Ready to remember" else "Memory note in progress", color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
-                                    Text(if (memoryDraft.isBlank()) "Add useful details or preferences for future replies." else "${memoryDraft.length} characters • not saved until you tap Save", color = Color(0xFFB9B5D4), fontSize = 11.sp)
+                                    Text(if (memoryDraft.isBlank()) "Ready to remember" else "Memory note in progress", color = Color(0xFF282126), fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
+                                    Text(if (memoryDraft.isBlank()) "Add useful details or preferences for future replies." else "${memoryDraft.length} characters • not saved until you tap Save", color = Color(0xFF8C7E83), fontSize = 11.sp)
                                 }
                             }
                             OutlinedTextField(
@@ -755,14 +755,14 @@ class MainActivity : ComponentActivity() {
                                 maxLines = 9,
                                 modifier = Modifier.fillMaxWidth(),
                                 colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
-                                    focusedTextColor = Color(0xFFE8E5FF),
-                                    unfocusedTextColor = Color(0xFFE8E5FF),
-                                    focusedBorderColor = Violet,
-                                    unfocusedBorderColor = Violet.copy(alpha = .45f),
-                                    focusedLabelColor = Cyan,
-                                    cursorColor = Cyan,
-                                    focusedContainerColor = Color(0xFF09091B),
-                                    unfocusedContainerColor = Color(0xFF09091B)
+                                    focusedTextColor = Color(0xFF282126),
+                                    unfocusedTextColor = Color(0xFF282126),
+                                    focusedBorderColor = Color(0xFFCB1731),
+                                    unfocusedBorderColor = Color(0xFFF0B8C1),
+                                    focusedLabelColor = Color(0xFFCB1731),
+                                    cursorColor = Color(0xFFCB1731),
+                                    focusedContainerColor = Color(0xFFFFFBFC),
+                                    unfocusedContainerColor = Color(0xFFFFFBFC)
                                 )
                             )
                         }
@@ -773,10 +773,10 @@ class MainActivity : ComponentActivity() {
                             heardText = if (memoryDraft.isBlank()) "Memory cleared." else "Memory saved on this device."
                             status = "MEMORY UPDATED"
                             showMemory = false
-                        }) { Text("✦  Save memory", color = Cyan) }
+                        }) { Text("✦  Save memory", color = Color(0xFFCB1731)) }
                     },
                     dismissButton = {
-                        TextButton(onClick = { showMemory = false }) { Text("Cancel", color = Violet) }
+                        TextButton(onClick = { showMemory = false }) { Text("Cancel", color = Color(0xFF8C7E83)) }
                     }
                 )
             }
