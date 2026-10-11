@@ -828,10 +828,10 @@ class MainActivity : ComponentActivity() {
                     text = {
                         Column(
                             modifier = Modifier.fillMaxWidth().fillMaxHeight(0.82f).verticalScroll(settingsScrollState)
-                                .clip(RoundedCornerShape(22.dp))
-                                .background(Brush.verticalGradient(listOf(Color(0xFF0D0B22), Color(0xFF070914), Color(0xFF050611))))
-                                .border(1.dp, Violet.copy(alpha = .62f), RoundedCornerShape(22.dp))
-                                .padding(14.dp),
+                                .clip(RoundedCornerShape(24.dp))
+                                .background(Brush.verticalGradient(listOf(Color(0xFF120D2B), Color(0xFF080B19), Color(0xFF050611))))
+                                .border(1.dp, Brush.verticalGradient(listOf(Violet.copy(alpha = .82f), Cyan.copy(alpha = .28f))), RoundedCornerShape(24.dp))
+                                .padding(16.dp),
                             verticalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
                             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
