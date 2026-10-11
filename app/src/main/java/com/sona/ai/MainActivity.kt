@@ -632,38 +632,38 @@ class MainActivity : ComponentActivity() {
                 AlertDialog(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(26.dp),
-                    containerColor = Color(0xFF070817),
-                    titleContentColor = Violet,
-                    textContentColor = Color(0xFFE6E5FF),
+                    containerColor = Color(0xFFFFFBFC),
+                    titleContentColor = Color(0xFFB5122A),
+                    textContentColor = Color(0xFF282329),
                     tonalElevation = 0.dp,
                     onDismissRequest = { showTasks = false },
                     title = {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
-                                .background(Brush.horizontalGradient(listOf(Color(0xFF21103F), Color(0xFF100D27), Color(0xFF070817))))
-                                .border(1.dp, Violet.copy(alpha = .8f), RoundedCornerShape(18.dp))
+                                .background(Brush.horizontalGradient(listOf(Color(0xFFFFE6EA), Color(0xFFFFF4F5), Color(0xFFFFFFFF))))
+                                .border(1.dp, Color(0xFFF2B7C0), RoundedCornerShape(18.dp))
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
-                            Text("◈  MYRA AI • TASK CONTROL", color = Cyan, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
-                            Text("Tasks & reminders", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                            Text("Your list stays saved locally on this phone.", color = Color(0xFFB9B5D4), fontSize = 12.sp)
+                            Text("TASKS & REMINDERS", color = Color(0xFFB5122A), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                            Text("Tasks & reminders", color = Color(0xFF241E22), fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                            Text("Plan your day, one task at a time.", color = Color(0xFF81757A), fontSize = 12.sp)
                         }
                     },
                     text = {
                         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                             Row(
                                 Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp))
-                                    .background(Color(0xFF100D27))
-                                    .border(1.dp, Violet.copy(alpha = .45f), RoundedCornerShape(14.dp))
+                                    .background(Color(0xFFFFF3F4))
+                                    .border(1.dp, Color(0xFFF3C6CC), RoundedCornerShape(14.dp))
                                     .padding(12.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text("☷", color = Violet, fontSize = 25.sp)
+                                Text("☷", color = Color(0xFFB5122A), fontSize = 25.sp)
                                 Spacer(Modifier.width(10.dp))
                                 Column {
-                                    Text("${taskLines.size} tasks in your list", color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
-                                    Text(if (taskLines.isEmpty()) "Add one task per line to get started." else "$completedTasks marked complete • use [x] at the start of a finished task", color = Color(0xFFB9B5D4), fontSize = 11.sp)
+                                    Text("${taskLines.size} tasks in your list", color = Color(0xFF2A2226), fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
+                                    Text(if (taskLines.isEmpty()) "Add one task per line to get started." else "$completedTasks marked complete • add [x] before a finished task", color = Color(0xFF81757A), fontSize = 11.sp)
                                 }
                             }
                             OutlinedTextField(
@@ -675,17 +675,17 @@ class MainActivity : ComponentActivity() {
                                 maxLines = 9,
                                 modifier = Modifier.fillMaxWidth(),
                                 colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
-                                    focusedTextColor = Color(0xFFE8E5FF),
-                                    unfocusedTextColor = Color(0xFFE8E5FF),
-                                    focusedBorderColor = Violet,
-                                    unfocusedBorderColor = Violet.copy(alpha = .45f),
-                                    focusedLabelColor = Cyan,
-                                    cursorColor = Cyan,
-                                    focusedContainerColor = Color(0xFF09091B),
-                                    unfocusedContainerColor = Color(0xFF09091B)
+                                    focusedTextColor = Color(0xFF292126),
+                                    unfocusedTextColor = Color(0xFF292126),
+                                    focusedBorderColor = Color(0xFFCF1834),
+                                    unfocusedBorderColor = Color(0xFFCF1834).copy(alpha = .45f),
+                                    focusedLabelColor = Color(0xFFB5122A),
+                                    cursorColor = Color(0xFFB5122A),
+                                    focusedContainerColor = Color.White,
+                                    unfocusedContainerColor = Color.White
                                 )
                             )
-                            Text("TIP  •  Add [x] before a finished task.", color = Cyan, fontSize = 11.sp, letterSpacing = .3.sp)
+                            Text("TIP  •  Add [x] before a finished task.", color = Color(0xFFB5122A), fontSize = 11.sp, letterSpacing = .3.sp)
                         }
                     },
                     confirmButton = {
@@ -694,7 +694,7 @@ class MainActivity : ComponentActivity() {
                             heardText = if (taskDraft.isBlank()) "Task list cleared." else "Tasks saved on this device."
                             status = "TASKS UPDATED"
                             showTasks = false
-                        }) { Text("✦  Save tasks", color = Cyan) }
+                        }) { Text("Save tasks", color = Color.White) }
                     },
                     dismissButton = {
                         TextButton(onClick = {
@@ -702,7 +702,7 @@ class MainActivity : ComponentActivity() {
                             prefs.edit().putString("sona_tasks", "").apply()
                             status = "TASKS CLEARED"
                             showTasks = false
-                        }) { Text("Clear all", color = Violet) }
+                        }) { Text("Clear all", color = Color(0xFFB5122A)) }
                     }
                 )
             }
