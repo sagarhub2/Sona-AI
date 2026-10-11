@@ -682,8 +682,9 @@ class MainActivity : ComponentActivity() {
             if (showChat) {
                 var chatDraft by remember { mutableStateOf("") }
                 var pendingMessage by remember { mutableStateOf("") }
+                var showClearHistoryConfirm by remember { mutableStateOf(false) }
                 val chatPrefs = getSharedPreferences("myra_private", MODE_PRIVATE)
-                val savedChat = chatPrefs.getString("conversation_history", "").orEmpty()
+                var savedChat by remember { mutableStateOf(chatPrefs.getString("conversation_history", "").orEmpty()) }
                 Dialog(
                     onDismissRequest = { showChat = false },
                     properties = DialogProperties(usePlatformDefaultWidth = false)
@@ -704,6 +705,31 @@ class MainActivity : ComponentActivity() {
                                 TextButton(onClick = { showChat = false }) { Text("✕  Close", color = Color(0xFFCB1731)) }
                             }
                             HorizontalDivider(color = Color(0xFFF0B8C1))
+                            if (savedChat.isNotBlank()) {
+                                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                                    TextButton(onClick = { showClearHistoryConfirm = true }) {
+                                        Text("⌫  Clear history", color = Color(0xFFB42335), fontSize = 11.sp)
+                                    }
+                                }
+                            }
+                            if (showClearHistoryConfirm) {
+                                AlertDialog(
+                                    onDismissRequest = { showClearHistoryConfirm = false },
+                                    title = { Text("Clear conversation history?") },
+                                    text = { Text("This removes the saved chat from this device. This action cannot be undone.") },
+                                    confirmButton = {
+                                        TextButton(onClick = {
+                                            chatPrefs.edit().remove("conversation_history").apply()
+                                            savedChat = ""
+                                            showClearHistoryConfirm = false
+                                            android.widget.Toast.makeText(this@MainActivity, "Conversation history cleared", android.widget.Toast.LENGTH_SHORT).show()
+                                        }) { Text("Clear", color = Color(0xFFB42335)) }
+                                    },
+                                    dismissButton = {
+                                        TextButton(onClick = { showClearHistoryConfirm = false }) { Text("Cancel", color = Color(0xFFCB1731)) }
+                                    }
+                                )
+                            }
                             Column(Modifier.weight(1f).fillMaxWidth().padding(vertical = 12.dp).verticalScroll(androidx.compose.foundation.rememberScrollState()), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                                     Text("✦", color = Color(0xFFCB1731), fontSize = 17.sp)
