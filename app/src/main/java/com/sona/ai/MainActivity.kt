@@ -983,19 +983,61 @@ class MainActivity : ComponentActivity() {
                         }
                     },
                     text = {
+                        val savedMemoryLines = memoryDraft.lines().map { it.trim() }.filter { it.isNotEmpty() }
                         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                             Row(
-                                Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp))
-                                    .background(Color(0xFFFFF7F8))
-                                    .border(1.dp, Color(0xFFF0B8C1), RoundedCornerShape(14.dp))
-                                    .padding(12.dp),
+                                Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp))
+                                    .background(Brush.horizontalGradient(listOf(Color(0xFFFFE8EC), Color(0xFFFFF7F8))))
+                                    .border(1.dp, Color(0xFFF0B8C1), RoundedCornerShape(16.dp))
+                                    .padding(13.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text("✦", color = Color(0xFFCB1731), fontSize = 25.sp)
-                                Spacer(Modifier.width(10.dp))
-                                Column {
-                                    Text(if (memoryDraft.isBlank()) "Ready to remember" else "Memory note in progress", color = Color(0xFF282126), fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
-                                    Text(if (memoryDraft.isBlank()) "Add useful details or preferences for future replies." else "${memoryDraft.length} characters • not saved until you tap Save", color = Color(0xFF8C7E83), fontSize = 11.sp)
+                                Box(
+                                    Modifier.size(44.dp).clip(CircleShape).background(Color.White)
+                                        .border(1.dp, Color(0xFFF0B8C1), CircleShape),
+                                    contentAlignment = Alignment.Center
+                                ) { Text("◈", color = Color(0xFFCB1731), fontSize = 23.sp) }
+                                Spacer(Modifier.width(11.dp))
+                                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                                    Text(if (memoryDraft.isBlank()) "Your vault is ready" else "Your personal memory", color = Color(0xFF282126), fontWeight = FontWeight.Bold, fontSize = 14.sp)
+                                    Text(
+                                        if (memoryDraft.isBlank()) "Save preferences, goals and helpful details here."
+                                        else "${savedMemoryLines.size} saved note ${if (savedMemoryLines.size == 1) "entry" else "entries"} • ${memoryDraft.length} characters",
+                                        color = Color(0xFF8C7E83), fontSize = 11.sp
+                                    )
+                                }
+                            }
+                            if (savedMemoryLines.isEmpty()) {
+                                Row(
+                                    Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp))
+                                        .background(Color(0xFFFFFBFC))
+                                        .border(1.dp, Color(0xFFF5D8DE), RoundedCornerShape(14.dp))
+                                        .padding(12.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text("✧", color = Color(0xFFCB1731), fontSize = 22.sp)
+                                    Spacer(Modifier.width(9.dp))
+                                    Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                                        Text("Nothing saved yet", color = Color(0xFF282126), fontWeight = FontWeight.SemiBold, fontSize = 13.sp)
+                                        Text("Add your first note below. It stays on this device.", color = Color(0xFF8C7E83), fontSize = 11.sp)
+                                    }
+                                }
+                            } else {
+                                Text("SAVED NOTE PREVIEW", color = Color(0xFFCB1731), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                                    savedMemoryLines.takeLast(3).forEachIndexed { index, note ->
+                                        Row(
+                                            Modifier.fillMaxWidth().clip(RoundedCornerShape(11.dp))
+                                                .background(Color(0xFFFFFBFC))
+                                                .border(1.dp, Color(0xFFF5D8DE), RoundedCornerShape(11.dp))
+                                                .padding(horizontal = 10.dp, vertical = 8.dp),
+                                            verticalAlignment = Alignment.Top
+                                        ) {
+                                            Text("•", color = Color(0xFFCB1731), fontSize = 15.sp)
+                                            Spacer(Modifier.width(7.dp))
+                                            Text(note, color = Color(0xFF51464A), fontSize = 12.sp, maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
+                                        }
+                                    }
                                 }
                             }
                             OutlinedTextField(
