@@ -2401,16 +2401,20 @@ private fun MyraHome(
                     shape = RoundedCornerShape(24.dp),
                     color = Color(0xFF0A0B20),
                     shadowElevation = 4.dp,
-                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF7040A4))
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF7DEBFF).copy(alpha = .42f))
                 ) {
                     Column(Modifier.fillMaxSize().padding(15.dp), verticalArrangement = Arrangement.SpaceBetween) {
                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                            Box(
-                                Modifier.size(54.dp).clip(CircleShape)
-                                    .background(Brush.radialGradient(listOf(Color(0xFF7040A4).copy(alpha = .55f), Color(0xFF17102F), Color(0xFF0A0B20))))
-                                    .border(1.dp, Color(0xFF9B6BFF).copy(alpha = .75f), CircleShape),
-                                contentAlignment = Alignment.Center
-                            ) { Text("▣", color = Color(0xFF7DEBFF), fontSize = 27.sp, fontWeight = FontWeight.Bold) }
+                            Box(contentAlignment = Alignment.Center) {
+                                Box(Modifier.size(62.dp).clip(CircleShape)
+                                    .background(Color(0xFF7DEBFF).copy(alpha = .06f))
+                                    .border(1.dp, Color(0xFF7DEBFF).copy(alpha = .32f), CircleShape))
+                                Box(Modifier.size(48.dp).clip(CircleShape)
+                                    .background(Brush.radialGradient(listOf(Color(0xFF7040A4).copy(alpha = .7f), Color(0xFF17102F), Color(0xFF0A0B20))))
+                                    .border(1.dp, Color(0xFF9B6BFF).copy(alpha = .85f), CircleShape),
+                                    contentAlignment = Alignment.Center
+                                ) { Text("▣", color = Color(0xFF7DEBFF), fontSize = 25.sp, fontWeight = FontWeight.Bold) }
+                            }
                             Surface(
                                 shape = RoundedCornerShape(50),
                                 color = Color(0xFF9B6BFF).copy(alpha = .12f),
@@ -2422,7 +2426,7 @@ private fun MyraHome(
                         }
                         Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
                             Text("Camera Vision", color = Color.White, fontSize = 17.sp, fontWeight = FontWeight.Bold)
-                            Text("See and understand", color = Color(0xFFB9B5D4), fontSize = 11.sp)
+                            Text("Camera • visual assistance", color = Color(0xFFB9B5D4), fontSize = 10.sp)
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                                 Box(Modifier.size(6.dp).clip(CircleShape).background(Color(0xFF7DEBFF)))
                                 Text("Tap to open camera", color = Color(0xFFAAA3C8), fontSize = 9.sp)
@@ -2558,8 +2562,11 @@ private fun MyraFeaturesMenu(
                 items.forEach { (item, action) ->
                     Surface(onClick = action, shape = RoundedCornerShape(17.dp), color = Color(0xFF0B1024), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF49202A)), modifier = Modifier.fillMaxWidth()) {
                         Row(Modifier.padding(horizontal = 13.dp, vertical = 13.dp), verticalAlignment = Alignment.CenterVertically) {
-                            Box(Modifier.size(42.dp).clip(RoundedCornerShape(13.dp)).background(Brush.linearGradient(listOf(Color(0xFF4A111B), Color(0xFF211014)))).border(1.dp, Color(0xFFB92B40).copy(alpha = 0.8f), RoundedCornerShape(13.dp)), contentAlignment = Alignment.Center) {
-                                Text(item.third, fontSize = 21.sp)
+                            Box(Modifier.size(42.dp).clip(RoundedCornerShape(13.dp))
+                                .background(Brush.linearGradient(listOf(Violet.copy(alpha = .24f), Color(0xFF11152D))))
+                                .border(1.dp, (if (item.first == "Files & Documents") Cyan else Violet).copy(alpha = .72f), RoundedCornerShape(13.dp)),
+                                contentAlignment = Alignment.Center) {
+                                Text(item.third, color = if (item.first == "Files & Documents") Cyan else Color.White, fontSize = 21.sp)
                             }
                             Spacer(Modifier.width(12.dp))
                             Column(Modifier.weight(1f)) {
