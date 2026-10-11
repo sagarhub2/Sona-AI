@@ -275,6 +275,11 @@ class MainActivity : ComponentActivity() {
                 val percent = if (level >= 0 && scale > 0) (level * 100 / scale) else -1
                 val plugged = batteryIntent?.getIntExtra(android.os.BatteryManager.EXTRA_PLUGGED, 0) ?: 0
                 AlertDialog(
+                    shape = RoundedCornerShape(22.dp),
+                    containerColor = Color(0xFF080D1B),
+                    titleContentColor = Cyan,
+                    textContentColor = Color(0xFFDCE5FF),
+                    tonalElevation = 0.dp,
                     onDismissRequest = { showDeviceInfo = false },
                     title = { Text("Device Info") },
                     text = {
@@ -298,6 +303,11 @@ class MainActivity : ComponentActivity() {
                     .filter { it.contains(historyQuery, ignoreCase = true) }
                     .joinToString("\n")
                 AlertDialog(
+                    shape = RoundedCornerShape(22.dp),
+                    containerColor = Color(0xFF080D1B),
+                    titleContentColor = Cyan,
+                    textContentColor = Color(0xFFDCE5FF),
+                    tonalElevation = 0.dp,
                     onDismissRequest = { showHistory = false },
                     title = { Text("Searchable Conversation History") },
                     text = {
@@ -339,6 +349,11 @@ class MainActivity : ComponentActivity() {
                 val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
                 var taskDraft by remember { mutableStateOf(prefs.getString("sona_tasks", "").orEmpty()) }
                 AlertDialog(
+                    shape = RoundedCornerShape(22.dp),
+                    containerColor = Color(0xFF080D1B),
+                    titleContentColor = Cyan,
+                    textContentColor = Color(0xFFDCE5FF),
+                    tonalElevation = 0.dp,
                     onDismissRequest = { showTasks = false },
                     title = { Text("Myra Tasks") },
                     text = {
@@ -376,6 +391,11 @@ class MainActivity : ComponentActivity() {
             if (showMemory) {
                 var memoryDraft by remember { mutableStateOf(getSharedPreferences("myra_private", MODE_PRIVATE).getString("memory_notes", "") ?: "") }
                 AlertDialog(
+                    shape = RoundedCornerShape(22.dp),
+                    containerColor = Color(0xFF080D1B),
+                    titleContentColor = Cyan,
+                    textContentColor = Color(0xFFDCE5FF),
+                    tonalElevation = 0.dp,
                     onDismissRequest = { showMemory = false },
                     title = { Text("Myra Memory") },
                     text = {
