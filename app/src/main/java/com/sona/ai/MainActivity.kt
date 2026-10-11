@@ -413,9 +413,22 @@ class MainActivity : ComponentActivity() {
                     properties = DialogProperties(usePlatformDefaultWidth = false),
                     onDismissRequest = { showSettings = false },
                     title = {
-                        Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
-                            Text("MYRA AI", color = Cyan, fontWeight = FontWeight.Black, fontSize = 11.sp, letterSpacing = 2.4.sp)
-                            Text("Command Center", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 22.sp)
+                        Column(
+                            Modifier.fillMaxWidth().clip(RoundedCornerShape(20.dp))
+                                .background(Brush.horizontalGradient(listOf(Color(0xFF101D42), Color(0xFF22113C), Color(0xFF0A1C32))))
+                                .border(1.dp, Color(0xFF344A83), RoundedCornerShape(20.dp)).padding(16.dp),
+                            verticalArrangement = Arrangement.spacedBy(5.dp)
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Box(Modifier.size(42.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF6BE8FF), Color(0xFF6B37E5), Color(0xFF10152D)))), contentAlignment = Alignment.Center) {
+                                    Text("✦", color = Color.White, fontSize = 24.sp)
+                                }
+                                Spacer(Modifier.width(11.dp))
+                                Column {
+                                    Text("MYRA AI • PROFILE", color = Cyan, fontWeight = FontWeight.Black, fontSize = 10.sp, letterSpacing = 2.sp)
+                                    Text("Your command center", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                                }
+                            }
                             Text("PERSONALIZE YOUR ASSISTANT", color = Violet, fontWeight = FontWeight.Medium, fontSize = 9.sp, letterSpacing = 1.5.sp)
                         }
                     },
@@ -1743,8 +1756,15 @@ private fun MyraHome(
                 Text("YOUR PERSONAL AI ASSISTANT", color = Color(0xFFA8B4D7), fontSize = 9.sp, letterSpacing = 1.1.sp)
                 Text("Talk  •  Control  •  Get things done", color = Color(0xFF6F80A8), fontSize = 9.sp)
             }
-            Surface(onClick = onSettings, shape = CircleShape, color = Color(0xFF10162B), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF343E6B))) {
-                Text("⚙", color = Color.White, fontSize = 19.sp, modifier = Modifier.padding(horizontal = 12.dp, vertical = 9.dp))
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Surface(onClick = onSettings, shape = CircleShape, color = Color(0xFF111A34), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF7250D9))) {
+                    Box(Modifier.size(39.dp).background(Brush.radialGradient(listOf(Color(0xFF4E9CFF), Color(0xFF782BCE), Color(0xFF10162B))), CircleShape), contentAlignment = Alignment.Center) {
+                        Text(displayName.firstOrNull()?.uppercase() ?: "S", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                    }
+                }
+                Surface(onClick = onSettings, shape = CircleShape, color = Color(0xFF10162B), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF343E6B))) {
+                    Text("☰", color = Color.White, fontSize = 18.sp, modifier = Modifier.padding(horizontal = 11.dp, vertical = 9.dp))
+                }
             }
         }
         Column(Modifier.weight(1f).verticalScroll(androidx.compose.foundation.rememberScrollState()).padding(horizontal = 16.dp)) {
