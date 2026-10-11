@@ -1399,6 +1399,29 @@ class MainActivity : ComponentActivity() {
                                 heardText = "Conversation history cleared on this device."
                                 status = "HISTORY CLEARED"
                             }) { Text("Clear conversation history", color = Cyan) }
+                            Text("PRIVACY & PERMISSIONS", color = Color(0xFFCB1731), fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Surface(
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(16.dp),
+                                color = Color.White,
+                                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0B8C1))
+                            ) {
+                                Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(7.dp)) {
+                                    Text("Manage Myra's Android access", color = Color(0xFF282126), fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
+                                    Text("Review microphone, camera, contacts and other permissions in Android settings. You can change access any time.", color = Color(0xFF8C7E83), fontSize = 11.sp)
+                                    OutlinedButton(
+                                        onClick = {
+                                            try {
+                                                startActivity(Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, android.net.Uri.parse("package:$packageName")))
+                                            } catch (_: Exception) {
+                                                status = "APP PERMISSIONS SETTINGS UNAVAILABLE"
+                                            }
+                                        },
+                                        modifier = Modifier.fillMaxWidth(),
+                                        shape = RoundedCornerShape(12.dp)
+                                    ) { Text("Open app permissions  ↗", color = Color(0xFFCB1731)) }
+                                }
+                            }
                             Text("DIAGNOSTICS", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("Status: $status\\nDevice: ${android.os.Build.MANUFACTURER} ${android.os.Build.MODEL}\\nAndroid: ${android.os.Build.VERSION.RELEASE} (SDK ${android.os.Build.VERSION.SDK_INT})\\nGemini key: ${if (apiKey.isBlank()) "not configured" else "saved"}", fontSize = 12.sp, color = Color(0xFF8C7E83))
                             TextButton(onClick = { heardText = "Diagnostics refreshed • $status • Android ${android.os.Build.VERSION.RELEASE}" }) { Text("Refresh diagnostics", color = Cyan) }
