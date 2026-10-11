@@ -2895,14 +2895,14 @@ private fun MyraFeaturesMenu(
                     Text("✦", color = Color.White, fontSize = 23.sp)
                 }
             }
-            Box(Modifier.fillMaxWidth().height(1.dp).background(Brush.horizontalGradient(listOf(Color.Transparent, Violet, Color(0xFF8D1428), Color.Transparent))))
+            Box(Modifier.fillMaxWidth().height(1.dp).background(Brush.horizontalGradient(listOf(Color.Transparent, Color(0xFFF0B8C1), Color(0xFFCB1731), Color.Transparent))))
             Text("Everything you need, in one place.", color = Color(0xFF51464A), fontSize = 14.sp, modifier = Modifier.padding(top = 18.dp, bottom = 12.dp))
             Column(Modifier.weight(1f).verticalScroll(androidx.compose.foundation.rememberScrollState()), verticalArrangement = Arrangement.spacedBy(9.dp)) {
                 items.forEach { (item, action) ->
-                    Surface(onClick = action, shape = RoundedCornerShape(17.dp), color = Color.White, border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0B8C1)), shadowElevation = 3.dp, modifier = Modifier.fillMaxWidth()) {
+                    Surface(onClick = action, shape = RoundedCornerShape(17.dp), color = Color.White, border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0B8C1)), shadowElevation = 4.dp, modifier = Modifier.fillMaxWidth()) {
                         Row(Modifier.padding(horizontal = 13.dp, vertical = 13.dp), verticalAlignment = Alignment.CenterVertically) {
                             Box(Modifier.size(42.dp).clip(RoundedCornerShape(13.dp))
-                                .background(Brush.linearGradient(listOf(Color(0xFFFFE8EC), Color(0xFFFFF7F8))))
+                                .background(Brush.linearGradient(listOf(Color(0xFFFFE1E7), Color(0xFFFFF7F8))))
                                 .border(1.dp, Color(0xFFF0B8C1), RoundedCornerShape(13.dp)),
                                 contentAlignment = Alignment.Center) {
                                 Text(item.third, color = Color(0xFFCB1731), fontSize = 21.sp)
@@ -2917,7 +2917,7 @@ private fun MyraFeaturesMenu(
                     }
                 }
             }
-            Text("HOLOGRAPHIC • PERSONAL • ALWAYS READY", color = Color(0xFF9B6B75), fontSize = 9.sp, letterSpacing = 1.2.sp, modifier = Modifier.align(Alignment.CenterHorizontally).padding(vertical = 12.dp))
+            Text("PREMIUM • PERSONAL • ALWAYS READY", color = Color(0xFF9B6B75), fontSize = 9.sp, letterSpacing = 1.2.sp, modifier = Modifier.align(Alignment.CenterHorizontally).padding(vertical = 12.dp))
         }
     }
 }
