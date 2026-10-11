@@ -470,37 +470,37 @@ class MainActivity : ComponentActivity() {
                                 }
                                 Spacer(Modifier.width(11.dp))
                                 Column {
-                                    Text("MYRA AI • PROFILE", color = Cyan, fontWeight = FontWeight.Black, fontSize = 10.sp, letterSpacing = 2.sp)
+                                    Text("MYRA AI • PROFILE", color = Color(0xFFFF5267), fontWeight = FontWeight.Black, fontSize = 10.sp, letterSpacing = 2.sp)
                                     Text("Your command center", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 20.sp)
                                 }
                             }
-                            Text("PERSONALIZE YOUR ASSISTANT", color = Violet, fontWeight = FontWeight.Medium, fontSize = 9.sp, letterSpacing = 1.5.sp)
+                            Text("PERSONALIZE YOUR ASSISTANT", color = Color(0xFFFF5267), fontWeight = FontWeight.Medium, fontSize = 9.sp, letterSpacing = 1.5.sp)
                         }
                     },
                     text = {
                         Column(
                             modifier = Modifier.fillMaxWidth().fillMaxHeight(0.82f).verticalScroll(androidx.compose.foundation.rememberScrollState())
                                 .clip(RoundedCornerShape(22.dp))
-                                .background(Color(0xFF080D1B))
-                                .border(1.dp, Color(0xFF253763), RoundedCornerShape(22.dp))
+                                .background(Color(0xFF0B090B))
+                                .border(1.dp, Color(0xFF57202A), RoundedCornerShape(22.dp))
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
                             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                                Box(Modifier.size(38.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF59DFFF), Color(0xFF692CDB), Color(0xFF10162B)))), contentAlignment = Alignment.Center) {
+                                Box(Modifier.size(38.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFF5267), Color(0xFF9E1027), Color(0xFF171012)))), contentAlignment = Alignment.Center) {
                                     Text("✦", color = Color.White, fontSize = 22.sp)
                                 }
                                 Spacer(Modifier.width(10.dp))
                                 Column {
-                                    Text("MYRA AI • SETTINGS", color = Cyan, fontWeight = FontWeight.Black, fontSize = 10.sp, letterSpacing = 1.8.sp)
+                                    Text("MYRA AI • SETTINGS", color = Color(0xFFFF5267), fontWeight = FontWeight.Black, fontSize = 10.sp, letterSpacing = 1.8.sp)
                                     Text("Personalize your experience", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
                                 }
                             }
-                            Divider(color = Color(0xFF26365F))
-                            Text("ASSISTANT PROFILE", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Divider(color = Color(0xFF57202A))
+                            Text("ASSISTANT PROFILE", color = Color(0xFFFF5267), fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             OutlinedTextField(value = assistantNameDraft, onValueChange = { assistantNameDraft = it }, label = { Text("Assistant name") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             OutlinedTextField(value = userNameDraft, onValueChange = { userNameDraft = it }, label = { Text("What should Myra call you?") }, singleLine = true, modifier = Modifier.fillMaxWidth())
-                            Text("AI PROVIDER & MODEL", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text("AI PROVIDER & MODEL", color = Color(0xFFFF5267), fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("Provider: Google Gemini", fontSize = 13.sp)
                             Text("Voice input: Android speech recognition • Replies: device TTS; Live audio availability depends on the session connection.", fontSize = 11.sp, color = Color(0xFFB5A9AC))
                             OutlinedTextField(
@@ -510,7 +510,7 @@ class MainActivity : ComponentActivity() {
                                 modifier = Modifier.fillMaxWidth(),
                                 trailingIcon = { TextButton(onClick = { showApiKey = !showApiKey }) { Text(if (showApiKey) "HIDE" else "SHOW", color = Cyan) } }
                             )
-                            Text("VOICE & LANGUAGE", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text("VOICE & LANGUAGE", color = Color(0xFFFF5267), fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             OutlinedTextField(value = languageDraft, onValueChange = { languageDraft = it }, label = { Text("Language (e.g. Hindi, English, Auto)") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             OutlinedTextField(value = voiceDraft, onValueChange = { voiceDraft = it }, label = { Text("Voice style preference") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             SettingToggle("Speak text replies aloud", speakReplies, { speakReplies = it })
@@ -520,7 +520,7 @@ class MainActivity : ComponentActivity() {
                             Slider(value = speechPitch, onValueChange = { speechPitch = it }, valueRange = 0.75f..1.35f)
                             SettingToggle("Auto-listen preference (not active yet)", autoListen, { autoListen = it })
                             Text("Available voice depends on the speech engine installed on your phone.", color = Color(0xFFB5A9AC), fontSize = 11.sp)
-                            Text("PERSONALITY & MEMORY", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text("PERSONALITY & MEMORY", color = Color(0xFFFF5267), fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("QUICK PERSONALITY", color = Color(0xFFB5A9AC), fontSize = 10.sp, fontWeight = FontWeight.Bold)
                             listOf(
                                 "Companion" to "Warm, caring, emotionally aware, friendly, supportive, and respectful",
@@ -546,7 +546,7 @@ class MainActivity : ComponentActivity() {
                             }
                             OutlinedTextField(value = personalityDraft, onValueChange = { personalityDraft = it }, label = { Text("Custom personality / instructions") }, minLines = 2, modifier = Modifier.fillMaxWidth())
                             SettingToggle("Use saved Memory notes in replies", rememberNotes, { rememberNotes = it })
-                            Text("APPEARANCE & STYLE", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text("APPEARANCE & STYLE", color = Color(0xFFFF5267), fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("Choose Myra's accent palette. Changes apply across the interface.", color = Color(0xFFB5A9AC), fontSize = 12.sp)
                             listOf(
                                 "Holographic" to "Cyan + violet",
@@ -568,24 +568,24 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                             SettingToggle("Animated holographic orb", animatedOrb, { animatedOrb = it })
-                            Text("PHONE, FILES & PERMISSIONS", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text("PHONE, FILES & PERMISSIONS", color = Color(0xFFFF5267), fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("Use Android app settings to review or change permissions available to Myra AI.", fontSize = 12.sp, color = Color(0xFFB5A9AC))
                             TextButton(onClick = {
                                 try { startActivity(Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, android.net.Uri.parse("package:$packageName"))) }
                                 catch (_: Exception) { status = "APP SETTINGS UNAVAILABLE" }
                             }) { Text("Open permission dashboard", color = Cyan) }
-                            Text("WEB & SEARCH", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text("WEB & SEARCH", color = Color(0xFFFF5267), fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("Web search opens your browser. Search history is not stored by this settings panel.", fontSize = 12.sp, color = Color(0xFFB5A9AC))
-                            Text("PRIVACY & DIAGNOSTICS", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text("PRIVACY & DIAGNOSTICS", color = Color(0xFFFF5267), fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("API key and preferences are stored in this app's private local preferences. Never share your API key.", fontSize = 12.sp, color = Color(0xFFB5A9AC))
-                            Text("CONVERSATION HISTORY", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text("CONVERSATION HISTORY", color = Color(0xFFFF5267), fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("Recent turns are saved locally to provide context to future replies.", fontSize = 12.sp, color = Color(0xFFB5A9AC))
                             TextButton(onClick = {
                                 prefs.edit().remove("conversation_history").apply()
                                 heardText = "Conversation history cleared on this device."
                                 status = "HISTORY CLEARED"
                             }) { Text("Clear conversation history", color = Cyan) }
-                            Text("DIAGNOSTICS", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text("DIAGNOSTICS", color = Color(0xFFFF5267), fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("Status: $status\\nDevice: ${android.os.Build.MANUFACTURER} ${android.os.Build.MODEL}\\nAndroid: ${android.os.Build.VERSION.RELEASE} (SDK ${android.os.Build.VERSION.SDK_INT})\\nGemini key: ${if (apiKey.isBlank()) "not configured" else "saved"}", fontSize = 12.sp, color = Color(0xFFB5A9AC))
                             TextButton(onClick = { heardText = "Diagnostics refreshed • $status • Android ${android.os.Build.VERSION.RELEASE}" }) { Text("Refresh diagnostics", color = Cyan) }
                             Text("Build: Myra AI • Android • Gemini", fontSize = 11.sp, color = Color(0xFFB5A9AC))
@@ -1818,15 +1818,15 @@ private fun MyraHome(
                 }
                 Text("—  A I   A S S I S T A N T  —", color = muted, fontSize = 7.sp, letterSpacing = 1.2.sp)
             }
-            Surface(onClick = onReminder, shape = CircleShape, color = Color.White, shadowElevation = 5.dp) {
+            Surface(onClick = onReminder, shape = CircleShape, color = Color(0xFF151014), shadowElevation = 0.dp, border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF7A1B2C)) {
                 Box(Modifier.size(48.dp), contentAlignment = Alignment.Center) {
-                    Text("♧", color = ink, fontSize = 25.sp)
+                    Text("◷", color = red, fontSize = 24.sp)
                 }
             }
             Spacer(Modifier.width(10.dp))
-            Surface(onClick = onSettings, shape = CircleShape, color = Color.White, shadowElevation = 5.dp) {
+            Surface(onClick = onSettings, shape = CircleShape, color = Color(0xFF151014), shadowElevation = 0.dp, border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF7A1B2C)) {
                 Box(Modifier.size(48.dp), contentAlignment = Alignment.Center) {
-                    Text("⚙", color = ink, fontSize = 26.sp)
+                    Text("⚙", color = red, fontSize = 24.sp)
                 }
             }
         }
