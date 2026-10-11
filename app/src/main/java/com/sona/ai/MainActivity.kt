@@ -669,7 +669,7 @@ class MainActivity : ComponentActivity() {
                                             Spacer(Modifier.width(8.dp))
                                             Column {
                                                 Text("MYRA AI", color = Color(0xFF282126), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = .8.sp)
-                                                Text("ASSISTANT", color = Color(0xFFCB1731), fontSize = 8.sp, letterSpacing = 1.sp)
+                                                Text("PERSONAL AI", color = Color(0xFFCB1731), fontSize = 8.sp, letterSpacing = 1.sp)
                                             }
                                         }
                                         Box(Modifier.fillMaxWidth().height(1.dp).background(Color(0xFFF0B8C1)))
@@ -715,6 +715,7 @@ class MainActivity : ComponentActivity() {
                                     onValueChange = { chatDraft = it },
                                     modifier = Modifier.fillMaxWidth(),
                                     placeholder = { Text(if (busy) "Myra is replying…" else "Message Myra…", color = Color(0xFF8C7E83)) },
+                                    leadingIcon = { Text("✦", color = Color(0xFFCB1731), fontSize = 17.sp) },
                                     label = { Text("Your message", color = Color(0xFFCB1731)) },
                                     minLines = 1,
                                     maxLines = 4,
@@ -736,7 +737,7 @@ class MainActivity : ComponentActivity() {
                                 )
                             Spacer(Modifier.height(8.dp))
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
-                                Text("Replies appear in this chat", color = Color(0xFF8C7E83), fontSize = 10.sp, modifier = Modifier.weight(1f))
+                                Text(if (busy) "Myra is thinking…" else "Private chat • Replies appear here", color = Color(0xFF8C7E83), fontSize = 10.sp, modifier = Modifier.weight(1f))
                                 Button(
                                     onClick = {
                                         val message = chatDraft.trim()
