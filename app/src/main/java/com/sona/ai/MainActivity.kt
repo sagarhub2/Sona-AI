@@ -2168,32 +2168,42 @@ private fun MyraHome(
             .statusBarsPadding().navigationBarsPadding()
     ) {
         Row(
-            Modifier.fillMaxWidth().padding(start = 22.dp, end = 20.dp, top = 13.dp, bottom = 6.dp),
+            Modifier.fillMaxWidth().padding(start = 20.dp, end = 18.dp, top = 12.dp, bottom = 8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(Modifier.weight(1f)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text("MYR", color = ink, fontSize = 25.sp, fontWeight = FontWeight.Black, letterSpacing = (-1).sp)
-                    Text("A", color = red, fontSize = 25.sp, fontWeight = FontWeight.Black, letterSpacing = (-1).sp)
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(2.dp)) {
+                    Text("MYR", color = Color.White, fontSize = 27.sp, fontWeight = FontWeight.Black, letterSpacing = (-1).sp)
+                    Text("A", color = Violet, fontSize = 27.sp, fontWeight = FontWeight.Black, letterSpacing = (-1).sp)
+                    Box(Modifier.padding(start = 5.dp).size(6.dp).clip(CircleShape).background(if (hasKey) Cyan else Color(0xFFFFB36B)))
                 }
                 Text("—  H O L O G R A P H I C   A I  —", color = muted, fontSize = 7.sp, letterSpacing = 1.2.sp)
+                Row(Modifier.padding(top = 6.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+                    Box(Modifier.size(5.dp).clip(CircleShape).background(if (busy) Cyan else Violet))
+                    Text(
+                        when { busy -> "ASSISTANT BUSY"; !hasKey -> "SETUP REQUIRED"; else -> "SYSTEM READY" },
+                        color = if (busy) Cyan else if (hasKey) Color(0xFFBFA0FF) else Color(0xFFFFB36B),
+                        fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .8.sp
+                    )
+                }
             }
             Surface(
                 onClick = onReminder,
                 shape = CircleShape,
                 color = Color(0xFF100D27),
-                shadowElevation = 0.dp,
+                shadowElevation = 2.dp,
                 border = androidx.compose.foundation.BorderStroke(1.dp, Violet.copy(alpha = .85f))
             ) {
-                Box(Modifier.size(48.dp), contentAlignment = Alignment.Center) {
-                    Box(Modifier.size(36.dp).clip(CircleShape).background(Violet.copy(alpha = .12f)))
-                    Text("◷", color = Cyan, fontSize = 24.sp)
+                Box(Modifier.size(46.dp), contentAlignment = Alignment.Center) {
+                    Box(Modifier.size(34.dp).clip(CircleShape).background(Violet.copy(alpha = .12f)))
+                    Text("◷", color = Cyan, fontSize = 23.sp)
                 }
             }
-            Spacer(Modifier.width(10.dp))
-            Surface(onClick = onSettings, shape = CircleShape, color = Color(0xFF100D22), shadowElevation = 0.dp, border = androidx.compose.foundation.BorderStroke(1.dp, Violet.copy(alpha = .65f))) {
-                Box(Modifier.size(48.dp), contentAlignment = Alignment.Center) {
-                    Text("⚙", color = red, fontSize = 24.sp)
+            Spacer(Modifier.width(9.dp))
+            Surface(onClick = onSettings, shape = CircleShape, color = Color(0xFF100D22), shadowElevation = 2.dp,
+                border = androidx.compose.foundation.BorderStroke(1.dp, Violet.copy(alpha = .75f))) {
+                Box(Modifier.size(46.dp), contentAlignment = Alignment.Center) {
+                    Text("⚙", color = Violet, fontSize = 23.sp)
                 }
             }
         }
