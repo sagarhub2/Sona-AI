@@ -671,8 +671,8 @@ class MainActivity : ComponentActivity() {
     private fun requestOrStartVoice() {
         if (busy) return
         if (apiKey.isBlank()) {
-            status = "ADD GEMINI KEY IN SETTINGS"
-            showSettings = true
+            status = "VOICE MODE NEEDS SETUP"
+            heardText = "Open Settings to add your Gemini key, then tap Voice again."
             return
         }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
