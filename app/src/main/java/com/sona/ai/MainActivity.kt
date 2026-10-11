@@ -476,26 +476,65 @@ class MainActivity : ComponentActivity() {
             if (showTasks) {
                 val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
                 var taskDraft by remember { mutableStateOf(prefs.getString("sona_tasks", "").orEmpty()) }
+                val taskLines = taskDraft.lines().map { it.trim() }.filter { it.isNotEmpty() }
+                val completedTasks = taskLines.count { it.startsWith("[x]", ignoreCase = true) }
                 AlertDialog(
-                    shape = RoundedCornerShape(22.dp),
-                    containerColor = Color(0xFF0B1024),
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(26.dp),
+                    containerColor = Color(0xFF070817),
                     titleContentColor = Violet,
-                    textContentColor = Color(0xFFE6DDE0),
+                    textContentColor = Color(0xFFE6E5FF),
                     tonalElevation = 0.dp,
                     onDismissRequest = { showTasks = false },
-                    title = { Text("Myra Tasks") },
+                    title = {
+                        Column(
+                            Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
+                                .background(Brush.horizontalGradient(listOf(Color(0xFF21103F), Color(0xFF100D27), Color(0xFF070817))))
+                                .border(1.dp, Violet.copy(alpha = .8f), RoundedCornerShape(18.dp))
+                                .padding(14.dp),
+                            verticalArrangement = Arrangement.spacedBy(5.dp)
+                        ) {
+                            Text("◈  MYRA AI • TASK CONTROL", color = Cyan, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                            Text("Tasks & reminders", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                            Text("Your list stays saved locally on this phone.", color = Color(0xFFB9B5D4), fontSize = 12.sp)
+                        }
+                    },
                     text = {
-                        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Text("One task per line. Your list stays saved on this phone.")
+                        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                            Row(
+                                Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp))
+                                    .background(Color(0xFF100D27))
+                                    .border(1.dp, Violet.copy(alpha = .45f), RoundedCornerShape(14.dp))
+                                    .padding(12.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text("☷", color = Violet, fontSize = 25.sp)
+                                Spacer(Modifier.width(10.dp))
+                                Column {
+                                    Text("${taskLines.size} tasks in your list", color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
+                                    Text(if (taskLines.isEmpty()) "Add one task per line to get started." else "$completedTasks marked complete • use [x] at the start of a finished task", color = Color(0xFFB9B5D4), fontSize = 11.sp)
+                                }
+                            }
                             OutlinedTextField(
                                 value = taskDraft,
                                 onValueChange = { taskDraft = it },
-                                label = { Text("My tasks") },
+                                label = { Text("Your task list") },
                                 placeholder = { Text("Finish homework\nDrink water\nReview my plans") },
-                                minLines = 4,
-                                maxLines = 8
+                                minLines = 5,
+                                maxLines = 9,
+                                modifier = Modifier.fillMaxWidth(),
+                                colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
+                                    focusedTextColor = Color(0xFFE8E5FF),
+                                    unfocusedTextColor = Color(0xFFE8E5FF),
+                                    focusedBorderColor = Violet,
+                                    unfocusedBorderColor = Violet.copy(alpha = .45f),
+                                    focusedLabelColor = Cyan,
+                                    cursorColor = Cyan,
+                                    focusedContainerColor = Color(0xFF09091B),
+                                    unfocusedContainerColor = Color(0xFF09091B)
+                                )
                             )
-                            Text("Tip: add [x] before a task when you finish it.", color = Color(0xFF7784AA), fontSize = 12.sp)
+                            Text("TIP  •  Add [x] before a finished task.", color = Cyan, fontSize = 11.sp, letterSpacing = .3.sp)
                         }
                     },
                     confirmButton = {
@@ -504,7 +543,7 @@ class MainActivity : ComponentActivity() {
                             heardText = if (taskDraft.isBlank()) "Task list cleared." else "Tasks saved on this device."
                             status = "TASKS UPDATED"
                             showTasks = false
-                        }) { Text("Save tasks") }
+                        }) { Text("✦  Save tasks", color = Cyan) }
                     },
                     dismissButton = {
                         TextButton(onClick = {
@@ -512,7 +551,7 @@ class MainActivity : ComponentActivity() {
                             prefs.edit().putString("sona_tasks", "").apply()
                             status = "TASKS CLEARED"
                             showTasks = false
-                        }) { Text("Clear all") }
+                        }) { Text("Clear all", color = Violet) }
                     }
                 )
             }
