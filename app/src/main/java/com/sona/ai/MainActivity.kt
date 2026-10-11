@@ -197,12 +197,18 @@ class MainActivity : ComponentActivity() {
                     catch (_: Exception) { status = "CAMERA UNAVAILABLE" }
                 },
                 onContacts = {
-                    try { startActivity(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("content://contacts/people/"))) }
-                    catch (_: Exception) { status = "CONTACTS UNAVAILABLE" }
+                    try {
+                        startActivity(Intent(Intent.ACTION_PICK, android.provider.ContactsContract.Contacts.CONTENT_URI))
+                    } catch (_: Exception) {
+                        status = "CONTACT PICKER UNAVAILABLE"
+                    }
                 },
                 onMedia = {
-                    try { startActivity(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.youtube.com"))) }
-                    catch (_: Exception) { status = "MEDIA APP UNAVAILABLE" }
+                    try {
+                        startActivity(Intent.makeMainSelectorActivity(Intent.ACTION_MAIN, Intent.CATEGORY_APP_MUSIC))
+                    } catch (_: Exception) {
+                        status = "NO MUSIC APP AVAILABLE"
+                    }
                 },
                 onReminder = {
                     try { startActivity(Intent(AlarmClock.ACTION_SET_ALARM).apply { putExtra(AlarmClock.EXTRA_SKIP_UI, false) }) }
