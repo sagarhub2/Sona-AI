@@ -742,6 +742,18 @@ class MainActivity : ComponentActivity() {
                                             else savedChat.replace("\\\\n", "\\n"),
                                             color = Color(0xFF282126), fontSize = 14.sp, lineHeight = 22.sp
                                         )
+                                        if (savedChat.isNotBlank()) {
+                                            TextButton(
+                                                onClick = {
+                                                    val clipboard = getSystemService(android.content.ClipboardManager::class.java)
+                                                    clipboard?.setPrimaryClip(android.content.ClipData.newPlainText("Myra conversation history", savedChat.replace("\\\\n", "\\n")))
+                                                    android.widget.Toast.makeText(this@MainActivity, "Conversation copied", android.widget.Toast.LENGTH_SHORT).show()
+                                                },
+                                                modifier = Modifier.align(Alignment.End)
+                                            ) {
+                                                Text("⧉  Copy conversation", color = Color(0xFFCB1731), fontSize = 11.sp)
+                                            }
+                                        }
                                     }
                                 }
                                 if (busy && pendingMessage.isNotBlank()) {
