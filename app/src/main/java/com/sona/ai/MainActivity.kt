@@ -906,11 +906,11 @@ class MainActivity : ComponentActivity() {
                             Text("Voice input: Android speech recognition • Replies: device TTS; Live audio availability depends on the session connection.", fontSize = 11.sp, color = Color(0xFFB5A9AC))
                             Surface(
                                 modifier = Modifier.fillMaxWidth(),
-                                shape = RoundedCornerShape(16.dp),
-                                color = Color(0xFF0B1024),
-                                border = androidx.compose.foundation.BorderStroke(1.dp, Cyan.copy(alpha = .48f))
+                                shape = RoundedCornerShape(18.dp),
+                                color = Color(0xFF07131F),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, Cyan.copy(alpha = .72f))
                             ) {
-                                Column(Modifier.padding(10.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                                Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                                     Row(verticalAlignment = Alignment.CenterVertically) {
                                         Text("GEMINI CONNECTION", color = Cyan, fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
                                         Spacer(Modifier.weight(1f))
