@@ -2320,15 +2320,37 @@ private fun MyraHome(
                     }
                 }
                 Surface(
-                    onClick = onCamera, modifier = Modifier.weight(1f).height(164.dp),
-                    shape = RoundedCornerShape(24.dp), color = Color(0xFF0B0918), shadowElevation = 3.dp,
-                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF56317D))
+                    onClick = onCamera,
+                    modifier = Modifier.weight(1f).height(176.dp),
+                    shape = RoundedCornerShape(24.dp),
+                    color = Color(0xFF0A0B20),
+                    shadowElevation = 4.dp,
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF7040A4))
                 ) {
-                    Column(Modifier.fillMaxSize().padding(17.dp), verticalArrangement = Arrangement.SpaceBetween) {
-                        Text("▣", color = red, fontSize = 30.sp, fontWeight = FontWeight.Bold)
-                        Column {
-                            Text("Camera Vision", color = ink, fontSize = 17.sp, fontWeight = FontWeight.Bold)
-                            Text("See and understand", color = muted, fontSize = 12.sp)
+                    Column(Modifier.fillMaxSize().padding(15.dp), verticalArrangement = Arrangement.SpaceBetween) {
+                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+                            Box(
+                                Modifier.size(54.dp).clip(CircleShape)
+                                    .background(Brush.radialGradient(listOf(Color(0xFF7040A4).copy(alpha = .55f), Color(0xFF17102F), Color(0xFF0A0B20))))
+                                    .border(1.dp, Color(0xFF9B6BFF).copy(alpha = .75f), CircleShape),
+                                contentAlignment = Alignment.Center
+                            ) { Text("▣", color = Color(0xFF7DEBFF), fontSize = 27.sp, fontWeight = FontWeight.Bold) }
+                            Surface(
+                                shape = RoundedCornerShape(50),
+                                color = Color(0xFF9B6BFF).copy(alpha = .12f),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF9B6BFF).copy(alpha = .5f))
+                            ) {
+                                Text("VISION", modifier = Modifier.padding(horizontal = 9.dp, vertical = 5.dp),
+                                    color = Color(0xFFBFA0FF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = .7.sp)
+                            }
+                        }
+                        Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                            Text("Camera Vision", color = Color.White, fontSize = 17.sp, fontWeight = FontWeight.Bold)
+                            Text("See and understand", color = Color(0xFFB9B5D4), fontSize = 11.sp)
+                            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+                                Box(Modifier.size(6.dp).clip(CircleShape).background(Color(0xFF7DEBFF)))
+                                Text("Tap to open camera", color = Color(0xFFAAA3C8), fontSize = 9.sp)
+                            }
                         }
                     }
                 }
