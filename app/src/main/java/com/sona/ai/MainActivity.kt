@@ -375,7 +375,7 @@ class MainActivity : ComponentActivity() {
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                                 Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                     Text("MYRA AI", color = Violet, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                                    Text(if (busy) "● THINKING…" else if (apiKey.isBlank()) "● SETUP REQUIRED" else "● ENCRYPTED SESSION • READY", color = if (apiKey.isBlank()) Color(0xFFFFB36B) else Cyan, fontSize = 10.sp, letterSpacing = .6.sp)
+                                    Text(if (busy) "● THINKING…" else if (apiKey.isBlank()) "● SETUP REQUIRED" else "● CHAT • READY", color = if (apiKey.isBlank()) Color(0xFFFFB36B) else Cyan, fontSize = 10.sp, letterSpacing = .6.sp)
                                 }
                                 TextButton(onClick = { showChat = false }) { Text("✕  Close", color = Violet) }
                             }
@@ -2064,14 +2064,14 @@ private fun MyraHome(
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(14.dp)) {
                 Surface(
                     onClick = onStartVoice, modifier = Modifier.weight(1f).height(164.dp),
-                    shape = RoundedCornerShape(24.dp), color = Color(0xFF0B0918), shadowElevation = 3.dp,
-                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF56317D))
+                    shape = RoundedCornerShape(24.dp), color = Color(0xFF100B27), shadowElevation = 5.dp,
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Violet.copy(alpha = .85f))
                 ) {
                     Column(Modifier.fillMaxSize().padding(17.dp), verticalArrangement = Arrangement.SpaceBetween) {
-                        Text("≋", color = red, fontSize = 31.sp, fontWeight = FontWeight.Bold)
+                        Text(if (busy) "•••" else "≋", color = Cyan, fontSize = 31.sp, fontWeight = FontWeight.Bold)
                         Column {
                             Text("Live Voice", color = ink, fontSize = 17.sp, fontWeight = FontWeight.Bold)
-                            Text("Gemini Live", color = muted, fontSize = 12.sp)
+                            Text(if (busy) "Connecting…" else status, color = if (busy) Cyan else muted, fontSize = 10.sp, maxLines = 2)
                         }
                     }
                 }
@@ -2122,8 +2122,8 @@ private fun MyraHome(
             }
             Column(Modifier.weight(1f).clip(RoundedCornerShape(18.dp)).clickable { onStartVoice() }.padding(vertical = 4.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(if (busy) "•••" else "≋", color = muted, fontSize = 23.sp, fontWeight = FontWeight.Bold)
-                Text("Voice", color = muted, fontSize = 11.sp)
+                Text(if (busy) "•••" else "≋", color = if (busy) Cyan else muted, fontSize = 23.sp, fontWeight = FontWeight.Bold)
+                Text("Voice", color = if (busy) Cyan else muted, fontSize = 11.sp)
             }
             Column(Modifier.weight(1f).clip(RoundedCornerShape(18.dp)).clickable { onReminder() }.padding(vertical = 4.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
