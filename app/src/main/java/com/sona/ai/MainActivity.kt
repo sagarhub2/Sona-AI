@@ -317,59 +317,66 @@ class MainActivity : ComponentActivity() {
             }
             if (showChat) {
                 var chatDraft by remember { mutableStateOf("") }
-                AlertDialog(
-                    shape = RoundedCornerShape(22.dp),
-                    containerColor = Color(0xFF111113),
-                    titleContentColor = Color(0xFFFF5267),
-                    textContentColor = Color(0xFFE6DDE0),
-                    tonalElevation = 0.dp,
+                val chatPrefs = getSharedPreferences("myra_private", MODE_PRIVATE)
+                val savedChat = chatPrefs.getString("conversation_history", "").orEmpty()
+                Dialog(
                     onDismissRequest = { showChat = false },
-                    title = { Text("MYRA • CHAT") },
-                    text = {
-                        Column(
-                            modifier = Modifier.heightIn(max = 420.dp).verticalScroll(androidx.compose.foundation.rememberScrollState()),
-                            verticalArrangement = Arrangement.spacedBy(10.dp)
-                        ) {
-                            Text(if (heardText.isBlank()) "Start a conversation with Myra." else heardText,
-                                color = Color(0xFFE6DDE0), fontSize = 14.sp, lineHeight = 20.sp)
-                            OutlinedTextField(
-                                value = chatDraft,
-                                onValueChange = { chatDraft = it },
-                                label = { Text("Message Myra…") },
-                                placeholder = { Text("Ask anything") },
-                                modifier = Modifier.fillMaxWidth(),
-                                minLines = 2,
-                                maxLines = 5
-                            )
-                            if (apiKey.isBlank()) {
-                                Text("Add your Gemini API key in Settings to send messages.",
-                                    color = Color(0xFFFF9AA8), fontSize = 12.sp)
+                    properties = DialogProperties(usePlatformDefaultWidth = false)
+                ) {
+                    Surface(
+                        modifier = Modifier.fillMaxWidth(0.96f).fillMaxHeight(0.88f),
+                        shape = RoundedCornerShape(26.dp),
+                        color = Color(0xFF09090D),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF63202E)),
+                        tonalElevation = 0.dp
+                    ) {
+                        Column(Modifier.fillMaxSize().padding(16.dp)) {
+                            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+                                Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                                    Text("MYRA AI", color = Color(0xFFFF5267), fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                                    Text(if (busy) "THINKING…" else if (apiKey.isBlank()) "CHAT • SETUP REQUIRED" else "CHAT • READY", color = Color(0xFFB9AEB4), fontSize = 10.sp)
+                                }
+                                TextButton(onClick = { showChat = false }) { Text("Close", color = Color(0xFFFF8A9A)) }
                             }
-                        }
-                    },
-                    confirmButton = {
-                        TextButton(onClick = {
-                            val message = chatDraft.trim()
-                            if (message.isNotEmpty()) {
-                                if (apiKey.isBlank()) {
-                                    status = "CHAT NEEDS GEMINI API KEY"
+                            HorizontalDivider(color = Color(0xFF382028))
+                            Column(Modifier.weight(1f).fillMaxWidth().padding(vertical = 12.dp).verticalScroll(androidx.compose.foundation.rememberScrollState()), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                                Text("CONVERSATION", color = Color(0xFFFF8A9A), fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                                if (savedChat.isBlank()) {
+                                    Text("Hey! I’m Myra. Ask me anything to start chatting.", color = Color(0xFFE6DDE0), fontSize = 15.sp, lineHeight = 22.sp)
                                 } else {
-                                    showChat = false
-                                    askGemini(message)
+                                    Text(savedChat.replace("\\n", "\n"), color = Color(0xFFE6DDE0), fontSize = 14.sp, lineHeight = 21.sp)
+                                }
+                                if (busy) Text("Myra is preparing a response…", color = Color(0xFFFF8A9A), fontSize = 13.sp)
+                                if (apiKey.isBlank()) {
+                                    Text("To send messages, add a Gemini API key in Settings.", color = Color(0xFFFF9AA8), fontSize = 12.sp)
+                                    TextButton(onClick = { showChat = false; showSettings = true }) { Text("Open Settings", color = Color(0xFFFF5267)) }
                                 }
                             }
-                        }) { Text("Send") }
-                    },
-                    dismissButton = {
-                        Row {
-                            TextButton(onClick = { showChat = false }) { Text("Close") }
-                            if (apiKey.isBlank()) TextButton(onClick = {
-                                showChat = false
-                                showSettings = true
-                            }) { Text("Open Settings") }
+                            OutlinedTextField(value = chatDraft, onValueChange = { chatDraft = it }, modifier = Modifier.fillMaxWidth(), placeholder = { Text("Message Myra…") }, label = { Text("Your message") }, minLines = 1, maxLines = 4, enabled = !busy, shape = RoundedCornerShape(16.dp))
+                            Spacer(Modifier.height(8.dp))
+                            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
+                                Text("Replies appear in this chat", color = Color(0xFF9F9298), fontSize = 10.sp, modifier = Modifier.weight(1f))
+                                Button(
+                                    onClick = {
+                                        val message = chatDraft.trim()
+                                        if (message.isNotEmpty() && !busy) {
+                                            if (apiKey.isBlank()) {
+                                                status = "CHAT NEEDS GEMINI API KEY"
+                                            } else {
+                                                chatPrefs.edit().putString("conversation_history", (chatPrefs.getString("conversation_history", "").orEmpty() + "\\nUser: " + message).takeLast(12000)).apply()
+                                                chatDraft = ""
+                                                askGemini(message)
+                                            }
+                                        }
+                                    },
+                                    enabled = chatDraft.isNotBlank() && !busy && apiKey.isNotBlank(),
+                                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFB51F3B), contentColor = Color.White, disabledContainerColor = Color(0xFF382028), disabledContentColor = Color(0xFF93868B)),
+                                    shape = RoundedCornerShape(14.dp)
+                                ) { Text(if (busy) "Wait…" else "Send  ➤") }
+                            }
                         }
                     }
-                )
+                }
             }
             if (showHistory) {
                 val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
