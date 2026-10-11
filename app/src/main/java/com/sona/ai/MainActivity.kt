@@ -656,37 +656,88 @@ class MainActivity : ComponentActivity() {
                     .filter { it.contains(historyQuery, ignoreCase = true) }
                     .joinToString("\n")
                 AlertDialog(
-                    shape = RoundedCornerShape(22.dp),
-                    containerColor = Color(0xFF0B1024),
-                    titleContentColor = Violet,
-                    textContentColor = Color(0xFFE6DDE0),
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(26.dp),
+                    containerColor = Color.White,
+                    titleContentColor = Color(0xFFCB1731),
+                    textContentColor = Color(0xFF51464A),
                     tonalElevation = 0.dp,
                     onDismissRequest = { showHistory = false },
-                    title = { Text("Searchable Conversation History") },
+                    title = {
+                        Column(
+                            Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
+                                .background(Brush.horizontalGradient(listOf(Color(0xFFFFE8EC), Color.White, Color(0xFFFFF7F8))))
+                                .border(1.dp, Color(0xFFF0B8C1), RoundedCornerShape(18.dp))
+                                .padding(14.dp),
+                            verticalArrangement = Arrangement.spacedBy(5.dp)
+                        ) {
+                            Text("◈  MYRA AI • HISTORY VAULT", color = Color(0xFFCB1731), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.4.sp)
+                            Text("Conversation history", color = Color(0xFF282126), fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                            Text("Search through conversations saved on this device.", color = Color(0xFF8C7E83), fontSize = 12.sp)
+                        }
+                    },
                     text = {
                         Column(
                             modifier = Modifier.heightIn(max = 420.dp).verticalScroll(androidx.compose.foundation.rememberScrollState()),
-                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                            verticalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
+                            Row(
+                                Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp))
+                                    .background(Color(0xFFFFF3F4))
+                                    .border(1.dp, Color(0xFFF3C6CC), RoundedCornerShape(14.dp))
+                                    .padding(12.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text("☷", color = Color(0xFFCB1731), fontSize = 24.sp)
+                                Spacer(Modifier.width(10.dp))
+                                Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                                    Text(if (savedHistory.isBlank()) "No saved conversations" else "Your saved conversations", color = Color(0xFF282126), fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+                                    Text(if (savedHistory.isBlank()) "Ask Myra a question to start your history." else "${savedHistory.lines().count { it.isNotBlank() }} saved history lines", color = Color(0xFF8C7E83), fontSize = 11.sp)
+                                }
+                            }
                             OutlinedTextField(
                                 value = historyQuery,
                                 onValueChange = { historyQuery = it },
                                 label = { Text("Search past conversations") },
+                                placeholder = { Text("Type a word or phrase…") },
                                 singleLine = true,
-                                modifier = Modifier.fillMaxWidth()
+                                modifier = Modifier.fillMaxWidth(),
+                                colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
+                                    focusedTextColor = Color(0xFF292126),
+                                    unfocusedTextColor = Color(0xFF292126),
+                                    focusedBorderColor = Color(0xFFCB1731),
+                                    unfocusedBorderColor = Color(0xFFF0B8C1),
+                                    focusedLabelColor = Color(0xFFCB1731),
+                                    cursorColor = Color(0xFFCB1731),
+                                    focusedContainerColor = Color.White,
+                                    unfocusedContainerColor = Color.White
+                                )
                             )
-                            Text(
-                                if (savedHistory.isBlank()) "No saved conversation history yet. Ask Myra a question to start."
-                                else if (visibleHistory.isBlank()) "No matching history lines found."
-                                else visibleHistory,
-                                color = Color(0xFFD2D9F0),
-                                fontSize = 13.sp,
-                                lineHeight = 19.sp
-                            )
+                            Surface(
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(15.dp),
+                                color = Color(0xFFFFF9FA),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0B8C1))
+                            ) {
+                                Text(
+                                    if (savedHistory.isBlank()) "No saved conversation history yet. Ask Myra a question to start."
+                                    else if (visibleHistory.isBlank()) "No matching history lines found."
+                                    else visibleHistory,
+                                    modifier = Modifier.padding(13.dp),
+                                    color = Color(0xFF51464A),
+                                    fontSize = 12.sp,
+                                    lineHeight = 19.sp
+                                )
+                            }
                         }
                     },
                     confirmButton = {
-                        TextButton(onClick = { showHistory = false }) { Text("Close") }
+                        Button(
+                            onClick = { showHistory = false },
+                            shape = RoundedCornerShape(13.dp),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFCB1731), contentColor = Color.White),
+                            contentPadding = PaddingValues(horizontal = 18.dp, vertical = 10.dp)
+                        ) { Text("Done", fontWeight = FontWeight.Bold) }
                     },
                     dismissButton = {
                         TextButton(onClick = {
@@ -694,7 +745,7 @@ class MainActivity : ComponentActivity() {
                             status = "CONVERSATION HISTORY CLEARED"
                             heardText = "Conversation history cleared on this device."
                             showHistory = false
-                        }) { Text("Clear history") }
+                        }) { Text("Clear history", color = Color(0xFFCB1731), fontWeight = FontWeight.SemiBold) }
                     }
                 )
             }
