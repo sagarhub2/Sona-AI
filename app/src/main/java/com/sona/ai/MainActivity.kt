@@ -2614,7 +2614,8 @@ private fun MyraHome(
         ), label = "holographic-orb-rotation"
     )
     val ink = Color(0xFF282126)
-    val muted = Color(0xFF8C7E83)
+    // Darker muted text keeps dashboard labels readable on the pale rose background.
+    val muted = Color(0xFF6F5C62)
     val red = Color(0xFFCB1731)
     Column(
         Modifier.fillMaxSize()
