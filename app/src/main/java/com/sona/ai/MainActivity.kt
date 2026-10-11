@@ -2659,7 +2659,7 @@ For privacy, I do not silently send messages or place calls. Android may ask you
                     status = "NEURAL LENS • IMAGE ANALYSIS COMPLETE"
                     val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
                     val previousHistory = prefs.getString("conversation_history", "").orEmpty()
-                    prefs.edit().putString("conversation_history", (previousHistory + "\\nUser: Analyze selected image\\nMyra: " + responseText).takeLast(12000)).apply()
+                    prefs.edit().putString("conversation_history", (previousHistory + "\nUser: Analyze selected image\nMyra: " + responseText).takeLast(12000)).apply()
                     if (ttsReady && prefs.getBoolean("speak_replies", true)) textToSpeech?.speak(responseText, TextToSpeech.QUEUE_FLUSH, null, "myra-image-analysis")
                 } else {
                     status = "NEURAL LENS • ANALYSIS FAILED"
