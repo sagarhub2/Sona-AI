@@ -363,22 +363,22 @@ class MainActivity : ComponentActivity() {
                 AlertDialog(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(26.dp),
-                    containerColor = Color(0xFF070817),
-                    titleContentColor = Violet,
-                    textContentColor = Color(0xFFE6E5FF),
+                    containerColor = Color.White,
+                    titleContentColor = Color(0xFFCB1731),
+                    textContentColor = Color(0xFF282126),
                     tonalElevation = 0.dp,
                     onDismissRequest = { showTriggers = false },
                     title = {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
-                                .background(Brush.horizontalGradient(listOf(Color(0xFF21103F), Color(0xFF100D27), Color(0xFF070817))))
+                                .background(Brush.horizontalGradient(listOf(Color(0xFFCB1731), Color(0xFFB5122A), Color(0xFF8F1028))))
                                 .border(1.dp, Violet.copy(alpha = .8f), RoundedCornerShape(18.dp))
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
                             Text("◈  MYRA AI • TRIGGER CENTER", color = Cyan, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
                             Text("Triggers & clock", color = Color.White, fontSize = 21.sp, fontWeight = FontWeight.Bold)
-                            Text("Choose an action to open your phone's Clock app.", color = Color(0xFFB9B5D4), fontSize = 12.sp)
+                            Text("Choose an action to open your phone's Clock app.", color = Color(0xFF8C7E83), fontSize = 12.sp)
                         }
                     },
                     text = {
@@ -406,7 +406,7 @@ class MainActivity : ComponentActivity() {
                                         Spacer(Modifier.width(12.dp))
                                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                             Text(heading, color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
-                                            Text(detail, color = Color(0xFFB9B5D4), fontSize = 11.sp)
+                                            Text(detail, color = Color(0xFF8C7E83), fontSize = 11.sp)
                                         }
                                         Text("›", color = Cyan, fontSize = 25.sp)
                                     }
@@ -1169,7 +1169,7 @@ class MainActivity : ComponentActivity() {
                             OutlinedTextField(value = userNameDraft, onValueChange = { userNameDraft = it }, label = { Text("What should Myra call you?") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             Text("AI PROVIDER & MODEL", color = Color(0xFFCB1731), fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("Provider: Google Gemini", fontSize = 13.sp)
-                            Text("Voice input: Android speech recognition • Replies: device TTS; Live audio availability depends on the session connection.", fontSize = 11.sp, color = Color(0xFFB5A9AC))
+                            Text("Voice input: Android speech recognition • Replies: device TTS; Live audio availability depends on the session connection.", fontSize = 11.sp, color = Color(0xFF8C7E83))
                             Surface(
                                 modifier = Modifier.fillMaxWidth(),
                                 shape = RoundedCornerShape(18.dp),
@@ -1216,14 +1216,14 @@ class MainActivity : ComponentActivity() {
                             OutlinedTextField(value = languageDraft, onValueChange = { languageDraft = it }, label = { Text("Language (e.g. Hindi, English, Auto)") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             OutlinedTextField(value = voiceDraft, onValueChange = { voiceDraft = it }, label = { Text("Voice style preference") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             SettingToggle("Speak text replies aloud", speakReplies, { speakReplies = it })
-                            Text("Speech speed • ${String.format(Locale.US, "%.2f", speechRate)}×", color = Color(0xFFD2D9F0), fontSize = 13.sp)
+                            Text("Speech speed • ${String.format(Locale.US, "%.2f", speechRate)}×", color = Color(0xFF51464A), fontSize = 13.sp)
                             Slider(value = speechRate, onValueChange = { speechRate = it }, valueRange = 0.65f..1.35f)
-                            Text("Voice pitch • ${String.format(Locale.US, "%.2f", speechPitch)}", color = Color(0xFFD2D9F0), fontSize = 13.sp)
+                            Text("Voice pitch • ${String.format(Locale.US, "%.2f", speechPitch)}", color = Color(0xFF51464A), fontSize = 13.sp)
                             Slider(value = speechPitch, onValueChange = { speechPitch = it }, valueRange = 0.75f..1.35f)
                             SettingToggle("Auto-listen preference (not active yet)", autoListen, { autoListen = it })
-                            Text("Available voice depends on the speech engine installed on your phone.", color = Color(0xFFB5A9AC), fontSize = 11.sp)
+                            Text("Available voice depends on the speech engine installed on your phone.", color = Color(0xFF8C7E83), fontSize = 11.sp)
                             Text("PERSONALITY & MEMORY", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
-                            Text("QUICK PERSONALITY", color = Color(0xFFB5A9AC), fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                            Text("QUICK PERSONALITY", color = Color(0xFF8C7E83), fontSize = 10.sp, fontWeight = FontWeight.Bold)
                             listOf(
                                 "Companion" to "Warm, caring, emotionally aware, friendly, supportive, and respectful",
                                 "Funny" to "Playful, witty, light-hearted, use gentle humour when appropriate",
@@ -1249,7 +1249,7 @@ class MainActivity : ComponentActivity() {
                             OutlinedTextField(value = personalityDraft, onValueChange = { personalityDraft = it }, label = { Text("Custom personality / instructions") }, minLines = 2, modifier = Modifier.fillMaxWidth())
                             SettingToggle("Use saved Memory notes in replies", rememberNotes, { rememberNotes = it })
                             Text("APPEARANCE & STYLE", color = Color(0xFFCB1731), fontWeight = FontWeight.Bold, fontSize = 12.sp)
-                            Text("Choose Myra's accent palette. Changes apply across the interface.", color = Color(0xFFB5A9AC), fontSize = 12.sp)
+                            Text("Choose Myra's accent palette. Changes apply across the interface.", color = Color(0xFF8C7E83), fontSize = 12.sp)
                             listOf(
                                 "Holographic" to "Cyan + violet",
                                 "Aurora" to "Mint + emerald",
@@ -1264,33 +1264,33 @@ class MainActivity : ComponentActivity() {
                                 ) {
                                     Column(Modifier.weight(1f)) {
                                         Text(themeName, color = Color.White, fontWeight = FontWeight.Medium, fontSize = 13.sp)
-                                        Text(themeDescription, color = Color(0xFFB5A9AC), fontSize = 11.sp)
+                                        Text(themeDescription, color = Color(0xFF8C7E83), fontSize = 11.sp)
                                     }
                                     RadioButton(selected = themeDraft == themeName, onClick = { themeDraft = themeName })
                                 }
                             }
                             SettingToggle("Animated holographic orb", animatedOrb, { animatedOrb = it })
                             Text("PHONE, FILES & PERMISSIONS", color = Color(0xFFCB1731), fontWeight = FontWeight.Bold, fontSize = 12.sp)
-                            Text("Use Android app settings to review or change permissions available to Myra AI.", fontSize = 12.sp, color = Color(0xFFB5A9AC))
+                            Text("Use Android app settings to review or change permissions available to Myra AI.", fontSize = 12.sp, color = Color(0xFF8C7E83))
                             TextButton(onClick = {
                                 try { startActivity(Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, android.net.Uri.parse("package:$packageName"))) }
                                 catch (_: Exception) { status = "APP SETTINGS UNAVAILABLE" }
                             }) { Text("Open permission dashboard", color = Cyan) }
                             Text("WEB & SEARCH", color = Color(0xFFCB1731), fontWeight = FontWeight.Bold, fontSize = 12.sp)
-                            Text("Web search opens your browser. Search history is not stored by this settings panel.", fontSize = 12.sp, color = Color(0xFFB5A9AC))
+                            Text("Web search opens your browser. Search history is not stored by this settings panel.", fontSize = 12.sp, color = Color(0xFF8C7E83))
                             Text("PRIVACY & DIAGNOSTICS", color = Color(0xFFCB1731), fontWeight = FontWeight.Bold, fontSize = 12.sp)
-                            Text("API key and preferences are stored in this app's private local preferences. Never share your API key.", fontSize = 12.sp, color = Color(0xFFB5A9AC))
+                            Text("API key and preferences are stored in this app's private local preferences. Never share your API key.", fontSize = 12.sp, color = Color(0xFF8C7E83))
                             Text("CONVERSATION HISTORY", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
-                            Text("Recent turns are saved locally to provide context to future replies.", fontSize = 12.sp, color = Color(0xFFB5A9AC))
+                            Text("Recent turns are saved locally to provide context to future replies.", fontSize = 12.sp, color = Color(0xFF8C7E83))
                             TextButton(onClick = {
                                 prefs.edit().remove("conversation_history").apply()
                                 heardText = "Conversation history cleared on this device."
                                 status = "HISTORY CLEARED"
                             }) { Text("Clear conversation history", color = Cyan) }
                             Text("DIAGNOSTICS", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
-                            Text("Status: $status\\nDevice: ${android.os.Build.MANUFACTURER} ${android.os.Build.MODEL}\\nAndroid: ${android.os.Build.VERSION.RELEASE} (SDK ${android.os.Build.VERSION.SDK_INT})\\nGemini key: ${if (apiKey.isBlank()) "not configured" else "saved"}", fontSize = 12.sp, color = Color(0xFFB5A9AC))
+                            Text("Status: $status\\nDevice: ${android.os.Build.MANUFACTURER} ${android.os.Build.MODEL}\\nAndroid: ${android.os.Build.VERSION.RELEASE} (SDK ${android.os.Build.VERSION.SDK_INT})\\nGemini key: ${if (apiKey.isBlank()) "not configured" else "saved"}", fontSize = 12.sp, color = Color(0xFF8C7E83))
                             TextButton(onClick = { heardText = "Diagnostics refreshed • $status • Android ${android.os.Build.VERSION.RELEASE}" }) { Text("Refresh diagnostics", color = Cyan) }
-                            Text("Build: Myra AI • Android • Gemini", fontSize = 11.sp, color = Color(0xFFB5A9AC))
+                            Text("Build: Myra AI • Android • Gemini", fontSize = 11.sp, color = Color(0xFF8C7E83))
                         }
                     },
                     confirmButton = {
@@ -3008,7 +3008,7 @@ private fun SettingToggle(label: String, checked: Boolean, onCheckedChange: (Boo
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(label, color = Color(0xFFD2D9F0), fontSize = 13.sp, modifier = Modifier.weight(1f))
+        Text(label, color = Color(0xFF51464A), fontSize = 13.sp, modifier = Modifier.weight(1f))
         Switch(checked = checked, onCheckedChange = onCheckedChange)
     }
 }
@@ -3030,7 +3030,7 @@ private fun QuickTile(title: String, subtitle: String, modifier: Modifier = Modi
         ) {
             Text(title, color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
             Spacer(Modifier.height(5.dp))
-            Text(subtitle, color = Color(0xFFB5A9AC), fontSize = 11.sp)
+            Text(subtitle, color = Color(0xFF8C7E83), fontSize = 11.sp)
         }
     }
 }
