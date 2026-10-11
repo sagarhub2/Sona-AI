@@ -2107,36 +2107,28 @@ private fun MyraHome(
         }
         Row(
             Modifier.fillMaxWidth().background(Color(0xFF04071A)).border(1.dp, Color(0xFF34305F))
-                .padding(horizontal = 14.dp, vertical = 7.dp),
-            horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically
+                .padding(horizontal = 22.dp, vertical = 7.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically
         ) {
-            Column(Modifier.weight(1f).clip(RoundedCornerShape(18.dp)).clickable { onFeatures() }.padding(vertical = 4.dp),
+            Column(Modifier.weight(1f).clip(RoundedCornerShape(18.dp)).clickable { /* already on Home */ }.padding(vertical = 4.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("◆", color = red, fontSize = 21.sp)
-                Text("Explore", color = red, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                Text("⌂", color = red, fontSize = 23.sp, fontWeight = FontWeight.Bold)
+                Text("Home", color = red, fontSize = 11.sp, fontWeight = FontWeight.Bold)
             }
             Column(Modifier.weight(1f).clip(RoundedCornerShape(18.dp)).clickable { onChat() }.padding(vertical = 4.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("▤", color = muted, fontSize = 21.sp)
                 Text("Chat", color = muted, fontSize = 11.sp)
             }
-            Box(Modifier.weight(1.1f), contentAlignment = Alignment.Center) {
-                Surface(onClick = onStartVoice, shape = CircleShape, color = Color(0xFF171047),
-                    shadowElevation = 8.dp, border = androidx.compose.foundation.BorderStroke(3.dp, red)) {
-                    Box(Modifier.size(62.dp), contentAlignment = Alignment.Center) {
-                        Text(if (busy) "•••" else "≋", color = Color.White, fontSize = 28.sp, fontWeight = FontWeight.Bold)
-                    }
-                }
+            Column(Modifier.weight(1f).clip(RoundedCornerShape(18.dp)).clickable { onStartVoice() }.padding(vertical = 4.dp),
+                horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(if (busy) "•••" else "≋", color = muted, fontSize = 23.sp, fontWeight = FontWeight.Bold)
+                Text("Voice", color = muted, fontSize = 11.sp)
             }
             Column(Modifier.weight(1f).clip(RoundedCornerShape(18.dp)).clickable { onReminder() }.padding(vertical = 4.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("ϟ", color = muted, fontSize = 23.sp)
                 Text("Triggers", color = muted, fontSize = 11.sp)
-            }
-            Column(Modifier.weight(1f).clip(RoundedCornerShape(18.dp)).clickable { onSettings() }.padding(vertical = 4.dp),
-                horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("⚙", color = muted, fontSize = 22.sp)
-                Text("Settings", color = muted, fontSize = 11.sp)
             }
         }
     }
