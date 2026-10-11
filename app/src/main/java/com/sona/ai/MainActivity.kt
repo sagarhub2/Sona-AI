@@ -2752,7 +2752,7 @@ For privacy, I do not silently send messages or place calls. Android may ask you
                     val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
                     val previousHistory = prefs.getString("conversation_history", "").orEmpty()
                     val historyTimestamp = java.text.SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault()).format(java.util.Date())
-                    val updatedHistory = (previousHistory + "\\n[" + historyTimestamp + "] User: " + prompt + "\\nMyra: " + responseText).takeLast(12000)
+                    val updatedHistory = (previousHistory + "\n[" + historyTimestamp + "] User: " + prompt + "\nMyra: " + responseText).takeLast(12000)
                     prefs.edit().putString("conversation_history", updatedHistory).apply()
                     status = "GEMINI CONNECTED • RESPONSE RECEIVED"
                     if (ttsReady && getSharedPreferences("myra_private", MODE_PRIVATE).getBoolean("speak_replies", true)) textToSpeech?.speak(responseText, TextToSpeech.QUEUE_FLUSH, null, "sona-gemini-reply")
