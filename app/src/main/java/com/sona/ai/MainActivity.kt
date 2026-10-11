@@ -1327,6 +1327,32 @@ class MainActivity : ComponentActivity() {
                             Text("VOICE & LANGUAGE", color = Color(0xFFCB1731), fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             OutlinedTextField(value = languageDraft, onValueChange = { languageDraft = it }, label = { Text("Language (e.g. Hindi, English, Auto)") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             OutlinedTextField(value = voiceDraft, onValueChange = { voiceDraft = it }, label = { Text("Voice style preference") }, singleLine = true, modifier = Modifier.fillMaxWidth())
+                            OutlinedButton(
+                                onClick = {
+                                    if (ttsReady) {
+                                        val sample = "Hello! I am Myra. नमस्ते, मैं मायरा हूँ।"
+                                        val chosenLanguage = languageDraft.trim().lowercase(Locale.ROOT)
+                                        val locale = when {
+                                            chosenLanguage.contains("hindi") || chosenLanguage == "hi" -> Locale("hi", "IN")
+                                            chosenLanguage.contains("english") || chosenLanguage == "en" -> Locale("en", "IN")
+                                            else -> Locale.getDefault()
+                                        }
+                                        val languageResult = textToSpeech?.setLanguage(locale)
+                                        if (languageResult == TextToSpeech.LANG_MISSING_DATA || languageResult == TextToSpeech.LANG_NOT_SUPPORTED) {
+                                            status = "SELECTED TTS LANGUAGE NOT AVAILABLE"
+                                        } else {
+                                            textToSpeech?.setSpeechRate(speechRate)
+                                            textToSpeech?.setPitch(speechPitch)
+                                            textToSpeech?.speak(sample, TextToSpeech.QUEUE_FLUSH, null, "myra-voice-preview")
+                                            status = "PLAYING VOICE PREVIEW"
+                                        }
+                                    } else {
+                                        status = "TEXT-TO-SPEECH IS NOT READY"
+                                    }
+                                },
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(12.dp)
+                            ) { Text("▶  Preview voice", color = Color(0xFFCB1731)) }
                             SettingToggle("Speak text replies aloud", speakReplies, { speakReplies = it })
                             Text("Speech speed • ${String.format(Locale.US, "%.2f", speechRate)}×", color = Color(0xFF51464A), fontSize = 13.sp)
                             Slider(value = speechRate, onValueChange = { speechRate = it }, valueRange = 0.65f..1.35f)
