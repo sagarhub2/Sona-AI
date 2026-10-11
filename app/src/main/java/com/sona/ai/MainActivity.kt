@@ -1071,7 +1071,7 @@ class MainActivity : ComponentActivity() {
                     title = {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(20.dp))
-                                .background(Brush.horizontalGradient(listOf(Color(0xFF6B0B20), Color(0xFF320713), Color(0xFF16040A))))
+                                .background(Brush.horizontalGradient(listOf(Color(0xFFCB1731), Color(0xFF8F1028), Color(0xFF4A0A18))))
                                 .border(1.dp, Color(0xFFFF7A91), RoundedCornerShape(20.dp)).padding(16.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
@@ -1153,33 +1153,33 @@ class MainActivity : ComponentActivity() {
                                 listOf(Triple("VOICE", "♫", 1700), Triple("MEMORY", "◈", 3300), Triple("PRIVACY", "⌑", 5200)).forEach { item ->
                                     Column(
                                         Modifier.weight(1f).clip(RoundedCornerShape(14.dp))
-                                            .background(Brush.verticalGradient(listOf(Color(0xFF19102F), Color(0xFF0A1020))))
-                                            .border(1.dp, Violet.copy(alpha = .68f), RoundedCornerShape(14.dp))
+                                            .background(Brush.verticalGradient(listOf(Color(0xFFFFFFFF), Color(0xFFFFF0F3))))
+                                            .border(1.dp, Color(0xFFF0B8C1), RoundedCornerShape(14.dp))
                                             .clickable { settingsScope.launch { settingsScrollState.animateScrollTo(item.third) } }
                                             .padding(vertical = 12.dp, horizontal = 4.dp),
                                         horizontalAlignment = Alignment.CenterHorizontally,
                                         verticalArrangement = Arrangement.spacedBy(4.dp)
                                     ) {
                                         Box(Modifier.size(32.dp).clip(RoundedCornerShape(11.dp))
-                                            .background(Violet.copy(alpha = .14f))
-                                            .border(1.dp, Violet.copy(alpha = .38f), RoundedCornerShape(11.dp)),
+                                            .background(Color(0xFFFFE8EC))
+                                            .border(1.dp, Color(0xFFF0B8C1), RoundedCornerShape(11.dp)),
                                             contentAlignment = Alignment.Center) {
-                                            Text(item.second, color = Cyan, fontSize = 18.sp)
+                                            Text(item.second, color = Color(0xFFCB1731), fontSize = 18.sp)
                                         }
-                                        Text(item.first, color = Color.White, fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .45.sp)
-                                        Text("JUMP  ↗", color = Violet, fontSize = 7.sp, fontWeight = FontWeight.Bold)
+                                        Text(item.first, color = Color(0xFF282126), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .45.sp)
+                                        Text("JUMP  ↗", color = Color(0xFFCB1731), fontSize = 7.sp, fontWeight = FontWeight.Bold)
                                     }
                                 }
                             }
                             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                                 Divider(Modifier.weight(1f), color = Violet.copy(alpha = .65f), thickness = 1.dp)
-                                Text("PROFILE", color = Violet, fontWeight = FontWeight.Black, fontSize = 9.sp, letterSpacing = 1.6.sp)
+                                Text("PROFILE", color = Color(0xFFCB1731), fontWeight = FontWeight.Black, fontSize = 9.sp, letterSpacing = 1.6.sp)
                                 Divider(Modifier.weight(1f), color = Violet.copy(alpha = .65f), thickness = 1.dp)
                             }
-                            Text("ASSISTANT PROFILE", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp, letterSpacing = .8.sp)
+                            Text("ASSISTANT PROFILE", color = Color(0xFFCB1731), fontWeight = FontWeight.Bold, fontSize = 12.sp, letterSpacing = .8.sp)
                             OutlinedTextField(value = assistantNameDraft, onValueChange = { assistantNameDraft = it }, label = { Text("Assistant name") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             OutlinedTextField(value = userNameDraft, onValueChange = { userNameDraft = it }, label = { Text("What should Myra call you?") }, singleLine = true, modifier = Modifier.fillMaxWidth())
-                            Text("AI PROVIDER & MODEL", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text("AI PROVIDER & MODEL", color = Color(0xFFCB1731), fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("Provider: Google Gemini", fontSize = 13.sp)
                             Text("Voice input: Android speech recognition • Replies: device TTS; Live audio availability depends on the session connection.", fontSize = 11.sp, color = Color(0xFFB5A9AC))
                             Surface(
@@ -1204,7 +1204,18 @@ class MainActivity : ComponentActivity() {
                                         label = { Text("Gemini API key") }, singleLine = true,
                                         visualTransformation = if (showApiKey) androidx.compose.ui.text.input.VisualTransformation.None else PasswordVisualTransformation(),
                                         modifier = Modifier.fillMaxWidth(),
-                                        trailingIcon = { TextButton(onClick = { showApiKey = !showApiKey }) { Text(if (showApiKey) "HIDE" else "SHOW", color = Cyan) } }
+                                        colors = OutlinedTextFieldDefaults.colors(
+                                            focusedBorderColor = Color(0xFFCB1731),
+                                            unfocusedBorderColor = Color(0xFFF0B8C1),
+                                            focusedLabelColor = Color(0xFFCB1731),
+                                            unfocusedLabelColor = Color(0xFF8C7E83),
+                                            cursorColor = Color(0xFFCB1731),
+                                            focusedTextColor = Color(0xFF282126),
+                                            unfocusedTextColor = Color(0xFF282126),
+                                            focusedContainerColor = Color.White,
+                                            unfocusedContainerColor = Color.White
+                                        ),
+                                        trailingIcon = { TextButton(onClick = { showApiKey = !showApiKey }) { Text(if (showApiKey) "HIDE" else "SHOW", color = Color(0xFFCB1731)) } }
                                     )
                                     Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(7.dp)) {
                                         Text("⌑", color = Cyan, fontSize = 13.sp, fontWeight = FontWeight.Bold)
@@ -1213,7 +1224,7 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                             }
-                            Text("VOICE & LANGUAGE", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text("VOICE & LANGUAGE", color = Color(0xFFCB1731), fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             OutlinedTextField(value = languageDraft, onValueChange = { languageDraft = it }, label = { Text("Language (e.g. Hindi, English, Auto)") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             OutlinedTextField(value = voiceDraft, onValueChange = { voiceDraft = it }, label = { Text("Voice style preference") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             SettingToggle("Speak text replies aloud", speakReplies, { speakReplies = it })
@@ -1249,7 +1260,7 @@ class MainActivity : ComponentActivity() {
                             }
                             OutlinedTextField(value = personalityDraft, onValueChange = { personalityDraft = it }, label = { Text("Custom personality / instructions") }, minLines = 2, modifier = Modifier.fillMaxWidth())
                             SettingToggle("Use saved Memory notes in replies", rememberNotes, { rememberNotes = it })
-                            Text("APPEARANCE & STYLE", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text("APPEARANCE & STYLE", color = Color(0xFFCB1731), fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("Choose Myra's accent palette. Changes apply across the interface.", color = Color(0xFFB5A9AC), fontSize = 12.sp)
                             listOf(
                                 "Holographic" to "Cyan + violet",
@@ -1271,15 +1282,15 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                             SettingToggle("Animated holographic orb", animatedOrb, { animatedOrb = it })
-                            Text("PHONE, FILES & PERMISSIONS", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text("PHONE, FILES & PERMISSIONS", color = Color(0xFFCB1731), fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("Use Android app settings to review or change permissions available to Myra AI.", fontSize = 12.sp, color = Color(0xFFB5A9AC))
                             TextButton(onClick = {
                                 try { startActivity(Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, android.net.Uri.parse("package:$packageName"))) }
                                 catch (_: Exception) { status = "APP SETTINGS UNAVAILABLE" }
                             }) { Text("Open permission dashboard", color = Cyan) }
-                            Text("WEB & SEARCH", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text("WEB & SEARCH", color = Color(0xFFCB1731), fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("Web search opens your browser. Search history is not stored by this settings panel.", fontSize = 12.sp, color = Color(0xFFB5A9AC))
-                            Text("PRIVACY & DIAGNOSTICS", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text("PRIVACY & DIAGNOSTICS", color = Color(0xFFCB1731), fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("API key and preferences are stored in this app's private local preferences. Never share your API key.", fontSize = 12.sp, color = Color(0xFFB5A9AC))
                             Text("CONVERSATION HISTORY", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("Recent turns are saved locally to provide context to future replies.", fontSize = 12.sp, color = Color(0xFFB5A9AC))
