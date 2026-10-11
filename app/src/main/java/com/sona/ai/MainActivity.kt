@@ -317,6 +317,7 @@ class MainActivity : ComponentActivity() {
             }
             if (showChat) {
                 var chatDraft by remember { mutableStateOf("") }
+                var pendingMessage by remember { mutableStateOf("") }
                 val chatPrefs = getSharedPreferences("myra_private", MODE_PRIVATE)
                 val savedChat = chatPrefs.getString("conversation_history", "").orEmpty()
                 Dialog(
@@ -346,7 +347,10 @@ class MainActivity : ComponentActivity() {
                                 } else {
                                     Text(savedChat.replace("\\n", "\n"), color = Color(0xFFE6DDE0), fontSize = 14.sp, lineHeight = 21.sp)
                                 }
-                                if (busy) Text("Myra is preparing a response…", color = Color(0xFFFF8A9A), fontSize = 13.sp)
+                                if (busy && pendingMessage.isNotBlank()) {
+                                    Text("You: " + pendingMessage, color = Color(0xFFFFA7B3), fontSize = 14.sp, lineHeight = 21.sp)
+                                    Text("Myra is preparing a response…", color = Color(0xFFFF8A9A), fontSize = 13.sp)
+                                }
                                 if (apiKey.isBlank()) {
                                     Text("To send messages, add a Gemini API key in Settings.", color = Color(0xFFFF9AA8), fontSize = 12.sp)
                                     TextButton(onClick = { showChat = false; showSettings = true }) { Text("Open Settings", color = Color(0xFFFF5267)) }
@@ -363,7 +367,7 @@ class MainActivity : ComponentActivity() {
                                             if (apiKey.isBlank()) {
                                                 status = "CHAT NEEDS GEMINI API KEY"
                                             } else {
-                                                chatPrefs.edit().putString("conversation_history", (chatPrefs.getString("conversation_history", "").orEmpty() + "\\nUser: " + message).takeLast(12000)).apply()
+                                                pendingMessage = message
                                                 chatDraft = ""
                                                 askGemini(message)
                                             }
