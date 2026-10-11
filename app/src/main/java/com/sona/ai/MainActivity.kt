@@ -2689,41 +2689,41 @@ private fun MyraHome(
                     onClick = onStartVoice,
                     modifier = Modifier.weight(1f).height(150.dp),
                     shape = RoundedCornerShape(24.dp),
-                    color = Color(0xFF17050A),
+                    color = Color.White,
                     shadowElevation = if (busy) 12.dp else 7.dp,
-                    border = androidx.compose.foundation.BorderStroke(1.5.dp, if (busy) Color(0xFFFF294B) else Color(0xFFB91F3A))
+                    border = androidx.compose.foundation.BorderStroke(1.5.dp, if (busy) Color(0xFFCB1731) else Color(0xFFF0B8C1))
                 ) {
-                    Column(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0xFF310711), Color(0xFF14040A), Color(0xFF080307)))).padding(15.dp), verticalArrangement = Arrangement.SpaceBetween) {
+                    Column(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0xFFFFE8EC), Color.White, Color(0xFFFFF3F5)))).padding(15.dp), verticalArrangement = Arrangement.SpaceBetween) {
                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                             Box(contentAlignment = Alignment.Center) {
                                 Box(Modifier.size(if (busy) 62.dp else 58.dp).clip(CircleShape)
-                                    .background(Color(0xFF4A0A19))
+                                    .background(Color(0xFFFFE8EC))
                                     .border(1.dp, if (busy) Color(0xFFCB1731) else Color(0xFFF0B8C1), CircleShape))
                                 Box(Modifier.size(48.dp).clip(CircleShape)
-                                    .background(Brush.radialGradient(listOf(Color(0xFFFF6078), Color(0xFFB20F30), Color(0xFF26030B))))
+                                    .background(Brush.radialGradient(listOf(Color(0xFFFFA4B1), Color(0xFFCB1731), Color(0xFF8F1028))))
                                     .border(1.dp, if (busy) Color(0xFFCB1731) else Color(0xFFCB1731), CircleShape),
                                     contentAlignment = Alignment.Center
                                 ) { Text(if (busy) "•••" else "♫", color = Color.White, fontSize = 27.sp, fontWeight = FontWeight.Bold) } 
                             }
                             Surface(
                                 shape = RoundedCornerShape(50),
-                                color = Color(0xFF3A0A16),
+                                color = Color(0xFFFFF0F3),
                                 border = androidx.compose.foundation.BorderStroke(1.dp, if (busy) Color(0xFFCB1731) else Color(0xFFF0B8C1))
                             ) {
                                 Row(Modifier.padding(horizontal = 9.dp, vertical = 5.dp), verticalAlignment = Alignment.CenterVertically,
                                         horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                                        Box(Modifier.size(5.dp).clip(CircleShape).background(if (busy) Cyan else Violet))
+                                        Box(Modifier.size(5.dp).clip(CircleShape).background(if (busy) Color(0xFFCB1731) else Color(0xFFE8A5B1)))
                                         Text(if (busy) "SESSION ACTIVE" else "VOICE READY",
-                                            color = Color(0xFFFFB8C3), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .5.sp)
+                                            color = Color(0xFFCB1731), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .5.sp)
                                     }
                             }
                         }
                         Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
-                            Text("Voice Mode", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold)
-                            Text(if (busy) "Connecting to your assistant…" else status, color = Color(0xFFFFB8C3), fontSize = 10.sp, maxLines = 2, lineHeight = 14.sp)
+                            Text("Voice Mode", color = Color(0xFF282126), fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                            Text(if (busy) "Connecting to your assistant…" else status, color = Color(0xFF8C7E83), fontSize = 10.sp, maxLines = 2, lineHeight = 14.sp)
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                                Box(Modifier.size(6.dp).clip(CircleShape).background(if (busy) Cyan else Violet))
-                                Text(if (busy) "Live session in progress" else "Tap to start talking", color = Color(0xFFFFDCE2), fontSize = 9.sp)
+                                Box(Modifier.size(6.dp).clip(CircleShape).background(if (busy) Color(0xFFCB1731) else Color(0xFFE8A5B1)))
+                                Text(if (busy) "Live session in progress" else "Tap to start talking", color = Color(0xFF8C7E83), fontSize = 9.sp)
                             }
                         }
                     }
