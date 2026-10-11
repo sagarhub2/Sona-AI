@@ -72,6 +72,7 @@ class MainActivity : ComponentActivity() {
     private var showTasks by mutableStateOf(false)
     private var showHistory by mutableStateOf(false)
     private var showDeviceInfo by mutableStateOf(false)
+    private var showFeaturesMenu by mutableStateOf(false)
     private var busy by mutableStateOf(false)
     private var speechRecognizer: SpeechRecognizer? = null
     private var liveVoiceSession: LiveVoiceSession? = null
@@ -171,6 +172,7 @@ class MainActivity : ComponentActivity() {
                 animatedOrb = getSharedPreferences("myra_private", MODE_PRIVATE).getBoolean("animated_orb", true),
                 onStartVoice = { requestOrStartVoice() },
                 onSettings = { showSettings = true },
+                onFeatures = { showFeaturesMenu = true },
                 onMemory = { showMemory = true },
                 onTasks = { showTasks = true },
                 onHistory = { showHistory = true },
@@ -267,6 +269,23 @@ class MainActivity : ComponentActivity() {
                 if (showPremiumIntro) {
                     MyraPremiumIntro()
                 }
+            }
+            if (showFeaturesMenu) {
+                MyraFeaturesMenu(
+                    onClose = { showFeaturesMenu = false },
+                    onVoice = { showFeaturesMenu = false; requestOrStartVoice() },
+                    onSettings = { showFeaturesMenu = false; showSettings = true },
+                    onMemory = { showFeaturesMenu = false; showMemory = true },
+                    onTasks = { showFeaturesMenu = false; showTasks = true },
+                    onHistory = { showFeaturesMenu = false; showHistory = true },
+                    onFiles = { showFeaturesMenu = false; try { startActivityForResult(Intent(Intent.ACTION_OPEN_DOCUMENT).apply { addCategory(Intent.CATEGORY_OPENABLE); type = "*/*" }, 411) } catch (_: Exception) { status = "FILE PICKER UNAVAILABLE" } },
+                    onCamera = { showFeaturesMenu = false; try { startActivity(Intent("android.media.action.IMAGE_CAPTURE")) } catch (_: Exception) { status = "CAMERA UNAVAILABLE" } },
+                    onContacts = { showFeaturesMenu = false; try { startActivity(Intent(Intent.ACTION_PICK, android.provider.ContactsContract.Contacts.CONTENT_URI)) } catch (_: Exception) { status = "CONTACT PICKER UNAVAILABLE" } },
+                    onMedia = { showFeaturesMenu = false; try { startActivity(Intent.makeMainSelectorActivity(Intent.ACTION_MAIN, Intent.CATEGORY_APP_MUSIC)) } catch (_: Exception) { status = "NO MUSIC APP AVAILABLE" } },
+                    onReminder = { showFeaturesMenu = false; try { startActivity(Intent(AlarmClock.ACTION_SET_ALARM)) } catch (_: Exception) { status = "CLOCK APP UNAVAILABLE" } },
+                    onWeb = { showFeaturesMenu = false; try { startActivity(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.google.com"))) } catch (_: Exception) { status = "NO BROWSER AVAILABLE" } },
+                    onDevice = { showFeaturesMenu = false; try { startActivity(Intent(android.provider.Settings.ACTION_SETTINGS)) } catch (_: Exception) { status = "SETTINGS UNAVAILABLE" } }
+                )
             }
             if (showDeviceInfo) {
                 val batteryIntent = registerReceiver(null, android.content.IntentFilter(Intent.ACTION_BATTERY_CHANGED))
@@ -1745,6 +1764,7 @@ private fun MyraHome(
     animatedOrb: Boolean,
     onStartVoice: () -> Unit,
     onSettings: () -> Unit,
+    onFeatures: () -> Unit,
     onMemory: () -> Unit,
     onTasks: () -> Unit,
     onHistory: () -> Unit,
@@ -1814,7 +1834,7 @@ private fun MyraHome(
             }
             Spacer(Modifier.width(8.dp))
             Surface(
-                onClick = onSettings, shape = RoundedCornerShape(12.dp), color = Color(0xFF10172C),
+                onClick = onFeatures, shape = RoundedCornerShape(12.dp), color = Color(0xFF10172C),
                 border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF2E3D65))
             ) {
                 Text("☷", color = Color.White, fontSize = 18.sp,
@@ -2017,6 +2037,69 @@ private fun MyraHome(
                     Text(tab, color = if (selectedTab == tab) Color(0xFF7DEBFF) else Color(0xFF8594B8), fontSize = 8.sp)
                 }
             }
+        }
+    }
+}
+
+@Composable
+
+@Composable
+private fun MyraFeaturesMenu(
+    onClose: () -> Unit, onVoice: () -> Unit, onSettings: () -> Unit,
+    onMemory: () -> Unit, onTasks: () -> Unit, onHistory: () -> Unit,
+    onFiles: () -> Unit, onCamera: () -> Unit, onContacts: () -> Unit,
+    onMedia: () -> Unit, onReminder: () -> Unit, onWeb: () -> Unit, onDevice: () -> Unit
+) {
+    val items = listOf(
+        Triple("Voice Assistant", "Talk naturally with Myra", "🎙") to onVoice,
+        Triple("Phone & Calls", "Contacts and dialer", "☎") to onContacts,
+        Triple("Apps & Media", "Open music and media apps", "▦") to onMedia,
+        Triple("Camera & Vision", "Capture with your camera", "◎") to onCamera,
+        Triple("Files & Documents", "Browse PDFs, images and files", "▤") to onFiles,
+        Triple("Notes & Voice Notes", "Open your saved notes", "✎") to onMemory,
+        Triple("Tasks & Reminders", "Stay organized", "☑") to onTasks,
+        Triple("Reminders & Alarms", "Create an alarm", "◷") to onReminder,
+        Triple("Device Settings", "Open Android settings", "⚙") to onDevice,
+        Triple("Web Search", "Search the internet", "⌕") to onWeb,
+        Triple("Smart Memory", "Personal preferences and memory", "✦") to onMemory,
+        Triple("Conversation History", "Review previous chats", "☷") to onHistory,
+        Triple("Personalize Myra", "Appearance and API key", "◇") to onSettings
+    )
+    Box(Modifier.fillMaxSize().background(Color(0xFF030611)).statusBarsPadding().navigationBarsPadding()) {
+        Column(Modifier.fillMaxSize().padding(horizontal = 18.dp)) {
+            Row(Modifier.fillMaxWidth().padding(top = 14.dp, bottom = 16.dp), verticalAlignment = Alignment.CenterVertically) {
+                Surface(onClick = onClose, shape = CircleShape, color = Color(0xFF111A32), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF33456F))) {
+                    Text("‹", color = Color.White, fontSize = 28.sp, modifier = Modifier.padding(horizontal = 13.dp, vertical = 2.dp))
+                }
+                Spacer(Modifier.width(12.dp))
+                Column(Modifier.weight(1f)) {
+                    Text("Myra AI", color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                    Text("FEATURES MENU • YOUR AI COMPANION", color = Color(0xFF8DA2D0), fontSize = 9.sp, letterSpacing = 1.sp)
+                }
+                Box(Modifier.size(42.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF7DEBFF), Color(0xFF6639DA), Color(0xFF11152B)))).border(1.dp, Cyan, CircleShape), contentAlignment = Alignment.Center) {
+                    Text("✦", color = Color.White, fontSize = 23.sp)
+                }
+            }
+            Box(Modifier.fillMaxWidth().height(1.dp).background(Brush.horizontalGradient(listOf(Color.Transparent, Cyan, Violet, Color.Transparent))))
+            Text("Everything you need, in one place.", color = Color(0xFFDCE5FF), fontSize = 14.sp, modifier = Modifier.padding(top = 18.dp, bottom = 12.dp))
+            Column(Modifier.weight(1f).verticalScroll(androidx.compose.foundation.rememberScrollState()), verticalArrangement = Arrangement.spacedBy(9.dp)) {
+                items.forEach { (item, action) ->
+                    Surface(onClick = action, shape = RoundedCornerShape(17.dp), color = Color(0xFF0A1429), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF263B66)), modifier = Modifier.fillMaxWidth()) {
+                        Row(Modifier.padding(horizontal = 13.dp, vertical = 13.dp), verticalAlignment = Alignment.CenterVertically) {
+                            Box(Modifier.size(42.dp).clip(RoundedCornerShape(13.dp)).background(Brush.linearGradient(listOf(Color(0xFF123A68), Color(0xFF3B1E67)))).border(1.dp, Violet.copy(alpha = 0.7f), RoundedCornerShape(13.dp)), contentAlignment = Alignment.Center) {
+                                Text(item.third, fontSize = 21.sp)
+                            }
+                            Spacer(Modifier.width(12.dp))
+                            Column(Modifier.weight(1f)) {
+                                Text(item.first, color = Color.White, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+                                Text(item.second, color = Color(0xFF9AAACD), fontSize = 10.sp, modifier = Modifier.padding(top = 3.dp))
+                            }
+                            Text("›", color = Cyan, fontSize = 22.sp)
+                        }
+                    }
+                }
+            }
+            Text("DARK • HOLOGRAPHIC • PERSONAL", color = Color(0xFF7589B7), fontSize = 9.sp, letterSpacing = 1.2.sp, modifier = Modifier.align(Alignment.CenterHorizontally).padding(vertical = 12.dp))
         }
     }
 }
