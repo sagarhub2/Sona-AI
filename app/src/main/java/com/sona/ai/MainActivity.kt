@@ -2924,6 +2924,44 @@ private fun MyraHome(
                 }
             }
         }
+            Row(Modifier.fillMaxWidth().padding(top = 2.dp, bottom = 14.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                Surface(
+                    onClick = onFiles,
+                    modifier = Modifier.weight(1f),
+                    shape = RoundedCornerShape(18.dp),
+                    color = Color.White,
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0B8C1)),
+                    shadowElevation = 3.dp
+                ) {
+                    Row(Modifier.padding(horizontal = 13.dp, vertical = 13.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        Box(Modifier.size(38.dp).clip(RoundedCornerShape(12.dp)).background(Color(0xFFFFE8EC)), contentAlignment = Alignment.Center) {
+                            Text("▤", color = Color(0xFFCB1731), fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                        }
+                        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                            Text("FILES & DOCS", color = Color(0xFF282126), fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+                            Text("Your documents", color = Color(0xFF6F5C62), fontSize = 9.sp, maxLines = 1)
+                        }
+                    }
+                }
+                Surface(
+                    onClick = onChat,
+                    modifier = Modifier.weight(1f),
+                    shape = RoundedCornerShape(18.dp),
+                    color = Color.White,
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0B8C1)),
+                    shadowElevation = 3.dp
+                ) {
+                    Row(Modifier.padding(horizontal = 13.dp, vertical = 13.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        Box(Modifier.size(38.dp).clip(RoundedCornerShape(12.dp)).background(Color(0xFFFFE8EC)), contentAlignment = Alignment.Center) {
+                            Text("☰", color = Color(0xFFCB1731), fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                        }
+                        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                            Text("CHAT & HISTORY", color = Color(0xFF282126), fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+                            Text("Your conversations", color = Color(0xFF6F5C62), fontSize = 9.sp, maxLines = 1)
+                        }
+                    }
+                }
+            }
         Row(
             Modifier.fillMaxWidth().background(Color.White).border(1.dp, Color(0xFFF2C8CF))
                 .padding(horizontal = 22.dp, vertical = 7.dp),
