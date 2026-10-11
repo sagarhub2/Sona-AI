@@ -860,7 +860,27 @@ class MainActivity : ComponentActivity() {
                                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                     Text(userNameDraft.ifBlank { "My Profile" }, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
                                     Text("MYRA AI • PERSONAL PROFILE", color = Cyan, fontSize = 9.sp, letterSpacing = 1.sp)
-                                    Text(if (apiKey.isBlank()) "AI setup required" else "Gemini key saved", color = Color(0xFFB5A9AC), fontSize = 11.sp)
+                                    Surface(
+                                        shape = RoundedCornerShape(50),
+                                        color = (if (apiKey.isBlank()) Color(0xFFFFB86B) else Cyan).copy(alpha = .12f),
+                                        border = androidx.compose.foundation.BorderStroke(
+                                            1.dp, (if (apiKey.isBlank()) Color(0xFFFFB86B) else Cyan).copy(alpha = .45f)
+                                        )
+                                    ) {
+                                        Row(
+                                            Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            horizontalArrangement = Arrangement.spacedBy(5.dp)
+                                        ) {
+                                            Box(Modifier.size(5.dp).clip(CircleShape)
+                                                .background(if (apiKey.isBlank()) Color(0xFFFFB86B) else Cyan))
+                                            Text(
+                                                if (apiKey.isBlank()) "SETUP REQUIRED" else "GEMINI KEY SAVED",
+                                                color = if (apiKey.isBlank()) Color(0xFFFFB86B) else Cyan,
+                                                fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .35.sp
+                                            )
+                                        }
+                                    }
                                 }
                             }
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
