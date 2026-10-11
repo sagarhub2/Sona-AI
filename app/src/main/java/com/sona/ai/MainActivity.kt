@@ -1834,34 +1834,63 @@ private fun MyraHome(
                 }
             }
             Text("YOUR COMMAND CENTER", color = Color(0xFFBCA1FF), fontSize = 11.sp, letterSpacing = 1.7.sp, modifier = Modifier.padding(top = 20.dp, bottom = 10.dp))
+            Text("QUICK ACCESS", color = Color(0xFFBCA1FF), fontSize = 11.sp, letterSpacing = 1.7.sp, modifier = Modifier.padding(top = 20.dp, bottom = 10.dp))
             val cards = listOf(
-                Triple("Phone & Calls", "Call, contacts, dialer", "☎") to onContacts,
-                Triple("Apps & Media", "Open apps, control media", "▣") to onMedia,
-                Triple("Camera & Vision", "Photos, scan, describe", "◎") to onCamera,
-                Triple("Files & Documents", "PDFs, images, storage", "▤") to onFiles,
-                Triple("Notes & Voice Notes", "Save, search, remember", "✎") to onMemory,
-                Triple("Tasks & Reminders", "Stay organized", "☑") to onTasks,
-                Triple("Reminders & Alarms", "Set alerts and alarms", "◷") to onReminder,
-                Triple("Device Settings", "Phone controls", "⚙") to onDeviceSettings,
-                Triple("Web Search", "Search the internet", "⌕") to { onSearch("Search the web") },
-                Triple("Smart Memory", "Remember your preferences", "✦") to onMemory,
-                Triple("Conversation History", "Find previous chats", "☷") to onHistory,
-                Triple("Privacy & Permissions", "Control access and data", "⛨") to onPermissions
+                Triple("Phone", "Calls & contacts", "☎") to onContacts,
+                Triple("Apps", "Apps & music", "▦") to onMedia,
+                Triple("Camera", "Vision tools", "◎") to onCamera,
+                Triple("Files", "PDFs & photos", "▤") to onFiles,
+                Triple("Notes", "Voice notes", "✎") to onMemory,
+                Triple("Tasks", "To-do list", "☑") to onTasks,
+                Triple("Web", "Live search", "⌕") to { onSearch("Search the web") },
+                Triple("Settings", "Personalize Myra", "⚙") to onSettings
             )
-            cards.chunked(2).forEach { pair ->
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            cards.chunked(4).forEach { pair ->
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(9.dp)) {
                     pair.forEach { (item, action) ->
-                        Surface(onClick = action, modifier = Modifier.weight(1f).padding(bottom = 10.dp), shape = RoundedCornerShape(17.dp), color = Color(0xFF0B1429), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF27355F))) {
-                            Row(Modifier.padding(11.dp), verticalAlignment = Alignment.CenterVertically) {
-                                Box(Modifier.size(36.dp).clip(RoundedCornerShape(11.dp)).background(Brush.linearGradient(listOf(Color(0xFF174D9A), Color(0xFF6225A8)))), contentAlignment = Alignment.Center) {
-                                    Text(item.third, color = Color(0xFF9DEFFF), fontSize = 20.sp)
+                        Surface(
+                            onClick = action,
+                            modifier = Modifier.weight(1f).padding(bottom = 9.dp),
+                            shape = RoundedCornerShape(16.dp),
+                            color = Color(0xFF0B1429),
+                            border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF27355F))
+                        ) {
+                            Column(
+                                Modifier.fillMaxWidth().padding(vertical = 12.dp, horizontal = 3.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.spacedBy(7.dp)
+                            ) {
+                                Box(
+                                    Modifier.size(42.dp).clip(RoundedCornerShape(13.dp))
+                                        .background(Brush.linearGradient(listOf(Color(0xFF174D9A), Color(0xFF6225A8))))
+                                        .border(1.dp, Color(0x665DDFFF), RoundedCornerShape(13.dp)),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(item.third, color = Color(0xFF9DEFFF), fontSize = 22.sp)
                                 }
-                                Spacer(Modifier.width(8.dp))
-                                Column(Modifier.weight(1f)) {
-                                    Text(item.first, color = Color.White, fontSize = 11.sp, fontWeight = FontWeight.SemiBold, maxLines = 2)
-                                    Text(item.second, color = Color(0xFF8998BD), fontSize = 9.sp, lineHeight = 12.sp, modifier = Modifier.padding(top = 3.dp))
-                                }
+                                Text(item.first, color = Color.White, fontSize = 10.sp, fontWeight = FontWeight.SemiBold, maxLines = 1)
                             }
+                        }
+                    }
+                }
+            }
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(9.dp)) {
+                listOf(
+                    Triple("Reminders", "Alarms", "◷") to onReminder,
+                    Triple("Memory", "Preferences", "✦") to onMemory,
+                    Triple("History", "Past chats", "☷") to onHistory,
+                    Triple("Privacy", "Permissions", "⛨") to onPermissions
+                ).forEach { (item, action) ->
+                    Surface(
+                        onClick = action,
+                        modifier = Modifier.weight(1f).padding(bottom = 9.dp),
+                        shape = RoundedCornerShape(14.dp),
+                        color = Color(0x990B1429),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF27355F))
+                    ) {
+                        Column(Modifier.padding(vertical = 9.dp, horizontal = 2.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(item.third, color = Color(0xFFB98AFF), fontSize = 17.sp)
+                            Text(item.first, color = Color(0xFFCAD4F0), fontSize = 8.sp, maxLines = 1)
                         }
                     }
                 }
