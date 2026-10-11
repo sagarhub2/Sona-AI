@@ -1039,10 +1039,10 @@ class MainActivity : ComponentActivity() {
                             showSettings = false
                             heardText = if (apiKey.isBlank()) "API key removed." else "Settings saved • Gemini key stored"
                             status = if (apiKey.isBlank()) "AI NOT CONNECTED" else "SETTINGS SAVED • READY TO CONNECT"
-                        }) { Text("Save all") }
+                        }) { Text("✦  Save settings", color = Cyan, fontWeight = FontWeight.Bold) }
                     },
                     dismissButton = {
-                        TextButton(onClick = { showSettings = false }) { Text("Cancel") }
+                        TextButton(onClick = { showSettings = false }) { Text("Cancel", color = Violet) }
                     }
                 )
             }
