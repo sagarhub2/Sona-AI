@@ -826,6 +826,22 @@ class MainActivity : ComponentActivity() {
                                     unfocusedContainerColor = Color.White
                                 )
                             )
+                            if (historyQuery.isNotBlank()) {
+                                Row(
+                                    Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    val matchCount = visibleHistory.lines().count { it.isNotBlank() }
+                                    Text(
+                                        if (matchCount == 0) "No matches" else "$matchCount matching lines",
+                                        color = Color(0xFF8C7E83), fontSize = 11.sp, fontWeight = FontWeight.SemiBold
+                                    )
+                                    TextButton(onClick = { historyQuery = "" }) {
+                                        Text("Clear search", color = Color(0xFFCB1731), fontSize = 12.sp)
+                                    }
+                                }
+                            }
                             Surface(
                                 modifier = Modifier.fillMaxWidth(),
                                 shape = RoundedCornerShape(15.dp),
@@ -834,7 +850,7 @@ class MainActivity : ComponentActivity() {
                             ) {
                                 Text(
                                     if (savedHistory.isBlank()) "No saved conversation history yet. Ask Myra a question to start."
-                                    else if (visibleHistory.isBlank()) "No matching history lines found."
+                                    else if (visibleHistory.isBlank()) "No matching history lines found. Try another keyword or clear your search."
                                     else visibleHistory,
                                     modifier = Modifier.padding(13.dp),
                                     color = Color(0xFF51464A),
