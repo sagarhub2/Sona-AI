@@ -1890,6 +1890,37 @@ private fun MyraHome(
                         fontSize = 9.sp, modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
                     )
                 }
+                Spacer(Modifier.height(14.dp))
+                Surface(
+                    onClick = onStartVoice,
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp),
+                    shape = RoundedCornerShape(19.dp),
+                    color = Color(0xFF101A36),
+                    border = androidx.compose.foundation.BorderStroke(
+                        1.dp, Brush.horizontalGradient(listOf(Color(0xFF42DFFF), Color(0xFF8B4DFF), Color(0xFFD05BFF)))
+                    )
+                ) {
+                    Row(
+                        Modifier.background(Brush.horizontalGradient(listOf(Color(0x332CDAFF), Color(0x332F1A70), Color(0x332B153F))))
+                            .padding(horizontal = 16.dp, vertical = 13.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Box(
+                            Modifier.size(42.dp).clip(CircleShape)
+                                .background(Brush.radialGradient(listOf(Color(0xFF7DEBFF), Color(0xFF5B38D5))))
+                                .border(1.dp, Color(0xFF8CEFFF), CircleShape),
+                            contentAlignment = Alignment.Center
+                        ) { Text(if (busy) "…" else "🎙", fontSize = 20.sp, color = Color.White) }
+                        Spacer(Modifier.width(12.dp))
+                        Column(Modifier.weight(1f)) {
+                            Text(if (busy) "MYRA IS LISTENING" else "START LIVE CONVERSATION",
+                                color = Color.White, fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 0.6.sp)
+                            Text(if (hasKey) "Voice • Gemini AI • Natural replies" else "Voice input available • Add API key for Gemini",
+                                color = Color(0xFF9EAFD4), fontSize = 9.sp, modifier = Modifier.padding(top = 4.dp))
+                        }
+                        Text("→", color = Color(0xFF7DEBFF), fontSize = 22.sp)
+                    }
+                }
             }
             if (heardText.isNotBlank() && heardText != "Add your Gemini API key in Settings to enable AI.") {
                 Surface(
