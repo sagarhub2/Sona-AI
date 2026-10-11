@@ -2293,28 +2293,28 @@ private fun MyraHome(
                 .padding(horizontal = 20.dp)
         ) {
             Box(Modifier.fillMaxWidth().height(258.dp), contentAlignment = Alignment.Center) {
-                Box(Modifier.size(244.dp).rotate(rotation).border(1.dp, Color(0x447DEBFF), CircleShape))
+                Box(Modifier.size(244.dp).rotate(rotation).border(1.dp, Color(0x66E72A43), CircleShape))
                 Box(Modifier.size(226.dp).rotate(-rotation * .7f)
-                    .border(1.dp, Color(0x55704DFF), CircleShape))
+                    .border(1.dp, Color(0x66F26A7B), CircleShape))
                 Box(Modifier.size(208.dp).rotate(rotation * .45f)
-                    .border(2.dp, Color(0x66B86BFF), CircleShape))
+                    .border(2.dp, Color(0x88D71935), CircleShape))
                 Box(Modifier.size(184.dp).clip(CircleShape)
-                    .background(Brush.radialGradient(listOf(Color(0x664C7DFF), Color(0x444A18A8), Color.Transparent))))
+                    .background(Brush.radialGradient(listOf(Color(0x55FF8D9C), Color(0x33F22545), Color.Transparent))))
                 Box(
                     Modifier.size((156f * (if (animatedOrb) pulse else 1f)).dp).clip(CircleShape)
-                        .background(Brush.radialGradient(listOf(Color(0xFF302080), Color(0xFF111748), Color(0xFF030611))))
-                        .border(1.dp, Color(0xFF7DEBFF).copy(alpha = .7f), CircleShape)
+                        .background(Brush.radialGradient(listOf(Color(0xFF250307), Color(0xFF090204), Color(0xFF020102))))
+                        .border(1.dp, Color(0xFFFF5267).copy(alpha = .9f), CircleShape)
                         .padding(5.dp)
-                        .border(3.dp, Violet.copy(alpha = .9f), CircleShape),
+                        .border(3.dp, Color(0xFFFF1738).copy(alpha = .95f), CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("✦", color = Cyan, fontSize = 54.sp, fontWeight = FontWeight.Light, lineHeight = 56.sp)
+                        Text("M", color = Color(0xFFFF263F), fontSize = 54.sp, fontWeight = FontWeight.Light, lineHeight = 56.sp)
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text("MYR", color = Color.White, fontSize = 23.sp, fontWeight = FontWeight.Black, letterSpacing = 1.sp)
-                            Text("A", color = Violet, fontSize = 23.sp, fontWeight = FontWeight.Black)
+                            Text("A", color = Color(0xFFFF5267), fontSize = 23.sp, fontWeight = FontWeight.Black)
                         }
-                        Text("—  A I   A S S I S T A N T  —", color = Color(0xFFDAD8FF), fontSize = 6.sp, letterSpacing = 1.sp)
+                        Text("—  A I   A S S I S T A N T  —", color = Color(0xFFFFC6CE), fontSize = 6.sp, letterSpacing = 1.sp)
                     }
                 }
                 listOf(Alignment.TopStart, Alignment.TopEnd, Alignment.BottomStart, Alignment.BottomEnd).forEachIndexed { index, alignment ->
