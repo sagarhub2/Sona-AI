@@ -829,8 +829,8 @@ class MainActivity : ComponentActivity() {
                         Column(
                             modifier = Modifier.fillMaxWidth().fillMaxHeight(0.82f).verticalScroll(settingsScrollState)
                                 .clip(RoundedCornerShape(22.dp))
-                                .background(Color(0xFF09091B))
-                                .border(1.dp, Violet.copy(alpha = .5f), RoundedCornerShape(22.dp))
+                                .background(Brush.verticalGradient(listOf(Color(0xFF0D0B22), Color(0xFF070914), Color(0xFF050611))))
+                                .border(1.dp, Violet.copy(alpha = .62f), RoundedCornerShape(22.dp))
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
