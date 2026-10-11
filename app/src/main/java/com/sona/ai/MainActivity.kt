@@ -1998,8 +1998,8 @@ private fun MyraHome(
                     modifier = Modifier.clickable { onFeatures() })
             }
             val tileModifier = Modifier.weight(1f)
-            @Composable fun Shortcut(symbol: String, title: String, tint: Color, action: () -> Unit) {
-                Surface(onClick = action, modifier = Modifier.weight(1f).height(82.dp), shape = RoundedCornerShape(17.dp),
+            @Composable fun Shortcut(symbol: String, title: String, tint: Color, modifier: Modifier, action: () -> Unit) {
+                Surface(onClick = action, modifier = modifier.height(82.dp), shape = RoundedCornerShape(17.dp),
                     color = Color(0xFF0A1227), border = androidx.compose.foundation.BorderStroke(1.dp, line)) {
                     Column(Modifier.fillMaxSize().padding(horizontal = 7.dp, vertical = 9.dp),
                         horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
@@ -2011,16 +2011,16 @@ private fun MyraHome(
                 }
             }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Shortcut("☎", "Phone", Color(0xFF8DEAFF), onContacts)
-                Shortcut("▦", "Apps", Color(0xFFB49AFF), onMedia)
-                Shortcut("◎", "Camera", Color(0xFF76E5C5), onCamera)
-                Shortcut("▤", "Files", Color(0xFFFFC77B), onFiles)
+                Shortcut("☎", "Phone", Color(0xFF8DEAFF), Modifier.weight(1f), onContacts)
+                Shortcut("▦", "Apps", Color(0xFFB49AFF), Modifier.weight(1f), onMedia)
+                Shortcut("◎", "Camera", Color(0xFF76E5C5), Modifier.weight(1f), onCamera)
+                Shortcut("▤", "Files", Color(0xFFFFC77B), Modifier.weight(1f), onFiles)
             }
             Row(Modifier.fillMaxWidth().padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Shortcut("✎", "Notes", Color(0xFFB49AFF), onMemory)
-                Shortcut("✓", "Tasks", Color(0xFF76E5C5), onTasks)
-                Shortcut("⌕", "Web", Color(0xFF8DEAFF), { onSearch("Search the web") })
-                Shortcut("⚙", "Settings", Color(0xFFFFC77B), onSettings)
+                Shortcut("✎", "Notes", Color(0xFFB49AFF), Modifier.weight(1f), onMemory)
+                Shortcut("✓", "Tasks", Color(0xFF76E5C5), Modifier.weight(1f), onTasks)
+                Shortcut("⌕", "Web", Color(0xFF8DEAFF), Modifier.weight(1f)) { onSearch("Search the web") }
+                Shortcut("⚙", "Settings", Color(0xFFFFC77B), Modifier.weight(1f), onSettings)
             }
             Surface(Modifier.fillMaxWidth().padding(top = 15.dp, bottom = 14.dp), shape = RoundedCornerShape(25.dp),
                 color = Color(0xFF0A1125), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF35436C))) {
@@ -2058,16 +2058,16 @@ private fun MyraHome(
         Row(Modifier.fillMaxWidth().background(Color(0xF9060B1B)).border(1.dp, Color(0xFF25345A))
             .padding(horizontal = 13.dp, vertical = 7.dp), horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically) {
-            @Composable fun NavItem(symbol: String, label: String, active: Boolean = false, action: () -> Unit) {
-                Column(Modifier.weight(1f).clip(RoundedCornerShape(14.dp)).clickable { action() }.padding(vertical = 3.dp),
+            @Composable fun NavItem(symbol: String, label: String, modifier: Modifier, active: Boolean = false, action: () -> Unit) {
+                Column(modifier.clip(RoundedCornerShape(14.dp)).clickable { action() }.padding(vertical = 3.dp),
                     horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(symbol, color = if (active) Color(0xFF8DEAFF) else muted, fontSize = 20.sp)
                     Text(label, color = if (active) Color(0xFF8DEAFF) else muted, fontSize = 9.sp,
                         fontWeight = if (active) FontWeight.Bold else FontWeight.Normal)
                 }
             }
-            NavItem("⌂", "Home", true) { }
-            NavItem("▤", "Chat") { onChat() }
+            NavItem("⌂", "Home", Modifier.weight(1f), true) { }
+            NavItem("▤", "Chat", Modifier.weight(1f)) { onChat() }
             Box(Modifier.weight(1.2f), contentAlignment = Alignment.Center) {
                 Surface(onClick = { if (busy) onStopSpeaking() else onStartVoice() }, shape = CircleShape,
                     color = Color(0xFF5140B7), shadowElevation = 8.dp,
@@ -2077,8 +2077,8 @@ private fun MyraHome(
                     }
                 }
             }
-            NavItem("✦", "Memory") { onMemory() }
-            NavItem("☷", "History") { onHistory() }
+            NavItem("✦", "Memory", Modifier.weight(1f)) { onMemory() }
+            NavItem("☷", "History", Modifier.weight(1f)) { onHistory() }
         }
     }
 }
