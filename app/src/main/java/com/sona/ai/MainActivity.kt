@@ -1319,14 +1319,15 @@ class MainActivity : ComponentActivity() {
                     AlertDialog(
                         onDismissRequest = { confirmProfileReset = false },
                         title = { Text("Reset personal profile?") },
-                        text = { Text("This clears your display name, bio, photo and profile symbol. Assistant name, voice, theme, API key, notes and saved memories will stay unchanged.") },
+                        text = { Text("This clears your display name, bio, interests, photo and profile symbol. Assistant name, voice, theme, API key, notes and saved memories will stay unchanged.") },
                         confirmButton = {
                             TextButton(onClick = {
                                 userNameDraft = ""
                                 profileBioDraft = ""
+                                profileInterestsDraft = ""
                                 profileAvatarDraft = "✦"
                                 profilePhotoUri = ""
-                                prefs.edit().remove("user_name").remove("profile_bio").remove("profile_photo_uri").putString("profile_avatar", "✦").apply()
+                                prefs.edit().remove("user_name").remove("profile_bio").remove("profile_interests").remove("profile_photo_uri").putString("profile_avatar", "✦").apply()
                                 confirmProfileReset = false
                                 heardText = "Personal profile reset. Assistant settings were kept."
                                 status = "PROFILE RESET"
@@ -1518,6 +1519,27 @@ class MainActivity : ComponentActivity() {
                             OutlinedTextField(value = userNameDraft, onValueChange = { userNameDraft = it.take(50) }, label = { Text("What should Myra call you?") }, singleLine = true, supportingText = { Text("${userNameDraft.length}/50") }, modifier = Modifier.fillMaxWidth())
                             OutlinedTextField(value = profileBioDraft, onValueChange = { profileBioDraft = it.take(120) }, label = { Text("Short profile bio (optional)") }, placeholder = { Text("e.g. Student, developer, creative thinker") }, minLines = 2, maxLines = 3, supportingText = { Text("${profileBioDraft.length}/120 • Helps personalize replies") }, modifier = Modifier.fillMaxWidth())
                             OutlinedTextField(value = profileInterestsDraft, onValueChange = { profileInterestsDraft = it.take(100) }, label = { Text("Interests & goals (optional)") }, placeholder = { Text("e.g. Android apps, coding, design, study") }, singleLine = false, minLines = 2, maxLines = 3, supportingText = { Text("${profileInterestsDraft.length}/100 • Separate items with commas") }, modifier = Modifier.fillMaxWidth())
+                            OutlinedButton(
+                                onClick = {
+                                    val profileSummary = buildString {
+                                        appendLine("Myra AI • Personal Profile")
+                                        appendLine("Name: ${userNameDraft.trim().ifBlank { "Not set" }}")
+                                        appendLine("Bio: ${profileBioDraft.trim().ifBlank { "Not set" }}")
+                                        append("Interests & goals: ${profileInterestsDraft.trim().ifBlank { "Not set" }}")
+                                    }
+                                    try {
+                                        startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).apply {
+                                            type = "text/plain"
+                                            putExtra(Intent.EXTRA_SUBJECT, "My Myra AI profile")
+                                            putExtra(Intent.EXTRA_TEXT, profileSummary)
+                                        }, "Share profile"))
+                                    } catch (_: Exception) {
+                                        heardText = "Could not open the share menu."
+                                    }
+                                },
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(12.dp)
+                            ) { Text("Share profile summary  ↗", color = Color(0xFFCB1731)) }
                             Text("AI PROVIDER & MODEL", color = Color(0xFFCB1731), fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("Provider: Google Gemini", fontSize = 13.sp)
                             Text("Voice input: Android speech recognition • Replies: device TTS; Live audio availability depends on the session connection.", fontSize = 11.sp, color = Color(0xFF8C7E83))
