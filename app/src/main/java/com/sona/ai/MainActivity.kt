@@ -689,20 +689,34 @@ class MainActivity : ComponentActivity() {
                         }
                     },
                     confirmButton = {
-                        TextButton(onClick = {
-                            prefs.edit().putString("sona_tasks", taskDraft).apply()
-                            heardText = if (taskDraft.isBlank()) "Task list cleared." else "Tasks saved on this device."
-                            status = "TASKS UPDATED"
-                            showTasks = false
-                        }) { Text("Save tasks", color = Color.White) }
+                        Button(
+                            onClick = {
+                                prefs.edit().putString("sona_tasks", taskDraft).apply()
+                                heardText = if (taskDraft.isBlank()) "Task list cleared." else "Tasks saved on this device."
+                                status = "TASKS UPDATED"
+                                showTasks = false
+                            },
+                            shape = RoundedCornerShape(13.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color(0xFFCB1731),
+                                contentColor = Color.White
+                            ),
+                            contentPadding = PaddingValues(horizontal = 18.dp, vertical = 10.dp)
+                        ) {
+                            Text("Save tasks", fontWeight = FontWeight.Bold)
+                        }
                     },
                     dismissButton = {
-                        TextButton(onClick = {
-                            taskDraft = ""
-                            prefs.edit().putString("sona_tasks", "").apply()
-                            status = "TASKS CLEARED"
-                            showTasks = false
-                        }) { Text("Clear all", color = Color(0xFFB5122A)) }
+                        TextButton(
+                            onClick = {
+                                taskDraft = ""
+                                prefs.edit().putString("sona_tasks", "").apply()
+                                status = "TASKS CLEARED"
+                                showTasks = false
+                            }
+                        ) {
+                            Text("Clear all", color = Color(0xFFB5122A), fontWeight = FontWeight.SemiBold)
+                        }
                     }
                 )
             }
