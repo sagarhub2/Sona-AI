@@ -1095,8 +1095,8 @@ class MainActivity : ComponentActivity() {
                                 }
                                 Spacer(Modifier.width(10.dp))
                                 Column {
-                                    Text("CONTROL CENTER  •  20", color = Color(0xFFCB1731), fontWeight = FontWeight.Black, fontSize = 10.sp, letterSpacing = 1.8.sp)
-                                    Text("Everything, tuned to you", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                                    Text("CONTROL CENTER  •  28", color = Color(0xFFCB1731), fontWeight = FontWeight.Black, fontSize = 10.sp, letterSpacing = 1.8.sp)
+                                    Text("Everything, tuned to you", color = Color(0xFF282126), fontWeight = FontWeight.Bold, fontSize = 16.sp)
                                 }
                             }
                             Row(
@@ -1113,11 +1113,11 @@ class MainActivity : ComponentActivity() {
                                 }
                                 Spacer(Modifier.width(12.dp))
                                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                                    Text(userNameDraft.ifBlank { "My Profile" }, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                                    Text(userNameDraft.ifBlank { "My Profile" }, color = Color(0xFF282126), fontWeight = FontWeight.Bold, fontSize = 16.sp)
                                     Text("PERSONAL PROFILE  •  ACTIVE", color = Cyan, fontSize = 9.sp, letterSpacing = 1.sp)
                                     Surface(
                                         shape = RoundedCornerShape(50),
-                                        color = (if (apiKey.isBlank()) Color(0xFFFFB86B) else Cyan).copy(alpha = .12f),
+                                        color = if (apiKey.isBlank()) Color(0xFFFFF0D9) else Color(0xFFE5F8EF),
                                         border = androidx.compose.foundation.BorderStroke(
                                             1.dp, (if (apiKey.isBlank()) Color(0xFFFFB86B) else Cyan).copy(alpha = .45f)
                                         )
@@ -1209,7 +1209,7 @@ class MainActivity : ComponentActivity() {
                                     Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(7.dp)) {
                                         Text("⌑", color = Cyan, fontSize = 13.sp, fontWeight = FontWeight.Bold)
                                         Text("Keep your API key private. It is saved only when you save settings. MYRA AI will not show the key in the connection status.",
-                                            modifier = Modifier.weight(1f), color = Color(0xFFAAA3C8), fontSize = 10.sp, lineHeight = 14.sp)
+                                            modifier = Modifier.weight(1f), color = Color(0xFF8C6972), fontSize = 10.sp, lineHeight = 14.sp)
                                     }
                                 }
                             }
@@ -1242,7 +1242,7 @@ class MainActivity : ComponentActivity() {
                                         .clickable { personalityDraft = value }.padding(horizontal = 10.dp, vertical = 9.dp),
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    Text(label, color = if (personalityDraft == value) Cyan else Color.White, fontSize = 13.sp, fontWeight = FontWeight.Medium)
+                                    Text(label, color = if (personalityDraft == value) Color(0xFFCB1731) else Color(0xFF51464A), fontSize = 13.sp, fontWeight = FontWeight.Medium)
                                     Spacer(Modifier.weight(1f))
                                     if (personalityDraft == value) Text("✓", color = Cyan, fontWeight = FontWeight.Bold)
                                 }
@@ -1264,7 +1264,7 @@ class MainActivity : ComponentActivity() {
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     Column(Modifier.weight(1f)) {
-                                        Text(themeName, color = Color.White, fontWeight = FontWeight.Medium, fontSize = 13.sp)
+                                        Text(themeName, color = Color(0xFF282126), fontWeight = FontWeight.Medium, fontSize = 13.sp)
                                         Text(themeDescription, color = Color(0xFF8C7E83), fontSize = 11.sp)
                                     }
                                     RadioButton(selected = themeDraft == themeName, onClick = { themeDraft = themeName })
