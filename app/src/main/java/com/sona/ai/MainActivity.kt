@@ -587,16 +587,16 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                listOf("VOICE & LANGUAGE", "MEMORY", "PRIVACY").forEach { item ->
+                                listOf(Triple("VOICE", "♫", 1700), Triple("MEMORY", "◈", 3300), Triple("PRIVACY", "⌑", 5200)).forEach { item ->
                                     Column(
                                         Modifier.weight(1f).clip(RoundedCornerShape(12.dp))
                                             .background(Color(0xFF160B0F)).border(1.dp, Color(0xFF57202A), RoundedCornerShape(12.dp))
+                                            .clickable { settingsScope.launch { settingsScrollState.animateScrollTo(item.third) } }
                                             .padding(vertical = 11.dp, horizontal = 4.dp),
                                         horizontalAlignment = Alignment.CenterHorizontally
                                     ) {
-                                        Text(when (item) { "VOICE & LANGUAGE" -> "♫"; "MEMORY" -> "◈"; else -> "⌑" },
-                                            color = Color(0xFFFF5267), fontSize = 19.sp)
-                                        Text(item, color = Color.White, fontSize = 8.sp, fontWeight = FontWeight.Bold)
+                                        Text(item.second, color = Color(0xFFFF5267), fontSize = 19.sp)
+                                        Text(item.first, color = Color.White, fontSize = 8.sp, fontWeight = FontWeight.Bold)
                                     }
                                 }
                             }
