@@ -2609,7 +2609,19 @@ For privacy, I do not silently send messages or place calls. Android may ask you
                 val imageBytes = contentResolver.openInputStream(uri)?.use { it.readBytes() }
                     ?: throw IllegalStateException("Could not read selected image")
                 if (imageBytes.size > 12 * 1024 * 1024) throw IllegalArgumentException("Image is too large")
-                val bitmap = android.graphics.BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+                val bounds = android.graphics.BitmapFactory.Options().apply { inJustDecodeBounds = true }
+                android.graphics.BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size, bounds)
+                if (bounds.outWidth <= 0 || bounds.outHeight <= 0) {
+                    throw IllegalArgumentException("Unsupported image format")
+                }
+                // Downsample large camera/gallery images before decoding to reduce memory use.
+                val decodeOptions = android.graphics.BitmapFactory.Options()
+                var sampleSize = 1
+                while (bounds.outWidth / sampleSize > 1600 || bounds.outHeight / sampleSize > 1600) {
+                    sampleSize *= 2
+                }
+                decodeOptions.inSampleSize = sampleSize
+                val bitmap = android.graphics.BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size, decodeOptions)
                     ?: throw IllegalArgumentException("Unsupported image format")
                 val output = java.io.ByteArrayOutputStream()
                 bitmap.compress(android.graphics.Bitmap.CompressFormat.JPEG, 82, output)
