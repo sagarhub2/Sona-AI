@@ -932,8 +932,11 @@ class MainActivity : ComponentActivity() {
                                         modifier = Modifier.fillMaxWidth(),
                                         trailingIcon = { TextButton(onClick = { showApiKey = !showApiKey }) { Text(if (showApiKey) "HIDE" else "SHOW", color = Cyan) } }
                                     )
-                                    Text("Keep your API key private. It is saved only when you save settings.",
-                                        color = Color(0xFFAAA3C8), fontSize = 10.sp)
+                                    Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(7.dp)) {
+                                        Text("⌑", color = Cyan, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                                        Text("Keep your API key private. It is saved only when you save settings. MYRA AI will not show the key in the connection status.",
+                                            modifier = Modifier.weight(1f), color = Color(0xFFAAA3C8), fontSize = 10.sp, lineHeight = 14.sp)
+                                    }
                                 }
                             }
                             Text("VOICE & LANGUAGE", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
