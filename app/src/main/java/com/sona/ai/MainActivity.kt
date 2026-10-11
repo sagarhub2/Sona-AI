@@ -2952,6 +2952,17 @@ private fun MyraHome(
                                 Box(Modifier.size(6.dp).clip(CircleShape).background(Color(0xFFCB1731)))
                                 Text("Tap to capture a view", color = Color(0xFF8C7E83), fontSize = 9.sp)
                             }
+                            TextButton(
+                                onClick = {
+                                    try {
+                                        val galleryIntent = Intent(Intent.ACTION_GET_CONTENT).apply { type = "image/*" }
+                                        context.startActivity(Intent.createChooser(galleryIntent, "Choose an image for Neural Lens"))
+                                    } catch (_: Exception) {
+                                        android.widget.Toast.makeText(context, "No gallery app available", android.widget.Toast.LENGTH_SHORT).show()
+                                    }
+                                },
+                                contentPadding = PaddingValues(horizontal = 0.dp, vertical = 0.dp)
+                            ) { Text("▧  Open Gallery", color = Color(0xFFCB1731), fontSize = 10.sp, fontWeight = FontWeight.SemiBold) }
                         }
                     }
                 }
