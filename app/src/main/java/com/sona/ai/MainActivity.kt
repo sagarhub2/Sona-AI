@@ -2188,7 +2188,7 @@ private fun MyraPremiumIntro() {
     Box(
         modifier = Modifier.fillMaxSize().background(
             Brush.radialGradient(
-                colors = listOf(Color(0xFF300B12), Color(0xFF100609), Color(0xFF030303))
+                colors = listOf(Color(0xFF171C52), Color(0xFF080D20), Color(0xFF030611))
             )
         ),
         contentAlignment = Alignment.Center
@@ -2204,16 +2204,16 @@ private fun MyraPremiumIntro() {
             ) {
                 Box(
                     modifier = Modifier.size(218.dp).rotate(rotation)
-                        .border(1.dp, Color(0x66FF5267), CircleShape)
+                        .border(1.dp, Color(0x778DEAFF), CircleShape)
                 )
                 Box(
                     modifier = Modifier.size(184.dp).rotate(-rotation * 0.7f)
-                        .border(1.dp, Color(0x66B51F36), CircleShape)
+                        .border(1.dp, Color(0x779B7BFF), CircleShape)
                 )
                 Box(
                     modifier = Modifier.size((126 * pulse).dp).background(
                         Brush.radialGradient(
-                            colors = listOf(Violet, Color(0xFF5140B7), Color(0xFF20070D))
+                            colors = listOf(Violet, Color(0xFF5140B7), Color(0xFF182450))
                         ),
                         CircleShape
                     ).border(1.dp, Cyan, CircleShape),
@@ -2235,7 +2235,7 @@ private fun MyraPremiumIntro() {
                 fontWeight = FontWeight.Medium
             )
             Spacer(Modifier.height(7.dp))
-            Text("Talk  •  Control  •  Get Things Done", color = Color(0xFFB5A0A5), fontSize = 11.sp)
+            Text("THINK  •  SPEAK  •  CREATE", color = Color(0xFF9BA6C7), fontSize = 11.sp)
             Spacer(Modifier.height(34.dp))
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                 CircularProgressIndicator(
@@ -2244,11 +2244,11 @@ private fun MyraPremiumIntro() {
                     strokeWidth = 2.dp
                 )
                 Spacer(Modifier.width(10.dp))
-                Text("INITIALIZING YOUR AI", color = Color(0xFFE6DDE0), fontSize = 11.sp, letterSpacing = 1.5.sp)
+                Text("PREPARING YOUR AI SPACE", color = Color(0xFFE6DDE0), fontSize = 11.sp, letterSpacing = 1.5.sp)
             }
             Spacer(Modifier.height(42.dp))
             Text(
-                "✦  POWERED BY GEMINI AI  ✦",
+                "✦  POWERED BY GEMINI  ✦",
                 color = Color(0xFF9B82FF),
                 fontSize = 10.sp,
                 letterSpacing = 1.4.sp
