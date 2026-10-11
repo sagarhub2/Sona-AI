@@ -1304,9 +1304,10 @@ class MainActivity : ComponentActivity() {
                 var profileBioDraft by remember { mutableStateOf(prefs.getString("profile_bio", "").orEmpty()) }
                 var profileInterestsDraft by remember { mutableStateOf(prefs.getString("profile_interests", "").orEmpty()) }
                 var profilePhotoUri by remember { mutableStateOf(prefs.getString("profile_photo_uri", "").orEmpty()) }
+                val profilePhotoContext = LocalContext.current
                 val profilePhotoPicker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
                     if (uri != null) {
-                        try { LocalContext.current.contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION) } catch (_: Exception) { }
+                        try { profilePhotoContext.contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION) } catch (_: Exception) { }
                         profilePhotoUri = uri.toString()
                         prefs.edit().putString("profile_photo_uri", profilePhotoUri).apply()
                     }
