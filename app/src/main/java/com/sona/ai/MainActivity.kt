@@ -2069,10 +2069,10 @@ private fun MyraPremiumIntro() {
                 Box(
                     modifier = Modifier.size((126 * pulse).dp).background(
                         Brush.radialGradient(
-                            colors = listOf(Color(0xFFB86BFF), Color(0xFF4868FF), Color(0xFF10233D))
+                            colors = listOf(Violet, Color(0xFF4868FF), Color(0xFF10233D))
                         ),
                         CircleShape
-                    ).border(1.dp, Color(0xFF9CF4FF), CircleShape),
+                    ).border(1.dp, Cyan, CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
                     Text("✦", color = Color.White, fontSize = 58.sp, fontWeight = FontWeight.ExtraBold)
@@ -2081,7 +2081,7 @@ private fun MyraPremiumIntro() {
             Spacer(Modifier.height(24.dp))
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                 Text("Myra", color = Color.White, fontSize = 38.sp, fontWeight = FontWeight.Bold)
-                Text(" AI", color = Color(0xFFD05BFF), fontSize = 38.sp, fontWeight = FontWeight.Bold)
+                Text(" AI", color = Violet, fontSize = 38.sp, fontWeight = FontWeight.Bold)
             }
             Spacer(Modifier.height(8.dp))
             Text(
