@@ -822,7 +822,10 @@ class MainActivity : ComponentActivity() {
                                     Text("Your command center", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 20.sp)
                                 }
                             }
-                            Text("PERSONALIZE YOUR ASSISTANT", color = Cyan, fontWeight = FontWeight.Medium, fontSize = 9.sp, letterSpacing = 1.5.sp)
+                            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(7.dp)) {
+                                Box(Modifier.width(22.dp).height(2.dp).clip(RoundedCornerShape(4.dp)).background(Cyan))
+                                Text("PERSONALIZE YOUR ASSISTANT", color = Cyan, fontWeight = FontWeight.Medium, fontSize = 9.sp, letterSpacing = 1.5.sp)
+                            }
                         }
                     },
                     text = {
@@ -840,8 +843,8 @@ class MainActivity : ComponentActivity() {
                                 }
                                 Spacer(Modifier.width(10.dp))
                                 Column {
-                                    Text("MYRA AI • SETTINGS", color = Violet, fontWeight = FontWeight.Black, fontSize = 10.sp, letterSpacing = 1.8.sp)
-                                    Text("Personalize your experience", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                                    Text("CONTROL CENTER  •  20", color = Violet, fontWeight = FontWeight.Black, fontSize = 10.sp, letterSpacing = 1.8.sp)
+                                    Text("Everything, tuned to you", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
                                 }
                             }
                             Row(
@@ -859,7 +862,7 @@ class MainActivity : ComponentActivity() {
                                 Spacer(Modifier.width(12.dp))
                                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                     Text(userNameDraft.ifBlank { "My Profile" }, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
-                                    Text("MYRA AI • PERSONAL PROFILE", color = Cyan, fontSize = 9.sp, letterSpacing = 1.sp)
+                                    Text("PERSONAL PROFILE  •  ACTIVE", color = Cyan, fontSize = 9.sp, letterSpacing = 1.sp)
                                     Surface(
                                         shape = RoundedCornerShape(50),
                                         color = (if (apiKey.isBlank()) Color(0xFFFFB86B) else Cyan).copy(alpha = .12f),
