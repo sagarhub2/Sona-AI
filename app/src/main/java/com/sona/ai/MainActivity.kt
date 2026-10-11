@@ -769,15 +769,32 @@ class MainActivity : ComponentActivity() {
                                             color = Color(0xFF282126), fontSize = 14.sp, lineHeight = 22.sp
                                         )
                                         if (savedChat.isNotBlank()) {
-                                            TextButton(
-                                                onClick = {
-                                                    val clipboard = getSystemService(android.content.ClipboardManager::class.java)
-                                                    clipboard?.setPrimaryClip(android.content.ClipData.newPlainText("Myra conversation history", savedChat.replace("\\\\n", "\\n")))
-                                                    android.widget.Toast.makeText(this@MainActivity, "Conversation copied", android.widget.Toast.LENGTH_SHORT).show()
-                                                },
-                                                modifier = Modifier.align(Alignment.End)
+                                            Row(
+                                                modifier = Modifier.fillMaxWidth(),
+                                                horizontalArrangement = Arrangement.End,
+                                                verticalAlignment = Alignment.CenterVertically
                                             ) {
-                                                Text("⧉  Copy conversation", color = Color(0xFFCB1731), fontSize = 11.sp)
+                                                TextButton(
+                                                    onClick = {
+                                                        val clipboard = getSystemService(android.content.ClipboardManager::class.java)
+                                                        clipboard?.setPrimaryClip(android.content.ClipData.newPlainText("Myra conversation history", savedChat.replace("\\\\n", "\\n")))
+                                                        android.widget.Toast.makeText(this@MainActivity, "Conversation copied", android.widget.Toast.LENGTH_SHORT).show()
+                                                    }
+                                                ) {
+                                                    Text("⧉  Copy", color = Color(0xFFCB1731), fontSize = 11.sp)
+                                                }
+                                                TextButton(
+                                                    onClick = {
+                                                        val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                                                            type = "text/plain"
+                                                            putExtra(Intent.EXTRA_SUBJECT, "Myra AI conversation")
+                                                            putExtra(Intent.EXTRA_TEXT, savedChat.replace("\\\\n", "\\n"))
+                                                        }
+                                                        startActivity(Intent.createChooser(shareIntent, "Share conversation"))
+                                                    }
+                                                ) {
+                                                    Text("↗  Share", color = Color(0xFFCB1731), fontSize = 11.sp)
+                                                }
                                             }
                                         }
                                     }
