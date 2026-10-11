@@ -519,6 +519,8 @@ class MainActivity : ComponentActivity() {
                 var animatedOrb by remember { mutableStateOf(prefs.getBoolean("animated_orb", true)) }
                 var themeDraft by remember { mutableStateOf(prefs.getString("theme_style", "Holographic") ?: "Holographic") }
                 var rememberNotes by remember { mutableStateOf(prefs.getBoolean("use_memory", true)) }
+                val settingsScrollState = androidx.compose.foundation.rememberScrollState()
+                val settingsScope = rememberCoroutineScope()
                 AlertDialog(
                     modifier = Modifier.fillMaxSize(),
                     shape = RoundedCornerShape(0.dp),
@@ -529,12 +531,12 @@ class MainActivity : ComponentActivity() {
                     title = {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(20.dp))
-                                .background(Brush.horizontalGradient(listOf(Color(0xFF101D42), Color(0xFF22113C), Color(0xFF0A1C32))))
-                                .border(1.dp, Color(0xFF344A83), RoundedCornerShape(20.dp)).padding(16.dp),
+                                .background(Brush.horizontalGradient(listOf(Color(0xFF27070D), Color(0xFF12090C), Color(0xFF070708))))
+                                .border(1.dp, Color(0xFF7A1B2C), RoundedCornerShape(20.dp)).padding(16.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                Box(Modifier.size(42.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF6BE8FF), Color(0xFF6B37E5), Color(0xFF10152D)))), contentAlignment = Alignment.Center) {
+                                Box(Modifier.size(42.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFF5267), Color(0xFF9E1027), Color(0xFF171012)))), contentAlignment = Alignment.Center) {
                                     Text("✦", color = Color.White, fontSize = 24.sp)
                                 }
                                 Spacer(Modifier.width(11.dp))
@@ -548,7 +550,7 @@ class MainActivity : ComponentActivity() {
                     },
                     text = {
                         Column(
-                            modifier = Modifier.fillMaxWidth().fillMaxHeight(0.82f).verticalScroll(androidx.compose.foundation.rememberScrollState())
+                            modifier = Modifier.fillMaxWidth().fillMaxHeight(0.82f).verticalScroll(settingsScrollState)
                                 .clip(RoundedCornerShape(22.dp))
                                 .background(Color(0xFF0B090B))
                                 .border(1.dp, Color(0xFF57202A), RoundedCornerShape(22.dp))
