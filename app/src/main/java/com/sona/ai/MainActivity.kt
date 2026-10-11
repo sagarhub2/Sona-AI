@@ -46,21 +46,9 @@ import java.util.Locale
 import kotlinx.coroutines.launch
 
 private var activeThemeName by mutableStateOf("Holographic")
-private val Night: Color get() = when (activeThemeName) {
-    "Aurora" -> Color(0xFF04110F)
-    "Rose" -> Color(0xFF140711)
-    else -> Color(0xFF05040D)
-}
-private val Violet: Color get() = when (activeThemeName) {
-    "Aurora" -> Color(0xFF52E0B5)
-    "Rose" -> Color(0xFFFF78B7)
-    else -> Color(0xFFB86BFF)
-}
-private val Cyan: Color get() = when (activeThemeName) {
-    "Aurora" -> Color(0xFF9CFFD8)
-    "Rose" -> Color(0xFFFFB3D6)
-    else -> Color(0xFF7DEBFF)
-}
+private val Night: Color get() = Color(0xFFFFF7F8)
+private val Violet: Color get() = Color(0xFFCB1731)
+private val Cyan: Color get() = Color(0xFFF0B8C1)
 private const val AUDIO_PERMISSION_REQUEST = 410
 
 class MainActivity : ComponentActivity() {
@@ -148,18 +136,18 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             MaterialTheme(
-                colorScheme = darkColorScheme(
+                colorScheme = lightColorScheme(
                     primary = Violet,
-                    onPrimary = Color(0xFF06101B),
-                    secondary = Color(0xFF5630A8),
+                    onPrimary = Color.White,
+                    secondary = Color(0xFFB5122A),
                     onSecondary = Color.White,
                     background = Night,
-                    onBackground = Color.White,
-                    surface = Color(0xFF0B1024),
-                    onSurface = Color(0xFFE8ECFF),
-                    surfaceVariant = Color(0xFF171633),
-                    onSurfaceVariant = Color(0xFFB5A9AC),
-                    error = Color(0xFFFF6B8A)
+                    onBackground = Color(0xFF282126),
+                    surface = Color.White,
+                    onSurface = Color(0xFF282126),
+                    surfaceVariant = Color(0xFFFFE8EC),
+                    onSurfaceVariant = Color(0xFF51464A),
+                    error = Color(0xFFB5122A)
                 )
             ) {
             var showPremiumIntro by remember { mutableStateOf(true) }
@@ -401,8 +389,8 @@ class MainActivity : ComponentActivity() {
                                     onClick = action,
                                     modifier = Modifier.fillMaxWidth(),
                                     shape = RoundedCornerShape(16.dp),
-                                    color = Color(0xFF100D27),
-                                    border = androidx.compose.foundation.BorderStroke(1.dp, Violet.copy(alpha = .55f)),
+                                    color = Color(0xFFFFF7F8),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0B8C1)),
                                     shadowElevation = 0.dp
                                 ) {
                                     Row(
@@ -1249,7 +1237,7 @@ class MainActivity : ComponentActivity() {
                             ).forEach { (label, value) ->
                                 Row(
                                     Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp))
-                                        .background(if (personalityDraft == value) Color(0x332CDBFF) else Color(0xFF10162A))
+                                        .background(if (personalityDraft == value) Color(0x332CDBFF) else Color(0xFFFFF7F8))
                                         .clickable { personalityDraft = value }.padding(horizontal = 10.dp, vertical = 9.dp),
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
@@ -1269,7 +1257,7 @@ class MainActivity : ComponentActivity() {
                             ).forEach { (themeName, themeDescription) ->
                                 Row(
                                     Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp))
-                                        .background(if (themeDraft == themeName) Color(0x332CDBFF) else Color(0xFF10162A))
+                                        .background(if (themeDraft == themeName) Color(0x332CDBFF) else Color(0xFFFFF7F8))
                                         .clickable { themeDraft = themeName }
                                         .padding(horizontal = 10.dp, vertical = 10.dp),
                                     verticalAlignment = Alignment.CenterVertically
