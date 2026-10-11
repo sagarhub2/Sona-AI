@@ -1910,10 +1910,10 @@ private fun MyraHome(
             }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(7.dp)) {
                 listOf(
-                    Triple("Reminders", "◷", onReminder),
-                    Triple("Memory", "✦", onMemory),
-                    Triple("History", "☷", onHistory),
-                    Triple("Privacy", "⛨", onPermissions)
+                    (Triple("Reminders", "◷", Color(0xFFB98AFF)) to onReminder),
+                    (Triple("Memory", "✦", Color(0xFFB98AFF)) to onMemory),
+                    (Triple("History", "☷", Color(0xFFB98AFF)) to onHistory),
+                    (Triple("Privacy", "⛨", Color(0xFFB98AFF)) to onPermissions)
                 ).forEach { (tile, action) ->
                     Surface(
                         onClick = action, modifier = Modifier.weight(1f),
