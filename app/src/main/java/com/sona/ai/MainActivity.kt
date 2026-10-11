@@ -1818,7 +1818,7 @@ private fun MyraHome(
                 }
                 Text("—  A I   A S S I S T A N T  —", color = muted, fontSize = 7.sp, letterSpacing = 1.2.sp)
             }
-            Surface(onClick = onReminder, shape = CircleShape, color = Color(0xFF151014), shadowElevation = 0.dp, border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF7A1B2C)) {
+            Surface(onClick = onReminder, shape = CircleShape, color = Color(0xFF151014), shadowElevation = 0.dp, border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF7A1B2C))) {
                 Box(Modifier.size(48.dp), contentAlignment = Alignment.Center) {
                     Text("◷", color = red, fontSize = 24.sp)
                 }
