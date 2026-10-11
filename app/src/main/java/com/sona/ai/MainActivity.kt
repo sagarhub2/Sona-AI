@@ -1425,6 +1425,33 @@ class MainActivity : ComponentActivity() {
                             Text("DIAGNOSTICS", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("Status: $status\\nDevice: ${android.os.Build.MANUFACTURER} ${android.os.Build.MODEL}\\nAndroid: ${android.os.Build.VERSION.RELEASE} (SDK ${android.os.Build.VERSION.SDK_INT})\\nGemini key: ${if (apiKey.isBlank()) "not configured" else "saved"}", fontSize = 12.sp, color = Color(0xFF8C7E83))
                             TextButton(onClick = { heardText = "Diagnostics refreshed • $status • Android ${android.os.Build.VERSION.RELEASE}" }) { Text("Refresh diagnostics", color = Cyan) }
+                            Text("ABOUT MYRA AI", color = Color(0xFFCB1731), fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Surface(
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(16.dp),
+                                color = Color.White,
+                                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0B8C1))
+                            ) {
+                                Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Box(
+                                            Modifier.size(42.dp).clip(RoundedCornerShape(14.dp))
+                                                .background(Brush.linearGradient(listOf(Color(0xFFFFA4B1), Color(0xFFCB1731)))),
+                                            contentAlignment = Alignment.Center
+                                        ) { Text("✦", color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold) }
+                                        Spacer(Modifier.width(10.dp))
+                                        Column {
+                                            Text("Myra AI", color = Color(0xFF282126), fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                                            Text("Native Android assistant", color = Color(0xFF8C7E83), fontSize = 11.sp)
+                                        }
+                                    }
+                                    Divider(color = Color(0xFFFFE0E6))
+                                    Text("AI provider: Google Gemini", color = Color(0xFF51464A), fontSize = 12.sp)
+                                    Text("Voice input: Android speech recognition", color = Color(0xFF51464A), fontSize = 12.sp)
+                                    Text("Spoken replies: installed Android text-to-speech engine", color = Color(0xFF51464A), fontSize = 12.sp)
+                                    Text("Some device actions require Android permissions and may depend on apps installed on your phone.", color = Color(0xFF8C7E83), fontSize = 11.sp)
+                                }
+                            }
                             Text("Build: Myra AI • Android • Gemini", fontSize = 11.sp, color = Color(0xFF8C7E83))
                         }
                     },
