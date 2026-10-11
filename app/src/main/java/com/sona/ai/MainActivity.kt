@@ -2,6 +2,7 @@ package com.sona.ai
 
 import android.Manifest
 import android.content.Intent
+import android.net.Uri
 import android.provider.AlarmClock
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -1302,6 +1303,14 @@ class MainActivity : ComponentActivity() {
                 var profileAvatarDraft by remember { mutableStateOf(prefs.getString("profile_avatar", "✦") ?: "✦") }
                 var profileBioDraft by remember { mutableStateOf(prefs.getString("profile_bio", "").orEmpty()) }
                 var profileInterestsDraft by remember { mutableStateOf(prefs.getString("profile_interests", "").orEmpty()) }
+                var profilePhotoUri by remember { mutableStateOf(prefs.getString("profile_photo_uri", "").orEmpty()) }
+                val profilePhotoPicker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+                    if (uri != null) {
+                        try { LocalContext.current.contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION) } catch (_: Exception) { }
+                        profilePhotoUri = uri.toString()
+                        prefs.edit().putString("profile_photo_uri", profilePhotoUri).apply()
+                    }
+                }
                 var confirmProfileReset by remember { mutableStateOf(false) }
                 var languageDraft by remember { mutableStateOf(prefs.getString("language", "Auto (match me)") ?: "Auto (match me)") }
                 var voiceDraft by remember { mutableStateOf(prefs.getString("voice_style", "Warm & natural") ?: "Warm & natural") }
