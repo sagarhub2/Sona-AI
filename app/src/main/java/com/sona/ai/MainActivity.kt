@@ -2355,17 +2355,50 @@ private fun MyraHome(
                     }
                 }
             }
-            Row(Modifier.fillMaxWidth().padding(top = 12.dp, bottom = 15.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                listOf(
-                    Triple("Smart Memory", "✦", onMemory),
-                    Triple("Tasks & Reminders", "✓", onTasks)
-                ).forEach { item ->
-                    Surface(onClick = item.third, modifier = Modifier.weight(1f).height(76.dp), shape = RoundedCornerShape(17.dp),
-                        color = Color(0xFF100D27), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF45316E))) {
-                        Column(Modifier.fillMaxSize().padding(12.dp), horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center) {
-                            Text(item.second, color = red, fontSize = 22.sp)
-                            Text(item.first, color = ink, fontSize = 10.sp, fontWeight = FontWeight.SemiBold)
+            Row(Modifier.fillMaxWidth().padding(top = 12.dp, bottom = 15.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                Surface(
+                    onClick = onMemory,
+                    modifier = Modifier.weight(1f).height(94.dp),
+                    shape = RoundedCornerShape(20.dp),
+                    color = Color(0xFF100B27),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF7040A4)),
+                    shadowElevation = 3.dp
+                ) {
+                    Row(Modifier.fillMaxSize().padding(horizontal = 13.dp, vertical = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(11.dp)) {
+                        Box(Modifier.size(42.dp).clip(RoundedCornerShape(14.dp))
+                            .background(Color(0xFF9B6BFF).copy(alpha = .14f))
+                            .border(1.dp, Color(0xFF9B6BFF).copy(alpha = .55f), RoundedCornerShape(14.dp)),
+                            contentAlignment = Alignment.Center) {
+                            Text("✦", color = Color(0xFFBFA0FF), fontSize = 23.sp, fontWeight = FontWeight.Bold)
+                        }
+                        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                            Text("Smart Memory", color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+                            Text("Saved context", color = Color(0xFFAAA3C8), fontSize = 9.sp, maxLines = 1)
+                            Text("OPEN  ↗", color = Color(0xFFBFA0FF), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .5.sp)
+                        }
+                    }
+                }
+                Surface(
+                    onClick = onTasks,
+                    modifier = Modifier.weight(1f).height(94.dp),
+                    shape = RoundedCornerShape(20.dp),
+                    color = Color(0xFF0B1024),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF3B718B)),
+                    shadowElevation = 3.dp
+                ) {
+                    Row(Modifier.fillMaxSize().padding(horizontal = 13.dp, vertical = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(11.dp)) {
+                        Box(Modifier.size(42.dp).clip(RoundedCornerShape(14.dp))
+                            .background(Color(0xFF7DEBFF).copy(alpha = .10f))
+                            .border(1.dp, Color(0xFF7DEBFF).copy(alpha = .45f), RoundedCornerShape(14.dp)),
+                            contentAlignment = Alignment.Center) {
+                            Text("✓", color = Color(0xFF7DEBFF), fontSize = 23.sp, fontWeight = FontWeight.Bold)
+                        }
+                        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                            Text("Tasks & Reminders", color = Color.White, fontSize = 11.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+                            Text("Stay organized", color = Color(0xFFAAA3C8), fontSize = 9.sp, maxLines = 1)
+                            Text("OPEN  ↗", color = Color(0xFF7DEBFF), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .5.sp)
                         }
                     }
                 }
