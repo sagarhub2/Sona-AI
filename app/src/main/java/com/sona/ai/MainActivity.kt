@@ -456,21 +456,76 @@ class MainActivity : ComponentActivity() {
                             HorizontalDivider(color = Violet.copy(alpha = .35f))
                             Column(Modifier.weight(1f).fillMaxWidth().padding(vertical = 12.dp).verticalScroll(androidx.compose.foundation.rememberScrollState()), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                                 Text("✦  CONVERSATION", color = Cyan, fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.1.sp)
-                                if (savedChat.isBlank()) {
-                                    Text("Hey! I’m Myra. Ask me anything to start chatting.", color = Color(0xFFE8E5FF), fontSize = 15.sp, lineHeight = 23.sp)
-                                } else {
-                                    Text(savedChat.replace("\\n", "\n"), color = Color(0xFFE8E5FF), fontSize = 14.sp, lineHeight = 22.sp)
+                                Surface(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    shape = RoundedCornerShape(18.dp),
+                                    color = Color(0xFF100D27),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Violet.copy(alpha = .35f)),
+                                    tonalElevation = 0.dp
+                                ) {
+                                    Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(7.dp)) {
+                                        Text("MYRA AI", color = Cyan, fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                                        Text(
+                                            if (savedChat.isBlank()) "Hey! I’m Myra. Ask me anything to start chatting."
+                                            else savedChat.replace("\\\\n", "\\n"),
+                                            color = Color(0xFFE8E5FF), fontSize = 14.sp, lineHeight = 22.sp
+                                        )
+                                    }
                                 }
                                 if (busy && pendingMessage.isNotBlank()) {
-                                    Text("You: " + pendingMessage, color = Cyan, fontSize = 14.sp, lineHeight = 22.sp)
-                                    Text("✦ Myra is preparing a response…", color = Violet, fontSize = 13.sp)
+                                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                                        Surface(
+                                            shape = RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp, bottomStart = 18.dp, bottomEnd = 5.dp),
+                                            color = Color(0xFF241344),
+                                            border = androidx.compose.foundation.BorderStroke(1.dp, Violet.copy(alpha = .75f))
+                                        ) {
+                                            Column(Modifier.widthIn(max = 280.dp).padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                                                Text("YOU", color = Cyan, fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                                                Text(pendingMessage, color = Color.White, fontSize = 14.sp, lineHeight = 21.sp)
+                                            }
+                                        }
+                                    }
+                                    Surface(
+                                        shape = RoundedCornerShape(16.dp),
+                                        color = Color(0xFF100D27),
+                                        border = androidx.compose.foundation.BorderStroke(1.dp, Cyan.copy(alpha = .35f))
+                                    ) {
+                                        Row(Modifier.padding(horizontal = 12.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+                                            Text("✦", color = Cyan, fontSize = 18.sp)
+                                            Spacer(Modifier.width(8.dp))
+                                            Text("Myra is preparing a response…", color = Violet, fontSize = 12.sp)
+                                        }
+                                    }
                                 }
                                 if (apiKey.isBlank()) {
                                     Text("To send messages, add a Gemini API key in Settings.", color = Color(0xFFFFC27A), fontSize = 12.sp)
                                     TextButton(onClick = { showChat = false; showSettings = true }) { Text("Open Settings", color = Violet) }
                                 }
                             }
-                            OutlinedTextField(value = chatDraft, onValueChange = { chatDraft = it }, modifier = Modifier.fillMaxWidth(), placeholder = { Text("Message Myra…", color = Color(0xFFAAA3C8)) }, label = { Text("Your message", color = Violet) }, minLines = 1, maxLines = 4, enabled = !busy, shape = RoundedCornerShape(18.dp), colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(focusedTextColor = Color(0xFFF7F4FF), unfocusedTextColor = Color(0xFFF7F4FF), focusedBorderColor = Violet, unfocusedBorderColor = Color(0xFF49376B), focusedContainerColor = Color(0xFF0C0B20), unfocusedContainerColor = Color(0xFF0C0B20), cursorColor = Cyan))
+                            OutlinedTextField(
+                                    value = chatDraft,
+                                    onValueChange = { chatDraft = it },
+                                    modifier = Modifier.fillMaxWidth(),
+                                    placeholder = { Text(if (busy) "Myra is replying…" else "Message Myra…", color = Color(0xFFAAA3C8)) },
+                                    label = { Text("Your message", color = Violet) },
+                                    minLines = 1,
+                                    maxLines = 4,
+                                    enabled = !busy,
+                                    shape = RoundedCornerShape(20.dp),
+                                    colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
+                                        focusedTextColor = Color(0xFFF7F4FF),
+                                        unfocusedTextColor = Color(0xFFF7F4FF),
+                                        focusedBorderColor = Cyan,
+                                        unfocusedBorderColor = Violet.copy(alpha = .55f),
+                                        focusedLabelColor = Cyan,
+                                        unfocusedLabelColor = Violet,
+                                        focusedContainerColor = Color(0xFF09091B),
+                                        unfocusedContainerColor = Color(0xFF09091B),
+                                        cursorColor = Cyan,
+                                        disabledTextColor = Color(0xFFAAA3C8),
+                                        disabledBorderColor = Violet.copy(alpha = .25f)
+                                    )
+                                )
                             Spacer(Modifier.height(8.dp))
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
                                 Text("Replies appear in this chat", color = Color(0xFFAFA8C9), fontSize = 10.sp, modifier = Modifier.weight(1f))
