@@ -69,6 +69,7 @@ class MainActivity : ComponentActivity() {
     private var showTriggers by mutableStateOf(false)
     private var showWebSearch by mutableStateOf(false)
     private var showFiles by mutableStateOf(false)
+    private var showPermissionDashboard by mutableStateOf(false)
     private var busy by mutableStateOf(false)
     private var speechRecognizer: SpeechRecognizer? = null
     private var liveVoiceSession: LiveVoiceSession? = null
@@ -235,10 +236,7 @@ class MainActivity : ComponentActivity() {
                     }
                 },
                 onReminder = { showTriggers = true },
-                onPermissions = {
-                    try { startActivity(Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, android.net.Uri.parse("package:$packageName"))) }
-                    catch (_: Exception) { status = "APP SETTINGS UNAVAILABLE" }
-                },
+                onPermissions = { showPermissionDashboard = true },
                 onShareAnswer = {
                     val textToShare = heardText.trim()
                     if (textToShare.isBlank()) {
@@ -1650,6 +1648,73 @@ class MainActivity : ComponentActivity() {
                     },
                     dismissButton = {
                         TextButton(onClick = { showSettings = false }) { Text("Cancel", color = Color(0xFF8C2639)) }
+                    }
+                )
+            }
+            if (showPermissionDashboard) {
+                val permissionContext = LocalContext.current
+                val permissionRows = listOf(
+                    Triple("Microphone", Manifest.permission.RECORD_AUDIO, "Voice input and speech recognition"),
+                    Triple("Camera", Manifest.permission.CAMERA, "Capture images for Neural Lens"),
+                    Triple("Contacts", Manifest.permission.READ_CONTACTS, "Browse contacts when requested"),
+                    Triple("Phone calls", Manifest.permission.CALL_PHONE, "Calling actions, where supported"),
+                    Triple("Location", Manifest.permission.ACCESS_FINE_LOCATION, "Location-aware actions, when used"),
+                    Triple("Notifications", Manifest.permission.POST_NOTIFICATIONS, "Show reminders and notifications"),
+                    Triple("Photos", Manifest.permission.READ_MEDIA_IMAGES, "Select images for visual analysis")
+                )
+                AlertDialog(
+                    onDismissRequest = { showPermissionDashboard = false },
+                    shape = RoundedCornerShape(24.dp),
+                    containerColor = Color(0xFFFFF7F8),
+                    title = {
+                        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                            Text("PERMISSION CENTER", color = Color(0xFFCB1731), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.5.sp)
+                            Text("App permissions", color = Color(0xFF282126), fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                            Text("Review access used by Myra AI. You stay in control.", color = Color(0xFF8C7E83), fontSize = 12.sp)
+                        }
+                    },
+                    text = {
+                        Column(
+                            Modifier.fillMaxWidth().heightIn(max = 390.dp).verticalScroll(androidx.compose.foundation.rememberScrollState()),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            permissionRows.forEach { (label, permission, purpose) ->
+                                val granted = ContextCompat.checkSelfPermission(permissionContext, permission) == PackageManager.PERMISSION_GRANTED
+                                Row(
+                                    Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp))
+                                        .background(Color.White)
+                                        .border(1.dp, if (granted) Color(0xFFB9E3C8) else Color(0xFFF0B8C1), RoundedCornerShape(14.dp))
+                                        .padding(11.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                                ) {
+                                    Box(
+                                        Modifier.size(34.dp).clip(CircleShape)
+                                            .background(if (granted) Color(0xFFE6F6EC) else Color(0xFFFFE8EC)),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Text(if (granted) "✓" else "!", color = if (granted) Color(0xFF287A48) else Color(0xFFCB1731), fontWeight = FontWeight.Bold)
+                                    }
+                                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                                        Text(label, color = Color(0xFF282126), fontWeight = FontWeight.SemiBold, fontSize = 13.sp)
+                                        Text(purpose, color = Color(0xFF8C7E83), fontSize = 10.sp)
+                                    }
+                                    Text(if (granted) "Allowed" else "Not allowed", color = if (granted) Color(0xFF287A48) else Color(0xFFCB1731), fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                                }
+                            }
+                            Text("Some permissions may be optional or only needed for specific features.", color = Color(0xFF8C7E83), fontSize = 11.sp)
+                        }
+                    },
+                    confirmButton = {
+                        TextButton(onClick = {
+                            showPermissionDashboard = false
+                            try {
+                                startActivity(Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, android.net.Uri.parse("package:$packageName")))
+                            } catch (_: Exception) { status = "APP SETTINGS UNAVAILABLE" }
+                        }) { Text("Open Android settings", color = Color(0xFFCB1731), fontWeight = FontWeight.Bold) }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = { showPermissionDashboard = false }) { Text("Done", color = Color(0xFF8C7E83)) }
                     }
                 )
             }
