@@ -74,6 +74,7 @@ class MainActivity : ComponentActivity() {
     private var showChat by mutableStateOf(false)
     private var showDeviceInfo by mutableStateOf(false)
     private var showFeaturesMenu by mutableStateOf(false)
+    private var showTriggers by mutableStateOf(false)
     private var showWebSearch by mutableStateOf(false)
     private var busy by mutableStateOf(false)
     private var speechRecognizer: SpeechRecognizer? = null
@@ -215,10 +216,7 @@ class MainActivity : ComponentActivity() {
                         status = "NO MUSIC APP AVAILABLE"
                     }
                 },
-                onReminder = {
-                    try { startActivity(Intent(AlarmClock.ACTION_SET_ALARM).apply { putExtra(AlarmClock.EXTRA_SKIP_UI, false) }) }
-                    catch (_: Exception) { status = "CLOCK APP UNAVAILABLE" }
-                },
+                onReminder = { showTriggers = true },
                 onPermissions = {
                     try { startActivity(Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, android.net.Uri.parse("package:$packageName"))) }
                     catch (_: Exception) { status = "APP SETTINGS UNAVAILABLE" }
@@ -312,6 +310,82 @@ class MainActivity : ComponentActivity() {
                     }
                 )
             }
+            if (showTriggers) {
+                AlertDialog(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(26.dp),
+                    containerColor = Color(0xFF070817),
+                    titleContentColor = Violet,
+                    textContentColor = Color(0xFFE6E5FF),
+                    tonalElevation = 0.dp,
+                    onDismissRequest = { showTriggers = false },
+                    title = {
+                        Column(
+                            Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
+                                .background(Brush.horizontalGradient(listOf(Color(0xFF21103F), Color(0xFF100D27), Color(0xFF070817))))
+                                .border(1.dp, Violet.copy(alpha = .8f), RoundedCornerShape(18.dp))
+                                .padding(14.dp),
+                            verticalArrangement = Arrangement.spacedBy(5.dp)
+                        ) {
+                            Text("◈  MYRA AI • TRIGGER CENTER", color = Cyan, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                            Text("Triggers & clock", color = Color.White, fontSize = 21.sp, fontWeight = FontWeight.Bold)
+                            Text("Choose an action to open your phone's Clock app.", color = Color(0xFFB9B5D4), fontSize = 12.sp)
+                        }
+                    },
+                    text = {
+                        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                            @Composable
+                            fun TriggerActionCard(icon: String, heading: String, detail: String, action: () -> Unit) {
+                                Surface(
+                                    onClick = action,
+                                    modifier = Modifier.fillMaxWidth(),
+                                    shape = RoundedCornerShape(16.dp),
+                                    color = Color(0xFF100D27),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Violet.copy(alpha = .55f)),
+                                    shadowElevation = 0.dp
+                                ) {
+                                    Row(
+                                        Modifier.padding(13.dp),
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Box(
+                                            Modifier.size(44.dp).clip(RoundedCornerShape(13.dp))
+                                                .background(Violet.copy(alpha = .16f))
+                                                .border(1.dp, Violet.copy(alpha = .5f), RoundedCornerShape(13.dp)),
+                                            contentAlignment = Alignment.Center
+                                        ) { Text(icon, color = Cyan, fontSize = 23.sp) }
+                                        Spacer(Modifier.width(12.dp))
+                                        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                                            Text(heading, color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
+                                            Text(detail, color = Color(0xFFB9B5D4), fontSize = 11.sp)
+                                        }
+                                        Text("›", color = Cyan, fontSize = 25.sp)
+                                    }
+                                }
+                            }
+                            TriggerActionCard("◷", "Set an alarm", "Choose a time and alarm label") {
+                                showTriggers = false
+                                try { startActivity(Intent(AlarmClock.ACTION_SET_ALARM).apply { putExtra(AlarmClock.EXTRA_SKIP_UI, false) }) }
+                                catch (_: Exception) { status = "CLOCK APP UNAVAILABLE" }
+                            }
+                            TriggerActionCard("⏱", "Start a timer", "Set a countdown in the Clock app") {
+                                showTriggers = false
+                                try { startActivity(Intent(AlarmClock.ACTION_SET_TIMER)) }
+                                catch (_: Exception) { status = "CLOCK APP UNAVAILABLE" }
+                            }
+                            TriggerActionCard("☷", "View alarms", "Check alarms managed by your phone") {
+                                showTriggers = false
+                                try { startActivity(Intent(AlarmClock.ACTION_SHOW_ALARMS)) }
+                                catch (_: Exception) { status = "CLOCK APP UNAVAILABLE" }
+                            }
+                            Text("Note: alarms and timers are managed by Android's Clock app.", color = Cyan, fontSize = 11.sp)
+                        }
+                    },
+                    confirmButton = {
+                        TextButton(onClick = { showTriggers = false }) { Text("Close", color = Violet) }
+                    }
+                )
+            }
             if (showFeaturesMenu) {
                 MyraFeaturesMenu(
                     onClose = { showFeaturesMenu = false },
@@ -324,7 +398,7 @@ class MainActivity : ComponentActivity() {
                     onCamera = { showFeaturesMenu = false; try { startActivity(Intent("android.media.action.IMAGE_CAPTURE")) } catch (_: Exception) { status = "CAMERA UNAVAILABLE" } },
                     onContacts = { showFeaturesMenu = false; try { startActivity(Intent(Intent.ACTION_PICK, android.provider.ContactsContract.Contacts.CONTENT_URI)) } catch (_: Exception) { status = "CONTACT PICKER UNAVAILABLE" } },
                     onMedia = { showFeaturesMenu = false; try { startActivity(Intent.makeMainSelectorActivity(Intent.ACTION_MAIN, Intent.CATEGORY_APP_MUSIC)) } catch (_: Exception) { status = "NO MUSIC APP AVAILABLE" } },
-                    onReminder = { showFeaturesMenu = false; try { startActivity(Intent(AlarmClock.ACTION_SET_ALARM)) } catch (_: Exception) { status = "CLOCK APP UNAVAILABLE" } },
+                    onReminder = { showFeaturesMenu = false; showTriggers = true },
                     onWeb = { showFeaturesMenu = false; showWebSearch = true },
                     onDevice = { showFeaturesMenu = false; try { startActivity(Intent(android.provider.Settings.ACTION_SETTINGS)) } catch (_: Exception) { status = "SETTINGS UNAVAILABLE" } }
                 )
