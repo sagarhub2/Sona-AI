@@ -1456,6 +1456,24 @@ class MainActivity : ComponentActivity() {
                                 OutlinedButton(onClick = { profilePhotoPicker.launch(arrayOf("image/*")) }, modifier = Modifier.weight(1f)) { Text(if (profilePhotoUri.isBlank()) "Choose profile photo" else "Change photo") }
                                 TextButton(onClick = { profilePhotoUri = ""; prefs.edit().remove("profile_photo_uri").apply() }, enabled = profilePhotoUri.isNotBlank()) { Text("Remove") }
                             }
+                            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                                TextButton(onClick = {
+                                    userNameDraft = ""
+                                    profileBioDraft = ""
+                                    profileAvatarDraft = "✦"
+                                    profilePhotoUri = ""
+                                    prefs.edit()
+                                        .remove("user_name")
+                                        .remove("profile_bio")
+                                        .remove("profile_photo_uri")
+                                        .putString("profile_avatar", "✦")
+                                        .apply()
+                                    heardText = "Personal profile reset. Assistant settings were kept."
+                                    status = "PROFILE RESET"
+                                }) {
+                                    Text("Reset personal profile", color = Color(0xFFCB1731), fontWeight = FontWeight.SemiBold)
+                                }
+                            }
                             Text("PROFILE SYMBOL", color = Color(0xFF6F5C62), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                 listOf("✦", "😊", "🚀", "🌙", "🎧", "⭐").forEach { symbol ->
