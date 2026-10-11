@@ -669,7 +669,7 @@ class MainActivity : ComponentActivity() {
                             listOf(
                                 "Companion" to "Warm, caring, emotionally aware, friendly, supportive, and respectful",
                                 "Funny" to "Playful, witty, light-hearted, use gentle humour when appropriate",
-                                "GF Mode" to "Affectionate fictional companion tone, sweet and supportive, while respecting boundaries",
+                                "Encouraging coach" to "Warm, encouraging and respectful coach who supports goals without pressure",
                                 "Teacher" to "Patient teacher, explain step by step with simple examples and check understanding",
                                 "Developer" to "Technical developer assistant, give accurate code-focused explanations and practical debugging steps",
                                 "Professional" to "Professional, clear, structured, respectful, concise",
@@ -2012,7 +2012,7 @@ private fun MyraHome(
             Surface(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(40.dp), color = Color(0xFF09080D), shadowElevation = 3.dp,
-                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFE9E6E6))
+                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF57202A))
             ) {
                 Row(Modifier.padding(horizontal = 13.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
                     Surface(onClick = onFiles, shape = CircleShape, color = Color.Transparent) {
@@ -2042,7 +2042,7 @@ private fun MyraHome(
                 Surface(
                     Modifier.fillMaxWidth().padding(top = 12.dp),
                     shape = RoundedCornerShape(18.dp), color = Color(0xFF0A080D),
-                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0D4D9)), shadowElevation = 2.dp
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF57202A)), shadowElevation = 2.dp
                 ) {
                     Column(Modifier.padding(14.dp)) {
                         Text("MYRA • RESPONSE", color = red, fontSize = 10.sp, letterSpacing = 1.sp)
@@ -2065,7 +2065,7 @@ private fun MyraHome(
                 Surface(
                     onClick = onStartVoice, modifier = Modifier.weight(1f).height(164.dp),
                     shape = RoundedCornerShape(24.dp), color = Color(0xFF0A080D), shadowElevation = 3.dp,
-                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0C8CF))
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF57202A))
                 ) {
                     Column(Modifier.fillMaxSize().padding(17.dp), verticalArrangement = Arrangement.SpaceBetween) {
                         Text("≋", color = red, fontSize = 31.sp, fontWeight = FontWeight.Bold)
@@ -2078,7 +2078,7 @@ private fun MyraHome(
                 Surface(
                     onClick = onCamera, modifier = Modifier.weight(1f).height(164.dp),
                     shape = RoundedCornerShape(24.dp), color = Color(0xFF0A080D), shadowElevation = 3.dp,
-                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFECE9E9))
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF57202A))
                 ) {
                     Column(Modifier.fillMaxSize().padding(17.dp), verticalArrangement = Arrangement.SpaceBetween) {
                         Text("▣", color = red, fontSize = 30.sp, fontWeight = FontWeight.Bold)
@@ -2113,7 +2113,7 @@ private fun MyraHome(
             Column(Modifier.weight(1f).clip(RoundedCornerShape(18.dp)).clickable { onFeatures() }.padding(vertical = 4.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("◆", color = red, fontSize = 21.sp)
-                Text("Home", color = red, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                Text("Explore", color = red, fontSize = 11.sp, fontWeight = FontWeight.Bold)
             }
             Column(Modifier.weight(1f).clip(RoundedCornerShape(18.dp)).clickable { onChat() }.padding(vertical = 4.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
