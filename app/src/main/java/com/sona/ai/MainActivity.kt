@@ -51,6 +51,7 @@ private val Night: Color get() = Color(0xFFFFF7F8)
 private val Violet: Color get() = Color(0xFFCB1731)
 private val Cyan: Color get() = Color(0xFFF0B8C1)
 private const val AUDIO_PERMISSION_REQUEST = 410
+private const val CAMERA_PERMISSION_REQUEST = 411
 
 class MainActivity : ComponentActivity() {
     private var status by mutableStateOf("READY • TAP TO SPEAK")
@@ -71,6 +72,31 @@ class MainActivity : ComponentActivity() {
     private var liveVoiceSession: LiveVoiceSession? = null
     private var textToSpeech: TextToSpeech? = null
     private var ttsReady = false
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == CAMERA_PERMISSION_REQUEST) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openCameraForNeuralLens()
+            } else {
+                status = "CAMERA PERMISSION DENIED • ENABLE IT IN APP SETTINGS"
+            }
+        }
+    }
+
+    private fun openCameraForNeuralLens() {
+        try {
+            val cameraIntent = Intent("android.media.action.IMAGE_CAPTURE")
+            if (cameraIntent.resolveActivity(packageManager) != null) {
+                startActivity(cameraIntent)
+                status = "CAMERA OPENED • CAPTURE A PHOTO"
+            } else {
+                status = "NO CAMERA APP AVAILABLE"
+            }
+        } catch (_: Exception) {
+            status = "CAMERA UNAVAILABLE"
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -181,8 +207,16 @@ class MainActivity : ComponentActivity() {
                     catch (_: Exception) { status = "SETTINGS UNAVAILABLE" }
                 },
                 onCamera = {
-                    try { startActivity(Intent("android.media.action.IMAGE_CAPTURE")) }
-                    catch (_: Exception) { status = "CAMERA UNAVAILABLE" }
+                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                        openCameraForNeuralLens()
+                    } else {
+                        ActivityCompat.requestPermissions(
+                            this,
+                            arrayOf(Manifest.permission.CAMERA),
+                            CAMERA_PERMISSION_REQUEST
+                        )
+                        status = "CAMERA PERMISSION REQUESTED"
+                    }
                 },
                 onContacts = {
                     try {
