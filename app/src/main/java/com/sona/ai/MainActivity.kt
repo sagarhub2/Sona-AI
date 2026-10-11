@@ -519,11 +519,26 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                             }
+                            Row(
+                                Modifier.fillMaxWidth().clip(RoundedCornerShape(13.dp))
+                                    .background(Color(0xFFFFF3F5))
+                                    .border(1.dp, Color(0xFFF5D8DE), RoundedCornerShape(13.dp))
+                                    .padding(horizontal = 11.dp, vertical = 10.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text("✓", color = Color(0xFF38845B), fontSize = 17.sp, fontWeight = FontWeight.Bold)
+                                Spacer(Modifier.width(8.dp))
+                                Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                                    Text("Private file access", color = Color(0xFF282126), fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                                    Text("Choose files explicitly; Android controls access.", color = Color(0xFF8C7E83), fontSize = 10.sp)
+                                }
+                            }
+                            Text("CHOOSE A FILE TYPE", color = Color(0xFFCB1731), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
                             FileTypeCard("▤", "All files", "Browse available file types", "*/*")
                             FileTypeCard("PDF", "PDF documents", "Choose a PDF file", "application/pdf")
                             FileTypeCard("▧", "Photos & images", "Choose an image from storage", "image/*")
                             FileTypeCard("≡", "Text documents", "Choose text or document files", "*/*", arrayOf("text/*", "application/rtf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"))
-                            Text("Your phone's Android file picker handles access and permissions.", color = Color(0xFF8C7E83), fontSize = 10.sp)
+                            Text("Tip: select a file in Android's picker to grant access to that item.", color = Color(0xFF8C7E83), fontSize = 10.sp)
                         }
                     },
                     confirmButton = {
