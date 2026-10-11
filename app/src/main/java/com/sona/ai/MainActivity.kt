@@ -1059,6 +1059,24 @@ class MainActivity : ComponentActivity() {
                                     unfocusedContainerColor = Color(0xFFFFFBFC)
                                 )
                             )
+                            Row(
+                                Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    if (memoryDraft == (memoryPrefs.getString("memory_notes", "") ?: "")) "All changes saved" else "Unsaved changes",
+                                    color = if (memoryDraft == (memoryPrefs.getString("memory_notes", "") ?: "")) Color(0xFF38845B) else Color(0xFFB5122A),
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                                TextButton(
+                                    onClick = { memoryDraft = "" },
+                                    enabled = memoryDraft.isNotEmpty()
+                                ) {
+                                    Text("Clear draft", color = if (memoryDraft.isNotEmpty()) Color(0xFFB5122A) else Color(0xFFBDAFB3), fontSize = 12.sp)
+                                }
+                            }
                         }
                     },
                     confirmButton = {
