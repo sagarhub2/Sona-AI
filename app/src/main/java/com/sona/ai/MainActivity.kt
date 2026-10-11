@@ -1787,7 +1787,6 @@ private fun MyraHome(
     val displayName = context.getSharedPreferences("myra_private", 0)
         .getString("user_name", "").orEmpty().trim().ifBlank { "Sagar" }
     var prompt by remember { mutableStateOf("") }
-    var selectedTab by remember { mutableStateOf("Home") }
     val transition = androidx.compose.animation.core.rememberInfiniteTransition(label = "myra-reference-orb")
     val pulse by transition.animateFloat(
         initialValue = 0.94f, targetValue = 1.04f,
@@ -1891,36 +1890,7 @@ private fun MyraHome(
                     )
                 }
                 Spacer(Modifier.height(14.dp))
-                Surface(
-                    onClick = onStartVoice,
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp),
-                    shape = RoundedCornerShape(19.dp),
-                    color = Color(0xFF101A36),
-                    border = androidx.compose.foundation.BorderStroke(
-                        1.dp, Brush.horizontalGradient(listOf(Color(0xFF42DFFF), Color(0xFF8B4DFF), Color(0xFFD05BFF)))
-                    )
-                ) {
-                    Row(
-                        Modifier.background(Brush.horizontalGradient(listOf(Color(0x332CDAFF), Color(0x332F1A70), Color(0x332B153F))))
-                            .padding(horizontal = 16.dp, vertical = 13.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Box(
-                            Modifier.size(42.dp).clip(CircleShape)
-                                .background(Brush.radialGradient(listOf(Color(0xFF7DEBFF), Color(0xFF5B38D5))))
-                                .border(1.dp, Color(0xFF8CEFFF), CircleShape),
-                            contentAlignment = Alignment.Center
-                        ) { Text(if (busy) "…" else "🎙", fontSize = 20.sp, color = Color.White) }
-                        Spacer(Modifier.width(12.dp))
-                        Column(Modifier.weight(1f)) {
-                            Text(if (busy) "MYRA IS LISTENING" else "START LIVE CONVERSATION",
-                                color = Color.White, fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 0.6.sp)
-                            Text(if (hasKey) "Voice • Gemini AI • Natural replies" else "Voice input available • Add API key for Gemini",
-                                color = Color(0xFF9EAFD4), fontSize = 9.sp, modifier = Modifier.padding(top = 4.dp))
-                        }
-                        Text("→", color = Color(0xFF7DEBFF), fontSize = 22.sp)
-                    }
-                }
+                Spacer(Modifier.height(8.dp))
             }
             if (heardText.isNotBlank() && heardText != "Add your Gemini API key in Settings to enable AI.") {
                 Surface(
@@ -2041,34 +2011,7 @@ private fun MyraHome(
                 }
             }
         }
-        Row(
-            Modifier.fillMaxWidth().background(Color(0xFF050A18))
-                .border(width = 1.dp, color = Color(0xFF1B2B4B), shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
-                .padding(horizontal = 9.dp, vertical = 6.dp),
-            horizontalArrangement = Arrangement.SpaceAround, verticalAlignment = Alignment.CenterVertically
-        ) {
-            listOf("Home", "Memory", "Tasks", "Search", "Settings").forEach { tab ->
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.clip(RoundedCornerShape(12.dp)).clickable {
-                        selectedTab = tab
-                        when (tab) {
-                            "Memory" -> onMemory()
-                            "Tasks" -> onTasks()
-                            "Search" -> onSearch("Search the web")
-                            "Settings" -> onSettings()
-                        }
-                    }.background(if (selectedTab == tab) Color(0x332C70C7) else Color.Transparent)
-                        .padding(horizontal = 10.dp, vertical = 5.dp)
-                ) {
-                    Text(
-                        when (tab) { "Home" -> "⌂"; "Memory" -> "✦"; "Tasks" -> "☑"; "Search" -> "⌕"; else -> "⚙" },
-                        color = if (selectedTab == tab) Color(0xFF7DEBFF) else Color(0xFF8594B8), fontSize = 17.sp
-                    )
-                    Text(tab, color = if (selectedTab == tab) Color(0xFF7DEBFF) else Color(0xFF8594B8), fontSize = 8.sp)
-                }
-            }
-        }
+
     }
 }
 
