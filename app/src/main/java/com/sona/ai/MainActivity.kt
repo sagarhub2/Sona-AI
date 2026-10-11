@@ -2945,7 +2945,7 @@ private fun MyraPremiumIntro() {
     Box(
         modifier = Modifier.fillMaxSize().background(
             Brush.radialGradient(
-                colors = listOf(Color(0xFF300B12), Color(0xFF100609), Color(0xFF030303))
+                colors = listOf(Color(0xFFFFE1E7), Color(0xFFFFF4F6), Color.White)
             )
         ),
         contentAlignment = Alignment.Center
@@ -2961,19 +2961,19 @@ private fun MyraPremiumIntro() {
             ) {
                 Box(
                     modifier = Modifier.size(218.dp).rotate(rotation)
-                        .border(1.dp, Color(0x66FF5267), CircleShape)
+                        .border(1.dp, Color(0x55D21E43), CircleShape)
                 )
                 Box(
                     modifier = Modifier.size(184.dp).rotate(-rotation * 0.7f)
-                        .border(1.dp, Color(0x66B51F36), CircleShape)
+                        .border(1.dp, Color(0x668D102B), CircleShape)
                 )
                 Box(
                     modifier = Modifier.size((126 * pulse).dp).background(
                         Brush.radialGradient(
-                            colors = listOf(Violet, Color(0xFF9E1027), Color(0xFF20070D))
+                            colors = listOf(Color(0xFFFF7189), Color(0xFFCB1731), Color(0xFF65091D))
                         ),
                         CircleShape
-                    ).border(1.dp, Cyan, CircleShape),
+                    ).border(1.dp, Color(0xFFFFA7B7), CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
                     Text("✦", color = Color.White, fontSize = 58.sp, fontWeight = FontWeight.ExtraBold)
@@ -2981,39 +2981,38 @@ private fun MyraPremiumIntro() {
             }
             Spacer(Modifier.height(24.dp))
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
-                Text("Myra", color = Color.White, fontSize = 38.sp, fontWeight = FontWeight.Bold)
-                Text(" AI", color = Violet, fontSize = 38.sp, fontWeight = FontWeight.Bold)
+                Text("Myra", color = Color(0xFF282126), fontSize = 38.sp, fontWeight = FontWeight.Bold)
+                Text(" AI", color = Color(0xFFCB1731), fontSize = 38.sp, fontWeight = FontWeight.Bold)
             }
             Spacer(Modifier.height(8.dp))
             Text(
                 "Your Personal AI Assistant",
-                color = Color(0xFFE3E8FF),
+                color = Color(0xFF66545A),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium
             )
             Spacer(Modifier.height(7.dp))
-            Text("Talk  •  Control  •  Get Things Done", color = Color(0xFFB5A0A5), fontSize = 11.sp)
+            Text("Talk  •  Control  •  Get Things Done", color = Color(0xFF8C6972), fontSize = 11.sp)
             Spacer(Modifier.height(34.dp))
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                 CircularProgressIndicator(
                     modifier = Modifier.size(16.dp),
-                    color = Violet,
+                    color = Color(0xFFCB1731),
                     strokeWidth = 2.dp
                 )
                 Spacer(Modifier.width(10.dp))
-                Text("INITIALIZING YOUR AI", color = Color(0xFFE6DDE0), fontSize = 11.sp, letterSpacing = 1.5.sp)
+                Text("INITIALIZING YOUR AI", color = Color(0xFF6E2838), fontSize = 11.sp, letterSpacing = 1.5.sp)
             }
             Spacer(Modifier.height(42.dp))
             Text(
                 "✦  POWERED BY GEMINI AI  ✦",
-                color = Color(0xFF9B82FF),
+                color = Color(0xFFB31D3B),
                 fontSize = 10.sp,
                 letterSpacing = 1.4.sp
             )
         }
     }
 }
-
 @Composable
 private fun SettingToggle(label: String, checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
     Row(
