@@ -884,13 +884,34 @@ class MainActivity : ComponentActivity() {
                             Text("AI PROVIDER & MODEL", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("Provider: Google Gemini", fontSize = 13.sp)
                             Text("Voice input: Android speech recognition • Replies: device TTS; Live audio availability depends on the session connection.", fontSize = 11.sp, color = Color(0xFFB5A9AC))
-                            OutlinedTextField(
-                                value = keyDraft, onValueChange = { keyDraft = it },
-                                label = { Text("Gemini API key") }, singleLine = true,
-                                visualTransformation = if (showApiKey) androidx.compose.ui.text.input.VisualTransformation.None else PasswordVisualTransformation(),
+                            Surface(
                                 modifier = Modifier.fillMaxWidth(),
-                                trailingIcon = { TextButton(onClick = { showApiKey = !showApiKey }) { Text(if (showApiKey) "HIDE" else "SHOW", color = Cyan) } }
-                            )
+                                shape = RoundedCornerShape(16.dp),
+                                color = Color(0xFF0B1024),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, Cyan.copy(alpha = .48f))
+                            ) {
+                                Column(Modifier.padding(10.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Text("GEMINI CONNECTION", color = Cyan, fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                                        Spacer(Modifier.weight(1f))
+                                        Surface(shape = RoundedCornerShape(50), color = if (keyDraft.isBlank()) Color(0xFF3A2030) else Color(0xFF12352F)) {
+                                            Text(if (keyDraft.isBlank()) "NOT SET" else "KEY ENTERED",
+                                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                                                color = if (keyDraft.isBlank()) Color(0xFFFF9BB0) else Color(0xFF8CF5D5),
+                                                fontSize = 8.sp, fontWeight = FontWeight.Bold)
+                                        }
+                                    }
+                                    OutlinedTextField(
+                                        value = keyDraft, onValueChange = { keyDraft = it },
+                                        label = { Text("Gemini API key") }, singleLine = true,
+                                        visualTransformation = if (showApiKey) androidx.compose.ui.text.input.VisualTransformation.None else PasswordVisualTransformation(),
+                                        modifier = Modifier.fillMaxWidth(),
+                                        trailingIcon = { TextButton(onClick = { showApiKey = !showApiKey }) { Text(if (showApiKey) "HIDE" else "SHOW", color = Cyan) } }
+                                    )
+                                    Text("Keep your API key private. It is saved only when you save settings.",
+                                        color = Color(0xFFAAA3C8), fontSize = 10.sp)
+                                }
+                            }
                             Text("VOICE & LANGUAGE", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             OutlinedTextField(value = languageDraft, onValueChange = { languageDraft = it }, label = { Text("Language (e.g. Hindi, English, Auto)") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             OutlinedTextField(value = voiceDraft, onValueChange = { voiceDraft = it }, label = { Text("Voice style preference") }, singleLine = true, modifier = Modifier.fillMaxWidth())
