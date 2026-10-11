@@ -76,6 +76,7 @@ class MainActivity : ComponentActivity() {
     private var showFeaturesMenu by mutableStateOf(false)
     private var showTriggers by mutableStateOf(false)
     private var showWebSearch by mutableStateOf(false)
+    private var showFiles by mutableStateOf(false)
     private var busy by mutableStateOf(false)
     private var speechRecognizer: SpeechRecognizer? = null
     private var liveVoiceSession: LiveVoiceSession? = null
@@ -185,15 +186,7 @@ class MainActivity : ComponentActivity() {
                     try { startActivity(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.google.com/search?q=" + URLEncoder.encode(query, "UTF-8")))) }
                     catch (_: Exception) { status = "NO BROWSER AVAILABLE" }
                 },
-                onFiles = {
-                    try {
-                        startActivityForResult(Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-                            addCategory(Intent.CATEGORY_OPENABLE)
-                            type = "*/*"
-                            putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("application/pdf", "image/*", "text/*"))
-                        }, 411)
-                    } catch (_: Exception) { status = "FILE PICKER UNAVAILABLE" }
-                },
+                onFiles = { showFiles = true },
                 onDeviceSettings = {
                     try { startActivity(Intent(android.provider.Settings.ACTION_SETTINGS)) }
                     catch (_: Exception) { status = "SETTINGS UNAVAILABLE" }
@@ -394,13 +387,94 @@ class MainActivity : ComponentActivity() {
                     onMemory = { showFeaturesMenu = false; showMemory = true },
                     onTasks = { showFeaturesMenu = false; showTasks = true },
                     onHistory = { showFeaturesMenu = false; showHistory = true },
-                    onFiles = { showFeaturesMenu = false; try { startActivityForResult(Intent(Intent.ACTION_OPEN_DOCUMENT).apply { addCategory(Intent.CATEGORY_OPENABLE); type = "*/*" }, 411) } catch (_: Exception) { status = "FILE PICKER UNAVAILABLE" } },
+                    onFiles = { showFeaturesMenu = false; showFiles = true },
                     onCamera = { showFeaturesMenu = false; try { startActivity(Intent("android.media.action.IMAGE_CAPTURE")) } catch (_: Exception) { status = "CAMERA UNAVAILABLE" } },
                     onContacts = { showFeaturesMenu = false; try { startActivity(Intent(Intent.ACTION_PICK, android.provider.ContactsContract.Contacts.CONTENT_URI)) } catch (_: Exception) { status = "CONTACT PICKER UNAVAILABLE" } },
                     onMedia = { showFeaturesMenu = false; try { startActivity(Intent.makeMainSelectorActivity(Intent.ACTION_MAIN, Intent.CATEGORY_APP_MUSIC)) } catch (_: Exception) { status = "NO MUSIC APP AVAILABLE" } },
                     onReminder = { showFeaturesMenu = false; showTriggers = true },
                     onWeb = { showFeaturesMenu = false; showWebSearch = true },
                     onDevice = { showFeaturesMenu = false; try { startActivity(Intent(android.provider.Settings.ACTION_SETTINGS)) } catch (_: Exception) { status = "SETTINGS UNAVAILABLE" } }
+                )
+            }
+            if (showFiles) {
+                AlertDialog(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(26.dp),
+                    containerColor = Color.White,
+                    titleContentColor = Color(0xFFCB1731),
+                    textContentColor = Color(0xFF51464A),
+                    tonalElevation = 0.dp,
+                    onDismissRequest = { showFiles = false },
+                    title = {
+                        Column(
+                            Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
+                                .background(Brush.horizontalGradient(listOf(Color(0xFFFFE8EC), Color.White, Color(0xFFFFF7F8))))
+                                .border(1.dp, Color(0xFFF0B8C1), RoundedCornerShape(18.dp))
+                                .padding(14.dp),
+                            verticalArrangement = Arrangement.spacedBy(5.dp)
+                        ) {
+                            Text("◈  MYRA AI • DOCUMENT HUB", color = Color(0xFFCB1731), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.4.sp)
+                            Text("Files & documents", color = Color(0xFF282126), fontSize = 21.sp, fontWeight = FontWeight.Bold)
+                            Text("Choose what you want to open from your phone.", color = Color(0xFF8C7E83), fontSize = 12.sp)
+                        }
+                    },
+                    text = {
+                        Column(verticalArrangement = Arrangement.spacedBy(9.dp)) {
+                            @Composable
+                            fun FileTypeCard(icon: String, heading: String, detail: String, mimeType: String, extraTypes: Array<String>? = null) {
+                                Surface(
+                                    onClick = {
+                                        showFiles = false
+                                        try {
+                                            startActivityForResult(Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                                                addCategory(Intent.CATEGORY_OPENABLE)
+                                                type = mimeType
+                                                if (extraTypes != null) putExtra(Intent.EXTRA_MIME_TYPES, extraTypes)
+                                            }, 411)
+                                            status = "OPENING FILE PICKER"
+                                        } catch (_: Exception) {
+                                            status = "FILE PICKER UNAVAILABLE"
+                                        }
+                                    },
+                                    modifier = Modifier.fillMaxWidth(),
+                                    shape = RoundedCornerShape(16.dp),
+                                    color = Color(0xFFFFF7F8),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0B8C1)),
+                                    shadowElevation = 1.dp
+                                ) {
+                                    Row(
+                                        Modifier.padding(horizontal = 12.dp, vertical = 12.dp),
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Box(
+                                            Modifier.size(44.dp).clip(RoundedCornerShape(13.dp))
+                                                .background(Color(0xFFFFE8EC))
+                                                .border(1.dp, Color(0xFFF0B8C1), RoundedCornerShape(13.dp)),
+                                            contentAlignment = Alignment.Center
+                                        ) {
+                                            Text(icon, color = Color(0xFFCB1731), fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                                        }
+                                        Spacer(Modifier.width(12.dp))
+                                        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                                            Text(heading, color = Color(0xFF282126), fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
+                                            Text(detail, color = Color(0xFF8C7E83), fontSize = 11.sp)
+                                        }
+                                        Text("›", color = Color(0xFFCB1731), fontSize = 24.sp)
+                                    }
+                                }
+                            }
+                            FileTypeCard("▤", "All files", "Browse available file types", "*/*")
+                            FileTypeCard("PDF", "PDF documents", "Choose a PDF file", "application/pdf")
+                            FileTypeCard("▧", "Photos & images", "Choose an image from storage", "image/*")
+                            FileTypeCard("≡", "Text documents", "Choose text or document files", "*/*", arrayOf("text/*", "application/rtf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"))
+                            Text("Your phone's Android file picker handles access and permissions.", color = Color(0xFF8C7E83), fontSize = 10.sp)
+                        }
+                    },
+                    confirmButton = {
+                        TextButton(onClick = { showFiles = false }) {
+                            Text("Close", color = Color(0xFFCB1731), fontWeight = FontWeight.SemiBold)
+                        }
+                    }
                 )
             }
             if (showDeviceInfo) {
