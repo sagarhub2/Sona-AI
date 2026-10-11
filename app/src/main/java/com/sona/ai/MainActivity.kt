@@ -145,16 +145,16 @@ class MainActivity : ComponentActivity() {
         setContent {
             MaterialTheme(
                 colorScheme = darkColorScheme(
-                    primary = Cyan,
+                    primary = Color(0xFFFF5267),
                     onPrimary = Color(0xFF06101B),
-                    secondary = Violet,
+                    secondary = Color(0xFFB51F36),
                     onSecondary = Color.White,
-                    background = Night,
+                    background = Color(0xFF050506),
                     onBackground = Color.White,
-                    surface = Color(0xFF10172B),
+                    surface = Color(0xFF111113),
                     onSurface = Color(0xFFE8ECFF),
-                    surfaceVariant = Color(0xFF1B2340),
-                    onSurfaceVariant = Color(0xFFB6C1E0),
+                    surfaceVariant = Color(0xFF241216),
+                    onSurfaceVariant = Color(0xFFB5A9AC),
                     error = Color(0xFFFF6B8A)
                 )
             ) {
@@ -295,9 +295,9 @@ class MainActivity : ComponentActivity() {
                 val plugged = batteryIntent?.getIntExtra(android.os.BatteryManager.EXTRA_PLUGGED, 0) ?: 0
                 AlertDialog(
                     shape = RoundedCornerShape(22.dp),
-                    containerColor = Color(0xFF080D1B),
-                    titleContentColor = Cyan,
-                    textContentColor = Color(0xFFDCE5FF),
+                    containerColor = Color(0xFF111113),
+                    titleContentColor = Color(0xFFFF5267),
+                    textContentColor = Color(0xFFE6DDE0),
                     tonalElevation = 0.dp,
                     onDismissRequest = { showDeviceInfo = false },
                     title = { Text("Device Info") },
@@ -307,7 +307,7 @@ class MainActivity : ComponentActivity() {
                             Text("Android: " + android.os.Build.VERSION.RELEASE + " (API " + android.os.Build.VERSION.SDK_INT + ")")
                             Text("Battery: " + (if (percent >= 0) percent.toString() + "%" else "Unavailable"))
                             Text(if (plugged != 0) "Power: Charging / connected" else "Power: Not charging")
-                            Text("Myra AI • " + packageName, fontSize = 11.sp, color = Color(0xFF9AA6C8))
+                            Text("Myra AI • " + packageName, fontSize = 11.sp, color = Color(0xFFB5A9AC))
                         }
                     },
                     confirmButton = { TextButton(onClick = { showDeviceInfo = false }) { Text("Done") } }
@@ -323,9 +323,9 @@ class MainActivity : ComponentActivity() {
                     .joinToString("\n")
                 AlertDialog(
                     shape = RoundedCornerShape(22.dp),
-                    containerColor = Color(0xFF080D1B),
-                    titleContentColor = Cyan,
-                    textContentColor = Color(0xFFDCE5FF),
+                    containerColor = Color(0xFF111113),
+                    titleContentColor = Color(0xFFFF5267),
+                    textContentColor = Color(0xFFE6DDE0),
                     tonalElevation = 0.dp,
                     onDismissRequest = { showHistory = false },
                     title = { Text("Searchable Conversation History") },
@@ -369,9 +369,9 @@ class MainActivity : ComponentActivity() {
                 var taskDraft by remember { mutableStateOf(prefs.getString("sona_tasks", "").orEmpty()) }
                 AlertDialog(
                     shape = RoundedCornerShape(22.dp),
-                    containerColor = Color(0xFF080D1B),
-                    titleContentColor = Cyan,
-                    textContentColor = Color(0xFFDCE5FF),
+                    containerColor = Color(0xFF111113),
+                    titleContentColor = Color(0xFFFF5267),
+                    textContentColor = Color(0xFFE6DDE0),
                     tonalElevation = 0.dp,
                     onDismissRequest = { showTasks = false },
                     title = { Text("Myra Tasks") },
@@ -411,9 +411,9 @@ class MainActivity : ComponentActivity() {
                 var memoryDraft by remember { mutableStateOf(getSharedPreferences("myra_private", MODE_PRIVATE).getString("memory_notes", "") ?: "") }
                 AlertDialog(
                     shape = RoundedCornerShape(22.dp),
-                    containerColor = Color(0xFF080D1B),
-                    titleContentColor = Cyan,
-                    textContentColor = Color(0xFFDCE5FF),
+                    containerColor = Color(0xFF111113),
+                    titleContentColor = Color(0xFFFF5267),
+                    textContentColor = Color(0xFFE6DDE0),
                     tonalElevation = 0.dp,
                     onDismissRequest = { showMemory = false },
                     title = { Text("Myra Memory") },
@@ -502,7 +502,7 @@ class MainActivity : ComponentActivity() {
                             OutlinedTextField(value = userNameDraft, onValueChange = { userNameDraft = it }, label = { Text("What should Myra call you?") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             Text("AI PROVIDER & MODEL", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("Provider: Google Gemini", fontSize = 13.sp)
-                            Text("Voice input: Android speech recognition • Replies: device TTS; Live audio availability depends on the session connection.", fontSize = 11.sp, color = Color(0xFF9AA6C8))
+                            Text("Voice input: Android speech recognition • Replies: device TTS; Live audio availability depends on the session connection.", fontSize = 11.sp, color = Color(0xFFB5A9AC))
                             OutlinedTextField(
                                 value = keyDraft, onValueChange = { keyDraft = it },
                                 label = { Text("Gemini API key") }, singleLine = true,
@@ -519,9 +519,9 @@ class MainActivity : ComponentActivity() {
                             Text("Voice pitch • ${String.format(Locale.US, "%.2f", speechPitch)}", color = Color(0xFFD2D9F0), fontSize = 13.sp)
                             Slider(value = speechPitch, onValueChange = { speechPitch = it }, valueRange = 0.75f..1.35f)
                             SettingToggle("Auto-listen preference (not active yet)", autoListen, { autoListen = it })
-                            Text("Available voice depends on the speech engine installed on your phone.", color = Color(0xFF9AA6C8), fontSize = 11.sp)
+                            Text("Available voice depends on the speech engine installed on your phone.", color = Color(0xFFB5A9AC), fontSize = 11.sp)
                             Text("PERSONALITY & MEMORY", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
-                            Text("QUICK PERSONALITY", color = Color(0xFF9AA6C8), fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                            Text("QUICK PERSONALITY", color = Color(0xFFB5A9AC), fontSize = 10.sp, fontWeight = FontWeight.Bold)
                             listOf(
                                 "Companion" to "Warm, caring, emotionally aware, friendly, supportive, and respectful",
                                 "Funny" to "Playful, witty, light-hearted, use gentle humour when appropriate",
@@ -547,7 +547,7 @@ class MainActivity : ComponentActivity() {
                             OutlinedTextField(value = personalityDraft, onValueChange = { personalityDraft = it }, label = { Text("Custom personality / instructions") }, minLines = 2, modifier = Modifier.fillMaxWidth())
                             SettingToggle("Use saved Memory notes in replies", rememberNotes, { rememberNotes = it })
                             Text("APPEARANCE & STYLE", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
-                            Text("Choose Myra's accent palette. Changes apply across the interface.", color = Color(0xFF9AA6C8), fontSize = 12.sp)
+                            Text("Choose Myra's accent palette. Changes apply across the interface.", color = Color(0xFFB5A9AC), fontSize = 12.sp)
                             listOf(
                                 "Holographic" to "Cyan + violet",
                                 "Aurora" to "Mint + emerald",
@@ -562,33 +562,33 @@ class MainActivity : ComponentActivity() {
                                 ) {
                                     Column(Modifier.weight(1f)) {
                                         Text(themeName, color = Color.White, fontWeight = FontWeight.Medium, fontSize = 13.sp)
-                                        Text(themeDescription, color = Color(0xFF9AA6C8), fontSize = 11.sp)
+                                        Text(themeDescription, color = Color(0xFFB5A9AC), fontSize = 11.sp)
                                     }
                                     RadioButton(selected = themeDraft == themeName, onClick = { themeDraft = themeName })
                                 }
                             }
                             SettingToggle("Animated holographic orb", animatedOrb, { animatedOrb = it })
                             Text("PHONE, FILES & PERMISSIONS", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
-                            Text("Use Android app settings to review or change permissions available to Myra AI.", fontSize = 12.sp, color = Color(0xFF9AA6C8))
+                            Text("Use Android app settings to review or change permissions available to Myra AI.", fontSize = 12.sp, color = Color(0xFFB5A9AC))
                             TextButton(onClick = {
                                 try { startActivity(Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, android.net.Uri.parse("package:$packageName"))) }
                                 catch (_: Exception) { status = "APP SETTINGS UNAVAILABLE" }
                             }) { Text("Open permission dashboard", color = Cyan) }
                             Text("WEB & SEARCH", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
-                            Text("Web search opens your browser. Search history is not stored by this settings panel.", fontSize = 12.sp, color = Color(0xFF9AA6C8))
+                            Text("Web search opens your browser. Search history is not stored by this settings panel.", fontSize = 12.sp, color = Color(0xFFB5A9AC))
                             Text("PRIVACY & DIAGNOSTICS", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
-                            Text("API key and preferences are stored in this app's private local preferences. Never share your API key.", fontSize = 12.sp, color = Color(0xFF9AA6C8))
+                            Text("API key and preferences are stored in this app's private local preferences. Never share your API key.", fontSize = 12.sp, color = Color(0xFFB5A9AC))
                             Text("CONVERSATION HISTORY", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
-                            Text("Recent turns are saved locally to provide context to future replies.", fontSize = 12.sp, color = Color(0xFF9AA6C8))
+                            Text("Recent turns are saved locally to provide context to future replies.", fontSize = 12.sp, color = Color(0xFFB5A9AC))
                             TextButton(onClick = {
                                 prefs.edit().remove("conversation_history").apply()
                                 heardText = "Conversation history cleared on this device."
                                 status = "HISTORY CLEARED"
                             }) { Text("Clear conversation history", color = Cyan) }
                             Text("DIAGNOSTICS", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
-                            Text("Status: $status\\nDevice: ${android.os.Build.MANUFACTURER} ${android.os.Build.MODEL}\\nAndroid: ${android.os.Build.VERSION.RELEASE} (SDK ${android.os.Build.VERSION.SDK_INT})\\nGemini key: ${if (apiKey.isBlank()) "not configured" else "saved"}", fontSize = 12.sp, color = Color(0xFF9AA6C8))
+                            Text("Status: $status\\nDevice: ${android.os.Build.MANUFACTURER} ${android.os.Build.MODEL}\\nAndroid: ${android.os.Build.VERSION.RELEASE} (SDK ${android.os.Build.VERSION.SDK_INT})\\nGemini key: ${if (apiKey.isBlank()) "not configured" else "saved"}", fontSize = 12.sp, color = Color(0xFFB5A9AC))
                             TextButton(onClick = { heardText = "Diagnostics refreshed • $status • Android ${android.os.Build.VERSION.RELEASE}" }) { Text("Refresh diagnostics", color = Cyan) }
-                            Text("Build: Myra AI • Android • Gemini", fontSize = 11.sp, color = Color(0xFF9AA6C8))
+                            Text("Build: Myra AI • Android • Gemini", fontSize = 11.sp, color = Color(0xFFB5A9AC))
                         }
                     },
                     confirmButton = {
@@ -2179,7 +2179,7 @@ private fun QuickTile(title: String, subtitle: String, modifier: Modifier = Modi
         ) {
             Text(title, color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
             Spacer(Modifier.height(5.dp))
-            Text(subtitle, color = Color(0xFF9AA6C8), fontSize = 11.sp)
+            Text(subtitle, color = Color(0xFFB5A9AC), fontSize = 11.sp)
         }
     }
 }
