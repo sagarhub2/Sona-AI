@@ -2458,8 +2458,8 @@ private fun MyraHome(
                     onClick = onCamera,
                     modifier = Modifier.weight(1f).height(150.dp),
                     shape = RoundedCornerShape(24.dp),
-                    color = Color(0xFF0A0B20),
-                    shadowElevation = 4.dp,
+                    color = Color.White,
+                    shadowElevation = 5.dp,
                     border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0B8C1))
                 ) {
                     Column(Modifier.fillMaxSize().padding(15.dp), verticalArrangement = Arrangement.SpaceBetween) {
@@ -2469,7 +2469,7 @@ private fun MyraHome(
                                     .background(Color(0xFFFFE8EC))
                                     .border(1.dp, Color(0xFFF0B8C1), CircleShape))
                                 Box(Modifier.size(48.dp).clip(CircleShape)
-                                    .background(Brush.radialGradient(listOf(Color(0xFFFF8D9C).copy(alpha = .7f), Color(0xFFFFF0F2), Color(0xFF0A0B20))))
+                                    .background(Brush.radialGradient(listOf(Color(0xFFFF6078), Color(0xFFCB1731), Color(0xFFFFE8EC))))
                                     .border(1.dp, Color(0xFFCB1731), CircleShape),
                                     contentAlignment = Alignment.Center
                                 ) { Text("◎", color = Color(0xFFCB1731), fontSize = 25.sp, fontWeight = FontWeight.Bold) }
@@ -2479,16 +2479,16 @@ private fun MyraHome(
                                 color = Color(0xFFFFE8EC),
                                 border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0B8C1))
                             ) {
-                                Text("VISION", modifier = Modifier.padding(horizontal = 9.dp, vertical = 5.dp),
+                                Text("NEURAL LENS", modifier = Modifier.padding(horizontal = 9.dp, vertical = 5.dp),
                                     color = Color(0xFFCB1731), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = .7.sp)
                             }
                         }
                         Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
-                            Text("Camera Vision", color = Color(0xFF282126), fontSize = 17.sp, fontWeight = FontWeight.Bold)
-                            Text("Camera • visual assistance", color = Color(0xFF8C7E83), fontSize = 10.sp)
+                            Text("Neural Lens", color = Color(0xFF282126), fontSize = 17.sp, fontWeight = FontWeight.Bold)
+                            Text("Camera • visual input", color = Color(0xFF8C7E83), fontSize = 10.sp)
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                                Box(Modifier.size(6.dp).clip(CircleShape).background(Color(0xFF7DEBFF)))
-                                Text("Tap to open camera", color = Color(0xFF8C7E83), fontSize = 9.sp)
+                                Box(Modifier.size(6.dp).clip(CircleShape).background(Color(0xFFCB1731)))
+                                Text("Tap to capture a view", color = Color(0xFF8C7E83), fontSize = 9.sp)
                             }
                         }
                     }
@@ -2595,7 +2595,7 @@ private fun MyraFeaturesMenu(
         Triple("Voice Assistant", "Talk naturally with Myra", "🎙") to onVoice,
         Triple("Phone & Calls", "Contacts and dialer", "☎") to onContacts,
         Triple("Apps & Media", "Open music and media apps", "▦") to onMedia,
-        Triple("Camera & Vision", "Capture with your camera", "◎") to onCamera,
+        Triple("Neural Lens", "Open camera for visual input", "◎") to onCamera,
         Triple("Files & Documents", "Browse PDFs, images and files", "▤") to onFiles,
         Triple("Notes & Voice Notes", "Open your saved notes", "✎") to onMemory,
         Triple("Tasks & Reminders", "Stay organized", "☑") to onTasks,
