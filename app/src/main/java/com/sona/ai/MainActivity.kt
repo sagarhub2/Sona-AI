@@ -1955,25 +1955,23 @@ private fun MyraPremiumIntro() {
                     ).border(1.dp, Color(0xFF9CF4FF), CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("M", color = Color.White, fontSize = 58.sp, fontWeight = FontWeight.ExtraBold)
+                    Text("✦", color = Color.White, fontSize = 58.sp, fontWeight = FontWeight.ExtraBold)
                 }
             }
-            Spacer(Modifier.height(30.dp))
+            Spacer(Modifier.height(24.dp))
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
+                Text("Myra", color = Color.White, fontSize = 38.sp, fontWeight = FontWeight.Bold)
+                Text(" AI", color = Color(0xFFD05BFF), fontSize = 38.sp, fontWeight = FontWeight.Bold)
+            }
+            Spacer(Modifier.height(8.dp))
             Text(
-                "MYRA AI",
-                color = Color.White,
-                fontSize = 34.sp,
-                fontWeight = FontWeight.ExtraBold,
-                letterSpacing = 5.sp
+                "Your Personal AI Assistant",
+                color = Color(0xFFE3E8FF),
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium
             )
-            Spacer(Modifier.height(10.dp))
-            Text(
-                "YOUR PERSONAL AI ASSISTANT",
-                color = Cyan,
-                fontSize = 11.sp,
-                fontWeight = FontWeight.SemiBold,
-                letterSpacing = 2.sp
-            )
+            Spacer(Modifier.height(7.dp))
+            Text("Talk  •  Control  •  Get Things Done", color = Color(0xFF8798C2), fontSize = 11.sp)
             Spacer(Modifier.height(34.dp))
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                 CircularProgressIndicator(
@@ -1986,8 +1984,8 @@ private fun MyraPremiumIntro() {
             }
             Spacer(Modifier.height(42.dp))
             Text(
-                "VOICE  •  MEMORY  •  SMART TOOLS",
-                color = Color(0xFF7887B5),
+                "✦  POWERED BY GEMINI AI  ✦",
+                color = Color(0xFF9B82FF),
                 fontSize = 10.sp,
                 letterSpacing = 1.4.sp
             )
