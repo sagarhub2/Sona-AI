@@ -829,6 +829,29 @@ class MainActivity : ComponentActivity() {
                                     TextButton(onClick = { showChat = false; showSettings = true }) { Text("Open Settings", color = Color(0xFFCB1731)) }
                                 }
                             }
+                            Row(
+                                modifier = Modifier.fillMaxWidth().horizontalScroll(androidx.compose.foundation.rememberScrollState()),
+                                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                listOf(
+                                    "Explain simply" to "Explain this in simple words: ",
+                                    "Summarize" to "Summarize this clearly: ",
+                                    "Hindi translation" to "Translate this into Hindi: "
+                                ).forEach { (label, template) ->
+                                    androidx.compose.material3.AssistChip(
+                                        onClick = { if (!busy) chatDraft = template },
+                                        label = { Text(label, fontSize = 10.sp) },
+                                        enabled = !busy,
+                                        leadingIcon = { Text("✦", color = Color(0xFFCB1731), fontSize = 10.sp) },
+                                        colors = androidx.compose.material3.AssistChipDefaults.assistChipColors(
+                                            labelColor = Color(0xFFCB1731),
+                                            containerColor = Color(0xFFFFF5F6),
+                                            disabledLabelColor = Color(0xFF8C7E83)
+                                        )
+                                    )
+                                }
+                            }
                             OutlinedTextField(
                                     value = chatDraft,
                                     onValueChange = { chatDraft = it },
