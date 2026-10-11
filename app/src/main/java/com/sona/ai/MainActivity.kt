@@ -1816,7 +1816,7 @@ private fun MyraHome(
                 Box(Modifier.size(164.dp).rotate(-rotation * 0.7f).border(2.dp, Color(0x667D46FF), CircleShape))
                 Box(Modifier.size(137.dp).rotate(rotation * 0.45f).border(1.dp, Color(0x887DEBFF), CircleShape))
                 Box(
-                    Modifier.size((112 * if (animatedOrb) pulse else 1f).dp).clip(CircleShape)
+                    Modifier.size((112f * (if (animatedOrb) pulse else 1f)).dp).clip(CircleShape)
                         .background(Brush.radialGradient(listOf(Color(0xFFF0FFFF), Color(0xFF65E9FF), Color(0xFF347AFF), Color(0xFF8B35F1), Color(0x00202665))))
                         .border(2.dp, Color(0xFF7CEBFF), CircleShape),
                     contentAlignment = Alignment.Center
