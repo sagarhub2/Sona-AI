@@ -2042,8 +2042,6 @@ private fun MyraHome(
 }
 
 @Composable
-
-@Composable
 private fun MyraFeaturesMenu(
     onClose: () -> Unit, onVoice: () -> Unit, onSettings: () -> Unit,
     onMemory: () -> Unit, onTasks: () -> Unit, onHistory: () -> Unit,
