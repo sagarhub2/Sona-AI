@@ -2691,7 +2691,7 @@ private fun MyraHome(
                                     .background(Brush.radialGradient(listOf(Color(0xFFFFA4B1), Color(0xFFCB1731), Color(0xFF8F1028))))
                                     .border(1.dp, if (busy) Color(0xFFCB1731) else Color(0xFFCB1731), CircleShape),
                                     contentAlignment = Alignment.Center
-                                ) { Text(if (busy) "•••" else "♫", color = Color.White, fontSize = 27.sp, fontWeight = FontWeight.Bold) } 
+                                ) { Text(if (busy) "•••" else "🎙", color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold) } 
                             }
                             Surface(
                                 shape = RoundedCornerShape(50),
@@ -2701,7 +2701,7 @@ private fun MyraHome(
                                 Row(Modifier.padding(horizontal = 9.dp, vertical = 5.dp), verticalAlignment = Alignment.CenterVertically,
                                         horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                                         Box(Modifier.size(5.dp).clip(CircleShape).background(if (busy) Color(0xFFCB1731) else Color(0xFFE8A5B1)))
-                                        Text(if (busy) "SESSION ACTIVE" else "VOICE READY",
+                                        Text(if (busy) "SESSION ACTIVE" else "MIC READY",
                                             color = Color(0xFFCB1731), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .5.sp)
                                     }
                             }
@@ -2711,7 +2711,7 @@ private fun MyraHome(
                             Text(if (busy) "Connecting to your assistant…" else status, color = Color(0xFF8C7E83), fontSize = 10.sp, maxLines = 2, lineHeight = 14.sp)
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                                 Box(Modifier.size(6.dp).clip(CircleShape).background(if (busy) Color(0xFFCB1731) else Color(0xFFE8A5B1)))
-                                Text(if (busy) "Live session in progress" else "Tap to start talking", color = Color(0xFF8C7E83), fontSize = 9.sp)
+                                Text(if (busy) "Live session in progress" else "Tap to speak with Myra", color = Color(0xFF8C7E83), fontSize = 9.sp)
                             }
                         }
                     }
