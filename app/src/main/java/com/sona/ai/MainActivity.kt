@@ -406,11 +406,11 @@ class MainActivity : ComponentActivity() {
                 var themeDraft by remember { mutableStateOf(prefs.getString("theme_style", "Holographic") ?: "Holographic") }
                 var rememberNotes by remember { mutableStateOf(prefs.getBoolean("use_memory", true)) }
                 AlertDialog(
-                    modifier = Modifier.fillMaxWidth(0.96f),
-                    shape = RoundedCornerShape(28.dp),
-                    containerColor = Color(0xFF080D1B),
-                    tonalElevation = 12.dp,
-                    properties = DialogProperties(usePlatformDefaultWidth = false),
+                    modifier = Modifier.fillMaxSize(),
+                    shape = RoundedCornerShape(0.dp),
+                    containerColor = Color(0xFF030611),
+                    tonalElevation = 0.dp,
+                    properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false),
                     onDismissRequest = { showSettings = false },
                     title = {
                         Column(
@@ -434,9 +434,24 @@ class MainActivity : ComponentActivity() {
                     },
                     text = {
                         Column(
-                            modifier = Modifier.heightIn(max = 480.dp).verticalScroll(androidx.compose.foundation.rememberScrollState()),
+                            modifier = Modifier.fillMaxWidth().fillMaxHeight(0.82f).verticalScroll(androidx.compose.foundation.rememberScrollState())
+                                .clip(RoundedCornerShape(22.dp))
+                                .background(Color(0xFF080D1B))
+                                .border(1.dp, Color(0xFF253763), RoundedCornerShape(22.dp))
+                                .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
+                            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                                Box(Modifier.size(38.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF59DFFF), Color(0xFF692CDB), Color(0xFF10162B)))), contentAlignment = Alignment.Center) {
+                                    Text("✦", color = Color.White, fontSize = 22.sp)
+                                }
+                                Spacer(Modifier.width(10.dp))
+                                Column {
+                                    Text("MYRA AI • SETTINGS", color = Cyan, fontWeight = FontWeight.Black, fontSize = 10.sp, letterSpacing = 1.8.sp)
+                                    Text("Personalize your experience", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                                }
+                            }
+                            Divider(color = Color(0xFF26365F))
                             Text("ASSISTANT PROFILE", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             OutlinedTextField(value = assistantNameDraft, onValueChange = { assistantNameDraft = it }, label = { Text("Assistant name") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             OutlinedTextField(value = userNameDraft, onValueChange = { userNameDraft = it }, label = { Text("What should Myra call you?") }, singleLine = true, modifier = Modifier.fillMaxWidth())
