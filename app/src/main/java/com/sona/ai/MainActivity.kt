@@ -842,6 +842,9 @@ class MainActivity : ComponentActivity() {
                                     "Step by step" to "Explain this step by step for a beginner: ",
                                     "Pros & cons" to "List the main advantages and disadvantages of this: ",
                                     "Fix grammar" to "Correct the grammar and spelling while preserving my meaning: ",
+                                    "Brainstorm ideas" to "Give me 10 creative and practical ideas for: ",
+                                    "Translate to English" to "Translate this into natural English: ",
+                                    "Quiz me" to "Create a short quiz about this topic and ask one question at a time: ",
                                     "Improve writing" to "Rewrite this to sound clearer and more polished: ",
                                     "Make shorter" to "Make this shorter while keeping the key points: "
                                 ).forEach { (label, template) ->
