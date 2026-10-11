@@ -845,10 +845,10 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                             Row(
-                                Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp))
-                                    .background(Brush.horizontalGradient(listOf(Color(0xFF19102F), Color(0xFF0B1024), Color(0xFF09121D))))
-                                    .border(1.dp, Violet.copy(alpha = .68f), RoundedCornerShape(16.dp))
-                                    .padding(12.dp),
+                                Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
+                                    .background(Brush.horizontalGradient(listOf(Color(0xFF21133D), Color(0xFF0B1024), Color(0xFF071720))))
+                                    .border(1.dp, Violet.copy(alpha = .82f), RoundedCornerShape(18.dp))
+                                    .padding(14.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Box(Modifier.size(52.dp).clip(CircleShape)
