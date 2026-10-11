@@ -2091,13 +2091,13 @@ private fun MyraHome(
             }
             Row(Modifier.fillMaxWidth().padding(top = 12.dp, bottom = 15.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 listOf(
-                    Triple("Files", "▤", onFiles),
-                    Triple("Apps & Media", "♫", onMedia),
-                    Triple("Tasks", "✓", onTasks)
+                    Triple("Smart Memory", "✦", onMemory),
+                    Triple("Tasks & Reminders", "✓", onTasks)
                 ).forEach { item ->
-                    Surface(onClick = item.third, modifier = Modifier.weight(1f), shape = RoundedCornerShape(17.dp),
+                    Surface(onClick = item.third, modifier = Modifier.weight(1f).height(76.dp), shape = RoundedCornerShape(17.dp),
                         color = Color(0xFF0C1530), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF313B70))) {
-                        Column(Modifier.padding(12.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                        Column(Modifier.fillMaxSize().padding(12.dp), horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center) {
                             Text(item.second, color = red, fontSize = 22.sp)
                             Text(item.first, color = ink, fontSize = 10.sp, fontWeight = FontWeight.SemiBold)
                         }
