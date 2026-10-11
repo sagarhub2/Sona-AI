@@ -2049,9 +2049,16 @@ private fun MyraHome(
                 }
                 Text("—  H O L O G R A P H I C   A I  —", color = muted, fontSize = 7.sp, letterSpacing = 1.2.sp)
             }
-            Surface(onClick = onReminder, shape = CircleShape, color = Color(0xFF0D1530), shadowElevation = 0.dp, border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF5E46B8))) {
+            Surface(
+                onClick = onReminder,
+                shape = CircleShape,
+                color = Color(0xFF100D27),
+                shadowElevation = 0.dp,
+                border = androidx.compose.foundation.BorderStroke(1.dp, Violet.copy(alpha = .85f))
+            ) {
                 Box(Modifier.size(48.dp), contentAlignment = Alignment.Center) {
-                    Text("◷", color = red, fontSize = 24.sp)
+                    Box(Modifier.size(36.dp).clip(CircleShape).background(Violet.copy(alpha = .12f)))
+                    Text("◷", color = Cyan, fontSize = 24.sp)
                 }
             }
             Spacer(Modifier.width(10.dp))
@@ -2211,10 +2218,16 @@ private fun MyraHome(
                 Text(if (busy) "•••" else "≋", color = if (busy) Cyan else muted, fontSize = 23.sp, fontWeight = FontWeight.Bold)
                 Text("Voice", color = if (busy) Cyan else muted, fontSize = 11.sp)
             }
-            Column(Modifier.weight(1f).clip(RoundedCornerShape(18.dp)).clickable { onReminder() }.padding(vertical = 4.dp),
-                horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("ϟ", color = muted, fontSize = 23.sp)
-                Text("Triggers", color = muted, fontSize = 11.sp)
+            Column(
+                Modifier.weight(1f).clip(RoundedCornerShape(18.dp))
+                    .background(Violet.copy(alpha = .12f))
+                    .border(1.dp, Violet.copy(alpha = .55f), RoundedCornerShape(18.dp))
+                    .clickable { onReminder() }
+                    .padding(vertical = 5.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text("◷", color = Cyan, fontSize = 23.sp, fontWeight = FontWeight.Bold)
+                Text("Triggers", color = Color.White, fontSize = 11.sp, fontWeight = FontWeight.Bold)
             }
         }
     }
