@@ -801,15 +801,15 @@ class MainActivity : ComponentActivity() {
                 AlertDialog(
                     modifier = Modifier.fillMaxSize(),
                     shape = RoundedCornerShape(0.dp),
-                    containerColor = Color(0xFF030611),
+                    containerColor = Color(0xFFFFF7F8),
                     tonalElevation = 0.dp,
                     properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false),
                     onDismissRequest = { showSettings = false },
                     title = {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(20.dp))
-                                .background(Brush.horizontalGradient(listOf(Color(0xFF21103F), Color(0xFF100D27), Color(0xFF070817))))
-                                .border(1.dp, Violet.copy(alpha = .8f), RoundedCornerShape(20.dp)).padding(16.dp),
+                                .background(Brush.horizontalGradient(listOf(Color(0xFF6B0B20), Color(0xFF320713), Color(0xFF16040A))))
+                                .border(1.dp, Color(0xFFFF7A91), RoundedCornerShape(20.dp)).padding(16.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -818,13 +818,13 @@ class MainActivity : ComponentActivity() {
                                 }
                                 Spacer(Modifier.width(11.dp))
                                 Column {
-                                    Text("MYRA AI • PROFILE", color = Violet, fontWeight = FontWeight.Black, fontSize = 10.sp, letterSpacing = 2.sp)
+                                    Text("MYRA AI • PROFILE", color = Color(0xFFFFA6B5), fontWeight = FontWeight.Black, fontSize = 10.sp, letterSpacing = 2.sp)
                                     Text("Your command center", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 20.sp)
                                 }
                             }
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(7.dp)) {
                                 Box(Modifier.width(22.dp).height(2.dp).clip(RoundedCornerShape(4.dp)).background(Cyan))
-                                Text("PERSONALIZE YOUR ASSISTANT", color = Cyan, fontWeight = FontWeight.Medium, fontSize = 9.sp, letterSpacing = 1.5.sp)
+                                Text("PERSONALIZE YOUR ASSISTANT", color = Color(0xFFFFC4CE), fontWeight = FontWeight.Medium, fontSize = 9.sp, letterSpacing = 1.5.sp)
                             }
                         }
                     },
@@ -832,8 +832,8 @@ class MainActivity : ComponentActivity() {
                         Column(
                             modifier = Modifier.fillMaxWidth().fillMaxHeight(0.82f).verticalScroll(settingsScrollState)
                                 .clip(RoundedCornerShape(24.dp))
-                                .background(Brush.verticalGradient(listOf(Color(0xFF120D2B), Color(0xFF080B19), Color(0xFF050611))))
-                                .border(1.dp, Brush.verticalGradient(listOf(Violet.copy(alpha = .82f), Cyan.copy(alpha = .28f))), RoundedCornerShape(24.dp))
+                                .background(Brush.verticalGradient(listOf(Color(0xFFFFFFFF), Color(0xFFFFF0F3), Color(0xFFFFF8F9))))
+                                .border(1.dp, Brush.verticalGradient(listOf(Color(0xFFFF657E), Color(0xFFF2B2BE)),), RoundedCornerShape(24.dp))
                                 .padding(16.dp),
                             verticalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
@@ -843,14 +843,14 @@ class MainActivity : ComponentActivity() {
                                 }
                                 Spacer(Modifier.width(10.dp))
                                 Column {
-                                    Text("CONTROL CENTER  •  20", color = Violet, fontWeight = FontWeight.Black, fontSize = 10.sp, letterSpacing = 1.8.sp)
+                                    Text("CONTROL CENTER  •  20", color = Color(0xFFCB1731), fontWeight = FontWeight.Black, fontSize = 10.sp, letterSpacing = 1.8.sp)
                                     Text("Everything, tuned to you", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
                                 }
                             }
                             Row(
                                 Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
-                                    .background(Brush.horizontalGradient(listOf(Color(0xFF21133D), Color(0xFF0B1024), Color(0xFF071720))))
-                                    .border(1.dp, Violet.copy(alpha = .82f), RoundedCornerShape(18.dp))
+                                    .background(Brush.horizontalGradient(listOf(Color(0xFFFFE5EA), Color(0xFFFFF5F7), Color.White)))
+                                    .border(1.dp, Color(0xFFF0AAB7), RoundedCornerShape(18.dp))
                                     .padding(14.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
@@ -922,12 +922,12 @@ class MainActivity : ComponentActivity() {
                             Surface(
                                 modifier = Modifier.fillMaxWidth(),
                                 shape = RoundedCornerShape(18.dp),
-                                color = Color(0xFF07131F),
-                                border = androidx.compose.foundation.BorderStroke(1.dp, Cyan.copy(alpha = .72f))
+                                color = Color(0xFFFFF0F3),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFCB1731).copy(alpha = .65f))
                             ) {
                                 Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                                     Row(verticalAlignment = Alignment.CenterVertically) {
-                                        Text("GEMINI CONNECTION", color = Cyan, fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                                        Text("GEMINI CONNECTION", color = Color(0xFFCB1731), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
                                         Spacer(Modifier.weight(1f))
                                         Surface(shape = RoundedCornerShape(50), color = if (keyDraft.isBlank()) Color(0xFF3A2030) else Color(0xFF12352F)) {
                                             Text(if (keyDraft.isBlank()) "NOT SET" else "KEY ENTERED",
@@ -1053,10 +1053,10 @@ class MainActivity : ComponentActivity() {
                             showSettings = false
                             heardText = if (apiKey.isBlank()) "API key removed." else "Settings saved • Gemini key stored"
                             status = if (apiKey.isBlank()) "AI NOT CONNECTED" else "SETTINGS SAVED • READY TO CONNECT"
-                        }) { Text("✦  Save settings", color = Cyan, fontWeight = FontWeight.Bold) }
+                        }) { Text("✦  Save settings", color = Color(0xFFCB1731), fontWeight = FontWeight.Bold) }
                     },
                     dismissButton = {
-                        TextButton(onClick = { showSettings = false }) { Text("Cancel", color = Violet) }
+                        TextButton(onClick = { showSettings = false }) { Text("Cancel", color = Color(0xFF8C2639)) }
                     }
                 )
             }
