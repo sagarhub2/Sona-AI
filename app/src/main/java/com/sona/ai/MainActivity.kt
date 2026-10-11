@@ -455,16 +455,38 @@ class MainActivity : ComponentActivity() {
                             }
                             HorizontalDivider(color = Violet.copy(alpha = .35f))
                             Column(Modifier.weight(1f).fillMaxWidth().padding(vertical = 12.dp).verticalScroll(androidx.compose.foundation.rememberScrollState()), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                                Text("✦  CONVERSATION", color = Cyan, fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.1.sp)
+                                Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                                    Text("✦", color = Cyan, fontSize = 17.sp)
+                                    Spacer(Modifier.width(7.dp))
+                                    Text("CONVERSATION", color = Cyan, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                                    Spacer(Modifier.weight(1f))
+                                    Surface(shape = RoundedCornerShape(50), color = Violet.copy(alpha = .13f),
+                                        border = androidx.compose.foundation.BorderStroke(1.dp, Violet.copy(alpha = .35f))) {
+                                        Text(if (savedChat.isBlank()) "NEW CHAT" else "HISTORY LOADED",
+                                            color = Color(0xFFBFA0FF), fontSize = 8.sp, fontWeight = FontWeight.Bold,
+                                            letterSpacing = .5.sp, modifier = Modifier.padding(horizontal = 9.dp, vertical = 5.dp))
+                                    }
+                                }
                                 Surface(
                                     modifier = Modifier.fillMaxWidth(),
-                                    shape = RoundedCornerShape(18.dp),
+                                    shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp, bottomStart = 20.dp, bottomEnd = 6.dp),
                                     color = Color(0xFF100D27),
-                                    border = androidx.compose.foundation.BorderStroke(1.dp, Violet.copy(alpha = .35f)),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Cyan.copy(alpha = .28f)),
                                     tonalElevation = 0.dp
                                 ) {
-                                    Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(7.dp)) {
-                                        Text("MYRA AI", color = Cyan, fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                                    Column(Modifier.padding(15.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                                        Row(verticalAlignment = Alignment.CenterVertically) {
+                                            Box(Modifier.size(27.dp).clip(CircleShape).background(Violet.copy(alpha = .2f))
+                                                .border(1.dp, Violet.copy(alpha = .6f), CircleShape), contentAlignment = Alignment.Center) {
+                                                Text("✦", color = Cyan, fontSize = 15.sp)
+                                            }
+                                            Spacer(Modifier.width(8.dp))
+                                            Column {
+                                                Text("MYRA AI", color = Color.White, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = .8.sp)
+                                                Text("ASSISTANT", color = Violet, fontSize = 8.sp, letterSpacing = 1.sp)
+                                            }
+                                        }
+                                        Box(Modifier.fillMaxWidth().height(1.dp).background(Violet.copy(alpha = .25f)))
                                         Text(
                                             if (savedChat.isBlank()) "Hey! I’m Myra. Ask me anything to start chatting."
                                             else savedChat.replace("\\\\n", "\\n"),
