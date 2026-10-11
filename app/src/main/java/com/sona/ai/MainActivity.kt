@@ -367,39 +367,39 @@ class MainActivity : ComponentActivity() {
                     Surface(
                         modifier = Modifier.fillMaxWidth(0.96f).fillMaxHeight(0.88f),
                         shape = RoundedCornerShape(26.dp),
-                        color = Color(0xFF09090D),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF63202E)),
+                        color = Color(0xFF070817),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Violet.copy(alpha = .8f)),
                         tonalElevation = 0.dp
                     ) {
                         Column(Modifier.fillMaxSize().padding(16.dp)) {
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                                 Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                     Text("MYRA AI", color = Violet, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                                    Text(if (busy) "THINKING…" else if (apiKey.isBlank()) "CHAT • SETUP REQUIRED" else "CHAT • READY", color = Color(0xFFB9AEB4), fontSize = 10.sp)
+                                    Text(if (busy) "● THINKING…" else if (apiKey.isBlank()) "● SETUP REQUIRED" else "● ENCRYPTED SESSION • READY", color = if (apiKey.isBlank()) Color(0xFFFFB36B) else Cyan, fontSize = 10.sp, letterSpacing = .6.sp)
                                 }
-                                TextButton(onClick = { showChat = false }) { Text("Close", color = Color(0xFFFF8A9A)) }
+                                TextButton(onClick = { showChat = false }) { Text("✕  Close", color = Violet) }
                             }
-                            HorizontalDivider(color = Color(0xFF382028))
+                            HorizontalDivider(color = Violet.copy(alpha = .35f))
                             Column(Modifier.weight(1f).fillMaxWidth().padding(vertical = 12.dp).verticalScroll(androidx.compose.foundation.rememberScrollState()), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                                Text("CONVERSATION", color = Color(0xFFFF8A9A), fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                                Text("✦  CONVERSATION", color = Cyan, fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.1.sp)
                                 if (savedChat.isBlank()) {
-                                    Text("Hey! I’m Myra. Ask me anything to start chatting.", color = Color(0xFFE6DDE0), fontSize = 15.sp, lineHeight = 22.sp)
+                                    Text("Hey! I’m Myra. Ask me anything to start chatting.", color = Color(0xFFE8E5FF), fontSize = 15.sp, lineHeight = 23.sp)
                                 } else {
-                                    Text(savedChat.replace("\\n", "\n"), color = Color(0xFFE6DDE0), fontSize = 14.sp, lineHeight = 21.sp)
+                                    Text(savedChat.replace("\\n", "\n"), color = Color(0xFFE8E5FF), fontSize = 14.sp, lineHeight = 22.sp)
                                 }
                                 if (busy && pendingMessage.isNotBlank()) {
-                                    Text("You: " + pendingMessage, color = Color(0xFFFFA7B3), fontSize = 14.sp, lineHeight = 21.sp)
-                                    Text("Myra is preparing a response…", color = Color(0xFFFF8A9A), fontSize = 13.sp)
+                                    Text("You: " + pendingMessage, color = Cyan, fontSize = 14.sp, lineHeight = 22.sp)
+                                    Text("✦ Myra is preparing a response…", color = Violet, fontSize = 13.sp)
                                 }
                                 if (apiKey.isBlank()) {
-                                    Text("To send messages, add a Gemini API key in Settings.", color = Color(0xFFFF9AA8), fontSize = 12.sp)
+                                    Text("To send messages, add a Gemini API key in Settings.", color = Color(0xFFFFC27A), fontSize = 12.sp)
                                     TextButton(onClick = { showChat = false; showSettings = true }) { Text("Open Settings", color = Violet) }
                                 }
                             }
-                            OutlinedTextField(value = chatDraft, onValueChange = { chatDraft = it }, modifier = Modifier.fillMaxWidth(), placeholder = { Text("Message Myra…") }, label = { Text("Your message") }, minLines = 1, maxLines = 4, enabled = !busy, shape = RoundedCornerShape(16.dp))
+                            OutlinedTextField(value = chatDraft, onValueChange = { chatDraft = it }, modifier = Modifier.fillMaxWidth(), placeholder = { Text("Message Myra…", color = Color(0xFFAAA3C8)) }, label = { Text("Your message", color = Violet) }, minLines = 1, maxLines = 4, enabled = !busy, shape = RoundedCornerShape(18.dp), colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(focusedTextColor = Color(0xFFF7F4FF), unfocusedTextColor = Color(0xFFF7F4FF), focusedBorderColor = Violet, unfocusedBorderColor = Color(0xFF49376B), focusedContainerColor = Color(0xFF0C0B20), unfocusedContainerColor = Color(0xFF0C0B20), cursorColor = Cyan))
                             Spacer(Modifier.height(8.dp))
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
-                                Text("Replies appear in this chat", color = Color(0xFF9F9298), fontSize = 10.sp, modifier = Modifier.weight(1f))
+                                Text("Replies appear in this chat", color = Color(0xFFAFA8C9), fontSize = 10.sp, modifier = Modifier.weight(1f))
                                 Button(
                                     onClick = {
                                         val message = chatDraft.trim()
@@ -414,7 +414,7 @@ class MainActivity : ComponentActivity() {
                                         }
                                     },
                                     enabled = chatDraft.isNotBlank() && !busy && apiKey.isNotBlank(),
-                                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFB51F3B), contentColor = Color.White, disabledContainerColor = Color(0xFF382028), disabledContentColor = Color(0xFF93868B)),
+                                    colors = ButtonDefaults.buttonColors(containerColor = Violet, contentColor = Color.White, disabledContainerColor = Color(0xFF29213F), disabledContentColor = Color(0xFF938BAA)),
                                     shape = RoundedCornerShape(14.dp)
                                 ) { Text(if (busy) "Wait…" else "Send  ➤") }
                             }
