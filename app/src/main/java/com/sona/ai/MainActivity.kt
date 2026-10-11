@@ -1290,6 +1290,7 @@ class MainActivity : ComponentActivity() {
                 var showApiKey by remember { mutableStateOf(false) }
                 var userNameDraft by remember { mutableStateOf(prefs.getString("user_name", "").orEmpty()) }
                 var assistantNameDraft by remember { mutableStateOf(prefs.getString("assistant_name", "Myra").orEmpty()) }
+                var profileAvatarDraft by remember { mutableStateOf(prefs.getString("profile_avatar", "✦") ?: "✦") }
                 var languageDraft by remember { mutableStateOf(prefs.getString("language", "Auto (match me)") ?: "Auto (match me)") }
                 var voiceDraft by remember { mutableStateOf(prefs.getString("voice_style", "Warm & natural") ?: "Warm & natural") }
                 var personalityDraft by remember { mutableStateOf(prefs.getString("personality", "Friendly, helpful, concise") ?: "Friendly, helpful, concise") }
@@ -1418,7 +1419,41 @@ class MainActivity : ComponentActivity() {
                                 Divider(Modifier.weight(1f), color = Violet.copy(alpha = .65f), thickness = 1.dp)
                             }
                             Text("ASSISTANT PROFILE", color = Color(0xFFCB1731), fontWeight = FontWeight.Bold, fontSize = 12.sp, letterSpacing = .8.sp)
-                            OutlinedTextField(value = assistantNameDraft, onValueChange = { assistantNameDraft = it }, label = { Text("Assistant name") }, singleLine = true, modifier = Modifier.fillMaxWidth())
+                            Surface(
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(18.dp),
+                                color = Color(0xFFFFF0F3),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0B8C1))
+                            ) {
+                                Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                                    Box(
+                                        Modifier.size(58.dp).clip(CircleShape)
+                                            .background(Brush.radialGradient(listOf(Violet, Color(0xFF75182B), Color(0xFF18090D)))),
+                                        contentAlignment = Alignment.Center
+                                    ) { Text(profileAvatarDraft, fontSize = 27.sp, color = Color.White) }
+                                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                                        Text(userNameDraft.trim().ifBlank { "Your profile" }, color = Color(0xFF282126), fontWeight = FontWeight.Bold, fontSize = 15.sp)
+                                        Text("PERSONAL PROFILE PREVIEW", color = Color(0xFF8C7E83), fontSize = 9.sp, letterSpacing = .8.sp)
+                                        Text("Choose your profile symbol below", color = Color(0xFF6F5C62), fontSize = 11.sp)
+                                    }
+                                }
+                            }
+                            Text("PROFILE SYMBOL", color = Color(0xFF6F5C62), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                listOf("✦", "😊", "🚀", "🌙", "🎧", "⭐").forEach { symbol ->
+                                    Surface(
+                                        onClick = { profileAvatarDraft = symbol },
+                                        modifier = Modifier.weight(1f).height(42.dp),
+                                        shape = RoundedCornerShape(12.dp),
+                                        color = if (profileAvatarDraft == symbol) Color(0xFFFFDCE3) else Color.White,
+                                        border = androidx.compose.foundation.BorderStroke(
+                                            if (profileAvatarDraft == symbol) 2.dp else 1.dp,
+                                            if (profileAvatarDraft == symbol) Color(0xFFCB1731) else Color(0xFFF0B8C1)
+                                        )
+                                    ) { Box(contentAlignment = Alignment.Center) { Text(symbol, fontSize = 20.sp) } }
+                                }
+                            }
+                            OutlinedTextField(value = assistantNameDraft, onValueChange = { assistantNameDraft = it.take(32) }, label = { Text("Assistant name") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             OutlinedTextField(value = userNameDraft, onValueChange = { userNameDraft = it }, label = { Text("What should Myra call you?") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             Text("AI PROVIDER & MODEL", color = Color(0xFFCB1731), fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("Provider: Google Gemini", fontSize = 13.sp)
@@ -1627,8 +1662,9 @@ class MainActivity : ComponentActivity() {
                             apiKey = keyDraft.trim()
                             prefs.edit()
                                 .putString("gemini_key", apiKey)
-                                .putString("user_name", userNameDraft.trim())
-                                .putString("assistant_name", assistantNameDraft.trim().ifBlank { "Myra" })
+                                .putString("user_name", userNameDraft.trim().take(50))
+                                .putString("profile_avatar", profileAvatarDraft)
+                                .putString("assistant_name", assistantNameDraft.trim().take(32).ifBlank { "Myra" })
                                 .putString("language", languageDraft.trim())
                                 .putString("voice_style", voiceDraft.trim())
                                 .putString("personality", personalityDraft.trim())
