@@ -378,7 +378,7 @@ class MainActivity : ComponentActivity() {
                         ) {
                             Text("◈  MYRA AI • TRIGGER CENTER", color = Cyan, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
                             Text("Triggers & clock", color = Color.White, fontSize = 21.sp, fontWeight = FontWeight.Bold)
-                            Text("Choose an action to open your phone's Clock app.", color = Color(0xFF8C7E83), fontSize = 12.sp)
+                            Text("Choose an action to open your phone's Clock app.", color = Color.White.copy(alpha = .88f), fontSize = 12.sp)
                         }
                     },
                     text = {
@@ -399,16 +399,16 @@ class MainActivity : ComponentActivity() {
                                     ) {
                                         Box(
                                             Modifier.size(44.dp).clip(RoundedCornerShape(13.dp))
-                                                .background(Violet.copy(alpha = .16f))
-                                                .border(1.dp, Violet.copy(alpha = .5f), RoundedCornerShape(13.dp)),
+                                                .background(Color(0xFFFFE8EC))
+                                                .border(1.dp, Color(0xFFF0B8C1), RoundedCornerShape(13.dp)),
                                             contentAlignment = Alignment.Center
-                                        ) { Text(icon, color = Cyan, fontSize = 23.sp) }
+                                        ) { Text(icon, color = Color(0xFFCB1731), fontSize = 23.sp) }
                                         Spacer(Modifier.width(12.dp))
                                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                                            Text(heading, color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
+                                            Text(heading, color = Color(0xFF282126), fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
                                             Text(detail, color = Color(0xFF8C7E83), fontSize = 11.sp)
                                         }
-                                        Text("›", color = Cyan, fontSize = 25.sp)
+                                        Text("›", color = Color(0xFFCB1731), fontSize = 25.sp)
                                     }
                                 }
                             }
@@ -427,7 +427,7 @@ class MainActivity : ComponentActivity() {
                                 try { startActivity(Intent(AlarmClock.ACTION_SHOW_ALARMS)) }
                                 catch (_: Exception) { status = "CLOCK APP UNAVAILABLE" }
                             }
-                            Text("Note: alarms and timers are managed by Android's Clock app.", color = Cyan, fontSize = 11.sp)
+                            Text("Note: alarms and timers are managed by Android's Clock app.", color = Color(0xFF8C7E83), fontSize = 11.sp)
                         }
                     },
                     confirmButton = {
