@@ -517,30 +517,77 @@ class MainActivity : ComponentActivity() {
                 )
             }
             if (showMemory) {
-                var memoryDraft by remember { mutableStateOf(getSharedPreferences("myra_private", MODE_PRIVATE).getString("memory_notes", "") ?: "") }
+                val memoryPrefs = getSharedPreferences("myra_private", MODE_PRIVATE)
+                var memoryDraft by remember { mutableStateOf(memoryPrefs.getString("memory_notes", "") ?: "") }
                 AlertDialog(
-                    shape = RoundedCornerShape(22.dp),
-                    containerColor = Color(0xFF0B1024),
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(26.dp),
+                    containerColor = Color(0xFF070817),
                     titleContentColor = Violet,
-                    textContentColor = Color(0xFFE6DDE0),
+                    textContentColor = Color(0xFFE6E5FF),
                     tonalElevation = 0.dp,
                     onDismissRequest = { showMemory = false },
-                    title = { Text("Myra Memory") },
+                    title = {
+                        Column(
+                            Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
+                                .background(Brush.horizontalGradient(listOf(Color(0xFF21103F), Color(0xFF100D27), Color(0xFF070817))))
+                                .border(1.dp, Violet.copy(alpha = .8f), RoundedCornerShape(18.dp))
+                                .padding(14.dp),
+                            verticalArrangement = Arrangement.spacedBy(5.dp)
+                        ) {
+                            Text("◈  MYRA AI • SMART MEMORY", color = Cyan, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                            Text("Your memory vault", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                            Text("Notes are saved locally on this phone.", color = Color(0xFFB9B5D4), fontSize = 12.sp)
+                        }
+                    },
                     text = {
-                        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Text("Save notes for Myra to remember on this phone.")
-                            OutlinedTextField(value = memoryDraft, onValueChange = { memoryDraft = it }, label = { Text("Your notes") }, minLines = 4, maxLines = 8)
+                        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                            Row(
+                                Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp))
+                                    .background(Color(0xFF100D27))
+                                    .border(1.dp, Violet.copy(alpha = .45f), RoundedCornerShape(14.dp))
+                                    .padding(12.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text("✦", color = Violet, fontSize = 25.sp)
+                                Spacer(Modifier.width(10.dp))
+                                Column {
+                                    Text(if (memoryDraft.isBlank()) "Ready to remember" else "Memory note in progress", color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
+                                    Text(if (memoryDraft.isBlank()) "Add useful details or preferences for future replies." else "${memoryDraft.length} characters • not saved until you tap Save", color = Color(0xFFB9B5D4), fontSize = 11.sp)
+                                }
+                            }
+                            OutlinedTextField(
+                                value = memoryDraft,
+                                onValueChange = { memoryDraft = it },
+                                label = { Text("Your notes") },
+                                placeholder = { Text("Preferences, goals, reminders…") },
+                                minLines = 5,
+                                maxLines = 9,
+                                modifier = Modifier.fillMaxWidth(),
+                                colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
+                                    focusedTextColor = Color(0xFFE8E5FF),
+                                    unfocusedTextColor = Color(0xFFE8E5FF),
+                                    focusedBorderColor = Violet,
+                                    unfocusedBorderColor = Violet.copy(alpha = .45f),
+                                    focusedLabelColor = Cyan,
+                                    cursorColor = Cyan,
+                                    focusedContainerColor = Color(0xFF09091B),
+                                    unfocusedContainerColor = Color(0xFF09091B)
+                                )
+                            )
                         }
                     },
                     confirmButton = {
                         TextButton(onClick = {
-                            getSharedPreferences("myra_private", MODE_PRIVATE).edit().putString("memory_notes", memoryDraft).apply()
+                            memoryPrefs.edit().putString("memory_notes", memoryDraft).apply()
                             heardText = if (memoryDraft.isBlank()) "Memory cleared." else "Memory saved on this device."
                             status = "MEMORY UPDATED"
                             showMemory = false
-                        }) { Text("Save memory") }
+                        }) { Text("✦  Save memory", color = Cyan) }
                     },
-                    dismissButton = { TextButton(onClick = { showMemory = false }) { Text("Cancel") } }
+                    dismissButton = {
+                        TextButton(onClick = { showMemory = false }) { Text("Cancel", color = Violet) }
+                    }
                 )
             }
             if (showSettings) {
