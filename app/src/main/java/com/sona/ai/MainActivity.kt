@@ -886,14 +886,22 @@ class MainActivity : ComponentActivity() {
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                 listOf(Triple("VOICE", "♫", 1700), Triple("MEMORY", "◈", 3300), Triple("PRIVACY", "⌑", 5200)).forEach { item ->
                                     Column(
-                                        Modifier.weight(1f).clip(RoundedCornerShape(12.dp))
-                                            .background(Color(0xFF100D27)).border(1.dp, Violet.copy(alpha = .5f), RoundedCornerShape(12.dp))
+                                        Modifier.weight(1f).clip(RoundedCornerShape(14.dp))
+                                            .background(Brush.verticalGradient(listOf(Color(0xFF19102F), Color(0xFF0A1020))))
+                                            .border(1.dp, Violet.copy(alpha = .68f), RoundedCornerShape(14.dp))
                                             .clickable { settingsScope.launch { settingsScrollState.animateScrollTo(item.third) } }
-                                            .padding(vertical = 11.dp, horizontal = 4.dp),
-                                        horizontalAlignment = Alignment.CenterHorizontally
+                                            .padding(vertical = 12.dp, horizontal = 4.dp),
+                                        horizontalAlignment = Alignment.CenterHorizontally,
+                                        verticalArrangement = Arrangement.spacedBy(4.dp)
                                     ) {
-                                        Text(item.second, color = Violet, fontSize = 19.sp)
-                                        Text(item.first, color = Color.White, fontSize = 8.sp, fontWeight = FontWeight.Bold)
+                                        Box(Modifier.size(32.dp).clip(RoundedCornerShape(11.dp))
+                                            .background(Violet.copy(alpha = .14f))
+                                            .border(1.dp, Violet.copy(alpha = .38f), RoundedCornerShape(11.dp)),
+                                            contentAlignment = Alignment.Center) {
+                                            Text(item.second, color = Cyan, fontSize = 18.sp)
+                                        }
+                                        Text(item.first, color = Color.White, fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .45.sp)
+                                        Text("JUMP  ↗", color = Violet, fontSize = 7.sp, fontWeight = FontWeight.Bold)
                                     }
                                 }
                             }
