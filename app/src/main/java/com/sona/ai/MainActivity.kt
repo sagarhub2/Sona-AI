@@ -552,23 +552,79 @@ class MainActivity : ComponentActivity() {
                 val percent = if (level >= 0 && scale > 0) (level * 100 / scale) else -1
                 val plugged = batteryIntent?.getIntExtra(android.os.BatteryManager.EXTRA_PLUGGED, 0) ?: 0
                 AlertDialog(
-                    shape = RoundedCornerShape(22.dp),
-                    containerColor = Color(0xFF0B1024),
-                    titleContentColor = Violet,
-                    textContentColor = Color(0xFFE6DDE0),
-                    tonalElevation = 0.dp,
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(28.dp),
+                    containerColor = Color(0xFFFFFBFC),
+                    titleContentColor = Color(0xFF282126),
+                    textContentColor = Color(0xFF51464A),
+                    tonalElevation = 8.dp,
                     onDismissRequest = { showDeviceInfo = false },
-                    title = { Text("Device Info") },
-                    text = {
-                        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                            Text("Device: " + android.os.Build.MANUFACTURER + " " + android.os.Build.MODEL)
-                            Text("Android: " + android.os.Build.VERSION.RELEASE + " (API " + android.os.Build.VERSION.SDK_INT + ")")
-                            Text("Battery: " + (if (percent >= 0) percent.toString() + "%" else "Unavailable"))
-                            Text(if (plugged != 0) "Power: Charging / connected" else "Power: Not charging")
-                            Text("Myra AI • " + packageName, fontSize = 11.sp, color = Color(0xFFB5A9AC))
+                    title = {
+                        Column(
+                            Modifier.fillMaxWidth().clip(RoundedCornerShape(21.dp))
+                                .background(Brush.linearGradient(listOf(Color(0xFFFFE8EC), Color.White, Color(0xFFFFF2F4))))
+                                .border(1.dp, Color(0xFFF0B8C1), RoundedCornerShape(21.dp))
+                                .padding(16.dp),
+                            verticalArrangement = Arrangement.spacedBy(7.dp)
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(11.dp)) {
+                                Box(
+                                    Modifier.size(48.dp).clip(RoundedCornerShape(15.dp))
+                                        .background(Brush.linearGradient(listOf(Color(0xFFFFA4B1), Color(0xFFCB1731))))
+                                        .border(1.dp, Color(0xFFE98B99), RoundedCornerShape(15.dp)),
+                                    contentAlignment = Alignment.Center
+                                ) { Text("▣", color = Color.White, fontSize = 25.sp, fontWeight = FontWeight.Bold) }
+                                Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                                    Text("MYRA AI • SYSTEM STATUS", color = Color(0xFFCB1731), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.1.sp)
+                                    Text("Device Info", color = Color(0xFF282126), fontSize = 23.sp, fontWeight = FontWeight.Bold)
+                                }
+                            }
+                            Text("A quick overview of your phone and power status.", color = Color(0xFF8C7E83), fontSize = 12.sp)
                         }
                     },
-                    confirmButton = { TextButton(onClick = { showDeviceInfo = false }) { Text("Done") } }
+                    text = {
+                        Column(verticalArrangement = Arrangement.spacedBy(9.dp)) {
+                            @Composable
+                            fun DeviceInfoRow(icon: String, label: String, value: String) {
+                                Surface(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    shape = RoundedCornerShape(16.dp),
+                                    color = Color.White,
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0B8C1)),
+                                    tonalElevation = 0.dp
+                                ) {
+                                    Row(
+                                        Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 11.dp),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(11.dp)
+                                    ) {
+                                        Box(
+                                            Modifier.size(39.dp).clip(RoundedCornerShape(12.dp))
+                                                .background(Color(0xFFFFE8EC))
+                                                .border(1.dp, Color(0xFFF0B8C1), RoundedCornerShape(12.dp)),
+                                            contentAlignment = Alignment.Center
+                                        ) { Text(icon, color = Color(0xFFCB1731), fontSize = 20.sp, fontWeight = FontWeight.Bold) }
+                                        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                                            Text(label.uppercase(), color = Color(0xFF8C7E83), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = .7.sp)
+                                            Text(value, color = Color(0xFF282126), fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+                                        }
+                                    }
+                                }
+                            }
+                            DeviceInfoRow("▣", "Device", android.os.Build.MANUFACTURER + " " + android.os.Build.MODEL)
+                            DeviceInfoRow("◇", "Android Version", android.os.Build.VERSION.RELEASE + " • API " + android.os.Build.VERSION.SDK_INT)
+                            DeviceInfoRow("▤", "Battery", if (percent >= 0) percent.toString() + "%" else "Unavailable")
+                            DeviceInfoRow("ϟ", "Power", if (plugged != 0) "Charging / connected" else "Not charging")
+                            Text("MYRA AI  •  " + packageName, color = Color(0xFF9B6B75), fontSize = 9.sp, letterSpacing = .4.sp)
+                        }
+                    },
+                    confirmButton = {
+                        Button(
+                            onClick = { showDeviceInfo = false },
+                            shape = RoundedCornerShape(14.dp),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFCB1731))
+                        ) { Text("DONE", color = Color.White, fontWeight = FontWeight.Bold) }
+                    }
                 )
             }
             if (showChat) {
