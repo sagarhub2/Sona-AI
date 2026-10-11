@@ -74,6 +74,7 @@ class MainActivity : ComponentActivity() {
     private var showChat by mutableStateOf(false)
     private var showDeviceInfo by mutableStateOf(false)
     private var showFeaturesMenu by mutableStateOf(false)
+    private var showWebSearch by mutableStateOf(false)
     private var busy by mutableStateOf(false)
     private var speechRecognizer: SpeechRecognizer? = null
     private var liveVoiceSession: LiveVoiceSession? = null
@@ -272,6 +273,45 @@ class MainActivity : ComponentActivity() {
                     MyraPremiumIntro()
                 }
             }
+            if (showWebSearch) {
+                var webQuery by remember { mutableStateOf("") }
+                AlertDialog(
+                    shape = RoundedCornerShape(22.dp),
+                    containerColor = Color(0xFF111113),
+                    titleContentColor = Color(0xFFFF5267),
+                    textContentColor = Color(0xFFE6DDE0),
+                    onDismissRequest = { showWebSearch = false },
+                    title = { Text("Web Search") },
+                    text = {
+                        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Text("Search the web in your browser.")
+                            OutlinedTextField(
+                                value = webQuery,
+                                onValueChange = { webQuery = it },
+                                singleLine = true,
+                                label = { Text("What do you want to find?") },
+                                placeholder = { Text("e.g. latest AI news") }
+                            )
+                        }
+                    },
+                    confirmButton = {
+                        TextButton(onClick = {
+                            val query = webQuery.trim()
+                            if (query.isNotBlank()) {
+                                showWebSearch = false
+                                try {
+                                    val encoded = URLEncoder.encode(query, "UTF-8")
+                                    startActivity(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.google.com/search?q=$encoded")))
+                                    status = "WEB SEARCH OPENED"
+                                } catch (_: Exception) { status = "NO BROWSER AVAILABLE" }
+                            }
+                        }) { Text("SEARCH", color = Color(0xFFFF5267)) }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = { showWebSearch = false }) { Text("CANCEL", color = Color(0xFFB5A9AC)) }
+                    }
+                )
+            }
             if (showFeaturesMenu) {
                 MyraFeaturesMenu(
                     onClose = { showFeaturesMenu = false },
@@ -285,7 +325,7 @@ class MainActivity : ComponentActivity() {
                     onContacts = { showFeaturesMenu = false; try { startActivity(Intent(Intent.ACTION_PICK, android.provider.ContactsContract.Contacts.CONTENT_URI)) } catch (_: Exception) { status = "CONTACT PICKER UNAVAILABLE" } },
                     onMedia = { showFeaturesMenu = false; try { startActivity(Intent.makeMainSelectorActivity(Intent.ACTION_MAIN, Intent.CATEGORY_APP_MUSIC)) } catch (_: Exception) { status = "NO MUSIC APP AVAILABLE" } },
                     onReminder = { showFeaturesMenu = false; try { startActivity(Intent(AlarmClock.ACTION_SET_ALARM)) } catch (_: Exception) { status = "CLOCK APP UNAVAILABLE" } },
-                    onWeb = { showFeaturesMenu = false; try { startActivity(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.google.com"))) } catch (_: Exception) { status = "NO BROWSER AVAILABLE" } },
+                    onWeb = { showFeaturesMenu = false; showWebSearch = true },
                     onDevice = { showFeaturesMenu = false; try { startActivity(Intent(android.provider.Settings.ACTION_SETTINGS)) } catch (_: Exception) { status = "SETTINGS UNAVAILABLE" } }
                 )
             }
