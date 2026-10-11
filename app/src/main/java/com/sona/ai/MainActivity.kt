@@ -10,6 +10,8 @@ import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.compose.setContent
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -292,7 +294,8 @@ class MainActivity : ComponentActivity() {
                     }
                 }
 ,
-                onAskText = { prompt -> askGemini(prompt) }
+                onAskText = { prompt -> askGemini(prompt) },
+                onAnalyzeImage = { uri -> askGeminiAboutImage(uri) }
             )
                 if (showPremiumIntro) {
                     MyraPremiumIntro()
@@ -2590,6 +2593,82 @@ For privacy, I do not silently send messages or place calls. Android may ask you
         }
     }
 
+    private fun askGeminiAboutImage(uri: android.net.Uri) {
+        val key = apiKey
+        if (key.isBlank()) {
+            status = "ADD GEMINI KEY IN SETTINGS"
+            return
+        }
+        busy = true
+        status = "NEURAL LENS • ANALYZING IMAGE…"
+        Thread {
+            var responseText: String? = null
+            var errorText = "Could not analyze this image. Try another image or check your connection."
+            var connection: HttpURLConnection? = null
+            try {
+                val imageBytes = contentResolver.openInputStream(uri)?.use { it.readBytes() }
+                    ?: throw IllegalStateException("Could not read selected image")
+                if (imageBytes.size > 12 * 1024 * 1024) throw IllegalArgumentException("Image is too large")
+                val bitmap = android.graphics.BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+                    ?: throw IllegalArgumentException("Unsupported image format")
+                val output = java.io.ByteArrayOutputStream()
+                bitmap.compress(android.graphics.Bitmap.CompressFormat.JPEG, 82, output)
+                bitmap.recycle()
+                val encodedImage = android.util.Base64.encodeToString(output.toByteArray(), android.util.Base64.NO_WRAP)
+                val encodedKey = URLEncoder.encode(key, "UTF-8")
+                connection = (URL("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=$encodedKey").openConnection() as HttpURLConnection).apply {
+                    requestMethod = "POST"
+                    connectTimeout = 20000
+                    readTimeout = 45000
+                    doOutput = true
+                    setRequestProperty("Content-Type", "application/json; charset=utf-8")
+                }
+                val promptText = "Describe this image clearly. Identify visible objects, text, scene details, and useful observations. If something is uncertain, say so. Do not infer a person's identity. Keep the answer practical and concise."
+                val parts = JSONArray()
+                    .put(JSONObject().put("text", promptText))
+                    .put(JSONObject().put("inline_data", JSONObject().put("mime_type", "image/jpeg").put("data", encodedImage)))
+                val body = JSONObject()
+                    .put("contents", JSONArray().put(JSONObject().put("parts", parts)))
+                    .put("generationConfig", JSONObject().put("maxOutputTokens", 700))
+                connection.outputStream.use { it.write(body.toString().toByteArray(Charsets.UTF_8)) }
+                val code = connection.responseCode
+                val raw = (if (code in 200..299) connection.inputStream else connection.errorStream)?.bufferedReader()?.use { it.readText() }.orEmpty()
+                if (code in 200..299) {
+                    responseText = JSONObject(raw).optJSONArray("candidates")?.optJSONObject(0)
+                        ?.optJSONObject("content")?.optJSONArray("parts")?.optJSONObject(0)
+                        ?.optString("text")?.takeIf { it.isNotBlank() && it != "null" }
+                    if (responseText == null) errorText = "Gemini returned no image analysis. Try again."
+                } else {
+                    errorText = when (code) {
+                        400, 403 -> "Gemini rejected the API key or image request. Check your key and enabled API."
+                        429 -> "Gemini usage limit reached. Try again later."
+                        else -> "Image analysis failed (HTTP $code). Check internet and API key."
+                    }
+                }
+            } catch (e: Exception) {
+                errorText = if (e is IllegalArgumentException && e.message == "Image is too large") {
+                    "Image is too large. Choose an image under 12 MB."
+                } else "Could not read or analyze that image. Try a different image."
+            } finally {
+                connection?.disconnect()
+            }
+            runOnUiThread {
+                busy = false
+                if (responseText != null) {
+                    heardText = responseText!!
+                    status = "NEURAL LENS • IMAGE ANALYSIS COMPLETE"
+                    val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
+                    val previousHistory = prefs.getString("conversation_history", "").orEmpty()
+                    prefs.edit().putString("conversation_history", (previousHistory + "\\nUser: Analyze selected image\\nMyra: " + responseText).takeLast(12000)).apply()
+                    if (ttsReady && prefs.getBoolean("speak_replies", true)) textToSpeech?.speak(responseText, TextToSpeech.QUEUE_FLUSH, null, "myra-image-analysis")
+                } else {
+                    status = "NEURAL LENS • ANALYSIS FAILED"
+                    heardText = errorText
+                }
+            }
+        }.start()
+    }
+
     private fun askGemini(prompt: String) {
         if (handleLocalCommand(prompt)) return
         val key = apiKey
@@ -2717,10 +2796,14 @@ private fun MyraHome(
     onCopyAnswer: () -> Unit,
     onSpeakAnswer: () -> Unit,
     onStopSpeaking: () -> Unit,
-    onAskText: (String) -> Unit
+    onAskText: (String) -> Unit,
+    onAnalyzeImage: (android.net.Uri) -> Unit
 ) {
     val context = LocalContext.current
     var prompt by remember { mutableStateOf("") }
+    val imagePicker = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+        if (uri != null) onAnalyzeImage(uri)
+    }
     val transition = androidx.compose.animation.core.rememberInfiniteTransition(label = "myra-holographic-orb")
     val pulse by transition.animateFloat(
         initialValue = 0.96f, targetValue = 1.04f,
@@ -2989,8 +3072,7 @@ private fun MyraHome(
                             TextButton(
                                 onClick = {
                                     try {
-                                        val galleryIntent = Intent(Intent.ACTION_GET_CONTENT).apply { type = "image/*" }
-                                        context.startActivity(Intent.createChooser(galleryIntent, "Choose an image for Neural Lens"))
+                                        imagePicker.launch("image/*")
                                     } catch (_: Exception) {
                                         android.widget.Toast.makeText(context, "No gallery app available", android.widget.Toast.LENGTH_SHORT).show()
                                     }
