@@ -2211,29 +2211,44 @@ private fun MyraHome(
             Modifier.weight(1f).verticalScroll(androidx.compose.foundation.rememberScrollState())
                 .padding(horizontal = 20.dp)
         ) {
-            Box(Modifier.fillMaxWidth().height(248.dp), contentAlignment = Alignment.Center) {
-                Box(Modifier.size(232.dp).rotate(rotation).border(1.dp, Color(0x887DEBFF), CircleShape))
-                Box(Modifier.size(208.dp).rotate(-rotation * .7f).border(2.dp, Color(0x66B86BFF), CircleShape))
+            Box(Modifier.fillMaxWidth().height(258.dp), contentAlignment = Alignment.Center) {
+                Box(Modifier.size(244.dp).rotate(rotation).border(1.dp, Color(0x447DEBFF), CircleShape))
+                Box(Modifier.size(226.dp).rotate(-rotation * .7f)
+                    .border(1.dp, Color(0x55704DFF), CircleShape))
+                Box(Modifier.size(208.dp).rotate(rotation * .45f)
+                    .border(2.dp, Color(0x66B86BFF), CircleShape))
                 Box(Modifier.size(184.dp).clip(CircleShape)
-                    .background(Brush.radialGradient(listOf(Color(0x553D7BFF), Color(0x334A18A8), Color.Transparent))))
+                    .background(Brush.radialGradient(listOf(Color(0x664C7DFF), Color(0x444A18A8), Color.Transparent))))
                 Box(
-                    Modifier.size((150f * (if (animatedOrb) pulse else 1f)).dp).clip(CircleShape)
-                        .background(Brush.radialGradient(listOf(Color(0xFF17105A), Color(0xFF080D2A), Color(0xFF02040C))))
-                        .border(5.dp, red.copy(alpha = .78f), CircleShape),
+                    Modifier.size((156f * (if (animatedOrb) pulse else 1f)).dp).clip(CircleShape)
+                        .background(Brush.radialGradient(listOf(Color(0xFF302080), Color(0xFF111748), Color(0xFF030611))))
+                        .border(1.dp, Color(0xFF7DEBFF).copy(alpha = .7f), CircleShape)
+                        .padding(5.dp)
+                        .border(3.dp, Violet.copy(alpha = .9f), CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("✦", color = Cyan, fontSize = 52.sp, fontWeight = FontWeight.Light, lineHeight = 54.sp)
+                        Text("✦", color = Cyan, fontSize = 54.sp, fontWeight = FontWeight.Light, lineHeight = 56.sp)
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text("MYR", color = Color.White, fontSize = 23.sp, fontWeight = FontWeight.Black, letterSpacing = 1.sp)
-                            Text("A", color = red, fontSize = 23.sp, fontWeight = FontWeight.Black)
+                            Text("A", color = Violet, fontSize = 23.sp, fontWeight = FontWeight.Black)
                         }
-                        Text("—  A I   A S S I S T A N T  —", color = Color.White, fontSize = 6.sp, letterSpacing = 1.sp)
+                        Text("—  A I   A S S I S T A N T  —", color = Color(0xFFDAD8FF), fontSize = 6.sp, letterSpacing = 1.sp)
                     }
                 }
                 listOf(Alignment.TopStart, Alignment.TopEnd, Alignment.BottomStart, Alignment.BottomEnd).forEachIndexed { index, alignment ->
-                    Box(Modifier.align(alignment).padding(24.dp).size(if (index % 2 == 0) 8.dp else 6.dp)
-                        .clip(CircleShape).background(red.copy(alpha = .6f)))
+                    Box(Modifier.align(alignment).padding(22.dp).size(if (index % 2 == 0) 8.dp else 6.dp)
+                        .clip(CircleShape).background(if (index % 2 == 0) Cyan.copy(alpha = .8f) else Violet.copy(alpha = .9f)))
+                }
+                Surface(
+                    shape = RoundedCornerShape(50),
+                    color = Color(0xFF0C1025),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Violet.copy(alpha = .55f))
+                ) {
+                    Text(if (busy) "●  PROCESSING" else if (hasKey) "●  READY TO ASSIST" else "●  AWAITING SETUP",
+                        modifier = Modifier.padding(horizontal = 11.dp, vertical = 6.dp),
+                        color = if (busy) Cyan else if (hasKey) Color(0xFFBFA0FF) else Color(0xFFFFB36B),
+                        fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .8.sp)
                 }
             }
             Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
