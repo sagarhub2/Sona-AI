@@ -839,6 +839,9 @@ class MainActivity : ComponentActivity() {
                                     "Summarize" to "Summarize this clearly: ",
                                     "Hindi translation" to "Translate this into Hindi: ",
                                     "Give examples" to "Explain this with 3 clear examples: ",
+                                    "Step by step" to "Explain this step by step for a beginner: ",
+                                    "Pros & cons" to "List the main advantages and disadvantages of this: ",
+                                    "Fix grammar" to "Correct the grammar and spelling while preserving my meaning: ",
                                     "Improve writing" to "Rewrite this to sound clearer and more polished: ",
                                     "Make shorter" to "Make this shorter while keeping the key points: "
                                 ).forEach { (label, template) ->
