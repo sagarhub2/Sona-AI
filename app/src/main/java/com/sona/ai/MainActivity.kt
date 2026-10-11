@@ -2285,15 +2285,37 @@ private fun MyraHome(
             }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(14.dp)) {
                 Surface(
-                    onClick = onStartVoice, modifier = Modifier.weight(1f).height(164.dp),
-                    shape = RoundedCornerShape(24.dp), color = Color(0xFF100B27), shadowElevation = 5.dp,
-                    border = androidx.compose.foundation.BorderStroke(1.dp, Violet.copy(alpha = .85f))
+                    onClick = onStartVoice,
+                    modifier = Modifier.weight(1f).height(176.dp),
+                    shape = RoundedCornerShape(24.dp),
+                    color = Color(0xFF0C0820),
+                    shadowElevation = if (busy) 9.dp else 4.dp,
+                    border = androidx.compose.foundation.BorderStroke(1.dp, if (busy) Cyan.copy(alpha = .9f) else Violet.copy(alpha = .85f))
                 ) {
-                    Column(Modifier.fillMaxSize().padding(17.dp), verticalArrangement = Arrangement.SpaceBetween) {
-                        Text(if (busy) "•••" else "≋", color = Cyan, fontSize = 31.sp, fontWeight = FontWeight.Bold)
-                        Column {
-                            Text("Live Voice", color = ink, fontSize = 17.sp, fontWeight = FontWeight.Bold)
-                            Text(if (busy) "Connecting…" else status, color = if (busy) Cyan else muted, fontSize = 10.sp, maxLines = 2)
+                    Column(Modifier.fillMaxSize().padding(15.dp), verticalArrangement = Arrangement.SpaceBetween) {
+                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+                            Box(
+                                Modifier.size(54.dp).clip(CircleShape)
+                                    .background(Brush.radialGradient(listOf(Violet.copy(alpha = .5f), Color(0xFF17102F), Color(0xFF0C0820))))
+                                    .border(1.dp, if (busy) Cyan.copy(alpha = .8f) else Violet.copy(alpha = .7f), CircleShape),
+                                contentAlignment = Alignment.Center
+                            ) { Text(if (busy) "•••" else "≋", color = Cyan, fontSize = 27.sp, fontWeight = FontWeight.Bold) }
+                            Surface(
+                                shape = RoundedCornerShape(50),
+                                color = if (busy) Cyan.copy(alpha = .12f) else Violet.copy(alpha = .14f),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, if (busy) Cyan.copy(alpha = .7f) else Violet.copy(alpha = .5f))
+                            ) {
+                                Text(if (busy) "ACTIVE" else "VOICE", modifier = Modifier.padding(horizontal = 9.dp, vertical = 5.dp),
+                                    color = if (busy) Cyan else Violet, fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = .7.sp)
+                            }
+                        }
+                        Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                            Text("Live Voice", color = Color.White, fontSize = 17.sp, fontWeight = FontWeight.Bold)
+                            Text(if (busy) "Connecting…" else status, color = if (busy) Cyan else Color(0xFFB9B5D4), fontSize = 10.sp, maxLines = 2, lineHeight = 14.sp)
+                            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+                                Box(Modifier.size(6.dp).clip(CircleShape).background(if (busy) Cyan else Violet))
+                                Text(if (busy) "Session in progress" else "Tap to start voice", color = Color(0xFFAAA3C8), fontSize = 9.sp)
+                            }
                         }
                     }
                 }
