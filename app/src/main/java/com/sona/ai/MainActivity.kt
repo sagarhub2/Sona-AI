@@ -2081,7 +2081,7 @@ private fun MyraPremiumIntro() {
     Box(
         modifier = Modifier.fillMaxSize().background(
             Brush.radialGradient(
-                colors = listOf(Color(0xFF18234A), Color(0xFF09091B), Color(0xFF03040B))
+                colors = listOf(Color(0xFF300B12), Color(0xFF100609), Color(0xFF030303))
             )
         ),
         contentAlignment = Alignment.Center
@@ -2097,16 +2097,16 @@ private fun MyraPremiumIntro() {
             ) {
                 Box(
                     modifier = Modifier.size(218.dp).rotate(rotation)
-                        .border(1.dp, Color(0x557DEBFF), CircleShape)
+                        .border(1.dp, Color(0x66FF5267), CircleShape)
                 )
                 Box(
                     modifier = Modifier.size(184.dp).rotate(-rotation * 0.7f)
-                        .border(1.dp, Color(0x66B86BFF), CircleShape)
+                        .border(1.dp, Color(0x66B51F36), CircleShape)
                 )
                 Box(
                     modifier = Modifier.size((126 * pulse).dp).background(
                         Brush.radialGradient(
-                            colors = listOf(Violet, Color(0xFF4868FF), Color(0xFF10233D))
+                            colors = listOf(Color(0xFFFF5267), Color(0xFF9E1027), Color(0xFF20070D))
                         ),
                         CircleShape
                     ).border(1.dp, Cyan, CircleShape),
@@ -2118,7 +2118,7 @@ private fun MyraPremiumIntro() {
             Spacer(Modifier.height(24.dp))
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                 Text("Myra", color = Color.White, fontSize = 38.sp, fontWeight = FontWeight.Bold)
-                Text(" AI", color = Violet, fontSize = 38.sp, fontWeight = FontWeight.Bold)
+                Text(" AI", color = Color(0xFFFF5267), fontSize = 38.sp, fontWeight = FontWeight.Bold)
             }
             Spacer(Modifier.height(8.dp))
             Text(
@@ -2128,16 +2128,16 @@ private fun MyraPremiumIntro() {
                 fontWeight = FontWeight.Medium
             )
             Spacer(Modifier.height(7.dp))
-            Text("Talk  •  Control  •  Get Things Done", color = Color(0xFF8798C2), fontSize = 11.sp)
+            Text("Talk  •  Control  •  Get Things Done", color = Color(0xFFB5A0A5), fontSize = 11.sp)
             Spacer(Modifier.height(34.dp))
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                 CircularProgressIndicator(
                     modifier = Modifier.size(16.dp),
-                    color = Cyan,
+                    color = Color(0xFFFF5267),
                     strokeWidth = 2.dp
                 )
                 Spacer(Modifier.width(10.dp))
-                Text("INITIALIZING YOUR AI", color = Color(0xFFB9C5E8), fontSize = 11.sp, letterSpacing = 1.5.sp)
+                Text("INITIALIZING YOUR AI", color = Color(0xFFE6DDE0), fontSize = 11.sp, letterSpacing = 1.5.sp)
             }
             Spacer(Modifier.height(42.dp))
             Text(
