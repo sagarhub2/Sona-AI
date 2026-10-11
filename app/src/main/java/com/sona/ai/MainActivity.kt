@@ -2606,44 +2606,44 @@ private fun MyraFeaturesMenu(
         Triple("Conversation History", "Review previous chats", "☷") to onHistory,
         Triple("Personalize Myra", "Appearance and API key", "◇") to onSettings
     )
-    Box(Modifier.fillMaxSize().background(Night).statusBarsPadding().navigationBarsPadding()) {
+    Box(Modifier.fillMaxSize().background(Color(0xFFFFF7F8)).statusBarsPadding().navigationBarsPadding()) {
         Column(Modifier.fillMaxSize().padding(horizontal = 18.dp)) {
             Row(Modifier.fillMaxWidth().padding(top = 14.dp, bottom = 16.dp), verticalAlignment = Alignment.CenterVertically) {
-                Surface(onClick = onClose, shape = CircleShape, color = Color(0xFF171719), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF54202A))) {
-                    Text("‹", color = Color.White, fontSize = 28.sp, modifier = Modifier.padding(horizontal = 13.dp, vertical = 2.dp))
+                Surface(onClick = onClose, shape = CircleShape, color = Color.White, border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0B8C1))) {
+                    Text("‹", color = Color(0xFFCB1731), fontSize = 28.sp, modifier = Modifier.padding(horizontal = 13.dp, vertical = 2.dp))
                 }
                 Spacer(Modifier.width(12.dp))
                 Column(Modifier.weight(1f)) {
-                    Text("Myra AI", color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.Bold)
-                    Text("FEATURES MENU • YOUR AI COMPANION", color = Color(0xFFB0A1A4), fontSize = 9.sp, letterSpacing = 1.sp)
+                    Text("Myra AI", color = Color(0xFF282126), fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                    Text("FEATURES MENU • YOUR AI COMPANION", color = Color(0xFF8C7E83), fontSize = 9.sp, letterSpacing = 1.sp)
                 }
-                Box(Modifier.size(42.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Violet, Color(0xFF9E1027), Color(0xFF171012)))).border(1.dp, Cyan, CircleShape), contentAlignment = Alignment.Center) {
+                Box(Modifier.size(42.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFF8D9C), Color(0xFFCB1731), Color(0xFFFFE8EC)))).border(1.dp, Color(0xFFF0B8C1), CircleShape), contentAlignment = Alignment.Center) {
                     Text("✦", color = Color.White, fontSize = 23.sp)
                 }
             }
             Box(Modifier.fillMaxWidth().height(1.dp).background(Brush.horizontalGradient(listOf(Color.Transparent, Violet, Color(0xFF8D1428), Color.Transparent))))
-            Text("Everything you need, in one place.", color = Color(0xFFE6DDE0), fontSize = 14.sp, modifier = Modifier.padding(top = 18.dp, bottom = 12.dp))
+            Text("Everything you need, in one place.", color = Color(0xFF51464A), fontSize = 14.sp, modifier = Modifier.padding(top = 18.dp, bottom = 12.dp))
             Column(Modifier.weight(1f).verticalScroll(androidx.compose.foundation.rememberScrollState()), verticalArrangement = Arrangement.spacedBy(9.dp)) {
                 items.forEach { (item, action) ->
-                    Surface(onClick = action, shape = RoundedCornerShape(17.dp), color = Color(0xFF0B1024), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF49202A)), modifier = Modifier.fillMaxWidth()) {
+                    Surface(onClick = action, shape = RoundedCornerShape(17.dp), color = Color.White, border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0B8C1)), shadowElevation = 3.dp, modifier = Modifier.fillMaxWidth()) {
                         Row(Modifier.padding(horizontal = 13.dp, vertical = 13.dp), verticalAlignment = Alignment.CenterVertically) {
                             Box(Modifier.size(42.dp).clip(RoundedCornerShape(13.dp))
-                                .background(Brush.linearGradient(listOf(Violet.copy(alpha = .24f), Color(0xFF11152D))))
-                                .border(1.dp, (if (item.first == "Files & Documents") Cyan else Violet).copy(alpha = .72f), RoundedCornerShape(13.dp)),
+                                .background(Brush.linearGradient(listOf(Color(0xFFFFE8EC), Color(0xFFFFF7F8))))
+                                .border(1.dp, Color(0xFFF0B8C1), RoundedCornerShape(13.dp)),
                                 contentAlignment = Alignment.Center) {
-                                Text(item.third, color = if (item.first == "Files & Documents") Cyan else Color.White, fontSize = 21.sp)
+                                Text(item.third, color = Color(0xFFCB1731), fontSize = 21.sp)
                             }
                             Spacer(Modifier.width(12.dp))
                             Column(Modifier.weight(1f)) {
-                                Text(item.first, color = Color.White, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
-                                Text(item.second, color = Color(0xFFB5A9AC), fontSize = 10.sp, modifier = Modifier.padding(top = 3.dp))
+                                Text(item.first, color = Color(0xFF282126), fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+                                Text(item.second, color = Color(0xFF8C7E83), fontSize = 10.sp, modifier = Modifier.padding(top = 3.dp))
                             }
-                            Text("›", color = Violet, fontSize = 22.sp)
+                            Text("›", color = Color(0xFFCB1731), fontSize = 22.sp)
                         }
                     }
                 }
             }
-            Text("DARK • HOLOGRAPHIC • PERSONAL", color = Color(0xFF8F777C), fontSize = 9.sp, letterSpacing = 1.2.sp, modifier = Modifier.align(Alignment.CenterHorizontally).padding(vertical = 12.dp))
+            Text("HOLOGRAPHIC • PERSONAL • ALWAYS READY", color = Color(0xFF9B6B75), fontSize = 9.sp, letterSpacing = 1.2.sp, modifier = Modifier.align(Alignment.CenterHorizontally).padding(vertical = 12.dp))
         }
     }
 }
