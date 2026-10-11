@@ -71,6 +71,7 @@ class MainActivity : ComponentActivity() {
     private var showMemory by mutableStateOf(false)
     private var showTasks by mutableStateOf(false)
     private var showHistory by mutableStateOf(false)
+    private var showChat by mutableStateOf(false)
     private var showDeviceInfo by mutableStateOf(false)
     private var showFeaturesMenu by mutableStateOf(false)
     private var busy by mutableStateOf(false)
@@ -171,6 +172,7 @@ class MainActivity : ComponentActivity() {
                 busy = busy,
                 animatedOrb = getSharedPreferences("myra_private", MODE_PRIVATE).getBoolean("animated_orb", true),
                 onStartVoice = { requestOrStartVoice() },
+                onChat = { showChat = true },
                 onSettings = { showSettings = true },
                 onFeatures = { showFeaturesMenu = true },
                 onMemory = { showMemory = true },
@@ -311,6 +313,62 @@ class MainActivity : ComponentActivity() {
                         }
                     },
                     confirmButton = { TextButton(onClick = { showDeviceInfo = false }) { Text("Done") } }
+                )
+            }
+            if (showChat) {
+                var chatDraft by remember { mutableStateOf("") }
+                AlertDialog(
+                    shape = RoundedCornerShape(22.dp),
+                    containerColor = Color(0xFF111113),
+                    titleContentColor = Color(0xFFFF5267),
+                    textContentColor = Color(0xFFE6DDE0),
+                    tonalElevation = 0.dp,
+                    onDismissRequest = { showChat = false },
+                    title = { Text("MYRA • CHAT") },
+                    text = {
+                        Column(
+                            modifier = Modifier.heightIn(max = 420.dp).verticalScroll(androidx.compose.foundation.rememberScrollState()),
+                            verticalArrangement = Arrangement.spacedBy(10.dp)
+                        ) {
+                            Text(if (heardText.isBlank()) "Start a conversation with Myra." else heardText,
+                                color = Color(0xFFE6DDE0), fontSize = 14.sp, lineHeight = 20.sp)
+                            OutlinedTextField(
+                                value = chatDraft,
+                                onValueChange = { chatDraft = it },
+                                label = { Text("Message Myra…") },
+                                placeholder = { Text("Ask anything") },
+                                modifier = Modifier.fillMaxWidth(),
+                                minLines = 2,
+                                maxLines = 5
+                            )
+                            if (apiKey.isBlank()) {
+                                Text("Add your Gemini API key in Settings to send messages.",
+                                    color = Color(0xFFFF9AA8), fontSize = 12.sp)
+                            }
+                        }
+                    },
+                    confirmButton = {
+                        TextButton(onClick = {
+                            val message = chatDraft.trim()
+                            if (message.isNotEmpty()) {
+                                if (apiKey.isBlank()) {
+                                    status = "CHAT NEEDS GEMINI API KEY"
+                                } else {
+                                    showChat = false
+                                    askGemini(message)
+                                }
+                            }
+                        }) { Text("Send") }
+                    },
+                    dismissButton = {
+                        Row {
+                            TextButton(onClick = { showChat = false }) { Text("Close") }
+                            if (apiKey.isBlank()) TextButton(onClick = {
+                                showChat = false
+                                showSettings = true
+                            }) { Text("Open Settings") }
+                        }
+                    }
                 )
             }
             if (showHistory) {
@@ -1763,6 +1821,7 @@ private fun MyraHome(
     busy: Boolean,
     animatedOrb: Boolean,
     onStartVoice: () -> Unit,
+    onChat: () -> Unit,
     onSettings: () -> Unit,
     onFeatures: () -> Unit,
     onMemory: () -> Unit,
@@ -1970,7 +2029,7 @@ private fun MyraHome(
                 Text("◆", color = red, fontSize = 21.sp)
                 Text("Home", color = red, fontSize = 11.sp, fontWeight = FontWeight.Bold)
             }
-            Column(Modifier.weight(1f).clip(RoundedCornerShape(18.dp)).clickable { onHistory() }.padding(vertical = 4.dp),
+            Column(Modifier.weight(1f).clip(RoundedCornerShape(18.dp)).clickable { onChat() }.padding(vertical = 4.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("▤", color = muted, fontSize = 21.sp)
                 Text("Chat", color = muted, fontSize = 11.sp)
