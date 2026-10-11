@@ -501,7 +501,19 @@ class MainActivity : ComponentActivity() {
                     onTasks = { showFeaturesMenu = false; showTasks = true },
                     onHistory = { showFeaturesMenu = false; showHistory = true },
                     onFiles = { showFeaturesMenu = false; showFiles = true },
-                    onCamera = { showFeaturesMenu = false; try { startActivity(Intent("android.media.action.IMAGE_CAPTURE")) } catch (_: Exception) { status = "CAMERA UNAVAILABLE" } },
+                    onCamera = {
+                        showFeaturesMenu = false
+                        if (ContextCompat.checkSelfPermission(this@MainActivity, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                            openCameraForNeuralLens()
+                        } else {
+                            ActivityCompat.requestPermissions(
+                                this@MainActivity,
+                                arrayOf(Manifest.permission.CAMERA),
+                                CAMERA_PERMISSION_REQUEST
+                            )
+                            status = "CAMERA PERMISSION REQUESTED"
+                        }
+                    },
                     onContacts = { showFeaturesMenu = false; try { startActivity(Intent(Intent.ACTION_PICK, android.provider.ContactsContract.Contacts.CONTENT_URI)) } catch (_: Exception) { status = "CONTACT PICKER UNAVAILABLE" } },
                     onMedia = { showFeaturesMenu = false; try { startActivity(Intent.makeMainSelectorActivity(Intent.ACTION_MAIN, Intent.CATEGORY_APP_MUSIC)) } catch (_: Exception) { status = "NO MUSIC APP AVAILABLE" } },
                     onReminder = { showFeaturesMenu = false; showTriggers = true },
