@@ -2438,47 +2438,53 @@ private fun MyraHome(
             Row(Modifier.fillMaxWidth().padding(top = 12.dp, bottom = 15.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 Surface(
                     onClick = onMemory,
-                    modifier = Modifier.weight(1f).height(94.dp),
+                    modifier = Modifier.weight(1f).height(100.dp),
                     shape = RoundedCornerShape(20.dp),
                     color = Color(0xFF100B27),
-                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF7040A4)),
-                    shadowElevation = 3.dp
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF9B6BFF).copy(alpha = .72f)),
+                    shadowElevation = 5.dp
                 ) {
-                    Row(Modifier.fillMaxSize().padding(horizontal = 13.dp, vertical = 12.dp),
-                        verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(11.dp)) {
-                        Box(Modifier.size(42.dp).clip(RoundedCornerShape(14.dp))
-                            .background(Color(0xFF9B6BFF).copy(alpha = .14f))
-                            .border(1.dp, Color(0xFF9B6BFF).copy(alpha = .55f), RoundedCornerShape(14.dp)),
+                    Row(Modifier.fillMaxSize().padding(horizontal = 12.dp, vertical = 11.dp),
+                        verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        Box(Modifier.size(40.dp).clip(RoundedCornerShape(13.dp))
+                            .background(Color(0xFF9B6BFF).copy(alpha = .16f))
+                            .border(1.dp, Color(0xFF9B6BFF).copy(alpha = .65f), RoundedCornerShape(13.dp)),
                             contentAlignment = Alignment.Center) {
-                            Text("✦", color = Color(0xFFBFA0FF), fontSize = 23.sp, fontWeight = FontWeight.Bold)
+                            Text("✦", color = Color(0xFFBFA0FF), fontSize = 22.sp, fontWeight = FontWeight.Bold)
                         }
-                        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                            Text("Smart Memory", color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+                        Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                            Text("SMART MEMORY", color = Color.White, fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1, letterSpacing = .35.sp)
                             Text("Saved context", color = Color(0xFFAAA3C8), fontSize = 9.sp, maxLines = 1)
-                            Text("OPEN  ↗", color = Color(0xFFBFA0FF), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .5.sp)
+                            Surface(shape = RoundedCornerShape(50), color = Color(0xFF9B6BFF).copy(alpha = .13f)) {
+                                Text("PERSONAL  ↗", modifier = Modifier.padding(horizontal = 7.dp, vertical = 3.dp),
+                                    color = Color(0xFFBFA0FF), fontSize = 7.sp, fontWeight = FontWeight.Bold, letterSpacing = .35.sp)
+                            }
                         }
                     }
                 }
                 Surface(
                     onClick = onTasks,
-                    modifier = Modifier.weight(1f).height(94.dp),
+                    modifier = Modifier.weight(1f).height(100.dp),
                     shape = RoundedCornerShape(20.dp),
                     color = Color(0xFF0B1024),
-                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF3B718B)),
-                    shadowElevation = 3.dp
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF7DEBFF).copy(alpha = .62f)),
+                    shadowElevation = 5.dp
                 ) {
-                    Row(Modifier.fillMaxSize().padding(horizontal = 13.dp, vertical = 12.dp),
-                        verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(11.dp)) {
-                        Box(Modifier.size(42.dp).clip(RoundedCornerShape(14.dp))
-                            .background(Color(0xFF7DEBFF).copy(alpha = .10f))
-                            .border(1.dp, Color(0xFF7DEBFF).copy(alpha = .45f), RoundedCornerShape(14.dp)),
+                    Row(Modifier.fillMaxSize().padding(horizontal = 12.dp, vertical = 11.dp),
+                        verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        Box(Modifier.size(40.dp).clip(RoundedCornerShape(13.dp))
+                            .background(Color(0xFF7DEBFF).copy(alpha = .12f))
+                            .border(1.dp, Color(0xFF7DEBFF).copy(alpha = .58f), RoundedCornerShape(13.dp)),
                             contentAlignment = Alignment.Center) {
-                            Text("✓", color = Color(0xFF7DEBFF), fontSize = 23.sp, fontWeight = FontWeight.Bold)
+                            Text("✓", color = Color(0xFF7DEBFF), fontSize = 22.sp, fontWeight = FontWeight.Bold)
                         }
-                        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                            Text("Tasks & Reminders", color = Color.White, fontSize = 11.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+                        Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                            Text("TASKS & REMINDERS", color = Color.White, fontSize = 9.sp, fontWeight = FontWeight.Bold, maxLines = 1, letterSpacing = .2.sp)
                             Text("Stay organized", color = Color(0xFFAAA3C8), fontSize = 9.sp, maxLines = 1)
-                            Text("OPEN  ↗", color = Color(0xFF7DEBFF), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .5.sp)
+                            Surface(shape = RoundedCornerShape(50), color = Color(0xFF7DEBFF).copy(alpha = .10f)) {
+                                Text("PLANNING  ↗", modifier = Modifier.padding(horizontal = 7.dp, vertical = 3.dp),
+                                    color = Color(0xFF7DEBFF), fontSize = 7.sp, fontWeight = FontWeight.Bold, letterSpacing = .3.sp)
+                            }
                         }
                     }
                 }
