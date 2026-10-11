@@ -1748,187 +1748,253 @@ private fun MyraHome(
         .getString("user_name", "").orEmpty().trim().ifBlank { "Sagar" }
     var prompt by remember { mutableStateOf("") }
     var selectedTab by remember { mutableStateOf("Home") }
-    val transition = androidx.compose.animation.core.rememberInfiniteTransition(label = "myra-hero")
+    val transition = androidx.compose.animation.core.rememberInfiniteTransition(label = "myra-reference-orb")
     val pulse by transition.animateFloat(
-        initialValue = 0.97f, targetValue = 1.04f,
+        initialValue = 0.94f, targetValue = 1.04f,
         animationSpec = androidx.compose.animation.core.infiniteRepeatable(
-            animation = androidx.compose.animation.core.tween(1900, easing = androidx.compose.animation.core.FastOutSlowInEasing),
+            animation = androidx.compose.animation.core.tween(1700, easing = androidx.compose.animation.core.FastOutSlowInEasing),
             repeatMode = androidx.compose.animation.core.RepeatMode.Reverse
-        ), label = "hero-pulse"
+        ), label = "orb-pulse"
     )
-    val ring by transition.animateFloat(
+    val rotation by transition.animateFloat(
         initialValue = 0f, targetValue = 360f,
         animationSpec = androidx.compose.animation.core.infiniteRepeatable(
-            animation = androidx.compose.animation.core.tween(14000, easing = androidx.compose.animation.core.LinearEasing)
-        ), label = "hero-ring"
+            animation = androidx.compose.animation.core.tween(16000, easing = androidx.compose.animation.core.LinearEasing)
+        ), label = "orb-rotation"
     )
-    val bg = Brush.verticalGradient(listOf(Color(0xFF02040D), Color(0xFF05091A), Color(0xFF08051A)))
-    Column(Modifier.fillMaxSize().background(bg).statusBarsPadding().navigationBarsPadding()) {
-        Row(Modifier.fillMaxWidth().padding(start = 18.dp, end = 18.dp, top = 8.dp, bottom = 13.dp), verticalAlignment = Alignment.CenterVertically) {
-            Box(Modifier.size(45.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF37E5FF), Color(0xFF5A38F3), Color(0xFF080C24)))).border(1.dp, Color(0xFF68DFFF), CircleShape), contentAlignment = Alignment.Center) {
-                Text("✦", color = Color.White, fontSize = 25.sp)
+    val background = Brush.verticalGradient(listOf(Color(0xFF02040C), Color(0xFF030817), Color(0xFF07091B)))
+    Column(Modifier.fillMaxSize().background(background).statusBarsPadding().navigationBarsPadding()) {
+        // Reference-style compact app bar.
+        Row(
+            Modifier.fillMaxWidth().padding(start = 18.dp, end = 14.dp, top = 8.dp, bottom = 7.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                Modifier.size(42.dp).clip(CircleShape)
+                    .background(Brush.radialGradient(listOf(Color(0xFF69F4FF), Color(0xFF386BFF), Color(0xFF7B27DD), Color(0xFF080D25))))
+                    .border(1.dp, Color(0xFF68DFFF), CircleShape),
+                contentAlignment = Alignment.Center
+            ) {
+                Text("✦", color = Color.White, fontSize = 24.sp)
             }
-            Spacer(Modifier.width(11.dp))
+            Spacer(Modifier.width(10.dp))
             Column(Modifier.weight(1f)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text("Myra", color = Color.White, fontSize = 26.sp, fontWeight = FontWeight.Bold)
-                    Text(" AI", color = Color(0xFFD05BFF), fontSize = 26.sp, fontWeight = FontWeight.Bold)
+                    Text("Myra", color = Color.White, fontSize = 23.sp, fontWeight = FontWeight.Bold)
+                    Text(" AI", color = Color(0xFFD45CFF), fontSize = 23.sp, fontWeight = FontWeight.Bold)
                 }
-                Text("YOUR PERSONAL AI ASSISTANT", color = Color(0xFFA8B4D7), fontSize = 9.sp, letterSpacing = 1.1.sp)
-                Text("Talk  •  Control  •  Get things done", color = Color(0xFF6F80A8), fontSize = 9.sp)
+                Text("Your Personal AI Assistant", color = Color(0xFFAEBBDD), fontSize = 9.sp)
             }
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Surface(onClick = onSettings, shape = CircleShape, color = Color(0xFF111A34), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF7250D9))) {
-                    Box(Modifier.size(39.dp).background(Brush.radialGradient(listOf(Color(0xFF4E9CFF), Color(0xFF782BCE), Color(0xFF10162B))), CircleShape), contentAlignment = Alignment.Center) {
-                        Text(displayName.firstOrNull()?.uppercase() ?: "S", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                    }
-                }
-                Surface(onClick = onSettings, shape = CircleShape, color = Color(0xFF10162B), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF343E6B))) {
-                    Text("☰", color = Color.White, fontSize = 18.sp, modifier = Modifier.padding(horizontal = 11.dp, vertical = 9.dp))
-                }
+            Surface(
+                shape = RoundedCornerShape(50), color = Color(0xFF21134C),
+                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF8952FF))
+            ) {
+                Text("✦ Gemini Live", color = Color(0xFFE7D9FF), fontSize = 9.sp,
+                    modifier = Modifier.padding(horizontal = 9.dp, vertical = 6.dp))
+            }
+            Spacer(Modifier.width(8.dp))
+            Surface(
+                onClick = onSettings, shape = RoundedCornerShape(12.dp), color = Color(0xFF10172C),
+                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF2E3D65))
+            ) {
+                Text("☷", color = Color.White, fontSize = 18.sp,
+                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 7.dp))
             }
         }
-        Column(Modifier.weight(1f).verticalScroll(androidx.compose.foundation.rememberScrollState()).padding(horizontal = 16.dp)) {
-            Surface(Modifier.fillMaxWidth(), shape = RoundedCornerShape(26.dp), color = Color(0x99080D21), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF293A72))) {
-                Column(Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 17.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text("MORE THAN AN ASSISTANT...", color = Color(0xFFB5C1DF), fontSize = 10.sp, letterSpacing = 1.5.sp)
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text("It's your ", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Medium)
-                        Text("AI Companion", color = Color(0xFFD16BFF), fontSize = 18.sp, fontWeight = FontWeight.Bold)
+        androidx.compose.foundation.layout.Box(
+            Modifier.fillMaxWidth().height(1.dp)
+                .background(Brush.horizontalGradient(listOf(Color.Transparent, Color(0xFF344A83), Color(0xFF8B43E9), Color.Transparent)))
+        )
+        Column(
+            Modifier.weight(1f).verticalScroll(androidx.compose.foundation.rememberScrollState())
+                .padding(horizontal = 17.dp)
+        ) {
+            Spacer(Modifier.height(9.dp))
+            // Orb and welcome are deliberately outside a large card, like the phone reference.
+            Box(Modifier.fillMaxWidth().height(220.dp), contentAlignment = Alignment.Center) {
+                Box(Modifier.size(194.dp).rotate(rotation).border(1.dp, Color(0x5540CFFF), CircleShape))
+                Box(Modifier.size(164.dp).rotate(-rotation * 0.7f).border(2.dp, Color(0x667D46FF), CircleShape))
+                Box(Modifier.size(137.dp).rotate(rotation * 0.45f).border(1.dp, Color(0x887DEBFF), CircleShape))
+                Box(
+                    Modifier.size((112 * if (animatedOrb) pulse else 1f).dp).clip(CircleShape)
+                        .background(Brush.radialGradient(listOf(Color(0xFFF0FFFF), Color(0xFF65E9FF), Color(0xFF347AFF), Color(0xFF8B35F1), Color(0x00202665))))
+                        .border(2.dp, Color(0xFF7CEBFF), CircleShape),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text("✦", color = Color.White, fontSize = 48.sp)
+                }
+                Box(Modifier.size(194.dp), contentAlignment = Alignment.BottomCenter) {
+                    Row(
+                        Modifier.fillMaxWidth().padding(horizontal = 6.dp, vertical = 14.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Box(Modifier.size(5.dp).clip(CircleShape).background(Color(0xFF43DFFF)))
+                        Box(Modifier.size(4.dp).clip(CircleShape).background(Color(0xFFBA69FF)))
                     }
-                    Box(Modifier.padding(top = 8.dp, bottom = 8.dp).size(206.dp), contentAlignment = Alignment.Center) {
-                        Box(Modifier.size(194.dp).rotate(ring).border(1.dp, Color(0x6649BFFF), CircleShape))
-                        Box(Modifier.size(166.dp).rotate(-ring * 0.72f).border(2.dp, Color(0x997D46FF), CircleShape))
-                        Box(Modifier.size(142.dp).rotate(ring * 0.35f).border(1.dp, Color(0x8867E7FF), CircleShape))
-                        Box(Modifier.size((122 * pulse).dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFDAFFFF), Color(0xFF39C8FF), Color(0xFF4655FF), Color(0xFF7217C9), Color(0x00030611)))).border(2.dp, Color(0xFF72E7FF), CircleShape), contentAlignment = Alignment.Center) {
-                            Text("✦", color = Color.White, fontSize = 48.sp)
-                        }
-                    }
-                    Text(if (busy) "I'm thinking..." else "Hello $displayName", color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold)
-                    Text(if (busy) status else "I'm Myra, your AI assistant.", color = Color(0xFFCAD4F0), fontSize = 12.sp, modifier = Modifier.padding(top = 3.dp))
-                    Text("How can I help you today?", color = Color(0xFF8798C2), fontSize = 11.sp, modifier = Modifier.padding(top = 2.dp))
-                    Spacer(Modifier.height(14.dp))
-                    Surface(onClick = onStartVoice, enabled = !busy, shape = CircleShape, color = Color.Transparent, border = androidx.compose.foundation.BorderStroke(2.dp, Color(0xFF8B5BFF))) {
-                        Box(Modifier.size(62.dp).background(Brush.linearGradient(listOf(Color(0xFF087BC9), Color(0xFF7626DA))), CircleShape), contentAlignment = Alignment.Center) {
-                            Text(if (busy) "…" else "🎙", fontSize = 26.sp)
-                        }
-                    }
-                    Text(if (busy) "PLEASE WAIT" else "TAP TO TALK", color = Color(0xFF7CEAFF), fontSize = 10.sp, letterSpacing = 2.sp, modifier = Modifier.padding(top = 7.dp))
-                    Spacer(Modifier.height(8.dp))
-                    Surface(shape = RoundedCornerShape(50), color = Color(0xFF101B35), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF293E70))) {
-                        Text(if (hasKey) "✦  GEMINI AI READY" else "✦  ADD GEMINI API KEY IN SETTINGS", color = if (hasKey) Color(0xFF7DEBFF) else Color(0xFFFFC979), fontSize = 9.sp, modifier = Modifier.padding(horizontal = 12.dp, vertical = 7.dp))
-                    }
+                }
+            }
+            Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                Text("Hello $displayName", color = Color.White, fontSize = 23.sp, fontWeight = FontWeight.Bold)
+                Text("I'm Myra, your AI assistant.", color = Color(0xFFD0D9F2), fontSize = 11.sp,
+                    modifier = Modifier.padding(top = 3.dp))
+                Text("How can I help you today?", color = Color(0xFF8798C2), fontSize = 10.sp,
+                    modifier = Modifier.padding(top = 3.dp))
+                Spacer(Modifier.height(11.dp))
+                Surface(
+                    shape = RoundedCornerShape(50), color = Color(0xFF101A34),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, if (hasKey) Color(0xFF3D7FA6) else Color(0xFF72552E))
+                ) {
+                    Text(
+                        if (hasKey) "● Gemini AI Ready" else "＋ Add Gemini API key in Settings",
+                        color = if (hasKey) Color(0xFF7DEBFF) else Color(0xFFFFD28A),
+                        fontSize = 9.sp, modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+                    )
                 }
             }
             if (heardText.isNotBlank() && heardText != "Add your Gemini API key in Settings to enable AI.") {
-                Surface(Modifier.fillMaxWidth().padding(top = 12.dp), shape = RoundedCornerShape(18.dp), color = Color(0xFF0B1429), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF1E3156))) {
-                    Column(Modifier.padding(14.dp)) {
-                        Text("MYRA • RESPONSE", color = Color(0xFFB98AFF), fontSize = 10.sp, letterSpacing = 1.4.sp)
-                        Text(heardText, color = Color(0xFFE1E8FF), fontSize = 13.sp, lineHeight = 19.sp, modifier = Modifier.padding(top = 6.dp))
+                Surface(
+                    Modifier.fillMaxWidth().padding(top = 12.dp),
+                    shape = RoundedCornerShape(15.dp), color = Color(0xFF0A1227),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF273C68))
+                ) {
+                    Column(Modifier.padding(12.dp)) {
+                        Text("MYRA • RESPONSE", color = Color(0xFFC18BFF), fontSize = 9.sp, letterSpacing = 1.2.sp)
+                        Text(heardText, color = Color(0xFFE1E8FF), fontSize = 12.sp, lineHeight = 18.sp,
+                            modifier = Modifier.padding(top = 5.dp))
                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                            TextButton(onClick = onSpeakAnswer) { Text("▶ Speak", color = Color(0xFF7DEBFF)) }
+                            TextButton(onClick = onSpeakAnswer) { Text("▶", color = Color(0xFF7DEBFF)) }
                             TextButton(onClick = onCopyAnswer) { Text("Copy", color = Color(0xFF7DEBFF)) }
                             TextButton(onClick = onShareAnswer) { Text("Share", color = Color(0xFF7DEBFF)) }
                         }
                     }
                 }
             }
-            Text("YOUR COMMAND CENTER", color = Color(0xFFBCA1FF), fontSize = 11.sp, letterSpacing = 1.7.sp, modifier = Modifier.padding(top = 20.dp, bottom = 10.dp))
-            val cards = listOf(
-                Triple("Phone", "Calls & contacts", "☎") to onContacts,
-                Triple("Apps", "Apps & music", "▦") to onMedia,
-                Triple("Camera", "Vision tools", "◎") to onCamera,
-                Triple("Files", "PDFs & photos", "▤") to onFiles,
-                Triple("Notes", "Voice notes", "✎") to onMemory,
-                Triple("Tasks", "To-do list", "☑") to onTasks,
-                Triple("Web", "Live search", "⌕") to { onSearch("Search the web") },
-                Triple("Settings", "Personalize Myra", "⚙") to onSettings
+            Text("QUICK ACCESS", color = Color(0xFFB8C7E8), fontSize = 10.sp, letterSpacing = 1.5.sp,
+                modifier = Modifier.padding(top = 17.dp, bottom = 9.dp))
+            val tiles = listOf(
+                Triple("Phone", "☎", Color(0xFF38D8CF)) to onContacts,
+                Triple("Apps", "▦", Color(0xFF6DA7FF)) to onMedia,
+                Triple("Camera", "◎", Color(0xFFD28BFF)) to onCamera,
+                Triple("Files", "▤", Color(0xFF56B8FF)) to onFiles,
+                Triple("Notes", "✎", Color(0xFFFFB65C)) to onMemory,
+                Triple("Tasks", "☑", Color(0xFF73DCA4)) to onTasks,
+                Triple("Web", "⌕", Color(0xFF66B8FF)) to { onSearch("Search the web") },
+                Triple("Settings", "⚙", Color(0xFFB89AFF)) to onSettings
             )
-            cards.chunked(4).forEach { pair ->
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(9.dp)) {
-                    pair.forEach { (item, action) ->
+            tiles.chunked(4).forEach { rowItems ->
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    rowItems.forEach { (tile, action) ->
                         Surface(
-                            onClick = action,
-                            modifier = Modifier.weight(1f).padding(bottom = 9.dp),
-                            shape = RoundedCornerShape(16.dp),
-                            color = Color(0xFF0B1429),
-                            border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF27355F))
+                            onClick = action, modifier = Modifier.weight(1f).padding(bottom = 8.dp),
+                            shape = RoundedCornerShape(15.dp), color = Color(0xFF0A1429),
+                            border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF23375E))
                         ) {
                             Column(
-                                Modifier.fillMaxWidth().padding(vertical = 12.dp, horizontal = 3.dp),
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.spacedBy(7.dp)
+                                Modifier.fillMaxWidth().padding(vertical = 10.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Box(
-                                    Modifier.size(42.dp).clip(RoundedCornerShape(13.dp))
-                                        .background(Brush.linearGradient(listOf(Color(0xFF174D9A), Color(0xFF6225A8))))
-                                        .border(1.dp, Color(0x665DDFFF), RoundedCornerShape(13.dp)),
+                                    Modifier.size(39.dp).clip(RoundedCornerShape(12.dp))
+                                        .background(Brush.linearGradient(listOf(Color(0xFF153E72), Color(0xFF43216F))))
+                                        .border(1.dp, tile.third.copy(alpha = 0.65f), RoundedCornerShape(12.dp)),
                                     contentAlignment = Alignment.Center
                                 ) {
-                                    Text(item.third, color = Color(0xFF9DEFFF), fontSize = 22.sp)
+                                    Text(tile.second, color = tile.third, fontSize = 21.sp)
                                 }
-                                Text(item.first, color = Color.White, fontSize = 10.sp, fontWeight = FontWeight.SemiBold, maxLines = 1)
+                                Text(tile.first, color = Color(0xFFE8EEFF), fontSize = 9.sp,
+                                    fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 5.dp), maxLines = 1)
                             }
                         }
                     }
                 }
             }
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(9.dp)) {
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(7.dp)) {
                 listOf(
-                    Triple("Reminders", "Alarms", "◷") to onReminder,
-                    Triple("Memory", "Preferences", "✦") to onMemory,
-                    Triple("History", "Past chats", "☷") to onHistory,
-                    Triple("Privacy", "Permissions", "⛨") to onPermissions
-                ).forEach { (item, action) ->
+                    Triple("Reminders", "◷", onReminder),
+                    Triple("Memory", "✦", onMemory),
+                    Triple("History", "☷", onHistory),
+                    Triple("Privacy", "⛨", onPermissions)
+                ).forEach { (tile, action) ->
                     Surface(
-                        onClick = action,
-                        modifier = Modifier.weight(1f).padding(bottom = 9.dp),
-                        shape = RoundedCornerShape(14.dp),
-                        color = Color(0x990B1429),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF27355F))
+                        onClick = action, modifier = Modifier.weight(1f),
+                        shape = RoundedCornerShape(12.dp), color = Color(0xFF0A1226),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF25365D))
                     ) {
-                        Column(Modifier.padding(vertical = 9.dp, horizontal = 2.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                            Text(item.third, color = Color(0xFFB98AFF), fontSize = 17.sp)
-                            Text(item.first, color = Color(0xFFCAD4F0), fontSize = 8.sp, maxLines = 1)
+                        Row(Modifier.padding(vertical = 9.dp, horizontal = 3.dp),
+                            horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+                            Text(tile.second, color = Color(0xFFB98AFF), fontSize = 13.sp)
+                            Spacer(Modifier.width(4.dp))
+                            Text(tile.first, color = Color(0xFFCAD4F0), fontSize = 8.sp, maxLines = 1)
                         }
                     }
                 }
             }
-            Text("QUICK COMMANDS", color = Color(0xFFBCA1FF), fontSize = 11.sp, letterSpacing = 1.7.sp, modifier = Modifier.padding(top = 8.dp, bottom = 9.dp))
-            Row(Modifier.fillMaxWidth().horizontalScroll(androidx.compose.foundation.rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                listOf("Open YouTube", "Show my notes", "Turn on flashlight", "Open settings").forEach { command ->
-                    Surface(onClick = { onAskText(command) }, shape = RoundedCornerShape(50), color = Color(0xFF101B39), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF384E87))) {
-                        Text(command, color = Color(0xFFDCE7FF), fontSize = 11.sp, modifier = Modifier.padding(horizontal = 13.dp, vertical = 10.dp))
+            if (heardText.startsWith("You: ") || busy) {
+                Text(status, color = Color(0xFF7DEBFF), fontSize = 9.sp,
+                    modifier = Modifier.padding(top = 8.dp))
+            }
+            Text("QUICK COMMANDS", color = Color(0xFFB8C7E8), fontSize = 10.sp, letterSpacing = 1.5.sp,
+                modifier = Modifier.padding(top = 15.dp, bottom = 8.dp))
+            Row(Modifier.fillMaxWidth().horizontalScroll(androidx.compose.foundation.rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(7.dp)) {
+                listOf("Open YouTube", "Show my notes", "Open settings").forEach { command ->
+                    Surface(onClick = { onAskText(command) }, shape = RoundedCornerShape(50),
+                        color = Color(0xFF101B35),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF304577))) {
+                        Text(command, color = Color(0xFFDCE7FF), fontSize = 10.sp,
+                            modifier = Modifier.padding(horizontal = 11.dp, vertical = 8.dp))
                     }
                 }
             }
-            Spacer(Modifier.height(14.dp))
-            Surface(shape = RoundedCornerShape(18.dp), color = Color(0xFF0B1226), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF26355F))) {
-                Row(Modifier.fillMaxWidth().padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
-                    androidx.compose.foundation.text.BasicTextField(value = prompt, onValueChange = { prompt = it }, modifier = Modifier.weight(1f).padding(horizontal = 10.dp, vertical = 12.dp), textStyle = androidx.compose.ui.text.TextStyle(color = Color.White, fontSize = 14.sp), cursorBrush = androidx.compose.ui.graphics.SolidColor(Color(0xFF7DEBFF)), decorationBox = { inner ->
-                        if (prompt.isEmpty()) Text("Ask Myra anything...", color = Color(0xFF7888AC), fontSize = 14.sp)
-                        inner()
-                    })
-                    Surface(onClick = { if (prompt.isNotBlank()) { onAskText(prompt.trim()); prompt = "" } }, shape = CircleShape, color = Color(0xFF5E35D4)) {
-                        Text("➤", color = Color.White, fontSize = 19.sp, modifier = Modifier.padding(horizontal = 13.dp, vertical = 9.dp))
+            Surface(
+                Modifier.fillMaxWidth().padding(top = 12.dp, bottom = 12.dp),
+                shape = RoundedCornerShape(17.dp), color = Color(0xFF0B1226),
+                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF26355F))
+            ) {
+                Row(Modifier.padding(7.dp), verticalAlignment = Alignment.CenterVertically) {
+                    androidx.compose.foundation.text.BasicTextField(
+                        value = prompt, onValueChange = { prompt = it },
+                        modifier = Modifier.weight(1f).padding(horizontal = 10.dp, vertical = 10.dp),
+                        textStyle = androidx.compose.ui.text.TextStyle(color = Color.White, fontSize = 13.sp),
+                        cursorBrush = androidx.compose.ui.graphics.SolidColor(Color(0xFF7DEBFF)),
+                        decorationBox = { inner ->
+                            if (prompt.isEmpty()) Text("Ask Myra anything...", color = Color(0xFF7888AC), fontSize = 13.sp)
+                            inner()
+                        }
+                    )
+                    Surface(onClick = { if (prompt.isNotBlank()) { onAskText(prompt.trim()); prompt = "" } },
+                        shape = CircleShape, color = Color(0xFF5E35D4)) {
+                        Text("➤", color = Color.White, fontSize = 17.sp,
+                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp))
                     }
                 }
             }
-            Spacer(Modifier.height(18.dp))
         }
-        Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 7.dp), horizontalArrangement = Arrangement.SpaceAround, verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            Modifier.fillMaxWidth().background(Color(0xFF050A18))
+                .border(width = 1.dp, color = Color(0xFF1B2B4B), shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
+                .padding(horizontal = 9.dp, vertical = 6.dp),
+            horizontalArrangement = Arrangement.SpaceAround, verticalAlignment = Alignment.CenterVertically
+        ) {
             listOf("Home", "Memory", "Tasks", "Search", "Settings").forEach { tab ->
-                Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.clickable {
-                    selectedTab = tab
-                    when (tab) {
-                        "Memory" -> onMemory()
-                        "Tasks" -> onTasks()
-                        "Search" -> onSearch("Search the web")
-                        "Settings" -> onSettings()
-                    }
-                }.padding(horizontal = 5.dp, vertical = 4.dp)) {
-                    Text(when (tab) { "Home" -> "⌂"; "Memory" -> "✦"; "Tasks" -> "☑"; "Search" -> "⌕"; else -> "⚙" }, color = if (selectedTab == tab) Color(0xFF7DEBFF) else Color(0xFF8592B7), fontSize = 20.sp)
-                    Text(tab, color = if (selectedTab == tab) Color(0xFF7DEBFF) else Color(0xFF8592B7), fontSize = 9.sp)
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.clip(RoundedCornerShape(12.dp)).clickable {
+                        selectedTab = tab
+                        when (tab) {
+                            "Memory" -> onMemory()
+                            "Tasks" -> onTasks()
+                            "Search" -> onSearch("Search the web")
+                            "Settings" -> onSettings()
+                        }
+                    }.background(if (selectedTab == tab) Color(0x332C70C7) else Color.Transparent)
+                        .padding(horizontal = 10.dp, vertical = 5.dp)
+                ) {
+                    Text(
+                        when (tab) { "Home" -> "⌂"; "Memory" -> "✦"; "Tasks" -> "☑"; "Search" -> "⌕"; else -> "⚙" },
+                        color = if (selectedTab == tab) Color(0xFF7DEBFF) else Color(0xFF8594B8), fontSize = 17.sp
+                    )
+                    Text(tab, color = if (selectedTab == tab) Color(0xFF7DEBFF) else Color(0xFF8594B8), fontSize = 8.sp)
                 }
             }
         }
