@@ -1961,7 +1961,7 @@ private fun MyraHome(
                     Text("MYR", color = ink, fontSize = 25.sp, fontWeight = FontWeight.Black, letterSpacing = (-1).sp)
                     Text("A", color = red, fontSize = 25.sp, fontWeight = FontWeight.Black, letterSpacing = (-1).sp)
                 }
-                Text("—  A I   A S S I S T A N T  —", color = muted, fontSize = 7.sp, letterSpacing = 1.2.sp)
+                Text("—  H O L O G R A P H I C   A I  —", color = muted, fontSize = 7.sp, letterSpacing = 1.2.sp)
             }
             Surface(onClick = onReminder, shape = CircleShape, color = Color(0xFF0D1530), shadowElevation = 0.dp, border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF5E46B8))) {
                 Box(Modifier.size(48.dp), contentAlignment = Alignment.Center) {
@@ -1979,19 +1979,19 @@ private fun MyraHome(
             Modifier.weight(1f).verticalScroll(androidx.compose.foundation.rememberScrollState())
                 .padding(horizontal = 20.dp)
         ) {
-            Box(Modifier.fillMaxWidth().height(300.dp), contentAlignment = Alignment.Center) {
-                Box(Modifier.size(274.dp).rotate(rotation).border(2.dp, Color(0x667DEBFF), CircleShape))
-                Box(Modifier.size(244.dp).rotate(-rotation * .7f).border(3.dp, Color(0x55B86BFF), CircleShape))
-                Box(Modifier.size(218.dp).clip(CircleShape)
+            Box(Modifier.fillMaxWidth().height(248.dp), contentAlignment = Alignment.Center) {
+                Box(Modifier.size(232.dp).rotate(rotation).border(1.dp, Color(0x887DEBFF), CircleShape))
+                Box(Modifier.size(208.dp).rotate(-rotation * .7f).border(2.dp, Color(0x66B86BFF), CircleShape))
+                Box(Modifier.size(184.dp).clip(CircleShape)
                     .background(Brush.radialGradient(listOf(Color(0x553D7BFF), Color(0x334A18A8), Color.Transparent))))
                 Box(
-                    Modifier.size((190f * (if (animatedOrb) pulse else 1f)).dp).clip(CircleShape)
+                    Modifier.size((150f * (if (animatedOrb) pulse else 1f)).dp).clip(CircleShape)
                         .background(Brush.radialGradient(listOf(Color(0xFF17105A), Color(0xFF080D2A), Color(0xFF02040C))))
                         .border(5.dp, red.copy(alpha = .78f), CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("M", color = red, fontSize = 86.sp, fontWeight = FontWeight.Black, lineHeight = 88.sp)
+                        Text("✦", color = Cyan, fontSize = 52.sp, fontWeight = FontWeight.Light, lineHeight = 54.sp)
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text("MYR", color = Color.White, fontSize = 23.sp, fontWeight = FontWeight.Black, letterSpacing = 1.sp)
                             Text("A", color = red, fontSize = 23.sp, fontWeight = FontWeight.Black)
@@ -2005,8 +2005,8 @@ private fun MyraHome(
                 }
             }
             Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("Hello!", color = ink, fontSize = 34.sp, fontWeight = FontWeight.Bold)
-                Text("How can I help you today?", color = muted, fontSize = 17.sp,
+                Text("Hello, Sagar", color = ink, fontSize = 30.sp, fontWeight = FontWeight.Bold)
+                Text("Your personal AI companion", color = muted, fontSize = 14.sp,
                     modifier = Modifier.padding(top = 2.dp, bottom = 18.dp))
             }
             Surface(
@@ -2045,7 +2045,7 @@ private fun MyraHome(
                     border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF57202A)), shadowElevation = 2.dp
                 ) {
                     Column(Modifier.padding(14.dp)) {
-                        Text("MYRA • RESPONSE", color = red, fontSize = 10.sp, letterSpacing = 1.sp)
+                        Text("MYRA  •  RESPONSE", color = Cyan, fontSize = 10.sp, letterSpacing = 1.sp)
                         Text(heardText, color = ink, fontSize = 14.sp, lineHeight = 20.sp, modifier = Modifier.padding(top = 6.dp))
                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                             TextButton(onClick = onSpeakAnswer) { Text("Speak", color = red) }
@@ -2056,9 +2056,9 @@ private fun MyraHome(
                 }
             }
             Row(Modifier.fillMaxWidth().padding(top = 24.dp, bottom = 12.dp), verticalAlignment = Alignment.CenterVertically) {
-                Text("More", color = ink, fontSize = 19.sp, fontWeight = FontWeight.Bold)
+                Text("Quick access", color = ink, fontSize = 19.sp, fontWeight = FontWeight.Bold)
                 Spacer(Modifier.weight(1f))
-                Text(if (hasKey) "AI READY" else "SETUP AI", color = red, fontSize = 9.sp, fontWeight = FontWeight.Bold,
+                Text(if (hasKey) "GEMINI • READY" else "CONNECT GEMINI", color = Cyan, fontSize = 9.sp, fontWeight = FontWeight.Bold,
                     modifier = Modifier.clickable { onSettings() })
             }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(14.dp)) {
@@ -2070,8 +2070,8 @@ private fun MyraHome(
                     Column(Modifier.fillMaxSize().padding(17.dp), verticalArrangement = Arrangement.SpaceBetween) {
                         Text("≋", color = red, fontSize = 31.sp, fontWeight = FontWeight.Bold)
                         Column {
-                            Text("Voice Mode", color = ink, fontSize = 17.sp, fontWeight = FontWeight.Bold)
-                            Text("Holographic Orb", color = muted, fontSize = 12.sp)
+                            Text("Live Voice", color = ink, fontSize = 17.sp, fontWeight = FontWeight.Bold)
+                            Text("Gemini Live", color = muted, fontSize = 12.sp)
                         }
                     }
                 }
@@ -2083,8 +2083,8 @@ private fun MyraHome(
                     Column(Modifier.fillMaxSize().padding(17.dp), verticalArrangement = Arrangement.SpaceBetween) {
                         Text("▣", color = red, fontSize = 30.sp, fontWeight = FontWeight.Bold)
                         Column {
-                            Text("Neural Lens", color = ink, fontSize = 17.sp, fontWeight = FontWeight.Bold)
-                            Text("Object Scan", color = muted, fontSize = 12.sp)
+                            Text("Camera Vision", color = ink, fontSize = 17.sp, fontWeight = FontWeight.Bold)
+                            Text("See and understand", color = muted, fontSize = 12.sp)
                         }
                     }
                 }
