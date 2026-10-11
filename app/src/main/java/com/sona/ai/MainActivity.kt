@@ -2362,19 +2362,27 @@ private fun MyraHome(
                 ) {
                     Column(Modifier.fillMaxSize().padding(15.dp), verticalArrangement = Arrangement.SpaceBetween) {
                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                            Box(
-                                Modifier.size(54.dp).clip(CircleShape)
-                                    .background(Brush.radialGradient(listOf(Violet.copy(alpha = .5f), Color(0xFF17102F), Color(0xFF0C0820))))
-                                    .border(1.dp, if (busy) Cyan.copy(alpha = .8f) else Violet.copy(alpha = .7f), CircleShape),
-                                contentAlignment = Alignment.Center
-                            ) { Text(if (busy) "•••" else "≋", color = Cyan, fontSize = 27.sp, fontWeight = FontWeight.Bold) }
+                            Box(contentAlignment = Alignment.Center) {
+                                Box(Modifier.size(if (busy) 62.dp else 58.dp).clip(CircleShape)
+                                    .background(Violet.copy(alpha = if (busy) .14f else .08f))
+                                    .border(1.dp, if (busy) Cyan.copy(alpha = .75f) else Violet.copy(alpha = .45f), CircleShape))
+                                Box(Modifier.size(48.dp).clip(CircleShape)
+                                    .background(Brush.radialGradient(listOf(Violet.copy(alpha = .65f), Color(0xFF17102F), Color(0xFF0C0820))))
+                                    .border(1.dp, if (busy) Cyan else Violet.copy(alpha = .8f), CircleShape),
+                                    contentAlignment = Alignment.Center
+                                ) { Text(if (busy) "•••" else "≋", color = Cyan, fontSize = 27.sp, fontWeight = FontWeight.Bold) } 
+                            }
                             Surface(
                                 shape = RoundedCornerShape(50),
                                 color = if (busy) Cyan.copy(alpha = .12f) else Violet.copy(alpha = .14f),
                                 border = androidx.compose.foundation.BorderStroke(1.dp, if (busy) Cyan.copy(alpha = .7f) else Violet.copy(alpha = .5f))
                             ) {
-                                Text(if (busy) "ACTIVE" else "VOICE", modifier = Modifier.padding(horizontal = 9.dp, vertical = 5.dp),
-                                    color = if (busy) Cyan else Violet, fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = .7.sp)
+                                Row(Modifier.padding(horizontal = 9.dp, vertical = 5.dp), verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+                                        Box(Modifier.size(5.dp).clip(CircleShape).background(if (busy) Cyan else Violet))
+                                        Text(if (busy) "SESSION ACTIVE" else "VOICE READY",
+                                            color = if (busy) Cyan else Violet, fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .5.sp)
+                                    }
                             }
                         }
                         Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
