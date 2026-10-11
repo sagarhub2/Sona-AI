@@ -939,6 +939,25 @@ class MainActivity : ComponentActivity() {
                                     unfocusedContainerColor = Color.White
                                 )
                             )
+                            val savedTaskDraft = prefs.getString("sona_tasks", "").orEmpty()
+                            Row(
+                                Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    if (taskDraft == savedTaskDraft) "All changes saved" else "Unsaved changes",
+                                    color = if (taskDraft == savedTaskDraft) Color(0xFF38845B) else Color(0xFFB5122A),
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                                TextButton(
+                                    onClick = { taskDraft = "" },
+                                    enabled = taskDraft.isNotEmpty()
+                                ) {
+                                    Text("Clear draft", color = if (taskDraft.isNotEmpty()) Color(0xFFB5122A) else Color(0xFFBDAFB3), fontSize = 12.sp)
+                                }
+                            }
                             Text("TIP  •  Add [x] before a finished task.", color = Color(0xFFB5122A), fontSize = 11.sp, letterSpacing = .3.sp)
                         }
                     },
