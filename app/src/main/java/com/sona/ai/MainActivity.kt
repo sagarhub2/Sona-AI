@@ -837,7 +837,7 @@ For privacy, I do not silently send messages or place calls. Android may ask you
                     status = "MEMORY ENTRY EMPTY"
                 } else {
                     val entries = existing.lines().filter { it.isNotBlank() }
-                    val updated = (listOf(fact) + entries.filterNot { it.equals(fact, ignoreCase = true) }).take(100).joinToString("\\n")
+                    val updated = (listOf(fact) + entries.filterNot { it.equals(fact, ignoreCase = true) }).take(100).joinToString("\n")
                     prefs.edit().putString("memory_notes", updated).apply()
                     heardText = "I'll remember this on this phone: $fact"
                     status = "MEMORY SAVED LOCALLY"
