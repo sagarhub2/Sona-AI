@@ -1834,7 +1834,6 @@ private fun MyraHome(
                 }
             }
             Text("YOUR COMMAND CENTER", color = Color(0xFFBCA1FF), fontSize = 11.sp, letterSpacing = 1.7.sp, modifier = Modifier.padding(top = 20.dp, bottom = 10.dp))
-            Text("QUICK ACCESS", color = Color(0xFFBCA1FF), fontSize = 11.sp, letterSpacing = 1.7.sp, modifier = Modifier.padding(top = 20.dp, bottom = 10.dp))
             val cards = listOf(
                 Triple("Phone", "Calls & contacts", "☎") to onContacts,
                 Triple("Apps", "Apps & music", "▦") to onMedia,
