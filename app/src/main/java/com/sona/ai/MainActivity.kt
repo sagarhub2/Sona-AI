@@ -565,6 +565,39 @@ class MainActivity : ComponentActivity() {
                                     Text("Personalize your experience", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
                                 }
                             }
+                            Row(
+                                Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp))
+                                    .background(Color(0xFF140B0E))
+                                    .border(1.dp, Color(0xFF57202A), RoundedCornerShape(16.dp))
+                                    .padding(12.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Box(Modifier.size(52.dp).clip(CircleShape)
+                                    .background(Brush.radialGradient(listOf(Color(0xFFFF5267), Color(0xFF75182B), Color(0xFF18090D)))),
+                                    contentAlignment = Alignment.Center) {
+                                    Text("✦", color = Color.White, fontSize = 26.sp, fontWeight = FontWeight.Bold)
+                                }
+                                Spacer(Modifier.width(12.dp))
+                                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                                    Text(userNameDraft.ifBlank { "My Profile" }, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                                    Text("MYRA AI • PERSONAL PROFILE", color = Color(0xFFFF8A9A), fontSize = 9.sp, letterSpacing = 1.sp)
+                                    Text(if (apiKey.isBlank()) "AI setup required" else "Gemini key saved", color = Color(0xFFB5A9AC), fontSize = 11.sp)
+                                }
+                            }
+                            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                listOf("VOICE & LANGUAGE", "MEMORY", "PRIVACY").forEach { item ->
+                                    Column(
+                                        Modifier.weight(1f).clip(RoundedCornerShape(12.dp))
+                                            .background(Color(0xFF160B0F)).border(1.dp, Color(0xFF57202A), RoundedCornerShape(12.dp))
+                                            .padding(vertical = 11.dp, horizontal = 4.dp),
+                                        horizontalAlignment = Alignment.CenterHorizontally
+                                    ) {
+                                        Text(when (item) { "VOICE & LANGUAGE" -> "♫"; "MEMORY" -> "◈"; else -> "⌑" },
+                                            color = Color(0xFFFF5267), fontSize = 19.sp)
+                                        Text(item, color = Color.White, fontSize = 8.sp, fontWeight = FontWeight.Bold)
+                                    }
+                                }
+                            }
                             Divider(color = Color(0xFF57202A))
                             Text("ASSISTANT PROFILE", color = Color(0xFFFF5267), fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             OutlinedTextField(value = assistantNameDraft, onValueChange = { assistantNameDraft = it }, label = { Text("Assistant name") }, singleLine = true, modifier = Modifier.fillMaxWidth())
