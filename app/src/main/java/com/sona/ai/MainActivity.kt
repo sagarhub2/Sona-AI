@@ -2542,6 +2542,24 @@ class MainActivity : ComponentActivity() {
             } catch (_: Exception) { respond("News search open nahi ho paayi.") }
         }
 
+        if (listOf("open bluetooth settings", "bluetooth settings", "bluetooth kholo", "ब्लूटूथ खोलो", "ब्लूटूथ सेटिंग").any { command.contains(it) }) {
+            return try {
+                startActivity(Intent(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS))
+                respond("Bluetooth settings khol rahi hoon. Device connect ya disconnect karne ke liye yahan confirm karo.")
+            } catch (_: Exception) { respond("Bluetooth settings open nahi ho paayi.") }
+        }
+        if (listOf("open wifi settings", "wifi settings", "wi-fi settings", "wifi kholo", "वाईफाई खोलो", "वाईफाई सेटिंग").any { command.contains(it) }) {
+            return try {
+                startActivity(Intent(android.provider.Settings.ACTION_WIFI_SETTINGS))
+                respond("Wi-Fi settings khol rahi hoon. Network yahan choose karo.")
+            } catch (_: Exception) { respond("Wi-Fi settings open nahi ho paayi.") }
+        }
+        if (listOf("open notification settings", "notification settings", "notifications kholo", "नोटिफिकेशन सेटिंग").any { command.contains(it) }) {
+            return try {
+                startActivity(Intent("android.settings.APP_NOTIFICATION_SETTINGS").putExtra("android.provider.extra.APP_PACKAGE", packageName))
+                respond("MYRA AI notification settings khol rahi hoon.")
+            } catch (_: Exception) { respond("Notification settings open nahi ho paayi.") }
+        }
         if (listOf("what time", "current time", "time is it", "समय क्या", "कितने बजे").any { command.contains(it) }) {
             return respond("Abhi time ${timeFormatter.format(now.time)} hai.")
         }
