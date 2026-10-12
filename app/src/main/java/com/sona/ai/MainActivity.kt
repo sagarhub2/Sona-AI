@@ -5215,11 +5215,15 @@ private fun MyraPremiumIntro() {
 @Composable
 private fun SettingToggle(label: String, checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth()
+            .clip(RoundedCornerShape(12.dp))
+            .background(Color(0xFF100B22))
+            .border(1.dp, Color(0xFF342044), RoundedCornerShape(12.dp))
+            .padding(horizontal = 12.dp, vertical = 9.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(label, color = Color(0xFF51464A), fontSize = 13.sp, modifier = Modifier.weight(1f))
+        Text(label, color = Color(0xFFE6DDF8), fontSize = 13.sp, modifier = Modifier.weight(1f))
         Switch(checked = checked, onCheckedChange = onCheckedChange)
     }
 }
@@ -5232,16 +5236,16 @@ private fun QuickTile(title: String, subtitle: String, modifier: Modifier = Modi
         onClick = { onClick?.invoke() },
         enabled = onClick != null,
         shape = shape,
-        color = Color(0xFFFFF8F9),
-        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0D8DE))
+        color = Color(0xFF100B22),
+        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF63305F))
     ) {
         Column(
             modifier = Modifier.fillMaxSize().padding(13.dp),
             verticalArrangement = Arrangement.Center
         ) {
-            Text(title, color = Color(0xFF4B1722), fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
+            Text(title, color = Color(0xFFFF72D2), fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
             Spacer(Modifier.height(5.dp))
-            Text(subtitle, color = Color(0xFF8C7E83), fontSize = 11.sp)
+            Text(subtitle, color = Color(0xFFB8A9D8), fontSize = 11.sp)
         }
     }
 }
