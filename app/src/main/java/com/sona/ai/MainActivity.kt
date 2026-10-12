@@ -4518,7 +4518,7 @@ private fun MyraHome(
             }
             Column(Modifier.fillMaxWidth().padding(bottom = 4.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    if (savedUserName.isNotBlank()) "Hello $savedUserName!" else "Hello!",
+                    if (savedUserName.isNotBlank()) "Hello $savedUserName" else "Hello!",
                     color = Color(0xFF25151A), fontSize = 30.sp,
                     fontWeight = FontWeight.Bold, letterSpacing = (-.4).sp, maxLines = 1
                 )
