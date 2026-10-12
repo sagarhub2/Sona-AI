@@ -1,6 +1,6 @@
 # MYRA AI — Locked Design Reference
 
-This file records the user's uploaded MYRA AI multi-screen concept image (2026-10-12). Treat it as the canonical visual and feature reference for future implementation. Do not ask the user to upload or describe it again in this project thread.
+This file records the user's uploaded MYRA AI multi-screen concept image (2026-10-12). Treat it as the canonical visual and feature reference for future implementation. The requirement is to match the uploaded reference image as closely and faithfully as possible screen-by-screen—not merely use it as inspiration. Do not redesign, substitute a different theme, rearrange navigation, or invent alternate icons when the reference shows a specific treatment. Do not ask the user to upload or describe it again in this project thread.
 
 ## Visual direction
 - Premium native Android UI; clean white/light blush surfaces, soft pink/red holographic waves, red accent buttons, subtle gold/yellow outer highlights from the reference.
