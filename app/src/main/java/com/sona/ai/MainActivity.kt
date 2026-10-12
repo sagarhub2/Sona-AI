@@ -2052,6 +2052,22 @@ class MainActivity : ComponentActivity() {
                                     Text("Clear log", color = Color(0xFFCB1731), fontSize = 12.sp)
                                 }
                             }
+                            OutlinedButton(
+                                onClick = {
+                                    val reportEvents = securityPrefs.getString("events", "").orEmpty().ifBlank { "No security events recorded." }
+                                    val report = "MYRA AI Phone Security Report\nStatus: ${if (securityPrefs.getBoolean("armed", false)) "Armed" else "Disarmed"}\nSensitivity: ${securityPrefs.getFloat("sensitivity", MyraMotionSecurityService.DEFAULT_SENSITIVITY)} m/s²\nAlert cooldown: ${securityPrefs.getLong("cooldown_ms", MyraMotionSecurityService.DEFAULT_COOLDOWN_MS) / 1000} seconds\n\nRecent events:\n$reportEvents\n\nNote: movement alerts can be caused by vibration or transport and do not identify a person."
+                                    val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                                        type = "text/plain"
+                                        putExtra(Intent.EXTRA_SUBJECT, "MYRA AI Security Report")
+                                        putExtra(Intent.EXTRA_TEXT, report)
+                                    }
+                                    startActivity(Intent.createChooser(shareIntent, "Share security report"))
+                                },
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(12.dp)
+                            ) {
+                                Text("Share security report", color = Color(0xFFCB1731), fontWeight = FontWeight.Bold)
+                            }
                             var movementSensitivity by remember {
                                 mutableFloatStateOf(securityPrefs.getFloat("sensitivity", MyraMotionSecurityService.DEFAULT_SENSITIVITY))
                             }
