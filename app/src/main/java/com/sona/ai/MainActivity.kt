@@ -2120,6 +2120,32 @@ class MainActivity : ComponentActivity() {
             return true
         }
 
+        if (listOf("battery status", "battery level", "how much battery", "battery kitni", "बैटरी कितनी", "बैटरी स्टेटस", "charging status").any { command.contains(it) }) {
+            return try {
+                val batteryIntent = registerReceiver(null, android.content.IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+                if (batteryIntent == null) {
+                    respond("Battery status abhi available nahi hai.")
+                } else {
+                    val level = batteryIntent.getIntExtra("level", -1)
+                    val scale = batteryIntent.getIntExtra("scale", 100).coerceAtLeast(1)
+                    val percent = if (level >= 0) (level * 100 / scale) else -1
+                    val plugged = batteryIntent.getIntExtra("plugged", 0)
+                    val statusCode = batteryIntent.getIntExtra("status", -1)
+                    val charging = plugged != 0 || statusCode == android.os.BatteryManager.BATTERY_STATUS_CHARGING
+                    val full = statusCode == android.os.BatteryManager.BATTERY_STATUS_FULL
+                    val state = when {
+                        full -> "battery full hai"
+                        charging -> "phone charging par hai"
+                        else -> "phone abhi charge nahi ho raha"
+                    }
+                    if (percent >= 0) respond("Battery " + percent + "% hai; " + state + ".")
+                    else respond("Battery level read nahi ho paaya; " + state + ".")
+                }
+            } catch (_: Exception) {
+                respond("Battery status read nahi ho paaya.")
+            }
+        }
+
         if (listOf("what time", "current time", "time is it", "समय क्या", "कितने बजे").any { command.contains(it) }) {
             return respond("Abhi time ${timeFormatter.format(now.time)} hai.")
         }
