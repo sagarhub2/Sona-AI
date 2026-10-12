@@ -2166,6 +2166,46 @@ class MainActivity : ComponentActivity() {
             } catch (_: Exception) { respond("Maps directions open nahi ho paaye.") }
         }
 
+        val addTaskPrefixes = listOf("add task ", "create task ", "new task ", "task add ", "काम जोड़ो ", "टास्क जोड़ो ")
+        val addTaskPrefix = addTaskPrefixes.firstOrNull { command.startsWith(it) }
+        if (addTaskPrefix != null) {
+            val task = raw.trim().drop(addTaskPrefix.length).trim()
+            if (task.isBlank()) return respond("Kaunsa task add karna hai?")
+            return try {
+                val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
+                val oldTasks = prefs.getString("sona_tasks", "").orEmpty().trim()
+                val duplicate = oldTasks.lines().any { it.removePrefix("[ ]").trim().equals(task, ignoreCase = true) }
+                if (duplicate) return respond("Yeh task pehle se list mein hai: $task")
+                prefs.edit().putString("sona_tasks", (oldTasks + if (oldTasks.isBlank()) "" else "\\n") + "[ ] $task").apply()
+                respond("Task add kar diya: $task")
+            } catch (_: Exception) { respond("Task save nahi ho paaya.") }
+        }
+
+        if (listOf("show my tasks", "list tasks", "read my tasks", "what are my tasks", "mere tasks batao", "मेरे काम बताओ").any { command.contains(it) }) {
+            val tasks = getSharedPreferences("myra_private", MODE_PRIVATE).getString("sona_tasks", "").orEmpty()
+                .lines().map { it.trim() }.filter { it.isNotEmpty() }.take(5)
+            return respond(if (tasks.isEmpty()) "Task list abhi khaali hai." else "Tumhare tasks: " + tasks.joinToString(". "))
+        }
+
+        val completeTaskPrefixes = listOf("complete task ", "finish task ", "mark task done ", "task complete ", "काम पूरा ", "टास्क पूरा ")
+        val completePrefix = completeTaskPrefixes.firstOrNull { command.startsWith(it) }
+        if (completePrefix != null) {
+            val target = raw.trim().drop(completePrefix.length).trim()
+            if (target.isBlank()) return respond("Kaunsa task complete hua?")
+            return try {
+                val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
+                val lines = prefs.getString("sona_tasks", "").orEmpty().lines().toMutableList()
+                val index = lines.indexOfFirst { it.removePrefix("[ ]").removePrefix("[x]").trim().equals(target, ignoreCase = true) }
+                if (index < 0) respond("Task nahi mila: $target")
+                else if (lines[index].startsWith("[x]", ignoreCase = true)) respond("Yeh task pehle hi complete hai.")
+                else {
+                    lines[index] = "[x] " + lines[index].removePrefix("[ ]").trim()
+                    prefs.edit().putString("sona_tasks", lines.joinToString("\\n").trim()).apply()
+                    respond("Task complete mark kar diya: $target")
+                }
+            } catch (_: Exception) { respond("Task update nahi ho paaya.") }
+        }
+
         val rememberPrefixes = listOf("save note ", "make a note ", "note this ", "remember ", "yaad rakhna ", "याद रखना ", "नोट बनाओ ")
         val rememberPrefix = rememberPrefixes.firstOrNull { command.startsWith(it) }
         if (rememberPrefix != null) {
