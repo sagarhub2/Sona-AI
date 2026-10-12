@@ -4548,7 +4548,7 @@ private fun MyraHome(
                     Surface(
                         onClick = { if (prompt.isNotBlank()) { onAskText(prompt.trim()); prompt = "" } },
                         shape = CircleShape, color = Color(0xFFD91E3D), shadowElevation = 5.dp,
-                        border = androidx.compose.foundation.BorderStroke(1.dp, Cyan.copy(alpha = .55f))
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFFA4B3).copy(alpha = .9f))
                     ) {
                         Box(Modifier.size(46.dp), contentAlignment = Alignment.Center) {
                             Text("➤", color = Color(0xFFFFFEFE), fontSize = 23.sp, fontWeight = FontWeight.Bold)
