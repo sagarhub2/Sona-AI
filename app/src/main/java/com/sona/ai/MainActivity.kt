@@ -5079,44 +5079,44 @@ private fun MyraFeaturesMenu(
         Triple("Conversation History", "Review previous chats", "☷") to onHistory,
         Triple("Settings & Appearance", "Profile, voice, theme and API key", "⚙") to onSettings
     )
-    Box(Modifier.fillMaxSize().background(Color(0xFFFFF7F8)).statusBarsPadding().navigationBarsPadding()) {
+    Box(Modifier.fillMaxSize().background(Color(0xFF070B18)).statusBarsPadding().navigationBarsPadding()) {
         Column(Modifier.fillMaxSize().padding(horizontal = 18.dp)) {
             Row(Modifier.fillMaxWidth().padding(top = 14.dp, bottom = 16.dp), verticalAlignment = Alignment.CenterVertically) {
-                Surface(onClick = onClose, shape = CircleShape, color = Color.White, border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0B8C1))) {
-                    Text("‹", color = Color(0xFFCB1731), fontSize = 28.sp, modifier = Modifier.padding(horizontal = 13.dp, vertical = 2.dp))
+                Surface(onClick = onClose, shape = CircleShape, color = Color(0xFF11182A), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF3B294F))) {
+                    Text("‹", color = Color(0xFFFF72D2), fontSize = 28.sp, modifier = Modifier.padding(horizontal = 13.dp, vertical = 2.dp))
                 }
                 Spacer(Modifier.width(12.dp))
                 Column(Modifier.weight(1f)) {
-                    Text("Myra AI", color = Color(0xFF282126), fontSize = 22.sp, fontWeight = FontWeight.Bold)
-                    Text("FEATURES MENU • YOUR AI COMPANION", color = Color(0xFF8C7E83), fontSize = 9.sp, letterSpacing = 1.sp)
+                    Text("Myra AI", color = Color(0xFFF7EEFF), fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                    Text("FEATURES MENU • YOUR AI COMPANION", color = Color(0xFFB8A9D8), fontSize = 9.sp, letterSpacing = 1.sp)
                 }
-                Box(Modifier.size(42.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFF8D9C), Color(0xFFCB1731), Color(0xFFFFE8EC)))).border(1.dp, Color(0xFFF0B8C1), CircleShape), contentAlignment = Alignment.Center) {
+                Box(Modifier.size(42.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFF8D9C), Color(0xFF7A2E83), Color(0xFF0D0A20)))).border(1.dp, Color(0xFF49365F), CircleShape), contentAlignment = Alignment.Center) {
                     Text("✦", color = Color.White, fontSize = 23.sp)
                 }
             }
-            Box(Modifier.fillMaxWidth().height(1.dp).background(Brush.horizontalGradient(listOf(Color.Transparent, Color(0xFFF0B8C1), Color(0xFFCB1731), Color.Transparent))))
-            Text("Everything you need, in one place.", color = Color(0xFF51464A), fontSize = 14.sp, modifier = Modifier.padding(top = 18.dp, bottom = 12.dp))
+            Box(Modifier.fillMaxWidth().height(1.dp).background(Brush.horizontalGradient(listOf(Color.Transparent, Color(0xFF49365F), Color(0xFFFF72D2), Color.Transparent))))
+            Text("Everything you need, in one place.", color = Color(0xFFE5DDF0), fontSize = 14.sp, modifier = Modifier.padding(top = 18.dp, bottom = 12.dp))
             Column(Modifier.weight(1f).verticalScroll(androidx.compose.foundation.rememberScrollState()), verticalArrangement = Arrangement.spacedBy(9.dp)) {
                 items.forEach { (item, action) ->
-                    Surface(onClick = action, shape = RoundedCornerShape(17.dp), color = Color.White, border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0B8C1)), shadowElevation = 4.dp, modifier = Modifier.fillMaxWidth()) {
+                    Surface(onClick = action, shape = RoundedCornerShape(17.dp), color = Color(0xFF11182A), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF3B294F)), shadowElevation = 4.dp, modifier = Modifier.fillMaxWidth()) {
                         Row(Modifier.padding(horizontal = 13.dp, vertical = 13.dp), verticalAlignment = Alignment.CenterVertically) {
                             Box(Modifier.size(42.dp).clip(RoundedCornerShape(13.dp))
-                                .background(Brush.linearGradient(listOf(Color(0xFFFFE1E7), Color(0xFFFFF7F8))))
-                                .border(1.dp, Color(0xFFF0B8C1), RoundedCornerShape(13.dp)),
+                                .background(Brush.linearGradient(listOf(Color(0xFFFFE1E7), Color(0xFF070B18))))
+                                .border(1.dp, Color(0xFF49365F), RoundedCornerShape(13.dp)),
                                 contentAlignment = Alignment.Center) {
-                                Text(item.third, color = Color(0xFFCB1731), fontSize = 21.sp)
+                                Text(item.third, color = Color(0xFFFF72D2), fontSize = 21.sp)
                             }
                             Spacer(Modifier.width(12.dp))
                             Column(Modifier.weight(1f)) {
-                                Text(item.first, color = Color(0xFF282126), fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
-                                Text(item.second, color = Color(0xFF8C7E83), fontSize = 10.sp, modifier = Modifier.padding(top = 3.dp))
+                                Text(item.first, color = Color(0xFFF7EEFF), fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+                                Text(item.second, color = Color(0xFFB8A9D8), fontSize = 10.sp, modifier = Modifier.padding(top = 3.dp))
                             }
-                            Text("›", color = Color(0xFFCB1731), fontSize = 22.sp)
+                            Text("›", color = Color(0xFFFF72D2), fontSize = 22.sp)
                         }
                     }
                 }
             }
-            Text("PREMIUM • PERSONAL • ALWAYS READY", color = Color(0xFF9B6B75), fontSize = 9.sp, letterSpacing = 1.2.sp, modifier = Modifier.align(Alignment.CenterHorizontally).padding(vertical = 12.dp))
+            Text("PREMIUM • PERSONAL • ALWAYS READY", color = Color(0xFFB8A9D8), fontSize = 9.sp, letterSpacing = 1.2.sp, modifier = Modifier.align(Alignment.CenterHorizontally).padding(vertical = 12.dp))
         }
     }
 }
@@ -5144,7 +5144,7 @@ private fun MyraPremiumIntro() {
     Box(
         modifier = Modifier.fillMaxSize().background(
             Brush.radialGradient(
-                colors = listOf(Color(0xFFFFE1E7), Color(0xFFFFF4F6), Color.White)
+                colors = listOf(Color(0xFF10172A), Color(0xFF0B1020), Color(0xFF070B18))
             )
         ),
         contentAlignment = Alignment.Center
@@ -5160,19 +5160,19 @@ private fun MyraPremiumIntro() {
             ) {
                 Box(
                     modifier = Modifier.size(218.dp).rotate(rotation)
-                        .border(1.dp, Color(0x55D21E43), CircleShape)
+                        .border(1.dp, Color(0x55FF72D2), CircleShape)
                 )
                 Box(
                     modifier = Modifier.size(184.dp).rotate(-rotation * 0.7f)
-                        .border(1.dp, Color(0x668D102B), CircleShape)
+                        .border(1.dp, Color(0x668B5CF6), CircleShape)
                 )
                 Box(
                     modifier = Modifier.size((126 * pulse).dp).background(
                         Brush.radialGradient(
-                            colors = listOf(Color(0xFFFF7189), Color(0xFFCB1731), Color(0xFF65091D))
+                            colors = listOf(Color(0xFFFFB7C2), Color(0xFFD91E3D), Color(0xFF64101F))
                         ),
                         CircleShape
-                    ).border(1.dp, Color(0xFFFFA7B7), CircleShape),
+                    ).border(1.dp, Color(0xFFFF657E), CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
                     Text("✦", color = Color.White, fontSize = 58.sp, fontWeight = FontWeight.ExtraBold)
@@ -5180,32 +5180,32 @@ private fun MyraPremiumIntro() {
             }
             Spacer(Modifier.height(24.dp))
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
-                Text("Myra", color = Color(0xFF282126), fontSize = 38.sp, fontWeight = FontWeight.Bold)
-                Text(" AI", color = Color(0xFFCB1731), fontSize = 38.sp, fontWeight = FontWeight.Bold)
+                Text("Myra", color = Color(0xFFF7EEFF), fontSize = 38.sp, fontWeight = FontWeight.Bold)
+                Text(" AI", color = Color(0xFFFF72D2), fontSize = 38.sp, fontWeight = FontWeight.Bold)
             }
             Spacer(Modifier.height(8.dp))
             Text(
                 "Your Personal AI Assistant",
-                color = Color(0xFF66545A),
+                color = Color(0xFFE6DDF8),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium
             )
             Spacer(Modifier.height(7.dp))
-            Text("Talk  •  Control  •  Get Things Done", color = Color(0xFF8C6972), fontSize = 11.sp)
+            Text("Talk  •  Control  •  Get Things Done", color = Color(0xFFB8A9D8), fontSize = 11.sp)
             Spacer(Modifier.height(34.dp))
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                 CircularProgressIndicator(
                     modifier = Modifier.size(16.dp),
-                    color = Color(0xFFCB1731),
+                    color = Color(0xFFFF72D2),
                     strokeWidth = 2.dp
                 )
                 Spacer(Modifier.width(10.dp))
-                Text("INITIALIZING YOUR AI", color = Color(0xFF6E2838), fontSize = 11.sp, letterSpacing = 1.5.sp)
+                Text("INITIALIZING YOUR AI", color = Color(0xFFFF9DDC), fontSize = 11.sp, letterSpacing = 1.5.sp)
             }
             Spacer(Modifier.height(42.dp))
             Text(
                 "✦  POWERED BY GEMINI AI  ✦",
-                color = Color(0xFFB31D3B),
+                color = Color(0xFFFF72D2),
                 fontSize = 10.sp,
                 letterSpacing = 1.4.sp
             )
