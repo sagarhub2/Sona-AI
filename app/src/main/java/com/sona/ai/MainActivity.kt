@@ -442,9 +442,9 @@ class MainActivity : ComponentActivity() {
                 AlertDialog(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(26.dp),
-                    containerColor = Color.White,
-                    titleContentColor = Color(0xFFCB1731),
-                    textContentColor = Color(0xFF282126),
+                    containerColor = Color(0xFF071426),
+                    titleContentColor = Color(0xFFF5F7FF),
+                    textContentColor = Color(0xFF9EABC2),
                     tonalElevation = 0.dp,
                     onDismissRequest = { showTriggers = false },
                     title = {
@@ -468,7 +468,7 @@ class MainActivity : ComponentActivity() {
                                     onClick = action,
                                     modifier = Modifier.fillMaxWidth(),
                                     shape = RoundedCornerShape(16.dp),
-                                    color = Color(0xFFFFF7F8),
+                                    color = Color(0xFF0B1424),
                                     border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFCB1731)),
                                     shadowElevation = 0.dp
                                 ) {
@@ -478,14 +478,14 @@ class MainActivity : ComponentActivity() {
                                     ) {
                                         Box(
                                             Modifier.size(44.dp).clip(RoundedCornerShape(13.dp))
-                                                .background(Color(0xFFFFE8EC))
+                                                .background(Color(0xFF101D31))
                                                 .border(1.dp, Color(0xFFCB1731), RoundedCornerShape(13.dp)),
                                             contentAlignment = Alignment.Center
                                         ) { Text(icon, color = Color(0xFFD91E3D), fontSize = 23.sp) }
                                         Spacer(Modifier.width(12.dp))
                                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                                            Text(heading, color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
-                                            Text(detail, color = Color(0xFF8D7077), fontSize = 11.sp)
+                                            Text(heading, color = Color(0xFFF5F7FF), fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
+                                            Text(detail, color = Color(0xFF9EABC2), fontSize = 11.sp)
                                         }
                                         Text("›", color = Color(0xFFD91E3D), fontSize = 25.sp)
                                     }
@@ -506,7 +506,7 @@ class MainActivity : ComponentActivity() {
                                 try { startActivity(Intent(AlarmClock.ACTION_SHOW_ALARMS)) }
                                 catch (_: Exception) { status = "CLOCK APP UNAVAILABLE" }
                             }
-                            Text("Note: alarms and timers are managed by Android's Clock app.", color = Color(0xFF8C7E83), fontSize = 11.sp)
+                            Text("Note: alarms and timers are managed by Android's Clock app.", color = Color(0xFF9EABC2), fontSize = 11.sp)
                         }
                     },
                     confirmButton = {
@@ -547,22 +547,22 @@ class MainActivity : ComponentActivity() {
                 AlertDialog(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(26.dp),
-                    containerColor = Color.White,
-                    titleContentColor = Color(0xFFCB1731),
-                    textContentColor = Color(0xFF51464A),
+                    containerColor = Color(0xFF071426),
+                    titleContentColor = Color(0xFFF5F7FF),
+                    textContentColor = Color(0xFF9EABC2),
                     tonalElevation = 0.dp,
                     onDismissRequest = { showFiles = false },
                     title = {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
-                                .background(Brush.horizontalGradient(listOf(Color(0xFFFFE8EC), Color.White, Color(0xFFFFF7F8))))
+                                .background(Brush.horizontalGradient(listOf(Color(0xFF101D31), Color.White, Color(0xFF0B1424))))
                                 .border(1.dp, Color(0xFFF0B8C1), RoundedCornerShape(18.dp))
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
                             Text("◈  MYRA AI • DOCUMENT HUB", color = Color(0xFFCB1731), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.4.sp)
-                            Text("Files & documents", color = Color(0xFF282126), fontSize = 21.sp, fontWeight = FontWeight.Bold)
-                            Text("Choose what you want to open from your phone.", color = Color(0xFF8C7E83), fontSize = 12.sp)
+                            Text("Files & documents", color = Color(0xFFF5F7FF), fontSize = 21.sp, fontWeight = FontWeight.Bold)
+                            Text("Choose what you want to open from your phone.", color = Color(0xFF9EABC2), fontSize = 12.sp)
                         }
                     },
                     text = {
@@ -585,7 +585,7 @@ class MainActivity : ComponentActivity() {
                                     },
                                     modifier = Modifier.fillMaxWidth(),
                                     shape = RoundedCornerShape(16.dp),
-                                    color = Color(0xFFFFF7F8),
+                                    color = Color(0xFF0B1424),
                                     border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0B8C1)),
                                     shadowElevation = 1.dp
                                 ) {
@@ -595,7 +595,7 @@ class MainActivity : ComponentActivity() {
                                     ) {
                                         Box(
                                             Modifier.size(44.dp).clip(RoundedCornerShape(13.dp))
-                                                .background(Color(0xFFFFE8EC))
+                                                .background(Color(0xFF101D31))
                                                 .border(1.dp, Color(0xFFF0B8C1), RoundedCornerShape(13.dp)),
                                             contentAlignment = Alignment.Center
                                         ) {
@@ -603,8 +603,8 @@ class MainActivity : ComponentActivity() {
                                         }
                                         Spacer(Modifier.width(12.dp))
                                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                                            Text(heading, color = Color(0xFF282126), fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
-                                            Text(detail, color = Color(0xFF8C7E83), fontSize = 11.sp)
+                                            Text(heading, color = Color(0xFFF5F7FF), fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
+                                            Text(detail, color = Color(0xFF9EABC2), fontSize = 11.sp)
                                         }
                                         Text("›", color = Color(0xFFCB1731), fontSize = 24.sp)
                                     }
@@ -620,8 +620,8 @@ class MainActivity : ComponentActivity() {
                                 Text("✓", color = Color(0xFF38845B), fontSize = 17.sp, fontWeight = FontWeight.Bold)
                                 Spacer(Modifier.width(8.dp))
                                 Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                                    Text("Private file access", color = Color(0xFF282126), fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
-                                    Text("Choose files explicitly; Android controls access.", color = Color(0xFF8C7E83), fontSize = 10.sp)
+                                    Text("Private file access", color = Color(0xFFF5F7FF), fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                                    Text("Choose files explicitly; Android controls access.", color = Color(0xFF9EABC2), fontSize = 10.sp)
                                 }
                             }
                             Text("CHOOSE A FILE TYPE", color = Color(0xFFCB1731), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
@@ -629,7 +629,7 @@ class MainActivity : ComponentActivity() {
                             FileTypeCard("PDF", "PDF documents", "Choose a PDF file", "application/pdf")
                             FileTypeCard("▧", "Photos & images", "Choose an image from storage", "image/*")
                             FileTypeCard("≡", "Text documents", "Choose text or document files", "*/*", arrayOf("text/*", "application/rtf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"))
-                            Text("Tip: select a file in Android's picker to grant access to that item.", color = Color(0xFF8C7E83), fontSize = 10.sp)
+                            Text("Tip: select a file in Android's picker to grant access to that item.", color = Color(0xFF9EABC2), fontSize = 10.sp)
                         }
                     },
                     confirmButton = {
@@ -649,14 +649,14 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(28.dp),
                     containerColor = Color(0xFFFFFBFC),
-                    titleContentColor = Color(0xFF282126),
-                    textContentColor = Color(0xFF51464A),
+                    titleContentColor = Color(0xFFF5F7FF),
+                    textContentColor = Color(0xFF9EABC2),
                     tonalElevation = 8.dp,
                     onDismissRequest = { showDeviceInfo = false },
                     title = {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(21.dp))
-                                .background(Brush.linearGradient(listOf(Color(0xFFFFE8EC), Color.White, Color(0xFFFFF2F4))))
+                                .background(Brush.linearGradient(listOf(Color(0xFF101D31), Color.White, Color(0xFFFFF2F4))))
                                 .border(1.dp, Color(0xFFF0B8C1), RoundedCornerShape(21.dp))
                                 .padding(16.dp),
                             verticalArrangement = Arrangement.spacedBy(7.dp)
@@ -670,10 +670,10 @@ class MainActivity : ComponentActivity() {
                                 ) { Text("▣", color = Color.White, fontSize = 25.sp, fontWeight = FontWeight.Bold) }
                                 Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                     Text("MYRA AI • SYSTEM STATUS", color = Color(0xFFCB1731), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.1.sp)
-                                    Text("Device Info", color = Color(0xFF282126), fontSize = 23.sp, fontWeight = FontWeight.Bold)
+                                    Text("Device Info", color = Color(0xFFF5F7FF), fontSize = 23.sp, fontWeight = FontWeight.Bold)
                                 }
                             }
-                            Text("A quick overview of your phone and power status.", color = Color(0xFF8C7E83), fontSize = 12.sp)
+                            Text("A quick overview of your phone and power status.", color = Color(0xFF9EABC2), fontSize = 12.sp)
                         }
                     },
                     text = {
@@ -694,13 +694,13 @@ class MainActivity : ComponentActivity() {
                                     ) {
                                         Box(
                                             Modifier.size(39.dp).clip(RoundedCornerShape(12.dp))
-                                                .background(Color(0xFFFFE8EC))
+                                                .background(Color(0xFF101D31))
                                                 .border(1.dp, Color(0xFFF0B8C1), RoundedCornerShape(12.dp)),
                                             contentAlignment = Alignment.Center
                                         ) { Text(icon, color = Color(0xFFCB1731), fontSize = 20.sp, fontWeight = FontWeight.Bold) }
                                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                                            Text(label.uppercase(), color = Color(0xFF8C7E83), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = .7.sp)
-                                            Text(value, color = Color(0xFF282126), fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+                                            Text(label.uppercase(), color = Color(0xFF9EABC2), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = .7.sp)
+                                            Text(value, color = Color(0xFFF5F7FF), fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
                                         }
                                     }
                                 }
