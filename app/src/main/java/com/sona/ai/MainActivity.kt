@@ -4406,7 +4406,7 @@ private fun MyraHome(
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(2.dp)) {
                     Text("MYR", color = Color(0xFF25151A), fontSize = 27.sp, fontWeight = FontWeight.Black, letterSpacing = (-1).sp)
                     Text("A", color = Color(0xFFD91E3D), fontSize = 27.sp, fontWeight = FontWeight.Black, letterSpacing = (-1).sp)
-                    Box(Modifier.padding(start = 5.dp).size(6.dp).clip(CircleShape).background(if (hasKey) Cyan else Color(0xFFFFB36B)))
+                    Box(Modifier.padding(start = 5.dp).size(6.dp).clip(CircleShape).background(if (hasKey) Color(0xFFD91E3D) else Color(0xFFFFB36B)))
                 }
                 Text("—  A I   A S S I S T A N T  —", color = muted, fontSize = 7.sp, letterSpacing = 1.2.sp)
                 Row(Modifier.padding(top = 6.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
