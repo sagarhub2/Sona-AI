@@ -451,12 +451,12 @@ class MainActivity : ComponentActivity() {
                     title = {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
-                                .background(Brush.horizontalGradient(listOf(Color(0xFFCB1731), Color(0xFFB5122A), Color(0xFF8F1028))))
+                                .background(Brush.horizontalGradient(listOf(Color(0xFF101D31), Color(0xFF071426), Color(0xFF24152B))))
                                 .border(1.dp, Violet.copy(alpha = .8f), RoundedCornerShape(18.dp))
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
-                            Text("◈  MYRA AI • TRIGGER CENTER", color = Color(0xFFFFDCE3), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                            Text("◈  MYRA AI • TRIGGER CENTER", color = Color(0xFFFFD9EB), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
                             Text("Triggers & clock", color = Color.White, fontSize = 21.sp, fontWeight = FontWeight.Bold)
                             Text("Choose an action to open your phone's Clock app.", color = Color.White.copy(alpha = .88f), fontSize = 12.sp)
                         }
@@ -1155,7 +1155,7 @@ class MainActivity : ComponentActivity() {
                     title = {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
-                                .background(Brush.horizontalGradient(listOf(Color(0xFFFF4D9D), Color(0xFF101D31), Color(0xFF071426))))
+                                .background(Brush.horizontalGradient(listOf(Color(0xFF101D31), Color(0xFF071426), Color(0xFF24152B))))
                                 .border(1.dp, Color(0xFF293B55), RoundedCornerShape(18.dp))
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
@@ -1383,7 +1383,7 @@ class MainActivity : ComponentActivity() {
                     title = {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
-                                .background(Brush.horizontalGradient(listOf(Color(0xFFFF4D9D), Color(0xFF101D31), Color(0xFF0B1424))))
+                                .background(Brush.horizontalGradient(listOf(Color(0xFF101D31), Color(0xFF071426), Color(0xFF24152B))))
                                 .border(1.dp, Color(0xFF293B55), RoundedCornerShape(18.dp))
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
