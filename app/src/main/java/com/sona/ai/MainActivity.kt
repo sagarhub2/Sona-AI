@@ -2166,6 +2166,31 @@ class MainActivity : ComponentActivity() {
             } catch (_: Exception) { respond("Maps directions open nahi ho paaye.") }
         }
 
+        val rememberPrefixes = listOf("save note ", "make a note ", "note this ", "remember ", "yaad rakhna ", "याद रखना ", "नोट बनाओ ")
+        val rememberPrefix = rememberPrefixes.firstOrNull { command.startsWith(it) }
+        if (rememberPrefix != null) {
+            val note = raw.trim().drop(rememberPrefix.length).trim()
+            if (note.isBlank()) return respond("Kya save karna hai? Note bolkar batao.")
+            return try {
+                val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
+                val previous = prefs.getString("memory_notes", "").orEmpty().trim()
+                val stamp = java.text.SimpleDateFormat("dd MMM yyyy, h:mm a", Locale.getDefault()).format(java.util.Date())
+                val updated = (previous + if (previous.isBlank()) "" else "\\n" + "\\n" + "• ") + "[$stamp] $note"
+                prefs.edit().putString("memory_notes", updated).apply()
+                respond("Note phone par save kar diya: $note")
+            } catch (_: Exception) { respond("Note save nahi ho paaya.") }
+        }
+
+        val findNotePrefixes = listOf("find note ", "search notes for ", "search my notes ", "notes mein search ", "मेरे नोट्स में खोजो ")
+        val findNotePrefix = findNotePrefixes.firstOrNull { command.startsWith(it) }
+        if (findNotePrefix != null) {
+            val query = raw.trim().drop(findNotePrefix.length).trim()
+            if (query.isBlank()) return respond("Notes mein kya search karna hai?")
+            val notes = getSharedPreferences("myra_private", MODE_PRIVATE).getString("memory_notes", "").orEmpty()
+            val matches = notes.lines().filter { it.contains(query, ignoreCase = true) }.take(3)
+            return respond(if (matches.isEmpty()) "Notes mein '$query' nahi mila." else "Notes mein mila: " + matches.joinToString(". "))
+        }
+
         val callMatch = Regex("^(?:call|dial|phone|कॉल करो|कॉल लगाओ)\\s+([+0-9][+0-9 ()-]{4,})$", RegexOption.IGNORE_CASE).find(raw.trim())
         if (callMatch != null) {
             val number = callMatch.groupValues[1].trim()
