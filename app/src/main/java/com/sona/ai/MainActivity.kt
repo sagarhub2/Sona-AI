@@ -2146,6 +2146,26 @@ class MainActivity : ComponentActivity() {
                 respond("Web par $query search kar rahi hoon.")
             } catch (_: Exception) { respond("Web search open nahi ho paayi.") }
         }
+        if (listOf("open camera", "camera kholo", "take a photo", "photo lo", "कैमरा खोलो").any { command.contains(it) }) {
+            return try {
+                val intent = Intent("android.media.action.IMAGE_CAPTURE")
+                if (intent.resolveActivity(packageManager) == null) respond("Camera app available nahi hai.")
+                else { startActivity(intent); respond("Camera khol diya hai.") }
+            } catch (_: Exception) { respond("Camera open nahi ho paaya.") }
+        }
+
+        val mapPrefixes = listOf("navigate to ", "directions to ", "maps mein ", "take me to ")
+        val mapPrefix = mapPrefixes.firstOrNull { command.startsWith(it) }
+        if (mapPrefix != null) {
+            val destination = raw.trim().drop(mapPrefix.length).trim()
+            if (destination.isBlank()) return respond("Destination ka naam batao.")
+            return try {
+                val mapUri = Uri.parse("https://www.google.com/maps/dir/?api=1&destination=" + URLEncoder.encode(destination, "UTF-8"))
+                startActivity(Intent(Intent.ACTION_VIEW, mapUri))
+                respond("$destination ke directions khol rahi hoon.")
+            } catch (_: Exception) { respond("Maps directions open nahi ho paaye.") }
+        }
+
         val callMatch = Regex("^(?:call|dial|phone|कॉल करो|कॉल लगाओ)\\s+([+0-9][+0-9 ()-]{4,})$", RegexOption.IGNORE_CASE).find(raw.trim())
         if (callMatch != null) {
             val number = callMatch.groupValues[1].trim()
