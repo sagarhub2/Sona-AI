@@ -77,6 +77,7 @@ class MainActivity : ComponentActivity() {
     private var showWebSearch by mutableStateOf(false)
     private var showFiles by mutableStateOf(false)
     private var showPermissionDashboard by mutableStateOf(false)
+    private var showSecurityDashboard by mutableStateOf(false)
     private var busy by mutableStateOf(false)
     private var speechRecognizer: SpeechRecognizer? = null
     private var liveVoiceSession: LiveVoiceSession? = null
@@ -1991,6 +1992,69 @@ class MainActivity : ComponentActivity() {
                     }
                 )
             }
+            if (showSecurityDashboard) {
+                val securityPrefs = getSharedPreferences("myra_security", MODE_PRIVATE)
+                val securityArmed = securityPrefs.getBoolean("armed", false)
+                val securityEvents = securityPrefs.getString("events", "").orEmpty().lines().filter { it.isNotBlank() }.take(8)
+                AlertDialog(
+                    onDismissRequest = { showSecurityDashboard = false },
+                    shape = RoundedCornerShape(24.dp),
+                    containerColor = Color(0xFFFFF7F8),
+                    title = {
+                        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                            Text("MYRA AI • SECURITY", color = Color(0xFFCB1731), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.4.sp)
+                            Text("Phone security dashboard", color = Color(0xFF282126), fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                        }
+                    },
+                    text = {
+                        Column(
+                            Modifier.fillMaxWidth().heightIn(max = 380.dp).verticalScroll(androidx.compose.foundation.rememberScrollState()),
+                            verticalArrangement = Arrangement.spacedBy(10.dp)
+                        ) {
+                            Row(
+                                Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp))
+                                    .background(if (securityArmed) Color(0xFFE6F6EC) else Color(0xFFFFE8EC))
+                                    .padding(14.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(10.dp)
+                            ) {
+                                Text(if (securityArmed) "●" else "○", color = if (securityArmed) Color(0xFF287A48) else Color(0xFFCB1731), fontSize = 22.sp)
+                                Column {
+                                    Text(if (securityArmed) "Security marked ON" else "Security OFF", color = Color(0xFF282126), fontWeight = FontWeight.Bold)
+                                    Text(if (securityArmed) "Visible movement monitoring was enabled." else "Say “arm security” to start monitoring.", color = Color(0xFF8C7E83), fontSize = 11.sp)
+                                }
+                            }
+                            Text("RECENT EVENTS", color = Color(0xFFCB1731), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.2.sp)
+                            if (securityEvents.isEmpty()) {
+                                Text("No saved security events yet.", color = Color(0xFF8C7E83), fontSize = 12.sp)
+                            } else {
+                                securityEvents.forEach { event ->
+                                    Text("•  $event", color = Color(0xFF44383D), fontSize = 12.sp, modifier = Modifier.fillMaxWidth().background(Color.White, RoundedCornerShape(10.dp)).padding(10.dp))
+                                }
+                            }
+                            Text("Movement can be caused by vibration or transport and does not identify a person. No covert photo capture is performed.", color = Color(0xFF8C7E83), fontSize = 10.sp)
+                        }
+                    },
+                    confirmButton = {
+                        TextButton(onClick = {
+                            showSecurityDashboard = false
+                            val serviceIntent = Intent(this@MainActivity, MyraMotionSecurityService::class.java).setAction(MyraMotionSecurityService.ACTION_ARM)
+                            try {
+                                if (android.os.Build.VERSION.SDK_INT >= 26) startForegroundService(serviceIntent) else startService(serviceIntent)
+                                securityPrefs.edit().putBoolean("armed", true).apply()
+                                status = "SECURITY ENABLED"
+                                heardText = "MYRA phone security enabled."
+                            } catch (_: Exception) {
+                                status = "SECURITY START FAILED"
+                                heardText = "Security start nahi ho paayi. App open karke dobara try karo."
+                            }
+                        }) { Text("Arm security", color = Color(0xFFCB1731), fontWeight = FontWeight.Bold) }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = { showSecurityDashboard = false }) { Text("Close", color = Color(0xFF8C7E83)) }
+                    }
+                )
+            }
             if (showPermissionDashboard) {
                 val permissionContext = LocalContext.current
                 val permissionRows = listOf(
@@ -2134,6 +2198,11 @@ class MainActivity : ComponentActivity() {
             stopService(Intent(this, MyraMotionSecurityService::class.java))
             getSharedPreferences("myra_security", MODE_PRIVATE).edit().putBoolean("armed", false).apply()
             return respond("MYRA phone movement security band kar di.")
+        }
+
+        if (listOf("security dashboard", "open security dashboard", "phone security dashboard", "सिक्योरिटी डैशबोर्ड").any { command.contains(it) }) {
+            showSecurityDashboard = true
+            return respond("MYRA security dashboard khol rahi hoon.")
         }
 
         if (listOf("security help", "phone security help", "anti theft help", "security commands", "सिक्योरिटी मदद").any { command.contains(it) }) {
