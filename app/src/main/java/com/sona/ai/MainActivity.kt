@@ -2519,6 +2519,29 @@ class MainActivity : ComponentActivity() {
             if (ttsReady) textToSpeech?.speak(spoken.take(3500), TextToSpeech.QUEUE_FLUSH, null, "myra-read-notifications")
             return true
         }
+        val weatherPrefixes = listOf("weather in ", "weather ", "mausam batao ", "mausam ")
+        val weatherPrefix = weatherPrefixes.firstOrNull { command.startsWith(it) }
+        if (weatherPrefix != null || listOf("weather", "mausam", "मौसम बताओ", "मौसम कैसा है").any { command == it }) {
+            val place = if (weatherPrefix == null) "" else raw.trim().drop(weatherPrefix.length).trim()
+            val query = if (place.isBlank()) "weather near me" else "weather in $place"
+            return try {
+                val target = Uri.parse("https://www.google.com/search?q=" + URLEncoder.encode(query, "UTF-8"))
+                startActivity(Intent(Intent.ACTION_VIEW, target))
+                respond(if (place.isBlank()) "Aapke aas-paas ka weather search khol rahi hoon." else "$place ka weather search khol rahi hoon.")
+            } catch (_: Exception) { respond("Weather search open nahi ho paayi.") }
+        }
+        val newsPrefixes = listOf("latest news ", "news about ", "search news for ", "taaza khabar ")
+        val newsPrefix = newsPrefixes.firstOrNull { command.startsWith(it) }
+        if (newsPrefix != null || listOf("latest news", "news", "taaza khabar", "ताज़ा खबरें").any { command == it }) {
+            val topic = if (newsPrefix == null) "" else raw.trim().drop(newsPrefix.length).trim()
+            val query = if (topic.isBlank()) "latest news" else "latest news $topic"
+            return try {
+                val target = Uri.parse("https://news.google.com/search?q=" + URLEncoder.encode(query, "UTF-8"))
+                startActivity(Intent(Intent.ACTION_VIEW, target))
+                respond(if (topic.isBlank()) "Latest news khol rahi hoon." else "$topic ki latest news khol rahi hoon.")
+            } catch (_: Exception) { respond("News search open nahi ho paayi.") }
+        }
+
         if (listOf("what time", "current time", "time is it", "समय क्या", "कितने बजे").any { command.contains(it) }) {
             return respond("Abhi time ${timeFormatter.format(now.time)} hai.")
         }
