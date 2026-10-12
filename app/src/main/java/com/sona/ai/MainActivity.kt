@@ -1210,38 +1210,38 @@ class MainActivity : ComponentActivity() {
                 AlertDialog(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(26.dp),
-                    containerColor = Color(0xFF0D0A20),
-                    titleContentColor = Color(0xFFFF72D2),
+                    containerColor = Color(0xFFFFFBFC),
+                    titleContentColor = Color(0xFFD91E3D),
                     textContentColor = Color(0xFF282329),
                     tonalElevation = 0.dp,
                     onDismissRequest = { showTasks = false },
                     title = {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
-                                .background(Brush.horizontalGradient(listOf(Color(0xFF2A1745), Color(0xFF211438), Color(0xFF211438))))
-                                .border(1.dp, Color(0xFF8B4E9F), RoundedCornerShape(18.dp))
+                                .background(Brush.horizontalGradient(listOf(Color(0xFFFFE8EC), Color(0xFFFFF1F3), Color(0xFFFFF1F3))))
+                                .border(1.dp, Color(0xFFFFDCE3), RoundedCornerShape(18.dp))
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
-                            Text("TASKS & REMINDERS", color = Color(0xFFFF72D2), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
-                            Text("Tasks & reminders", color = Color(0xFFF7EEFF), fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                            Text("Plan your day, one task at a time.", color = Color(0xFFB8A9D8), fontSize = 12.sp)
+                            Text("TASKS & REMINDERS", color = Color(0xFFD91E3D), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                            Text("Tasks & reminders", color = Color(0xFF292126), fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                            Text("Plan your day, one task at a time.", color = Color(0xFF8D7077), fontSize = 12.sp)
                         }
                     },
                     text = {
                         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                             Row(
                                 Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp))
-                                    .background(Color(0xFF211438))
-                                    .border(1.dp, Color(0xFF8B4E9F), RoundedCornerShape(14.dp))
+                                    .background(Color(0xFFFFF1F3))
+                                    .border(1.dp, Color(0xFFFFDCE3), RoundedCornerShape(14.dp))
                                     .padding(12.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text("☷", color = Color(0xFFFF72D2), fontSize = 25.sp)
+                                Text("☷", color = Color(0xFFD91E3D), fontSize = 25.sp)
                                 Spacer(Modifier.width(10.dp))
                                 Column {
-                                    Text("${taskLines.size} tasks in your list", color = Color(0xFFF7EEFF), fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
-                                    Text(if (taskLines.isEmpty()) "Add one task per line to get started." else "$completedTasks marked complete • add [x] before a finished task", color = Color(0xFFB8A9D8), fontSize = 11.sp)
+                                    Text("${taskLines.size} tasks in your list", color = Color(0xFF292126), fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
+                                    Text(if (taskLines.isEmpty()) "Add one task per line to get started." else "$completedTasks marked complete • add [x] before a finished task", color = Color(0xFF8D7077), fontSize = 11.sp)
                                 }
                             }
                             OutlinedTextField(
@@ -1253,12 +1253,12 @@ class MainActivity : ComponentActivity() {
                                 maxLines = 9,
                                 modifier = Modifier.fillMaxWidth(),
                                 colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
-                                    focusedTextColor = Color(0xFFF7EEFF),
-                                    unfocusedTextColor = Color(0xFFF7EEFF),
-                                    focusedBorderColor = Color(0xFFFF72D2),
-                                    unfocusedBorderColor = Color(0xFFFF72D2).copy(alpha = .45f),
-                                    focusedLabelColor = Color(0xFFFF72D2),
-                                    cursorColor = Color(0xFFFF72D2),
+                                    focusedTextColor = Color(0xFF292126),
+                                    unfocusedTextColor = Color(0xFF292126),
+                                    focusedBorderColor = Color(0xFFD91E3D),
+                                    unfocusedBorderColor = Color(0xFFD91E3D).copy(alpha = .45f),
+                                    focusedLabelColor = Color(0xFFD91E3D),
+                                    cursorColor = Color(0xFFD91E3D),
                                     focusedContainerColor = Color(0xFF17102D),
                                     unfocusedContainerColor = Color(0xFF17102D)
                                 )
@@ -1271,7 +1271,7 @@ class MainActivity : ComponentActivity() {
                             ) {
                                 Text(
                                     if (taskDraft == savedTaskDraft) "All changes saved" else "Unsaved changes",
-                                    color = if (taskDraft == savedTaskDraft) Color(0xFFB8F7D4) else Color(0xFFFF72D2),
+                                    color = if (taskDraft == savedTaskDraft) Color(0xFFB8F7D4) else Color(0xFFD91E3D),
                                     fontSize = 11.sp,
                                     fontWeight = FontWeight.SemiBold
                                 )
@@ -1279,10 +1279,10 @@ class MainActivity : ComponentActivity() {
                                     onClick = { taskDraft = "" },
                                     enabled = taskDraft.isNotEmpty()
                                 ) {
-                                    Text("Clear draft", color = if (taskDraft.isNotEmpty()) Color(0xFFFF72D2) else Color(0xFF78658F), fontSize = 12.sp)
+                                    Text("Clear draft", color = if (taskDraft.isNotEmpty()) Color(0xFFD91E3D) else Color(0xFF78658F), fontSize = 12.sp)
                                 }
                             }
-                            Text("TIP  •  Add [x] before a finished task.", color = Color(0xFFFF72D2), fontSize = 11.sp, letterSpacing = .3.sp)
+                            Text("TIP  •  Add [x] before a finished task.", color = Color(0xFFD91E3D), fontSize = 11.sp, letterSpacing = .3.sp)
                         }
                     },
                     confirmButton = {
@@ -1295,7 +1295,7 @@ class MainActivity : ComponentActivity() {
                             },
                             shape = RoundedCornerShape(13.dp),
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = Color(0xFFFF72D2),
+                                containerColor = Color(0xFFD91E3D),
                                 contentColor = Color(0xFF17102D)
                             ),
                             contentPadding = PaddingValues(horizontal = 18.dp, vertical = 10.dp)
@@ -1312,7 +1312,7 @@ class MainActivity : ComponentActivity() {
                                 showTasks = false
                             }
                         ) {
-                            Text("Clear all", color = Color(0xFFFF72D2), fontWeight = FontWeight.SemiBold)
+                            Text("Clear all", color = Color(0xFFD91E3D), fontWeight = FontWeight.SemiBold)
                         }
                     }
                 )
