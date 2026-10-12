@@ -2211,10 +2211,10 @@ class MainActivity : ComponentActivity() {
                 AlertDialog(
                     onDismissRequest = { showAccessibilitySettings = false },
                     shape = RoundedCornerShape(24.dp),
-                    containerColor = Color(0xFF100B20),
+                    containerColor = Color(0xFF071426),
                     title = {
                         Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
-                            Text("MYRA AI • ACCESSIBILITY", color = Color(0xFFFF72D2), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.4.sp)
+                            Text("MYRA AI • ACCESSIBILITY", color = Color(0xFFFF4D9D), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.4.sp)
                             Text("Voice navigation access", color = Color.White, fontSize = 21.sp, fontWeight = FontWeight.Bold)
                             Text(
                                 if (accessibilityEnabled) "Status: Enabled on this device" else "Status: Not enabled",
@@ -2229,8 +2229,8 @@ class MainActivity : ComponentActivity() {
                             Modifier.fillMaxWidth().heightIn(max = 390.dp).verticalScroll(androidx.compose.foundation.rememberScrollState()),
                             verticalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
-                            Text("What it does", color = Color(0xFFFF72D2), fontWeight = FontWeight.Bold, fontSize = 13.sp)
-                            Text("When you enable the service yourself in Android settings, Myra can perform only the navigation actions listed below after you ask for them.", color = Color(0xFFE5DDF0), fontSize = 12.sp)
+                            Text("What it does", color = Color(0xFFFF4D9D), fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                            Text("When you enable the service yourself in Android settings, Myra can perform only the navigation actions listed below after you ask for them.", color = Color(0xFFDCE5F7), fontSize = 12.sp)
                             listOf(
                                 "Back — return to the previous screen",
                                 "Home — go to the home screen",
@@ -2239,7 +2239,7 @@ class MainActivity : ComponentActivity() {
                                 "Recent Apps — show the app switcher"
                             ).forEach { action ->
                                 Row(
-                                    Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(Color(0xFF211438)).padding(10.dp),
+                                    Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(Color(0xFF101D31)).padding(10.dp),
                                     verticalAlignment = Alignment.CenterVertically,
                                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                                 ) {
@@ -2247,9 +2247,9 @@ class MainActivity : ComponentActivity() {
                                     Text(action, color = Color.White, fontSize = 12.sp)
                                 }
                             }
-                            Text("Privacy", color = Color(0xFFFF72D2), fontWeight = FontWeight.Bold, fontSize = 13.sp)
-                            Text("Myra's service is configured not to retrieve screen content. It does not read screen text, record what you view, or type into other apps. Android requires you to enable or disable this access yourself.", color = Color(0xFFE5DDF0), fontSize = 12.sp)
-                            Text("Try saying", color = Color(0xFFFF72D2), fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                            Text("Privacy", color = Color(0xFFFF4D9D), fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                            Text("Myra's service is configured not to retrieve screen content. It does not read screen text, record what you view, or type into other apps. Android requires you to enable or disable this access yourself.", color = Color(0xFFDCE5F7), fontSize = 12.sp)
+                            Text("Try saying", color = Color(0xFFFF4D9D), fontWeight = FontWeight.Bold, fontSize = 13.sp)
                             listOf(
                                 "“Back jao” / “वापस जाओ”",
                                 "“Home jao” / “होम पर जाओ”",
@@ -2257,10 +2257,10 @@ class MainActivity : ComponentActivity() {
                                 "“Quick settings kholo” / “क्विक सेटिंग खोलो”",
                                 "“Recent apps kholo” / “हाल के ऐप दिखाओ”"
                             ).forEach { example ->
-                                Text("• $example", color = Color(0xFFE5DDF0), fontSize = 12.sp)
+                                Text("• $example", color = Color(0xFFDCE5F7), fontSize = 12.sp)
                             }
-                            Text("Troubleshooting", color = Color(0xFFFF72D2), fontWeight = FontWeight.Bold, fontSize = 13.sp)
-                            Text("1. Tap Open Android settings and open Downloaded/Installed apps under Accessibility (the label varies by phone). 2. Select Myra AI accessibility navigation and switch it on. 3. Accept Android's confirmation. 4. Return to MYRA and tap Refresh status. 5. If it is enabled but commands do not work, reopen MYRA and check microphone permission and the selected voice input language.", color = Color(0xFFE5DDF0), fontSize = 12.sp)
+                            Text("Troubleshooting", color = Color(0xFFFF4D9D), fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                            Text("1. Tap Open Android settings and open Downloaded/Installed apps under Accessibility (the label varies by phone). 2. Select Myra AI accessibility navigation and switch it on. 3. Accept Android's confirmation. 4. Return to MYRA and tap Refresh status. 5. If it is enabled but commands do not work, reopen MYRA and check microphone permission and the selected voice input language.", color = Color(0xFFDCE5F7), fontSize = 12.sp)
                             Text("If the status still says Not enabled after returning, check that “Myra AI accessibility navigation” is switched on in Android Accessibility settings. Some manufacturers rename or move this menu.", color = Color(0xFFB8A9D8), fontSize = 11.sp)
                         }
                     },
@@ -2273,7 +2273,7 @@ class MainActivity : ComponentActivity() {
                                 status = "ACCESSIBILITY SETTINGS UNAVAILABLE"
                                 heardText = "Could not open Android Accessibility settings on this device."
                             }
-                        }) { Text("Open Android settings", color = Color(0xFFFF72D2), fontWeight = FontWeight.Bold) }
+                        }) { Text("Open Android settings", color = Color(0xFFFF4D9D), fontWeight = FontWeight.Bold) }
                     },
                     dismissButton = {
                         TextButton(onClick = {
@@ -2290,11 +2290,11 @@ class MainActivity : ComponentActivity() {
                 AlertDialog(
                     onDismissRequest = { showSecurityDashboard = false },
                     shape = RoundedCornerShape(24.dp),
-                    containerColor = Color(0xFF0B1020),
+                    containerColor = Color(0xFF071426),
                     title = {
                         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                            Text("MYRA AI • SECURITY", color = Color(0xFFFF6584), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.4.sp)
-                            Text("Phone security dashboard", color = Color(0xFFF7EEFF), fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                            Text("MYRA AI • SECURITY", color = Color(0xFFFF4D9D), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.4.sp)
+                            Text("Phone security dashboard", color = Color(0xFFF5F7FF), fontSize = 20.sp, fontWeight = FontWeight.Bold)
                         }
                     },
                     text = {
@@ -2304,14 +2304,14 @@ class MainActivity : ComponentActivity() {
                         ) {
                             Row(
                                 Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp))
-                                    .background(if (securityArmed) Color(0xFF102D2A) else Color(0xFF301522))
+                                    .background(if (securityArmed) Color(0xFF102A2B) else Color(0xFF24152B))
                                     .padding(14.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(10.dp)
                             ) {
-                                Text(if (securityArmed) "●" else "○", color = if (securityArmed) Color(0xFF8CF5D5) else Color(0xFFFF6584), fontSize = 22.sp)
+                                Text(if (securityArmed) "●" else "○", color = if (securityArmed) Color(0xFF8CF5D5) else Color(0xFFFF4D9D), fontSize = 22.sp)
                                 Column {
-                                    Text(if (securityArmed) "Security marked ON" else "Security OFF", color = Color(0xFFF7EEFF), fontWeight = FontWeight.Bold)
+                                    Text(if (securityArmed) "Security marked ON" else "Security OFF", color = Color(0xFFF5F7FF), fontWeight = FontWeight.Bold)
                                     Text(if (securityArmed) "Visible movement monitoring was enabled." else "Say “arm security” to start monitoring.", color = Color(0xFFB8A9D8), fontSize = 11.sp)
                                 }
                             }
@@ -2329,7 +2329,7 @@ class MainActivity : ComponentActivity() {
                                     modifier = Modifier.weight(1f),
                                     shape = RoundedCornerShape(12.dp)
                                 ) {
-                                    Text("Disarm", color = Color(0xFFFF6584), fontSize = 12.sp)
+                                    Text("Disarm", color = Color(0xFFFF4D9D), fontSize = 12.sp)
                                 }
                                 OutlinedButton(
                                     onClick = {
@@ -2340,7 +2340,7 @@ class MainActivity : ComponentActivity() {
                                     modifier = Modifier.weight(1f),
                                     shape = RoundedCornerShape(12.dp)
                                 ) {
-                                    Text("Clear log", color = Color(0xFFFF6584), fontSize = 12.sp)
+                                    Text("Clear log", color = Color(0xFFFF4D9D), fontSize = 12.sp)
                                 }
                             }
                             OutlinedButton(
@@ -2357,7 +2357,7 @@ class MainActivity : ComponentActivity() {
                                 modifier = Modifier.fillMaxWidth(),
                                 shape = RoundedCornerShape(12.dp)
                             ) {
-                                Text("Share security report", color = Color(0xFFFF6584), fontWeight = FontWeight.Bold)
+                                Text("Share security report", color = Color(0xFFFF4D9D), fontWeight = FontWeight.Bold)
                             }
                             var movementSensitivity by remember {
                                 mutableFloatStateOf(securityPrefs.getFloat("sensitivity", MyraMotionSecurityService.DEFAULT_SENSITIVITY))
@@ -2365,14 +2365,14 @@ class MainActivity : ComponentActivity() {
                             var alertCooldownSeconds by remember {
                                 mutableFloatStateOf(securityPrefs.getLong("cooldown_ms", MyraMotionSecurityService.DEFAULT_COOLDOWN_MS).toFloat() / 1000f)
                             }
-                            Text("MOVEMENT SENSITIVITY", color = Color(0xFFFF6584), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.1.sp)
+                            Text("MOVEMENT SENSITIVITY", color = Color(0xFFFF4D9D), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.1.sp)
                             Text(
                                 if (movementSensitivity < 2.5f) "High sensitivity • more alerts" else if (movementSensitivity > 4.0f) "Low sensitivity • fewer alerts" else "Balanced • ${"%.1f".format(java.util.Locale.US, movementSensitivity)} m/s²",
                                 color = Color(0xFFE5DDF0), fontSize = 12.sp
                             )
-                            Slider(value = movementSensitivity, onValueChange = { movementSensitivity = it }, valueRange = 1.5f..5.5f, steps = 7, colors = SliderDefaults.colors(thumbColor = Color(0xFFFF6584), activeTrackColor = Color(0xFFFF6584)))
-                            Text("ALERT COOLDOWN • ${alertCooldownSeconds.toInt()} SECONDS", color = Color(0xFFFF6584), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.1.sp)
-                            Slider(value = alertCooldownSeconds, onValueChange = { alertCooldownSeconds = it }, valueRange = 5f..60f, steps = 10, colors = SliderDefaults.colors(thumbColor = Color(0xFFFF6584), activeTrackColor = Color(0xFFFF6584)))
+                            Slider(value = movementSensitivity, onValueChange = { movementSensitivity = it }, valueRange = 1.5f..5.5f, steps = 7, colors = SliderDefaults.colors(thumbColor = Color(0xFFFF4D9D), activeTrackColor = Color(0xFFFF4D9D)))
+                            Text("ALERT COOLDOWN • ${alertCooldownSeconds.toInt()} SECONDS", color = Color(0xFFFF4D9D), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.1.sp)
+                            Slider(value = alertCooldownSeconds, onValueChange = { alertCooldownSeconds = it }, valueRange = 5f..60f, steps = 10, colors = SliderDefaults.colors(thumbColor = Color(0xFFFF4D9D), activeTrackColor = Color(0xFFFF4D9D)))
                             Text("Lower sensitivity means fewer alerts; a longer cooldown limits repeat alerts. These settings cannot tell who moved the phone.", color = Color(0xFFB8A9D8), fontSize = 10.sp)
                             OutlinedButton(
                                 onClick = {
@@ -2382,11 +2382,11 @@ class MainActivity : ComponentActivity() {
                                 },
                                 modifier = Modifier.fillMaxWidth(),
                                 shape = RoundedCornerShape(12.dp)
-                            ) { Text("Save security settings", color = Color(0xFFFF6584), fontWeight = FontWeight.Bold) }
+                            ) { Text("Save security settings", color = Color(0xFFFF4D9D), fontWeight = FontWeight.Bold) }
                             var eventFilter by remember { mutableStateOf("All") }
                             val todayPrefix = java.text.SimpleDateFormat("dd MMM yyyy", java.util.Locale.getDefault()).format(java.util.Date())
                             val securityEvents = if (eventFilter == "Today") allSecurityEvents.filter { it.startsWith(todayPrefix) } else allSecurityEvents
-                            Text("SECURITY EVENT HISTORY • ${allSecurityEvents.size}", color = Color(0xFFFF6584), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.1.sp)
+                            Text("SECURITY EVENT HISTORY • ${allSecurityEvents.size}", color = Color(0xFFFF4D9D), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.1.sp)
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                 listOf("All", "Today").forEach { filter ->
                                     FilterChip(
@@ -2423,7 +2423,7 @@ class MainActivity : ComponentActivity() {
                                 status = "SECURITY START FAILED"
                                 heardText = "Security start nahi ho paayi. App open karke dobara try karo."
                             }
-                        }) { Text("Arm security", color = Color(0xFFFF6584), fontWeight = FontWeight.Bold) }
+                        }) { Text("Arm security", color = Color(0xFFFF4D9D), fontWeight = FontWeight.Bold) }
                     },
                     dismissButton = {
                         TextButton(onClick = { showSecurityDashboard = false }) { Text("Close", color = Color(0xFFB8A9D8)) }
@@ -2447,7 +2447,7 @@ class MainActivity : ComponentActivity() {
                     containerColor = Color(0xFF071426),
                     title = {
                         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                            Text("PERMISSION CENTER", color = Color(0xFFFF72D2), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.5.sp)
+                            Text("PERMISSION CENTER", color = Color(0xFFFF4D9D), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.5.sp)
                             Text("App permissions", color = Color(0xFFF5F7FF), fontSize = 22.sp, fontWeight = FontWeight.Bold)
                             Text("Review access used by Myra AI. You stay in control.", color = Color(0xFF9EABC2), fontSize = 12.sp)
                         }
@@ -2462,23 +2462,23 @@ class MainActivity : ComponentActivity() {
                                 Row(
                                     Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp))
                                         .background(Color(0xFF0B1424))
-                                        .border(1.dp, if (granted) Color(0xFF56D6A0) else Color(0xFF293B55), RoundedCornerShape(14.dp))
+                                        .border(1.dp, if (granted) Color(0xFF56D6A0) else Color(0xFF29364F), RoundedCornerShape(14.dp))
                                         .padding(11.dp),
                                     verticalAlignment = Alignment.CenterVertically,
                                     horizontalArrangement = Arrangement.spacedBy(10.dp)
                                 ) {
                                     Box(
                                         Modifier.size(34.dp).clip(CircleShape)
-                                            .background(if (granted) Color(0xFF123329) else Color(0xFF301522)),
+                                            .background(if (granted) Color(0xFF123329) else Color(0xFF24152B)),
                                         contentAlignment = Alignment.Center
                                     ) {
-                                        Text(if (granted) "✓" else "!", color = if (granted) Color(0xFF8CF5D5) else Color(0xFFFF72D2), fontWeight = FontWeight.Bold)
+                                        Text(if (granted) "✓" else "!", color = if (granted) Color(0xFF8CF5D5) else Color(0xFFFF4D9D), fontWeight = FontWeight.Bold)
                                     }
                                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                                         Text(label, color = Color(0xFFF5F7FF), fontWeight = FontWeight.SemiBold, fontSize = 13.sp)
                                         Text(purpose, color = Color(0xFF9EABC2), fontSize = 10.sp)
                                     }
-                                    Text(if (granted) "Allowed" else "Not allowed", color = if (granted) Color(0xFF8CF5D5) else Color(0xFFFF72D2), fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                                    Text(if (granted) "Allowed" else "Not allowed", color = if (granted) Color(0xFF8CF5D5) else Color(0xFFFF4D9D), fontSize = 10.sp, fontWeight = FontWeight.Bold)
                                 }
                             }
                             Text("Some permissions may be optional or only needed for specific features.", color = Color(0xFF9EABC2), fontSize = 11.sp)
@@ -2490,7 +2490,7 @@ class MainActivity : ComponentActivity() {
                             try {
                                 startActivity(Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, android.net.Uri.parse("package:$packageName")))
                             } catch (_: Exception) { status = "APP SETTINGS UNAVAILABLE" }
-                        }) { Text("Open Android settings", color = Color(0xFFFF72D2), fontWeight = FontWeight.Bold) }
+                        }) { Text("Open Android settings", color = Color(0xFFFF4D9D), fontWeight = FontWeight.Bold) }
                     },
                     dismissButton = {
                         TextButton(onClick = { showPermissionDashboard = false }) { Text("Done", color = Color(0xFF9EABC2)) }
