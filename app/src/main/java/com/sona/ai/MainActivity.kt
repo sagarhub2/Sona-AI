@@ -2355,6 +2355,31 @@ class MainActivity : ComponentActivity() {
             )
         }
 
+        if (listOf("increase volume", "volume up", "volume badhao", "awaaz badhao", "आवाज़ बढ़ाओ", "वॉल्यूम बढ़ाओ").any { command.contains(it) }) {
+            return try {
+                val audio = getSystemService(AUDIO_SERVICE) as android.media.AudioManager
+                val current = audio.getStreamVolume(android.media.AudioManager.STREAM_MUSIC)
+                val max = audio.getStreamMaxVolume(android.media.AudioManager.STREAM_MUSIC)
+                audio.setStreamVolume(android.media.AudioManager.STREAM_MUSIC, (current + 1).coerceAtMost(max), 0)
+                respond("Media volume badha diya. Volume level ${audio.getStreamVolume(android.media.AudioManager.STREAM_MUSIC)} of $max.")
+            } catch (_: Exception) { respond("Media volume change nahi ho paaya.") }
+        }
+        if (listOf("decrease volume", "volume down", "volume kam", "awaaz kam karo", "आवाज़ कम करो", "वॉल्यूम कम करो").any { command.contains(it) }) {
+            return try {
+                val audio = getSystemService(AUDIO_SERVICE) as android.media.AudioManager
+                val current = audio.getStreamVolume(android.media.AudioManager.STREAM_MUSIC)
+                val max = audio.getStreamMaxVolume(android.media.AudioManager.STREAM_MUSIC)
+                audio.setStreamVolume(android.media.AudioManager.STREAM_MUSIC, (current - 1).coerceAtLeast(0), 0)
+                respond("Media volume kam kar diya. Volume level ${audio.getStreamVolume(android.media.AudioManager.STREAM_MUSIC)} of $max.")
+            } catch (_: Exception) { respond("Media volume change nahi ho paaya.") }
+        }
+        if (listOf("what is my volume", "volume status", "volume kitna hai", "आवाज़ कितनी है").any { command.contains(it) }) {
+            val audio = getSystemService(AUDIO_SERVICE) as android.media.AudioManager
+            val current = audio.getStreamVolume(android.media.AudioManager.STREAM_MUSIC)
+            val max = audio.getStreamMaxVolume(android.media.AudioManager.STREAM_MUSIC)
+            return respond("Media volume $current of $max hai.")
+        }
+
         if (listOf("battery status", "battery level", "how much battery", "battery kitni", "बैटरी कितनी", "बैटरी स्टेटस", "charging status").any { command.contains(it) }) {
             return try {
                 val batteryIntent = registerReceiver(null, android.content.IntentFilter(Intent.ACTION_BATTERY_CHANGED))
