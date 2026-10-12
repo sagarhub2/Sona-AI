@@ -2471,6 +2471,22 @@ class MainActivity : ComponentActivity() {
             } catch (_: Exception) { respond("Airplane mode settings open nahi ho paayi.") }
         }
 
+        if (listOf("read my notifications", "read notifications", "read my messages aloud", "notifications suna do", "notification padho", "मेरे नोटिफिकेशन पढ़ो", "नोटिफिकेशन सुनाओ").any { command.contains(it) }) {
+            val enabledListeners = android.provider.Settings.Secure.getString(contentResolver, "enabled_notification_listeners").orEmpty()
+            if (!enabledListeners.contains(packageName)) {
+                return try {
+                    startActivity(Intent(android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
+                    respond("Notifications padhne ke liye Android settings mein MYRA AI notification access enable karo.")
+                } catch (_: Exception) { respond("Notification access settings open nahi ho paayi.") }
+            }
+            val recent = getSharedPreferences("myra_notifications", MODE_PRIVATE).getString("recent", "").orEmpty().lines().filter { it.isNotBlank() }.take(5)
+            return if (recent.isEmpty()) respond("Abhi koi saved notification available nahi hai.")
+            else respond("Recent notifications. " + recent.joinToString(". "))
+        }
+        if (listOf("clear saved notifications", "clear notification history", "notifications clear karo", "नोटिफिकेशन हिस्ट्री मिटाओ").any { command.contains(it) }) {
+            getSharedPreferences("myra_notifications", MODE_PRIVATE).edit().putString("recent", "").apply()
+            return respond("MYRA ke saved notification summary clear kar diye. Phone ke original notifications delete nahi kiye.")
+        }
         if (listOf("what is happening now", "what's happening now", "give me a quick status", "my phone status", "abhi kya chal raha hai", "abhi ka status", "अभी क्या चल रहा है", "फोन का स्टेटस").any { command.contains(it) }) {
             val batteryIntent = registerReceiver(null, android.content.IntentFilter(Intent.ACTION_BATTERY_CHANGED))
             val level = batteryIntent?.getIntExtra(android.os.BatteryManager.EXTRA_LEVEL, -1) ?: -1
