@@ -1818,8 +1818,8 @@ class MainActivity : ComponentActivity() {
                                             cursorColor = Color(0xFFFF72D2),
                                             focusedTextColor = Color(0xFFF7EEFF),
                                             unfocusedTextColor = Color(0xFFF7EEFF),
-                                            focusedContainerColor = Color.White,
-                                            unfocusedContainerColor = Color.White
+                                            focusedContainerColor = Color(0xFF0D192B),
+                                            unfocusedContainerColor = Color(0xFF0D192B)
                                         ),
                                         trailingIcon = { TextButton(onClick = { showApiKey = !showApiKey }) { Text(if (showApiKey) "HIDE" else "SHOW", color = Color(0xFFFF72D2)) } }
                                     )
@@ -1831,7 +1831,20 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                             Text("VOICE & LANGUAGE", color = Color(0xFFFF72D2), fontWeight = FontWeight.Bold, fontSize = 12.sp)
-                            OutlinedTextField(value = languageDraft, onValueChange = { languageDraft = it }, label = { Text("Language (e.g. Hindi, English, Auto)") }, singleLine = true, modifier = Modifier.fillMaxWidth())
+                            OutlinedTextField(
+                                value = languageDraft,
+                                onValueChange = { languageDraft = it },
+                                label = { Text("Language (e.g. Hindi, English, Auto)") },
+                                singleLine = true,
+                                modifier = Modifier.fillMaxWidth(),
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    focusedBorderColor = Color(0xFFFF72D2), unfocusedBorderColor = Color(0xFF344B68),
+                                    focusedLabelColor = Color(0xFFFF72D2), unfocusedLabelColor = Color(0xFFB8A9D8),
+                                    cursorColor = Color(0xFFFF72D2), focusedTextColor = Color(0xFFF7EEFF),
+                                    unfocusedTextColor = Color(0xFFF7EEFF), focusedContainerColor = Color(0xFF0D192B),
+                                    unfocusedContainerColor = Color(0xFF0D192B)
+                                )
+                            )
                             Text("MULTI-VOICE PRESETS", color = Color(0xFFFF72D2), fontSize = 10.sp, fontWeight = FontWeight.Bold)
                             listOf(
                                 Triple("Friendly", "Warm & natural", 0),
@@ -1896,7 +1909,20 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                             }
-                            OutlinedTextField(value = voiceDraft, onValueChange = { voiceDraft = it }, label = { Text("Custom voice style preference") }, singleLine = true, modifier = Modifier.fillMaxWidth())
+                            OutlinedTextField(
+                                value = voiceDraft,
+                                onValueChange = { voiceDraft = it },
+                                label = { Text("Custom voice style preference") },
+                                singleLine = true,
+                                modifier = Modifier.fillMaxWidth(),
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    focusedBorderColor = Color(0xFFFF72D2), unfocusedBorderColor = Color(0xFF344B68),
+                                    focusedLabelColor = Color(0xFFFF72D2), unfocusedLabelColor = Color(0xFFB8A9D8),
+                                    cursorColor = Color(0xFFFF72D2), focusedTextColor = Color(0xFFF7EEFF),
+                                    unfocusedTextColor = Color(0xFFF7EEFF), focusedContainerColor = Color(0xFF0D192B),
+                                    unfocusedContainerColor = Color(0xFF0D192B)
+                                )
+                            )
                             OutlinedButton(
                                 onClick = {
                                     if (ttsReady) {
