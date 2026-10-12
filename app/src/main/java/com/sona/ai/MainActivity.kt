@@ -2120,6 +2120,22 @@ class MainActivity : ComponentActivity() {
             return true
         }
 
+        if (listOf("arm security", "enable phone security", "start anti theft", "secure my phone", "फोन सिक्योर करो", "सिक्योरिटी चालू करो").any { command.contains(it) }) {
+            return try {
+                val serviceIntent = Intent(this, MyraMotionSecurityService::class.java).setAction(MyraMotionSecurityService.ACTION_ARM)
+                if (android.os.Build.VERSION.SDK_INT >= 26) startForegroundService(serviceIntent) else startService(serviceIntent)
+                getSharedPreferences("myra_security", MODE_PRIVATE).edit().putBoolean("armed", true).apply()
+                respond("MYRA security armed. Phone movement detect karne ke liye persistent notification dikhegi. Photo capture Android background restrictions ke karan guaranteed nahi hai.")
+            } catch (_: Exception) {
+                respond("Security mode start nahi ho paaya. MYRA ko dobara open karke try karo.")
+            }
+        }
+        if (listOf("disarm security", "stop phone security", "disable anti theft", "security band karo", "सिक्योरिटी बंद करो").any { command.contains(it) }) {
+            stopService(Intent(this, MyraMotionSecurityService::class.java))
+            getSharedPreferences("myra_security", MODE_PRIVATE).edit().putBoolean("armed", false).apply()
+            return respond("MYRA phone movement security band kar di.")
+        }
+
         if (listOf("battery status", "battery level", "how much battery", "battery kitni", "बैटरी कितनी", "बैटरी स्टेटस", "charging status").any { command.contains(it) }) {
             return try {
                 val batteryIntent = registerReceiver(null, android.content.IntentFilter(Intent.ACTION_BATTERY_CHANGED))
