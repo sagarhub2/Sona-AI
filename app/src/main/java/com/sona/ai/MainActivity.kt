@@ -3271,7 +3271,7 @@ private fun MyraHome(
     val red = Color(0xFFFF78D2)
     Column(
         Modifier.fillMaxSize()
-            .background(Brush.verticalGradient(listOf(Color(0xFF030611), Color(0xFF071426), Color(0xFF030611))))
+            .background(Brush.radialGradient(listOf(Color(0xFF26103D), Color(0xFF100A24), Color(0xFF05040E))))
             .statusBarsPadding().navigationBarsPadding()
     ) {
         Row(
@@ -3319,28 +3319,28 @@ private fun MyraHome(
                 .padding(horizontal = 20.dp)
         ) {
             Box(Modifier.fillMaxWidth().height(258.dp), contentAlignment = Alignment.Center) {
-                Box(Modifier.size(244.dp).rotate(rotation).border(1.dp, Color(0x66CB1731), CircleShape))
+                Box(Modifier.size(244.dp).rotate(rotation).border(1.dp, Color(0x66FF78D2), CircleShape))
                 Box(Modifier.size(226.dp).rotate(-rotation * .7f)
-                    .border(1.dp, Color(0x66E8A5B1), CircleShape))
+                    .border(1.dp, Color(0x668D3B80), CircleShape))
                 Box(Modifier.size(208.dp).rotate(rotation * .45f)
-                    .border(2.dp, Color(0x88CB1731), CircleShape))
+                    .border(2.dp, Color(0x88FF78D2), CircleShape))
                 Box(Modifier.size(184.dp).clip(CircleShape)
-                    .background(Brush.radialGradient(listOf(Color(0x66FFB4BF), Color(0x33CB1731), Color.Transparent))))
+                    .background(Brush.radialGradient(listOf(Color(0x66FF91D8), Color(0x337026A8), Color.Transparent))))
                 Box(
                     Modifier.size((156f * (if (animatedOrb) pulse else 1f)).dp).clip(CircleShape)
-                        .background(Brush.radialGradient(listOf(Color(0xFFFF78D2), Color(0xFF7026A8), Color(0xFF061B35))))
-                        .border(1.dp, Color(0xFFB7FFF6).copy(alpha = .95f), CircleShape)
+                        .background(Brush.radialGradient(listOf(Color(0xFFFF78D2), Color(0xFF7026A8), Color(0xFF210B36))))
+                        .border(1.dp, Color(0xFFFFC7F0).copy(alpha = .95f), CircleShape)
                         .padding(5.dp)
-                        .border(3.dp, Color(0xFF0D3446).copy(alpha = .95f), CircleShape),
+                        .border(3.dp, Color(0xFF3A174B).copy(alpha = .95f), CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text("M", color = Color(0xFF090617), fontSize = 54.sp, fontWeight = FontWeight.Light, lineHeight = 56.sp)
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text("MYR", color = Color(0xFF090617), fontSize = 23.sp, fontWeight = FontWeight.Black, letterSpacing = 1.sp)
-                            Text("A", color = Color(0xFFB7FFF6), fontSize = 23.sp, fontWeight = FontWeight.Black)
+                            Text("A", color = Color(0xFFFFC7F0), fontSize = 23.sp, fontWeight = FontWeight.Black)
                         }
-                        Text("—  A I   A S S I S T A N T  —", color = Color(0xFFB7FFF6), fontSize = 6.sp, letterSpacing = 1.sp)
+                        Text("—  A I   A S S I S T A N T  —", color = Color(0xFFFFC7F0), fontSize = 6.sp, letterSpacing = 1.sp)
                     }
                 }
                 listOf(Alignment.TopStart, Alignment.TopEnd, Alignment.BottomStart, Alignment.BottomEnd).forEachIndexed { index, alignment ->
