@@ -1930,6 +1930,64 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                             SettingToggle("Animated holographic orb", animatedOrb, { animatedOrb = it })
+                            Text("ACCESSIBILITY & VOICE CONTROL", color = Color(0xFFFF72D2), fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            val enabledAccessibilityServices = android.provider.Settings.Secure.getString(
+                                contentResolver,
+                                android.provider.Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
+                            ).orEmpty()
+                            val myraAccessibilityComponent = android.content.ComponentName(
+                                this@MainActivity,
+                                MyraAccessibilityService::class.java
+                            ).flattenToString()
+                            val myraAccessibilityEnabled = enabledAccessibilityServices.split(':').any {
+                                it.equals(myraAccessibilityComponent, ignoreCase = true)
+                            }
+                            Surface(
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(16.dp),
+                                color = Color(0xFF100B22),
+                                border = androidx.compose.foundation.BorderStroke(
+                                    1.dp,
+                                    if (myraAccessibilityEnabled) Color(0xFF49C98A) else Color(0xFF8D3B80)
+                                )
+                            ) {
+                                Column(
+                                    Modifier.padding(14.dp),
+                                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                                ) {
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Text("Myra AI Accessibility Service", color = Color.White, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f))
+                                        Text(
+                                            if (myraAccessibilityEnabled) "ENABLED" else "NOT ENABLED",
+                                            color = if (myraAccessibilityEnabled) Color(0xFF73E2A7) else Color(0xFFFFB86B),
+                                            fontSize = 10.sp,
+                                            fontWeight = FontWeight.Bold
+                                        )
+                                    }
+                                    Text(
+                                        "Allows user-requested Back, Home, Notifications, Quick Settings and Recent Apps actions. Myra does not read screen content or enter text through this service.",
+                                        color = Color(0xFFB8A9D8),
+                                        fontSize = 11.sp
+                                    )
+                                    OutlinedButton(
+                                        onClick = {
+                                            try {
+                                                startActivity(Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS))
+                                                status = "OPENED ANDROID ACCESSIBILITY SETTINGS"
+                                            } catch (_: Exception) {
+                                                status = "ACCESSIBILITY SETTINGS UNAVAILABLE"
+                                            }
+                                        },
+                                        modifier = Modifier.fillMaxWidth(),
+                                        shape = RoundedCornerShape(12.dp)
+                                    ) {
+                                        Text(
+                                            if (myraAccessibilityEnabled) "Review accessibility service ↗" else "Enable in Android settings ↗",
+                                            color = Color(0xFFFF72D2)
+                                        )
+                                    }
+                                }
+                            }
                             Text("PHONE, FILES & PERMISSIONS", color = Color(0xFFFF72D2), fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("Use Android app settings to review or change permissions available to Myra AI.", fontSize = 12.sp, color = Color(0xFFB8A9D8))
                             TextButton(onClick = {
