@@ -984,7 +984,11 @@ class MainActivity : ComponentActivity() {
                                     TextButton(onClick = { showChat = false; showSettings = true }) { Text("Open Settings", color = Color(0xFFD91E3D)) }
                                 }
                             }
-                            Text("QUICK PROMPTS", color = Color(0xFF8D7077), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp, modifier = Modifier.padding(top = 8.dp, bottom = 6.dp))
+                            Row(Modifier.fillMaxWidth().padding(top = 8.dp, bottom = 6.dp), verticalAlignment = Alignment.CenterVertically) {
+                                Text("QUICK PROMPTS", color = Color(0xFF8D7077), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                                Spacer(Modifier.weight(1f))
+                                Text("TAP TO START", color = Color(0xFFD91E3D), fontSize = 8.sp, letterSpacing = .6.sp)
+                            }
                             Row(
                                 modifier = Modifier.fillMaxWidth().horizontalScroll(androidx.compose.foundation.rememberScrollState()),
                                 horizontalArrangement = Arrangement.spacedBy(6.dp),
@@ -1021,9 +1025,9 @@ class MainActivity : ComponentActivity() {
                                     value = chatDraft,
                                     onValueChange = { chatDraft = it },
                                     modifier = Modifier.fillMaxWidth(),
-                                    placeholder = { Text(if (busy) "Myra is replying…" else "Message Myra…", color = Color(0xFFB5A9D1)) },
-                                    leadingIcon = { Text("✦", color = Color(0xFFD91E3D), fontSize = 17.sp) },
-                                    label = { Text("Your message", color = Color(0xFFD91E3D)) },
+                                    placeholder = { Text(if (busy) "Myra is replying…" else "Type a message…", color = Color(0xFF9D858C)) },
+                                    leadingIcon = { Text("＋", color = Color(0xFFD91E3D), fontSize = 21.sp) },
+                                    label = { Text("Message", color = Color(0xFFD91E3D)) },
                                     minLines = 1,
                                     maxLines = 4,
                                     enabled = !busy,
@@ -1037,16 +1041,16 @@ class MainActivity : ComponentActivity() {
                                         unfocusedLabelColor = Color(0xFFB5A9D1),
                                         focusedContainerColor = Color(0xFFFFFEFE),
                                         unfocusedContainerColor = Color(0xFFFFFEFE),
-                                        cursorColor = Color(0xFFFFB2E9),
-                                        disabledTextColor = Color(0xFFB5A9D1),
+                                        cursorColor = Color(0xFFD91E3D),
+                                        disabledTextColor = Color(0xFF9D858C),
                                         disabledBorderColor = Color(0x33D9A04A)
                                     )
                                 )
                             Spacer(Modifier.height(8.dp))
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
                                 Text(
-                                    if (busy) "Myra is thinking…" else if (chatDraft.isNotBlank()) "${chatDraft.length} characters • Draft not sent" else "Private chat • Replies appear here",
-                                    color = Color(0xFFB5A9D1), fontSize = 10.sp, modifier = Modifier.weight(1f)
+                                    if (busy) "MYRA IS THINKING…" else if (chatDraft.isNotBlank()) "${chatDraft.length} characters • Draft not sent" else "PRIVATE CHAT  •  REPLIES APPEAR HERE",
+                                    color = Color(0xFF9D858C), fontSize = 9.sp, letterSpacing = .25.sp, modifier = Modifier.weight(1f)
                                 )
                                 if (chatDraft.isNotBlank() && !busy) {
                                     TextButton(onClick = { chatDraft = "" }) {
