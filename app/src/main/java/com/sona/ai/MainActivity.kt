@@ -86,7 +86,15 @@ class MainActivity : ComponentActivity() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray, deviceId: Int) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults, deviceId)
-        if (requestCode == CAMERA_PERMISSION_REQUEST) {
+        if (requestCode == AUDIO_PERMISSION_REQUEST) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                status = "MICROPHONE READY • STARTING LIVE VOICE"
+                requestOrStartVoice()
+            } else {
+                status = "MICROPHONE PERMISSION DENIED • ENABLE IT IN APP SETTINGS"
+                heardText = "Live voice needs microphone permission. You can enable it in Android App Settings."
+            }
+        } else if (requestCode == CAMERA_PERMISSION_REQUEST) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openCameraForNeuralLens()
             } else {
