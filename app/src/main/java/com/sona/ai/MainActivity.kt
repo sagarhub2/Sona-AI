@@ -761,6 +761,7 @@ class MainActivity : ComponentActivity() {
                                     Column(Modifier.weight(1f)) {
                                         Text("MYRA AI", color = Color(0xFF2B171D), fontSize = 20.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
                                         Text("LIVE VOICE ASSISTANT", color = Color(0xFFD91E3D), fontSize = 9.sp, letterSpacing = 1.6.sp)
+                                         Text("NATURAL CONVERSATION  •  HANDS-FREE", color = Color(0xFF8D7077), fontSize = 8.sp, letterSpacing = .35.sp)
                                     }
                                     Surface(shape = RoundedCornerShape(30.dp), color = Color(0xFFFFFEFE), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A))) {
                                         Row(Modifier.padding(horizontal = 10.dp, vertical = 7.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -778,14 +779,17 @@ class MainActivity : ComponentActivity() {
                                     Box(Modifier.size(242.dp).rotate(orbRotation).border(1.dp, Color(0xFFD91E3D).copy(alpha = .48f), CircleShape))
                                     Box(Modifier.size(224.dp).rotate(-orbRotation).border(1.dp, Color(0xFFD9A04A).copy(alpha = .72f), CircleShape))
                                     Box(Modifier.size(210.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF080508), Color(0xFF7C1021), Color(0xFFD91E3D), Color(0xFF020202)))).border(2.dp, Color(0xFFFFE3A5).copy(alpha = .8f), CircleShape))
-                                    Box(Modifier.size(166.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF2B171D).copy(alpha = .95f), Color(0xFFD91E3D), Color(0xFF7026A8), Color.Transparent))))
+                                    Box(Modifier.size(166.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF2B171D).copy(alpha = .95f), Color(0xFFD91E3D), Color(0xFFFF6F89), Color.Transparent))))
                                     Box(Modifier.size(82.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFFFFFF), Color(0xFFFFE3A5), Color(0xFFFF6F89)))))
                                 }
                                 Spacer(Modifier.height(18.dp))
                                 Text(if (voiceMuted) "MICROPHONE MUTED" else if (status.contains("LIVE", true) || status.contains("LISTEN", true)) "MYRA IS LISTENING" else status.uppercase(), color = Color(0xFFD91E3D), fontSize = 11.sp, fontWeight = FontWeight.SemiBold, letterSpacing = 1.2.sp, textAlign = TextAlign.Center, maxLines = 2)
                                 Spacer(Modifier.height(10.dp))
-                                Surface(color = Color(0xFFFFFEFE).copy(alpha = .92f), shape = RoundedCornerShape(18.dp), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A))) {
-                                    Text(heardText.ifBlank { "I’m listening. Start speaking whenever you’re ready." }, Modifier.fillMaxWidth().padding(16.dp), color = Color(0xFF2B171D), fontSize = 13.sp, lineHeight = 20.sp, textAlign = TextAlign.Center, maxLines = 4, overflow = TextOverflow.Ellipsis)
+                                Surface(modifier = Modifier.fillMaxWidth(), color = Color(0xFFFFFEFE).copy(alpha = .96f), shape = RoundedCornerShape(22.dp), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x66D9A04A))) {
+                                    Column(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 14.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                                         Text("LIVE TRANSCRIPT", color = Color(0xFFD91E3D), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                                         Text(heardText.ifBlank { "I’m listening. Start speaking whenever you’re ready." }, color = Color(0xFF2B171D), fontSize = 13.sp, lineHeight = 20.sp, textAlign = TextAlign.Center, maxLines = 4, overflow = TextOverflow.Ellipsis)
+                                     }
                                 }
                                 Spacer(Modifier.weight(1f))
                                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
