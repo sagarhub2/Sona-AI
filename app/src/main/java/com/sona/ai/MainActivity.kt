@@ -1502,7 +1502,12 @@ class MainActivity : ComponentActivity() {
                                 OutlinedButton(onClick = { profilePhotoPicker.launch(arrayOf("image/*")) }, modifier = Modifier.weight(1f)) { Text(if (profilePhotoUri.isBlank()) "Choose profile photo" else "Change photo") }
                                 TextButton(onClick = { profilePhotoUri = ""; prefs.edit().remove("profile_photo_uri").apply() }, enabled = profilePhotoUri.isNotBlank()) { Text("Remove") }
                             }
-                            val profileCompletion = listOf(userNameDraft.isNotBlank(), profileBioDraft.isNotBlank(), profilePhotoUri.isNotBlank() || profileAvatarDraft != "✦").count { it } * 100 / 3
+                            val profileCompletion = listOf(
+                                userNameDraft.isNotBlank(),
+                                profileBioDraft.isNotBlank(),
+                                profileInterestsDraft.isNotBlank(),
+                                profilePhotoUri.isNotBlank() || profileAvatarDraft != "✦"
+                            ).count { it } * 100 / 4
                             Column(
                                 Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp))
                                     .background(Color(0xFFFFE8ED)).border(1.dp, Color(0xFFF0B8C1), RoundedCornerShape(14.dp))
@@ -1515,7 +1520,7 @@ class MainActivity : ComponentActivity() {
                                     Text("$profileCompletion%", color = Color(0xFFCB1731), fontWeight = FontWeight.Black, fontSize = 12.sp)
                                 }
                                 LinearProgressIndicator(progress = { profileCompletion / 100f }, modifier = Modifier.fillMaxWidth().height(6.dp).clip(RoundedCornerShape(50)), color = Color(0xFFCB1731), trackColor = Color(0xFFF4C8D1))
-                                Text(if (profileCompletion == 100) "Looking good — your personal profile is filled in." else "Add your name, a short bio, or a custom photo/symbol to personalize your profile.", color = Color(0xFF6F5C62), fontSize = 10.sp)
+                                Text(if (profileCompletion == 100) "Looking good — name, bio, interests and avatar are all set." else "Complete your name, bio, interests and avatar to build a fuller profile. ${listOf(userNameDraft.isNotBlank(), profileBioDraft.isNotBlank(), profileInterestsDraft.isNotBlank(), profilePhotoUri.isNotBlank() || profileAvatarDraft != "✦").count { it }}/4 sections complete.", color = Color(0xFF6F5C62), fontSize = 10.sp)
                             }
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                                 TextButton(onClick = { confirmProfileReset = true }) {
