@@ -763,7 +763,7 @@ class MainActivity : ComponentActivity() {
                                                 else audio.adjustStreamVolume(android.media.AudioManager.STREAM_MUSIC, android.media.AudioManager.ADJUST_UNMUTE, 0)
                                             },
                                             modifier = Modifier.size(58.dp),
-                                            colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFF2A1D45), contentColor = Color(0xFFF0E7FF)
+                                            colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFF2A1D45), contentColor = Color(0xFFF0E7FF))
                                         ) { Text(if (voiceMuted) "◖))" else "♪", fontSize = 24.sp, color = Color(0xFFF0E7FF)) }
                                         Spacer(Modifier.height(7.dp))
                                         Text(if (voiceMuted) "Unmute" else "Mute", color = Color(0xFFC5B5E8), fontSize = 11.sp)
@@ -787,7 +787,7 @@ class MainActivity : ComponentActivity() {
                                         androidx.compose.material3.FilledTonalIconButton(
                                             onClick = { showVoiceScreen = false },
                                             modifier = Modifier.size(58.dp),
-                                            colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFF2A1D45), contentColor = Color(0xFFF0E7FF)
+                                            colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFF2A1D45), contentColor = Color(0xFFF0E7FF))
                                         ) { Text("⌄", fontSize = 28.sp, color = Color(0xFFF0E7FF)) }
                                         Spacer(Modifier.height(7.dp))
                                         Text("Minimize", color = Color(0xFFC5B5E8), fontSize = 11.sp)
