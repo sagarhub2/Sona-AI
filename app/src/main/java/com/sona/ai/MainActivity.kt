@@ -34,9 +34,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
@@ -755,14 +757,14 @@ class MainActivity : ComponentActivity() {
                                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                         androidx.compose.material3.FilledTonalIconButton(
                                             onClick = {
-                                                val audio = getSystemService(Context.AUDIO_SERVICE) as android.media.AudioManager
+                                                val audio = getSystemService(android.content.Context.AUDIO_SERVICE) as android.media.AudioManager
                                                 voiceMuted = !voiceMuted
                                                 if (voiceMuted) audio.adjustStreamVolume(android.media.AudioManager.STREAM_MUSIC, android.media.AudioManager.ADJUST_MUTE, 0)
                                                 else audio.adjustStreamVolume(android.media.AudioManager.STREAM_MUSIC, android.media.AudioManager.ADJUST_UNMUTE, 0)
                                             },
                                             modifier = Modifier.size(58.dp),
                                             colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFF2A1D45), contentColor = Color(0xFFF0E7FF)
-                                        ) { Icon(if (voiceMuted) Icons.Default.VolumeOff else Icons.Default.VolumeUp, contentDescription = if (voiceMuted) "Unmute audio" else "Mute audio") }
+                                        ) { Text(if (voiceMuted) "◖))" else "♪", fontSize = 24.sp, color = Color(0xFFF0E7FF)) }
                                         Spacer(Modifier.height(7.dp))
                                         Text(if (voiceMuted) "Unmute" else "Mute", color = Color(0xFFC5B5E8), fontSize = 11.sp)
                                     }
@@ -777,7 +779,7 @@ class MainActivity : ComponentActivity() {
                                             },
                                             modifier = Modifier.size(68.dp),
                                             colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFFDB3568), contentColor = Color.White)
-                                        ) { Icon(Icons.Default.CallEnd, contentDescription = "End voice session", modifier = Modifier.size(28.dp)) }
+                                        ) { Text("×", fontSize = 34.sp, color = Color.White) }
                                         Spacer(Modifier.height(7.dp))
                                         Text("End", color = Color(0xFFFFC1D8), fontSize = 11.sp)
                                     }
@@ -786,7 +788,7 @@ class MainActivity : ComponentActivity() {
                                             onClick = { showVoiceScreen = false },
                                             modifier = Modifier.size(58.dp),
                                             colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFF2A1D45), contentColor = Color(0xFFF0E7FF)
-                                        ) { Icon(Icons.Default.KeyboardArrowDown, contentDescription = "Minimize voice screen") }
+                                        ) { Text("⌄", fontSize = 28.sp, color = Color(0xFFF0E7FF)) }
                                         Spacer(Modifier.height(7.dp))
                                         Text("Minimize", color = Color(0xFFC5B5E8), fontSize = 11.sp)
                                     }
