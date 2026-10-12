@@ -59,6 +59,8 @@ private const val AUDIO_PERMISSION_REQUEST = 410
 private const val CAMERA_PERMISSION_REQUEST = 411
 
 class MainActivity : ComponentActivity() {
+    private var pendingMessageDraft: String? = null
+
     private var status by mutableStateOf("READY • TAP TO SPEAK")
     private var heardText by mutableStateOf("Add your Gemini API key in Settings to enable AI.")
     private var apiKey by mutableStateOf("")
@@ -2164,6 +2166,36 @@ class MainActivity : ComponentActivity() {
                 startActivity(Intent(Intent.ACTION_VIEW, mapUri))
                 respond("$destination ke directions khol rahi hoon.")
             } catch (_: Exception) { respond("Maps directions open nahi ho paaye.") }
+        }
+
+        if (listOf("confirm send", "send confirmed", "haan send karo", "yes send", "भेज दो", "हाँ भेज दो").any { command == it || command.startsWith("$it ") }) {
+            val draft = pendingMessageDraft
+            if (draft.isNullOrBlank()) return respond("Koi pending message draft nahi hai. Pehle bolo: draft message saying hello.")
+            return try {
+                val intent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TEXT, draft)
+                }
+                pendingMessageDraft = null
+                startActivity(Intent.createChooser(intent, "Choose app to send your message"))
+                respond("Message share sheet khul gayi hai. App aur recipient choose karke final send tum karna.")
+            } catch (_: Exception) {
+                pendingMessageDraft = draft
+                respond("Message share karne ke liye app open nahi ho paayi.")
+            }
+        }
+        if (listOf("cancel message", "cancel draft", "message cancel", "रद्द करो").any { command.contains(it) }) {
+            pendingMessageDraft = null
+            return respond("Pending message draft cancel kar diya.")
+        }
+
+        val draftPrefixes = listOf("draft message saying ", "write message saying ", "compose message ", "message draft ", "message likho ", "मैसेज लिखो ")
+        val draftPrefix = draftPrefixes.firstOrNull { command.startsWith(it) }
+        if (draftPrefix != null) {
+            val draft = raw.trim().drop(draftPrefix.length).trim()
+            if (draft.isBlank()) return respond("Message kya likhna hai? Bolo: draft message saying hello.")
+            pendingMessageDraft = draft
+            return respond("Message yeh hai: $draft. Sun lo. Theek ho to mic dabakar 'confirm send' bolo; cancel karne ke liye 'cancel message' bolo.")
         }
 
         val reminderMatch = Regex("^(?:remind me at|set reminder at|alarm at|मुझे याद दिलाना)\\s+(\\d{1,2})(?::(\\d{2}))?\\s*(am|pm)?\\s*(?:to|for|about|कि|को)?\\s*(.*)$", RegexOption.IGNORE_CASE).find(raw.trim())
