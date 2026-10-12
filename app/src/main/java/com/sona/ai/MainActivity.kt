@@ -450,8 +450,8 @@ class MainActivity : ComponentActivity() {
                                     onClick = action,
                                     modifier = Modifier.fillMaxWidth(),
                                     shape = RoundedCornerShape(16.dp),
-                                    color = Color(0xFFFFF7F8),
-                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0B8C1)),
+                                    color = Color(0xFF171018),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFCB1731)),
                                     shadowElevation = 0.dp
                                 ) {
                                     Row(
@@ -460,20 +460,20 @@ class MainActivity : ComponentActivity() {
                                     ) {
                                         Box(
                                             Modifier.size(44.dp).clip(RoundedCornerShape(13.dp))
-                                                .background(Color(0xFFFFE8EC))
-                                                .border(1.dp, Color(0xFFF0B8C1), RoundedCornerShape(13.dp)),
+                                                .background(Color(0xFF2A101B))
+                                                .border(1.dp, Color(0xFFCB1731), RoundedCornerShape(13.dp)),
                                             contentAlignment = Alignment.Center
-                                        ) { Text(icon, color = Color(0xFFCB1731), fontSize = 23.sp) }
+                                        ) { Text(icon, color = Color(0xFFFF7185), fontSize = 23.sp) }
                                         Spacer(Modifier.width(12.dp))
                                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                                            Text(heading, color = Color(0xFF282126), fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
-                                            Text(detail, color = Color(0xFF8C7E83), fontSize = 11.sp)
+                                            Text(heading, color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
+                                            Text(detail, color = Color(0xFFC6B8C0), fontSize = 11.sp)
                                         }
-                                        Text("›", color = Color(0xFFCB1731), fontSize = 25.sp)
+                                        Text("›", color = Color(0xFFFF7185), fontSize = 25.sp)
                                     }
                                 }
                             }
-                            TriggerActionCard("◷", "Set an alarm", "Choose a time and alarm label") {
+                            TriggerActionCard("⏰", "Set an alarm", "Choose a time and alarm label") {
                                 showTriggers = false
                                 try { startActivity(Intent(AlarmClock.ACTION_SET_ALARM).apply { putExtra(AlarmClock.EXTRA_SKIP_UI, false) }) }
                                 catch (_: Exception) { status = "CLOCK APP UNAVAILABLE" }
@@ -3740,7 +3740,7 @@ private fun MyraFeaturesMenu(
         Triple("Files & Documents", "Browse PDFs, images and files", "▤") to onFiles,
         Triple("Notes & Voice Notes", "Open your saved notes", "✎") to onMemory,
         Triple("Tasks & Reminders", "Stay organized", "☑") to onTasks,
-        Triple("Reminders & Alarms", "Create an alarm", "◷") to onReminder,
+        Triple("Reminders & Alarms", "Create an alarm", "⏰") to onReminder,
         Triple("Device Settings", "Open Android settings", "⚙") to onDevice,
         Triple("Web Search", "Search the internet", "⌕") to onWeb,
         Triple("Smart Memory", "Personal preferences and memory", "✦") to onMemory,
