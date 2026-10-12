@@ -732,6 +732,7 @@ class MainActivity : ComponentActivity() {
                     },
                     properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false)
                 ) {
+                    var bossMode by remember { mutableStateOf(false) }
                     val voiceTransition = androidx.compose.animation.core.rememberInfiniteTransition(label = "lia-voice-orb")
                     val orbScale by voiceTransition.animateFloat(
                         initialValue = 0.94f, targetValue = 1.06f,
@@ -782,7 +783,16 @@ class MainActivity : ComponentActivity() {
                                     Box(Modifier.size(166.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF2B171D).copy(alpha = .95f), Color(0xFFD91E3D), Color(0xFFFF6F89), Color.Transparent))))
                                     Box(Modifier.size(82.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFFFFFF), Color(0xFFFFE3A5), Color(0xFFFF6F89)))))
                                 }
-                                Spacer(Modifier.height(18.dp))
+                                Spacer(Modifier.height(12.dp))
+                                androidx.compose.material3.FilledTonalButton(
+                                    onClick = { bossMode = !bossMode },
+                                    colors = androidx.compose.material3.ButtonDefaults.filledTonalButtonColors(containerColor = if (bossMode) Color(0xFFD91E3D) else Color(0xFFFFFEFE), contentColor = if (bossMode) Color.White else Color(0xFFD91E3D)),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A)),
+                                    shape = RoundedCornerShape(24.dp)
+                                ) {
+                                    Text(if (bossMode) "♛  BOSS MODE ON" else "♛  Boss Mode", fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                                }
+                                Spacer(Modifier.height(10.dp))
                                 Text(if (voiceMuted) "MICROPHONE MUTED" else if (status.contains("LIVE", true) || status.contains("LISTEN", true)) "MYRA IS LISTENING" else status.uppercase(), color = Color(0xFFD91E3D), fontSize = 11.sp, fontWeight = FontWeight.SemiBold, letterSpacing = 1.2.sp, textAlign = TextAlign.Center, maxLines = 2)
                                  Text(if (voiceMuted) "Unmute your microphone to continue" else "Speak naturally — Myra is ready to hear you", color = Color(0xFF8D7077), fontSize = 10.sp, textAlign = TextAlign.Center, maxLines = 2)
                                 Spacer(Modifier.height(10.dp))
