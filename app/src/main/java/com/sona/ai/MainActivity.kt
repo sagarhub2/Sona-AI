@@ -4929,12 +4929,12 @@ private fun MyraHome(
         ) {
             Column(Modifier.weight(1f).clip(RoundedCornerShape(16.dp)).clickable { }.padding(vertical = 4.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("⌂", color = red, fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                androidx.compose.material3.Icon(imageVector = androidx.compose.material.icons.Icons.Default.Home, contentDescription = "Home", tint = red, modifier = Modifier.size(22.dp))
                 Text("Home", color = red, fontSize = 10.sp, fontWeight = FontWeight.Bold)
             }
             Column(Modifier.weight(1f).clip(RoundedCornerShape(16.dp)).clickable { onChat() }.padding(vertical = 4.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("▤", color = muted, fontSize = 20.sp)
+                androidx.compose.material3.Icon(imageVector = androidx.compose.material.icons.Icons.AutoMirrored.Filled.Chat, contentDescription = "Chat", tint = muted, modifier = Modifier.size(20.dp))
                 Text("Chat", color = muted, fontSize = 10.sp)
             }
             Column(Modifier.weight(1.15f).clip(CircleShape).background(
@@ -4946,12 +4946,12 @@ private fun MyraHome(
             }
             Column(Modifier.weight(1f).clip(RoundedCornerShape(16.dp)).clickable { onReminder() }.padding(vertical = 4.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("ϟ", color = muted, fontSize = 21.sp, fontWeight = FontWeight.Bold)
+                androidx.compose.material3.Icon(imageVector = androidx.compose.material.icons.Icons.Default.Bolt, contentDescription = "Triggers", tint = muted, modifier = Modifier.size(21.dp))
                 Text("Triggers", color = muted, fontSize = 10.sp)
             }
             Column(Modifier.weight(1f).clip(RoundedCornerShape(16.dp)).clickable { onSettings() }.padding(vertical = 4.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("⚙", color = muted, fontSize = 20.sp)
+                androidx.compose.material3.Icon(imageVector = androidx.compose.material.icons.Icons.Default.Settings, contentDescription = "Settings", tint = muted, modifier = Modifier.size(20.dp))
                 Text("Settings", color = muted, fontSize = 10.sp)
             }
         }
