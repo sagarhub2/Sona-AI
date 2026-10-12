@@ -2066,11 +2066,11 @@ class MainActivity : ComponentActivity() {
                             Surface(
                                 modifier = Modifier.fillMaxWidth(),
                                 shape = RoundedCornerShape(16.dp),
-                                color = Color.White,
-                                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF8B4E9F))
+                                color = Color(0xFF0D192B),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF344B68))
                             ) {
                                 Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(7.dp)) {
-                                    Text("Manage Myra's Android access", color = Color(0xFFF7EEFF), fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
+                                    Text("Manage Myra's Android access", color = Color(0xFFF5F7FF), fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
                                     Text("Review microphone, camera, contacts and other permissions in Android settings. You can change access any time.", color = Color(0xFFB8A9D8), fontSize = 11.sp)
                                     OutlinedButton(
                                         onClick = {
