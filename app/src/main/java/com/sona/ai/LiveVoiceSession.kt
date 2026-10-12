@@ -106,7 +106,8 @@ class LiveVoiceSession(
                     server?.optJSONObject("inputTranscription")?.optString("text")?.takeIf { it.isNotBlank() && it != "null" }?.let { onTranscript("You: $it") }
                     server?.optJSONObject("outputTranscription")?.optString("text")?.takeIf { it.isNotBlank() && it != "null" }?.let { text ->
                         pendingOutputTranscript = if (pendingOutputTranscript.isBlank()) text else if (text.startsWith(pendingOutputTranscript)) text else pendingOutputTranscript + text
-                        onTranscript(text)
+                        // Keep the live transcript cumulative; the API may deliver it in chunks.
+                        onTranscript(pendingOutputTranscript)
                     }
                     val parts = server?.optJSONObject("modelTurn")?.optJSONArray("parts")
                     if (parts != null) for (i in 0 until parts.length()) {
