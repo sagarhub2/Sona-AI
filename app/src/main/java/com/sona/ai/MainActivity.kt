@@ -77,12 +77,19 @@ class MainActivity : ComponentActivity() {
     private var showWebSearch by mutableStateOf(false)
     private var showFiles by mutableStateOf(false)
     private var showPermissionDashboard by mutableStateOf(false)
+    private var showAccessibilitySettings by mutableStateOf(false)
+    private var accessibilityEnabled by mutableStateOf(false)
     private var showSecurityDashboard by mutableStateOf(false)
     private var busy by mutableStateOf(false)
     private var speechRecognizer: SpeechRecognizer? = null
     private var liveVoiceSession: LiveVoiceSession? = null
     private var textToSpeech: TextToSpeech? = null
     private var ttsReady = false
+
+    override fun onResume() {
+        super.onResume()
+        accessibilityEnabled = isMyraAccessibilityEnabled()
+    }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray, deviceId: Int) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults, deviceId)
@@ -1597,6 +1604,31 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                             }
+                            Surface(
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(18.dp),
+                                color = Color(0xFF17102D),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, if (accessibilityEnabled) Color(0xFF56D6A0) else Color(0xFF8B4E9F))
+                            ) {
+                                Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(9.dp)) {
+                                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                                        Box(Modifier.size(42.dp).clip(RoundedCornerShape(13.dp)).background(Color(0xFF24143C)), contentAlignment = Alignment.Center) {
+                                            Text("⌘", color = Color(0xFFFF72D2), fontSize = 23.sp, fontWeight = FontWeight.Bold)
+                                        }
+                                        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                                            Text("ACCESSIBILITY & VOICE CONTROL", color = Color(0xFFFF72D2), fontSize = 9.sp, fontWeight = FontWeight.Black, letterSpacing = .8.sp)
+                                            Text("Android navigation service", color = Color(0xFFF7EEFF), fontWeight = FontWeight.Bold, fontSize = 14.sp)
+                                            Text(if (accessibilityEnabled) "SERVICE ENABLED" else "SERVICE NOT ENABLED", color = if (accessibilityEnabled) Color(0xFF56D6A0) else Color(0xFFFFB86B), fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                                        }
+                                    }
+                                    Text("Use explicit voice commands for Back, Home, notifications, Quick Settings and Recent Apps. Myra does not read screen content or enter text.", color = Color(0xFFD1C1E8), fontSize = 11.sp)
+                                    Button(
+                                        onClick = { showAccessibilitySettings = true },
+                                        modifier = Modifier.fillMaxWidth(),
+                                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF8B5CF6), contentColor = Color.White)
+                                    ) { Text("Manage accessibility settings") }
+                                }
+                            }
                             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                                 Divider(Modifier.weight(1f), color = Violet.copy(alpha = .65f), thickness = 1.dp)
                                 Text("PROFILE", color = Color(0xFFFF72D2), fontWeight = FontWeight.Black, fontSize = 9.sp, letterSpacing = 1.6.sp)
@@ -2002,6 +2034,70 @@ class MainActivity : ComponentActivity() {
                     },
                     dismissButton = {
                         TextButton(onClick = { showSettings = false }) { Text("Cancel", color = Color(0xFFFFA5DF)) }
+                    }
+                )
+            }
+            if (showAccessibilitySettings) {
+                AlertDialog(
+                    onDismissRequest = { showAccessibilitySettings = false },
+                    shape = RoundedCornerShape(24.dp),
+                    containerColor = Color(0xFF100B20),
+                    title = {
+                        Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                            Text("MYRA AI • ACCESSIBILITY", color = Color(0xFFFF72D2), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.4.sp)
+                            Text("Voice navigation access", color = Color.White, fontSize = 21.sp, fontWeight = FontWeight.Bold)
+                            Text(
+                                if (accessibilityEnabled) "Status: Enabled on this device" else "Status: Not enabled",
+                                color = if (accessibilityEnabled) Color(0xFF56D6A0) else Color(0xFFFFB86B),
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    },
+                    text = {
+                        Column(
+                            Modifier.fillMaxWidth().heightIn(max = 390.dp).verticalScroll(androidx.compose.foundation.rememberScrollState()),
+                            verticalArrangement = Arrangement.spacedBy(10.dp)
+                        ) {
+                            Text("What it does", color = Color(0xFFFF72D2), fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                            Text("When you enable the service yourself in Android settings, Myra can perform only the navigation actions listed below after you ask for them.", color = Color(0xFFE5DDF0), fontSize = 12.sp)
+                            listOf(
+                                "Back — return to the previous screen",
+                                "Home — go to the home screen",
+                                "Notifications — open the notification shade",
+                                "Quick Settings — open system quick settings",
+                                "Recent Apps — show the app switcher"
+                            ).forEach { action ->
+                                Row(
+                                    Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(Color(0xFF211438)).padding(10.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                ) {
+                                    Text("✓", color = Color(0xFF56D6A0), fontWeight = FontWeight.Bold)
+                                    Text(action, color = Color.White, fontSize = 12.sp)
+                                }
+                            }
+                            Text("Privacy", color = Color(0xFFFF72D2), fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                            Text("Myra's service is configured not to retrieve screen content. It does not read screen text, record what you view, or type into other apps. Android requires you to enable or disable this access yourself.", color = Color(0xFFE5DDF0), fontSize = 12.sp)
+                            Text("If the status still says Not enabled after returning, check that “Myra AI accessibility navigation” is switched on in Android Accessibility settings.", color = Color(0xFFB8A9D8), fontSize = 11.sp)
+                        }
+                    },
+                    confirmButton = {
+                        TextButton(onClick = {
+                            try {
+                                startActivity(Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS))
+                                status = "OPENING ANDROID ACCESSIBILITY SETTINGS"
+                            } catch (_: Exception) {
+                                status = "ACCESSIBILITY SETTINGS UNAVAILABLE"
+                                heardText = "Could not open Android Accessibility settings on this device."
+                            }
+                        }) { Text("Open Android settings", color = Color(0xFFFF72D2), fontWeight = FontWeight.Bold) }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = {
+                            accessibilityEnabled = isMyraAccessibilityEnabled()
+                            status = if (accessibilityEnabled) "ACCESSIBILITY SERVICE ENABLED" else "ACCESSIBILITY SERVICE NOT ENABLED"
+                        }) { Text("Refresh status", color = Color(0xFFB8A9D8)) }
                     }
                 )
             }
