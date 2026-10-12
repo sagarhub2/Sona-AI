@@ -2408,6 +2408,18 @@ class MainActivity : ComponentActivity() {
             val saverSummary = if (powerManager.isPowerSaveMode) "Battery saver is on." else "Battery saver is off."
             return respond("Abhi ${timeFormatter.format(now.time)} hain. Aaj ${dateFormatter.format(now.time)} hai. $batterySummary $networkSummary $saverSummary")
         }
+        if (listOf("read my notifications", "read notifications", "read my messages", "read whatsapp messages", "messages padho", "notifications padho", "मेरे मैसेज पढ़ो", "नोटिफिकेशन पढ़ो").any { command.contains(it) }) {
+            val recent = getSharedPreferences("myra_notifications", MODE_PRIVATE)
+                .getString("recent", "").orEmpty().lines().filter { it.isNotBlank() }.take(5)
+            if (recent.isEmpty()) {
+                return respond("Abhi koi saved notification nahi hai. Pehle Android Settings mein MYRA AI ko Notification Access dena hoga, phir nayi notification aane par dobara bolo.")
+            }
+            val spoken = "Recent notifications. " + recent.joinToString(". ")
+            heardText = recent.joinToString("\\n")
+            status = "READING RECENT NOTIFICATIONS"
+            if (ttsReady) textToSpeech?.speak(spoken.take(3500), TextToSpeech.QUEUE_FLUSH, null, "myra-read-notifications")
+            return true
+        }
         if (listOf("what time", "current time", "time is it", "समय क्या", "कितने बजे").any { command.contains(it) }) {
             return respond("Abhi time ${timeFormatter.format(now.time)} hai.")
         }
