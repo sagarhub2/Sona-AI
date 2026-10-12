@@ -1989,7 +1989,20 @@ class MainActivity : ComponentActivity() {
                                     if (personalityDraft == value) Text("✓", color = Cyan, fontWeight = FontWeight.Bold)
                                 }
                             }
-                            OutlinedTextField(value = personalityDraft, onValueChange = { personalityDraft = it }, label = { Text("Custom personality / instructions") }, minLines = 2, modifier = Modifier.fillMaxWidth())
+                            OutlinedTextField(
+                                value = personalityDraft,
+                                onValueChange = { personalityDraft = it },
+                                label = { Text("Custom personality / instructions") },
+                                minLines = 2,
+                                modifier = Modifier.fillMaxWidth(),
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    focusedBorderColor = Color(0xFFFF72D2), unfocusedBorderColor = Color(0xFF344B68),
+                                    focusedLabelColor = Color(0xFFFF72D2), unfocusedLabelColor = Color(0xFFB8A9D8),
+                                    cursorColor = Color(0xFFFF72D2), focusedTextColor = Color(0xFFF7EEFF),
+                                    unfocusedTextColor = Color(0xFFF7EEFF), focusedContainerColor = Color(0xFF0D192B),
+                                    unfocusedContainerColor = Color(0xFF0D192B)
+                                )
+                            )
                             SettingToggle("Use saved Memory notes in replies", rememberNotes, { rememberNotes = it })
                             Text("APPEARANCE & STYLE", color = Color(0xFFFF72D2), fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("Choose Myra's accent palette. Changes apply across the interface.", color = Color(0xFFB8A9D8), fontSize = 12.sp)
