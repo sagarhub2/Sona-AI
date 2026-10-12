@@ -1712,7 +1712,7 @@ class MainActivity : ComponentActivity() {
                                         Text(userNameDraft.trim().ifBlank { "Your profile" }, color = Color(0xFFF7EEFF), fontWeight = FontWeight.Bold, fontSize = 15.sp)
                                         Text("PERSONAL PROFILE PREVIEW", color = Color(0xFFB8A9D8), fontSize = 9.sp, letterSpacing = .8.sp)
                                         Text(profileBioDraft.trim().ifBlank { "Add a short bio to personalize Myra" }, color = Color(0xFFD1C1E8), fontSize = 11.sp, maxLines = 2)
-                                        if (profileInterestsDraft.isNotBlank()) Text("Interests: ${profileInterestsDraft.trim()}", color = Color(0xFF8B5CF6), fontSize = 10.sp, maxLines = 2)
+                                        if (profileInterestsDraft.isNotBlank()) Text("Interests: ${profileInterestsDraft.trim()}", color = Color(0xFFFF72D2), fontSize = 10.sp, maxLines = 2)
                                     }
                                 }
                             }
@@ -1728,7 +1728,7 @@ class MainActivity : ComponentActivity() {
                             ).count { it } * 100 / 4
                             Column(
                                 Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp))
-                                    .background(Color(0xFF211438)).border(1.dp, Color(0xFF8B4E9F), RoundedCornerShape(14.dp))
+                                    .background(Color(0xFF0D192B)).border(1.dp, Color(0xFF344B68), RoundedCornerShape(14.dp))
                                     .padding(12.dp),
                                 verticalArrangement = Arrangement.spacedBy(7.dp)
                             ) {
