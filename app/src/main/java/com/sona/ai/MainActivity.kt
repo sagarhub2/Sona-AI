@@ -2355,6 +2355,32 @@ class MainActivity : ComponentActivity() {
             )
         }
 
+        val mediaAction = when {
+            listOf("pause music", "pause song", "music pause", "gaana roko", "गाना रोक दो", "म्यूजिक रोक दो").any { command.contains(it) } -> android.view.KeyEvent.KEYCODE_MEDIA_PAUSE
+            listOf("resume music", "play music", "resume song", "music chalao", "gaana chalao", "गाना चलाओ", "म्यूजिक चलाओ").any { command.contains(it) } -> android.view.KeyEvent.KEYCODE_MEDIA_PLAY
+            listOf("next song", "next track", "agla gaana", "अगला गाना", "next music").any { command.contains(it) } -> android.view.KeyEvent.KEYCODE_MEDIA_NEXT
+            listOf("previous song", "previous track", "pichla gaana", "पिछला गाना", "last song").any { command.contains(it) } -> android.view.KeyEvent.KEYCODE_MEDIA_PREVIOUS
+            else -> null
+        }
+        if (mediaAction != null) {
+            return try {
+                val audio = getSystemService(AUDIO_SERVICE) as android.media.AudioManager
+                val down = android.view.KeyEvent(android.view.KeyEvent.ACTION_DOWN, mediaAction)
+                val up = android.view.KeyEvent(android.view.KeyEvent.ACTION_UP, mediaAction)
+                audio.dispatchMediaKeyEvent(down)
+                audio.dispatchMediaKeyEvent(up)
+                val label = when (mediaAction) {
+                    android.view.KeyEvent.KEYCODE_MEDIA_PAUSE -> "Pause command sent to the active media app."
+                    android.view.KeyEvent.KEYCODE_MEDIA_PLAY -> "Play command sent to the active media app."
+                    android.view.KeyEvent.KEYCODE_MEDIA_NEXT -> "Next-track command sent to the active media app."
+                    else -> "Previous-track command sent to the active media app."
+                }
+                respond(label)
+            } catch (_: Exception) {
+                respond("Media control nahi ho paaya. Pehle music app open karke try karo.")
+            }
+        }
+
         if (listOf("increase volume", "volume up", "volume badhao", "awaaz badhao", "आवाज़ बढ़ाओ", "वॉल्यूम बढ़ाओ").any { command.contains(it) }) {
             return try {
                 val audio = getSystemService(AUDIO_SERVICE) as android.media.AudioManager
