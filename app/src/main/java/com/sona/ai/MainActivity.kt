@@ -4630,7 +4630,7 @@ private fun MyraHome(
                                     .background(Brush.radialGradient(listOf(Color(0xFFFFB7C2), Color(0xFFD91E3D), Color(0xFF64101F))))
                                     .border(1.dp, if (busy) Color(0xFFD91E3D) else Color(0xFFD91E3D), CircleShape),
                                     contentAlignment = Alignment.Center
-                                ) { Text(if (busy) "•••" else "🎙", color = Color(0xFFFFFEFE), fontSize = 24.sp, fontWeight = FontWeight.Bold) } 
+                                ) { Text(if (busy) "•••" else "♫", color = Color(0xFFFFFEFE), fontSize = 24.sp, fontWeight = FontWeight.Bold) } 
                             }
                             Surface(
                                 shape = RoundedCornerShape(50),
@@ -4647,7 +4647,7 @@ private fun MyraHome(
                         }
                         Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
                             Text("Voice Mode", color = Color(0xFF2B171D), fontSize = 18.sp, fontWeight = FontWeight.Bold)
-                            Text(if (busy) "Connecting to your assistant…" else "Natural, hands-free conversation", color = Color(0xFF8D7077), fontSize = 10.sp, maxLines = 2, lineHeight = 14.sp)
+                            Text(if (busy) "Connecting to your assistant…" else "Holographic Orb", color = Color(0xFF8D7077), fontSize = 10.sp, maxLines = 2, lineHeight = 14.sp)
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                                 Box(Modifier.size(6.dp).clip(CircleShape).background(if (busy) Color(0xFFD91E3D) else Color(0xFFD91E3D)))
                                 Text(if (busy) "Live session in progress" else "Tap to speak with Myra", color = Color(0xFF8D7077), fontSize = 9.sp)
