@@ -4434,6 +4434,21 @@ private fun MyraHome(
                 .padding(horizontal = 20.dp)
         ) {
             Box(Modifier.fillMaxWidth().height(258.dp), contentAlignment = Alignment.Center) {
+                androidx.compose.foundation.Canvas(Modifier.fillMaxSize()) {
+                    val wave = androidx.compose.ui.graphics.Path().apply {
+                        moveTo(0f, size.height * 0.30f)
+                        cubicTo(size.width * 0.16f, size.height * 0.05f, size.width * 0.28f, size.height * 0.72f, size.width * 0.47f, size.height * 0.43f)
+                        cubicTo(size.width * 0.66f, size.height * 0.12f, size.width * 0.78f, size.height * 0.84f, size.width, size.height * 0.42f)
+                    }
+                    drawPath(wave, Color(0x33FF6F89), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2.dp.toPx()))
+                    drawPath(wave, Color(0x1EFFA3B1), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 7.dp.toPx()))
+                    val secondWave = androidx.compose.ui.graphics.Path().apply {
+                        moveTo(0f, size.height * 0.68f)
+                        cubicTo(size.width * 0.2f, size.height * 0.92f, size.width * 0.3f, size.height * 0.24f, size.width * 0.52f, size.height * 0.64f)
+                        cubicTo(size.width * 0.73f, size.height * 0.96f, size.width * 0.85f, size.height * 0.18f, size.width, size.height * 0.58f)
+                    }
+                    drawPath(secondWave, Color(0x22FF526E), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 1.5.dp.toPx()))
+                }
                 // Layered soft rose halos create the reference's atmospheric holographic glow.
                 Box(Modifier.size(270.dp).clip(CircleShape)
                     .background(Brush.radialGradient(listOf(Color(0x44FF526E), Color(0x22FF8EA0), Color.Transparent))))
