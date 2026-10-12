@@ -1454,7 +1454,7 @@ class MainActivity : ComponentActivity() {
                 var confirmProfileReset by remember { mutableStateOf(false) }
                 var languageDraft by remember { mutableStateOf(prefs.getString("language", "Auto (match me)") ?: "Auto (match me)") }
                 var voiceDraft by remember { mutableStateOf(prefs.getString("voice_style", "Warm & natural") ?: "Warm & natural") }
-                var availableVoiceNames by remember { mutableStateOf(textToSpeech?.voices.orEmpty().filter { it.locale.language == "hi" || it.locale.language == "en" }.map { it.name }.distinct().sorted()) }
+                var availableVoiceNames by remember { mutableStateOf(textToSpeech?.voices.orEmpty().filter { it.locale.language.isNotBlank() }.map { it.name }.distinct().sorted()) }
                 var selectedVoiceName by remember { mutableStateOf(prefs.getString("tts_voice_name", "").orEmpty()) }
                 var personalityDraft by remember { mutableStateOf(prefs.getString("personality", "Friendly, helpful, concise") ?: "Friendly, helpful, concise") }
                 var speakReplies by remember { mutableStateOf(prefs.getBoolean("speak_replies", true)) }
@@ -1812,11 +1812,16 @@ class MainActivity : ComponentActivity() {
                                 onClick = {
                                     if (ttsReady) {
                                         val sample = "Hello! I am Myra. नमस्ते, मैं मायरा हूँ।"
-                                        val chosenLanguage = languageDraft.trim().lowercase(Locale.ROOT)
+                                        val chosenLanguage = languageDraft.trim()
+                                        val normalizedLanguage = chosenLanguage.lowercase(Locale.ROOT)
                                         val locale = when {
-                                            chosenLanguage.contains("hindi") || chosenLanguage == "hi" -> Locale("hi", "IN")
-                                            chosenLanguage.contains("english") || chosenLanguage == "en" -> Locale("en", "IN")
-                                            else -> Locale.getDefault()
+                                            normalizedLanguage.isBlank() || normalizedLanguage == "auto" || normalizedLanguage.startsWith("auto ") -> Locale.getDefault()
+                                            normalizedLanguage.contains("hindi") || normalizedLanguage == "हिंदी" -> Locale.forLanguageTag("hi-IN")
+                                            normalizedLanguage.contains("english") || normalizedLanguage == "अंग्रेज़ी" -> Locale.forLanguageTag("en-IN")
+                                            else -> {
+                                                val tag = if (chosenLanguage.matches(Regex("^[a-zA-Z]{2,3}([_-][a-zA-Z]{2,4})?$"))) chosenLanguage.replace('_', '-') else Locale.getAvailableLocales().firstOrNull { it.getDisplayLanguage(Locale.getDefault()).equals(chosenLanguage, ignoreCase = true) }?.toLanguageTag() ?: ""
+                                                Locale.forLanguageTag(tag)
+                                            }
                                         }
                                         val languageResult = textToSpeech?.setLanguage(locale)
                                         if (languageResult == TextToSpeech.LANG_MISSING_DATA || languageResult == TextToSpeech.LANG_NOT_SUPPORTED) {
