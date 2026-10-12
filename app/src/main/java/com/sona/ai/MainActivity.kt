@@ -2148,6 +2148,33 @@ class MainActivity : ComponentActivity() {
                     (latest?.let { "Last saved event: $it" } ?: "Koi saved security event nahi hai.")
             )
         }
+        if (listOf("share security report", "export security report", "send security report", "security report share", "सिक्योरिटी रिपोर्ट शेयर").any { command.contains(it) }) {
+            val prefs = getSharedPreferences("myra_security", MODE_PRIVATE)
+            val armed = prefs.getBoolean("armed", false)
+            val events = prefs.getString("events", "").orEmpty().trim()
+            val report = buildString {
+                appendLine("MYRA AI • Phone Security Report")
+                appendLine("Monitoring preference: ${if (armed) "ON" else "OFF"}")
+                appendLine("Generated: ${java.text.SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault()).format(java.util.Date())}")
+                appendLine()
+                appendLine("Saved events:")
+                appendLine(if (events.isBlank()) "No security events recorded." else events)
+                appendLine()
+                appendLine("Note: movement alerts can be caused by ordinary vibration or transport; they do not identify a person.")
+            }
+            return try {
+                val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_SUBJECT, "MYRA AI Phone Security Report")
+                    putExtra(Intent.EXTRA_TEXT, report)
+                }
+                startActivity(Intent.createChooser(shareIntent, "Share MYRA security report"))
+                respond("Security report taiyar hai. Share sheet khul gayi hai; kisko bhejna hai tum choose karna.")
+            } catch (_: Exception) {
+                respond("Security report share nahi ho paayi. Koi compatible app available nahi hai.")
+            }
+        }
+
         if (listOf("security log", "show security events", "security history", "phone security log", "सिक्योरिटी हिस्ट्री").any { command.contains(it) }) {
             val events = getSharedPreferences("myra_security", MODE_PRIVATE)
                 .getString("events", "").orEmpty().lines().filter { it.isNotBlank() }.take(3)
