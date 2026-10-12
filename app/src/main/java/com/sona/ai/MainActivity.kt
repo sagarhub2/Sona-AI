@@ -4544,6 +4544,27 @@ private fun MyraHome(
                     }
                 }
             }
+            if (!hasKey) {
+                Surface(
+                    onClick = onSettings,
+                    modifier = Modifier.fillMaxWidth().padding(top = 12.dp),
+                    shape = RoundedCornerShape(18.dp),
+                    color = Color(0xFFFFF8E9),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A)),
+                    shadowElevation = 2.dp
+                ) {
+                    Row(Modifier.padding(horizontal = 14.dp, vertical = 13.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(11.dp)) {
+                        Box(Modifier.size(38.dp).clip(CircleShape).background(Color(0xFFFFE8EC)), contentAlignment = Alignment.Center) {
+                            Text("✦", color = Color(0xFFD91E3D), fontSize = 21.sp, fontWeight = FontWeight.Bold)
+                        }
+                        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                            Text("CONNECT YOUR AI", color = Color(0xFF2B171D), fontSize = 11.sp, fontWeight = FontWeight.Black, letterSpacing = .5.sp)
+                            Text("Add your Gemini API key to enable AI responses.", color = Color(0xFF8D7077), fontSize = 10.sp)
+                        }
+                        Text("SET UP  ›", color = Color(0xFFD91E3D), fontSize = 9.sp, fontWeight = FontWeight.Black)
+                    }
+                }
+            }
             Row(Modifier.fillMaxWidth().padding(top = 24.dp, bottom = 12.dp), verticalAlignment = Alignment.CenterVertically) {
                 Text("Quick Access", color = ink, fontSize = 19.sp, fontWeight = FontWeight.Bold)
                 Spacer(Modifier.weight(1f))
