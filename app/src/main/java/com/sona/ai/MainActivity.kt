@@ -1730,7 +1730,39 @@ class MainActivity : ComponentActivity() {
                             }
                             Text("VOICE & LANGUAGE", color = Color(0xFFFF72D2), fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             OutlinedTextField(value = languageDraft, onValueChange = { languageDraft = it }, label = { Text("Language (e.g. Hindi, English, Auto)") }, singleLine = true, modifier = Modifier.fillMaxWidth())
-                            OutlinedTextField(value = voiceDraft, onValueChange = { voiceDraft = it }, label = { Text("Voice style preference") }, singleLine = true, modifier = Modifier.fillMaxWidth())
+                            Text("MULTI-VOICE PRESETS", color = Color(0xFFFF72D2), fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                            listOf(
+                                Triple("Friendly", "Warm & natural", 0),
+                                Triple("Soft", "Soft & gentle", 1),
+                                Triple("Energetic", "Bright & energetic", 2),
+                                Triple("Calm", "Calm & soothing", 3),
+                                Triple("Funny", "Playful & expressive", 4)
+                            ).forEach { preset ->
+                                val selected = voiceDraft == preset.second
+                                Row(
+                                    Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp))
+                                        .background(if (selected) Color(0x33FF72D2) else Color(0xFF0B0820))
+                                        .border(1.dp, if (selected) Color(0xFFFF72D2) else Color(0xFF49365F), RoundedCornerShape(12.dp))
+                                        .clickable {
+                                            voiceDraft = preset.second
+                                            when (preset.third) {
+                                                0 -> { speechRate = 0.94f; speechPitch = 1.06f }
+                                                1 -> { speechRate = 0.86f; speechPitch = 1.12f }
+                                                2 -> { speechRate = 1.08f; speechPitch = 1.14f }
+                                                3 -> { speechRate = 0.82f; speechPitch = 0.94f }
+                                                else -> { speechRate = 1.02f; speechPitch = 1.18f }
+                                            }
+                                        }.padding(horizontal = 12.dp, vertical = 10.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Column(Modifier.weight(1f)) {
+                                        Text(preset.first, color = if (selected) Color(0xFFFF72D2) else Color(0xFFE6DDF8), fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+                                        Text(preset.second, color = Color(0xFFB8A9D8), fontSize = 10.sp)
+                                    }
+                                    if (selected) Text("✓ SELECTED", color = Color(0xFFFF72D2), fontSize = 9.sp, fontWeight = FontWeight.Bold)
+                                }
+                            }
+                            OutlinedTextField(value = voiceDraft, onValueChange = { voiceDraft = it }, label = { Text("Custom voice style preference") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             OutlinedButton(
                                 onClick = {
                                     if (ttsReady) {
@@ -1767,8 +1799,12 @@ class MainActivity : ComponentActivity() {
                             Text("PERSONALITY & MEMORY", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("QUICK PERSONALITY", color = Color(0xFFB8A9D8), fontSize = 10.sp, fontWeight = FontWeight.Bold)
                             listOf(
-                                "Companion" to "Warm, caring, emotionally aware, friendly, supportive, and respectful",
+                                "GF / Caring Companion" to "Warm, affectionate fictional companion style; caring, supportive, respectful, never claim to be a real partner",
                                 "Funny" to "Playful, witty, light-hearted, use gentle humour when appropriate",
+                                "Friendly / Bestie" to "Casual, friendly best-friend tone, natural Hinglish, relaxed and helpful",
+                                "Boss / Command Mode" to "Confident, concise action-oriented assistant; explain what can be done and confirm important actions",
+                                "Calm" to "Gentle, calm, reassuring and unhurried communication",
+                                "Companion" to "Warm, caring, emotionally aware, friendly, supportive, and respectful",
                                 "Encouraging coach" to "Warm, encouraging and respectful coach who supports goals without pressure",
                                 "Teacher" to "Patient teacher, explain step by step with simple examples and check understanding",
                                 "Developer" to "Technical developer assistant, give accurate code-focused explanations and practical debugging steps",
