@@ -4441,7 +4441,7 @@ private fun MyraHome(
             ) {
                 Box(Modifier.size(46.dp), contentAlignment = Alignment.Center) {
                     Box(Modifier.size(34.dp).clip(CircleShape).background(Color(0xFFFFE8EC)))
-                    Text("🔔", color = Color(0xFFD91E3D), fontSize = 20.sp)
+                    Text("♧", color = Color(0xFFD91E3D), fontSize = 20.sp)
                 }
             }
             Spacer(Modifier.width(9.dp))
