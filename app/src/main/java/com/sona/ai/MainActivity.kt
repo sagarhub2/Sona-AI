@@ -716,6 +716,13 @@ class MainActivity : ComponentActivity() {
                             repeatMode = androidx.compose.animation.core.RepeatMode.Reverse
                         ), label = "lia-orb-pulse"
                     )
+                    val orbRotation by voiceTransition.animateFloat(
+                        initialValue = 0f, targetValue = 360f,
+                        animationSpec = androidx.compose.animation.core.infiniteRepeatable(
+                            animation = androidx.compose.animation.core.tween(9000, easing = androidx.compose.animation.core.LinearEasing),
+                            repeatMode = androidx.compose.animation.core.RepeatMode.Restart
+                        ), label = "lia-orb-rotation"
+                    )
                     Surface(
                         modifier = Modifier.fillMaxSize(),
                         shape = RoundedCornerShape(0.dp),
@@ -742,6 +749,8 @@ class MainActivity : ComponentActivity() {
                                 Spacer(Modifier.weight(1f))
                                 Box(contentAlignment = Alignment.Center, modifier = Modifier.size(280.dp)) {
                                     Box(Modifier.size(270.dp).scale(orbScale).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFB84DFF).copy(alpha = .23f), Color(0xFF6D31C5).copy(alpha = .10f), Color.Transparent))))
+                                    Box(Modifier.size(242.dp).rotate(orbRotation).border(1.dp, Color(0xFFDDB5FF).copy(alpha = .72f), CircleShape))
+                                    Box(Modifier.size(224.dp).rotate(-orbRotation).border(1.dp, Color(0xFF7E58D8).copy(alpha = .8f), CircleShape))
                                     Box(Modifier.size(210.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFF7BEE), Color(0xFF9B45F4), Color(0xFF4A1F91), Color(0xFF160D36)))).border(2.dp, Color(0xFFDB9AFF).copy(alpha = .75f), CircleShape))
                                     Box(Modifier.size(166.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFFD7FF).copy(alpha = .95f), Color(0xFFC75AFF), Color(0xFF7628C6), Color.Transparent))))
                                     Box(Modifier.size(82.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFFFFFF), Color(0xFFFFC3FF), Color(0xFFD05BFF)))))
@@ -757,10 +766,9 @@ class MainActivity : ComponentActivity() {
                                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                         androidx.compose.material3.FilledTonalIconButton(
                                             onClick = {
-                                                val audio = getSystemService(android.content.Context.AUDIO_SERVICE) as android.media.AudioManager
                                                 voiceMuted = !voiceMuted
-                                                if (voiceMuted) audio.adjustStreamVolume(android.media.AudioManager.STREAM_MUSIC, android.media.AudioManager.ADJUST_MUTE, 0)
-                                                else audio.adjustStreamVolume(android.media.AudioManager.STREAM_MUSIC, android.media.AudioManager.ADJUST_UNMUTE, 0)
+                                                liveVoiceSession?.setMuted(voiceMuted)
+                                                status = if (voiceMuted) "MICROPHONE MUTED" else "LIVE • SPEAK TO MYRA"
                                             },
                                             modifier = Modifier.size(58.dp),
                                             colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFF2A1D45), contentColor = Color(0xFFF0E7FF))
@@ -996,13 +1004,13 @@ class MainActivity : ComponentActivity() {
                                     colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
                                         focusedTextColor = Color(0xFFF5F0FF),
                                         unfocusedTextColor = Color(0xFFF5F0FF),
-                                        focusedBorderColor = Color(0xFFFFC15A),
+                                        focusedBorderColor = Color(0xFFB78BFF),
                                         unfocusedBorderColor = Color(0xFF59447F),
-                                        focusedLabelColor = Color(0xFFFFC15A),
-                                        unfocusedLabelColor = Color(0xFFFFC15A),
-                                        focusedContainerColor = Color.White,
-                                        unfocusedContainerColor = Color.White,
-                                        cursorColor = Color(0xFFFFC15A),
+                                        focusedLabelColor = Color(0xFFD8C2FF),
+                                        unfocusedLabelColor = Color(0xFFB5A9D1),
+                                        focusedContainerColor = Color(0xFF100D20),
+                                        unfocusedContainerColor = Color(0xFF100D20),
+                                        cursorColor = Color(0xFFD8C2FF),
                                         disabledTextColor = Color(0xFFB5A9D1),
                                         disabledBorderColor = Color(0xFF59447F)
                                     )
