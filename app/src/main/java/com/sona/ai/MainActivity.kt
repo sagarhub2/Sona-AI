@@ -4633,8 +4633,8 @@ private fun MyraHome(
                     modifier = Modifier.weight(1f).height(108.dp),
                     shape = RoundedCornerShape(18.dp),
                     color = Color(0xFFFFFEFE),
-                    shadowElevation = if (busy) 12.dp else 7.dp,
-                    border = androidx.compose.foundation.BorderStroke(1.5.dp, if (busy) Color(0xFFD91E3D) else Color(0xFFD9A04A))
+                    shadowElevation = if (busy) 8.dp else 3.dp,
+                    border = androidx.compose.foundation.BorderStroke(1.dp, if (busy) Color(0xFFD91E3D) else Color(0xFFF0D8DE))
                 ) {
                     Column(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0xFFFFE8EC), Color(0xFFFFFEFE), Color(0xFFFFF4F5)))).padding(15.dp), verticalArrangement = Arrangement.SpaceBetween) {
                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
@@ -4676,8 +4676,8 @@ private fun MyraHome(
                     modifier = Modifier.weight(1f).height(108.dp),
                     shape = RoundedCornerShape(18.dp),
                     color = Color(0xFFFFFEFE),
-                    shadowElevation = 5.dp,
-                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A))
+                    shadowElevation = 3.dp,
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0D8DE))
                 ) {
                     Column(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0xFFFFE8EC), Color(0xFFFFFEFE), Color(0xFFFFF4F5)))).padding(15.dp), verticalArrangement = Arrangement.SpaceBetween) {
                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
