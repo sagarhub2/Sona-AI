@@ -4371,6 +4371,10 @@ private fun MyraHome(
     onAnalyzeImage: (android.net.Uri) -> Unit
 ) {
     val context = LocalContext.current
+    val savedUserName = remember {
+        context.getSharedPreferences("myra_private", android.content.Context.MODE_PRIVATE)
+            .getString("user_name", "").orEmpty().trim()
+    }
     var prompt by remember { mutableStateOf("") }
     val imagePicker = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         if (uri != null) onAnalyzeImage(uri)
@@ -4513,7 +4517,11 @@ private fun MyraHome(
                 }
             }
             Column(Modifier.fillMaxWidth().padding(bottom = 4.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("Hello!", color = Color(0xFF25151A), fontSize = 30.sp, fontWeight = FontWeight.Bold, letterSpacing = (-.4).sp)
+                Text(
+                    if (savedUserName.isNotBlank()) "Hello $savedUserName!" else "Hello!",
+                    color = Color(0xFF25151A), fontSize = 30.sp,
+                    fontWeight = FontWeight.Bold, letterSpacing = (-.4).sp, maxLines = 1
+                )
                 Text("How can I help you today?", color = muted, fontSize = 13.sp,
                     modifier = Modifier.padding(top = 3.dp, bottom = 16.dp))
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
