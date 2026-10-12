@@ -2146,6 +2146,29 @@ class MainActivity : ComponentActivity() {
                 respond("Web par $query search kar rahi hoon.")
             } catch (_: Exception) { respond("Web search open nahi ho paayi.") }
         }
+        val callMatch = Regex("^(?:call|dial|phone|कॉल करो|कॉल लगाओ)\\s+([+0-9][+0-9 ()-]{4,})$", RegexOption.IGNORE_CASE).find(raw.trim())
+        if (callMatch != null) {
+            val number = callMatch.groupValues[1].trim()
+            return try {
+                val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(number)))
+                startActivity(intent)
+                respond("Dialer khol diya hai. Number check karke call button tum press karna.")
+            } catch (_: Exception) { respond("Phone dialer open nahi ho paaya.") }
+        }
+
+        val messageMatch = Regex("^(?:message|text|sms)\\s+([+0-9][+0-9 ()-]{4,})\\s+(?:saying|that says|:|बोलकर|को)\\s+(.+)$", RegexOption.IGNORE_CASE).find(raw.trim())
+        if (messageMatch != null) {
+            val number = messageMatch.groupValues[1].trim()
+            val body = messageMatch.groupValues[2].trim()
+            return try {
+                val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + Uri.encode(number))).apply {
+                    putExtra("sms_body", body)
+                }
+                startActivity(intent)
+                respond("Message draft ready hai. Recipient aur message check karke tum send karna.")
+            } catch (_: Exception) { respond("SMS app open nahi ho paayi.") }
+        }
+
         val eventPrefixes = listOf("create event ", "add calendar event ", "schedule event ", "calendar event ")
         val eventPrefix = eventPrefixes.firstOrNull { command.startsWith(it) }
         if (eventPrefix != null) {
