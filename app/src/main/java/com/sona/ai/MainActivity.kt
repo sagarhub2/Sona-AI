@@ -4418,7 +4418,7 @@ private fun MyraHome(
             ) {
                 Box(Modifier.size(46.dp), contentAlignment = Alignment.Center) {
                     Box(Modifier.size(34.dp).clip(CircleShape).background(Violet.copy(alpha = .12f)))
-                    Text("ϟ", color = Color(0xFFD91E3D), fontSize = 23.sp)
+                    Text("♧", color = Color(0xFFD91E3D), fontSize = 23.sp)
                 }
             }
             Spacer(Modifier.width(9.dp))
@@ -4443,8 +4443,8 @@ private fun MyraHome(
                     .background(Brush.radialGradient(listOf(Color(0x55F05A75), Color(0x22D91E3D), Color.Transparent))))
                 Box(
                     Modifier.size((156f * (if (animatedOrb) pulse else 1f)).dp).clip(CircleShape)
-                        .background(Brush.radialGradient(listOf(Color(0xFFD91E3D), Color(0xFF7026A8), Color(0xFF2B0C15))))
-                        .border(1.dp, Color(0xFFFFE3A5).copy(alpha = .95f), CircleShape)
+                        .background(Brush.radialGradient(listOf(Color(0xFF080508), Color(0xFF16060B), Color(0xFF020202))))
+                        .border(1.dp, Color(0xFFFF465F).copy(alpha = .95f), CircleShape)
                         .padding(5.dp)
                         .border(3.dp, Color(0xFF3A174B).copy(alpha = .95f), CircleShape),
                     contentAlignment = Alignment.Center
@@ -4474,7 +4474,7 @@ private fun MyraHome(
                 }
             }
             Column(Modifier.fillMaxWidth().padding(bottom = 4.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("Hello, Sagar", color = Color(0xFF25151A), fontSize = 30.sp, fontWeight = FontWeight.Bold, letterSpacing = (-.4).sp)
+                Text("Hello!", color = Color(0xFF25151A), fontSize = 30.sp, fontWeight = FontWeight.Bold, letterSpacing = (-.4).sp)
                 Text("How can I help you today?", color = muted, fontSize = 13.sp,
                     modifier = Modifier.padding(top = 3.dp, bottom = 16.dp))
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -4502,7 +4502,7 @@ private fun MyraHome(
                         singleLine = true, textStyle = androidx.compose.ui.text.TextStyle(color = ink, fontSize = 15.sp),
                         cursorBrush = androidx.compose.ui.graphics.SolidColor(Cyan),
                         decorationBox = { inner ->
-                            if (prompt.isEmpty()) Text("Ask Myra anything…", color = muted, fontSize = 14.sp)
+                            if (prompt.isEmpty()) Text("Type a message…", color = muted, fontSize = 14.sp)
                             inner()
                         }
                     )
@@ -4567,7 +4567,7 @@ private fun MyraHome(
                 }
             }
             Row(Modifier.fillMaxWidth().padding(top = 24.dp, bottom = 12.dp), verticalAlignment = Alignment.CenterVertically) {
-                Text("Quick Access", color = ink, fontSize = 19.sp, fontWeight = FontWeight.Bold)
+                Text("More", color = ink, fontSize = 19.sp, fontWeight = FontWeight.Bold)
                 Spacer(Modifier.weight(1f))
                 Text(if (hasKey) "GEMINI • READY" else "CONNECT GEMINI", color = Color(0xFFD91E3D), fontSize = 9.sp, fontWeight = FontWeight.Bold,
                     modifier = Modifier.clickable { onSettings() })
@@ -4608,7 +4608,7 @@ private fun MyraHome(
                         }
                         Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
                             Text("Voice Mode", color = Color(0xFF2B171D), fontSize = 18.sp, fontWeight = FontWeight.Bold)
-                            Text(if (busy) "Connecting to your assistant…" else status, color = Color(0xFF8D7077), fontSize = 10.sp, maxLines = 2, lineHeight = 14.sp)
+                            Text(if (busy) "Connecting to your assistant…" else "Holographic Orb", color = Color(0xFF8D7077), fontSize = 10.sp, maxLines = 2, lineHeight = 14.sp)
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                                 Box(Modifier.size(6.dp).clip(CircleShape).background(if (busy) Color(0xFFD91E3D) else Color(0xFFD91E3D)))
                                 Text(if (busy) "Live session in progress" else "Tap to speak with Myra", color = Color(0xFF8D7077), fontSize = 9.sp)
@@ -4634,7 +4634,7 @@ private fun MyraHome(
                                     .background(Brush.radialGradient(listOf(Color(0xFFFFB7C2), Color(0xFFD91E3D), Color(0xFF64101F))))
                                     .border(1.dp, Color(0xFFD91E3D), CircleShape),
                                     contentAlignment = Alignment.Center
-                                ) { Text("◎", color = Color(0xFFFFFEFE), fontSize = 25.sp, fontWeight = FontWeight.Bold) }
+                                ) { Text("📷", color = Color(0xFFFFFEFE), fontSize = 22.sp, fontWeight = FontWeight.Bold) }
                             }
                             Surface(
                                 shape = RoundedCornerShape(50),
