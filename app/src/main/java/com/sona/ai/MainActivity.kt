@@ -4606,9 +4606,9 @@ private fun MyraHome(
                 }
             }
             Row(Modifier.fillMaxWidth().padding(top = 24.dp, bottom = 12.dp), verticalAlignment = Alignment.CenterVertically) {
-                Text("More", color = ink, fontSize = 19.sp, fontWeight = FontWeight.Bold)
+                Text("Explore Myra", color = ink, fontSize = 19.sp, fontWeight = FontWeight.Bold)
                 Spacer(Modifier.weight(1f))
-                Text(if (hasKey) "GEMINI • READY" else "CONNECT GEMINI", color = Color(0xFFD91E3D), fontSize = 9.sp, fontWeight = FontWeight.Bold,
+                Text(if (hasKey) "✦ GEMINI READY" else "SET UP AI  ›", color = Color(0xFFD91E3D), fontSize = 9.sp, fontWeight = FontWeight.Bold,
                     modifier = Modifier.clickable { onSettings() })
             }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(14.dp)) {
