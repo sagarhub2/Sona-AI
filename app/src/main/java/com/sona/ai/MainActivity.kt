@@ -762,7 +762,7 @@ class MainActivity : ComponentActivity() {
                                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                                     Column(Modifier.weight(1f)) {
                                         Text("MYRA AI", color = Color(0xFFF5F7FF), fontSize = 20.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
-                                        Text("LIVE VOICE ASSISTANT", color = Color(0xFFD91E3D), fontSize = 9.sp, letterSpacing = 1.6.sp)
+                                        Text("LIVE VOICE ASSISTANT", color = Color(0xFFFF4D9D), fontSize = 9.sp, letterSpacing = 1.6.sp)
                                          Text("NATURAL CONVERSATION  •  HANDS-FREE", color = Color(0xFF9EABC2), fontSize = 8.sp, letterSpacing = .35.sp)
                                     }
                                     Surface(shape = RoundedCornerShape(30.dp), color = Color(0xFF0B1424), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF8D5CFF))) {
@@ -777,29 +777,29 @@ class MainActivity : ComponentActivity() {
                                 }
                                 Spacer(Modifier.weight(1f))
                                 Box(contentAlignment = Alignment.Center, modifier = Modifier.size(280.dp)) {
-                                    Box(Modifier.size(270.dp).scale(orbScale).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFD91E3D).copy(alpha = .26f), Color(0xFF4A172B).copy(alpha = .12f), Color.Transparent))))
-                                    Box(Modifier.size(242.dp).rotate(orbRotation).border(1.dp, Color(0xFFD91E3D).copy(alpha = .48f), CircleShape))
+                                    Box(Modifier.size(270.dp).scale(orbScale).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFF4D9D).copy(alpha = .26f), Color(0xFF30164D).copy(alpha = .12f), Color.Transparent))))
+                                    Box(Modifier.size(242.dp).rotate(orbRotation).border(1.dp, Color(0xFFFF4D9D).copy(alpha = .48f), CircleShape))
                                     Box(Modifier.size(224.dp).rotate(-orbRotation).border(1.dp, Color(0xFF8D5CFF).copy(alpha = .72f), CircleShape))
-                                    Box(Modifier.size(210.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF080508), Color(0xFF7C1021), Color(0xFFD91E3D), Color(0xFF020202)))).border(2.dp, Color(0xFFFFE3A5).copy(alpha = .8f), CircleShape))
-                                    Box(Modifier.size(166.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFF5F7FF).copy(alpha = .95f), Color(0xFFD91E3D), Color(0xFFD91E3D), Color.Transparent))))
-                                    Box(Modifier.size(82.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFFE3A5), Color(0xFFD91E3D), Color(0xFF4A172B)))))
+                                    Box(Modifier.size(210.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF080508), Color(0xFF8D174B), Color(0xFFFF4D9D), Color(0xFF020202)))).border(2.dp, Color(0xFFFFE3A5).copy(alpha = .8f), CircleShape))
+                                    Box(Modifier.size(166.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFF5F7FF).copy(alpha = .95f), Color(0xFFFF4D9D), Color(0xFFFF4D9D), Color.Transparent))))
+                                    Box(Modifier.size(82.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFFE3A5), Color(0xFFFF4D9D), Color(0xFF30164D)))))
                                 }
                                 Spacer(Modifier.height(12.dp))
                                 androidx.compose.material3.FilledTonalButton(
                                     onClick = { bossMode = !bossMode },
-                                    colors = androidx.compose.material3.ButtonDefaults.filledTonalButtonColors(containerColor = if (bossMode) Color(0xFFD91E3D) else Color(0xFF0B1424), contentColor = if (bossMode) Color.White else Color(0xFFD91E3D)),
+                                    colors = androidx.compose.material3.ButtonDefaults.filledTonalButtonColors(containerColor = if (bossMode) Color(0xFFFF4D9D) else Color(0xFF0B1424), contentColor = if (bossMode) Color.White else Color(0xFFFF4D9D)),
                                     border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF8D5CFF)),
                                     shape = RoundedCornerShape(24.dp)
                                 ) {
                                     Text(if (bossMode) "♛  BOSS MODE ON" else "♛  Boss Mode", fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
                                 }
                                 Spacer(Modifier.height(10.dp))
-                                Text(if (voiceMuted) "MICROPHONE MUTED" else if (status.contains("LIVE", true) || status.contains("LISTEN", true)) "MYRA IS LISTENING" else status.uppercase(), color = Color(0xFFD91E3D), fontSize = 11.sp, fontWeight = FontWeight.SemiBold, letterSpacing = 1.2.sp, textAlign = TextAlign.Center, maxLines = 2)
+                                Text(if (voiceMuted) "MICROPHONE MUTED" else if (status.contains("LIVE", true) || status.contains("LISTEN", true)) "MYRA IS LISTENING" else status.uppercase(), color = Color(0xFFFF4D9D), fontSize = 11.sp, fontWeight = FontWeight.SemiBold, letterSpacing = 1.2.sp, textAlign = TextAlign.Center, maxLines = 2)
                                  Text(if (voiceMuted) "Unmute your microphone to continue" else "Speak naturally — Myra is ready to hear you", color = Color(0xFF9EABC2), fontSize = 10.sp, textAlign = TextAlign.Center, maxLines = 2)
                                 Spacer(Modifier.height(10.dp))
                                 Surface(modifier = Modifier.fillMaxWidth(), color = Color(0xFF0B1424).copy(alpha = .96f), shape = RoundedCornerShape(22.dp), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x668D5CFF))) {
                                     Column(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 14.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                                         Text("LIVE TRANSCRIPT", color = Color(0xFFD91E3D), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                                         Text("LIVE TRANSCRIPT", color = Color(0xFFFF4D9D), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
                                          Text(heardText.ifBlank { "I’m listening. Start speaking whenever you’re ready." }, color = Color(0xFFF5F7FF), fontSize = 13.sp, lineHeight = 20.sp, textAlign = TextAlign.Center, maxLines = 4, overflow = TextOverflow.Ellipsis)
                                      }
                                 }
@@ -814,7 +814,7 @@ class MainActivity : ComponentActivity() {
                                             },
                                             modifier = Modifier.size(58.dp),
                                             colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFF0B1424), contentColor = Color(0xFFF5F7FF))
-                                        ) { Text(if (voiceMuted) "×" else "♫", fontSize = 24.sp, color = Color(0xFFD91E3D)) }
+                                        ) { Text(if (voiceMuted) "×" else "♫", fontSize = 24.sp, color = Color(0xFFFF4D9D)) }
                                         Spacer(Modifier.height(7.dp))
                                         Text(if (voiceMuted) "Unmute" else "Mute", color = Color(0xFF9EABC2), fontSize = 11.sp)
                                     }
@@ -828,7 +828,7 @@ class MainActivity : ComponentActivity() {
                                                 status = "VOICE SESSION ENDED"
                                             },
                                             modifier = Modifier.size(68.dp),
-                                            colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFFD91E3D), contentColor = Color.White)
+                                            colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFFFF4D9D), contentColor = Color.White)
                                         ) { Text("×", fontSize = 34.sp, color = Color.White) }
                                         Spacer(Modifier.height(7.dp))
                                         Text("End", color = Color(0xFF9EABC2), fontSize = 11.sp)
@@ -872,21 +872,25 @@ class MainActivity : ComponentActivity() {
                         Column(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0xFF071426), Color(0xFF050B16), Color(0xFF101D31)))).padding(16.dp)) {
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                                 Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                                    Text("MYRA AI", color = Color(0xFFD91E3D), fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                                    Text(if (busy) "● THINKING…" else if (apiKey.isBlank()) "● SETUP REQUIRED" else "● CHAT • READY", color = if (apiKey.isBlank()) Color(0xFFD91E3D) else Color(0xFFD91E3D), fontSize = 10.sp, letterSpacing = .6.sp)
+                                    Text("MYRA AI", color = Color(0xFFFF4D9D), fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                                    Text(if (busy) "● THINKING…" else if (apiKey.isBlank()) "● SETUP REQUIRED" else "● CHAT • READY", color = if (apiKey.isBlank()) Color(0xFFFF4D9D) else Color(0xFFFF4D9D), fontSize = 10.sp, letterSpacing = .6.sp)
                                 }
-                                TextButton(onClick = { showChat = false }) { Text("✕  Close", color = Color(0xFFD91E3D)) }
+                                TextButton(onClick = { showChat = false }) { Text("✕  Close", color = Color(0xFFFF4D9D)) }
                             }
                             HorizontalDivider(color = Color(0x668D5CFF))
                             if (savedChat.isNotBlank()) {
                                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                                     TextButton(onClick = { showClearHistoryConfirm = true }) {
-                                        Text("⌫  Clear history", color = Color(0xFFD91E3D), fontSize = 11.sp)
+                                        Text("⌫  Clear history", color = Color(0xFFFF4D9D), fontSize = 11.sp)
                                     }
                                 }
                             }
                             if (showClearHistoryConfirm) {
                                 AlertDialog(
+                                    containerColor = Color(0xFF071426),
+                                    titleContentColor = Color(0xFFF5F7FF),
+                                    textContentColor = Color(0xFFB8A9D8),
+                                    tonalElevation = 0.dp,
                                     onDismissRequest = { showClearHistoryConfirm = false },
                                     title = { Text("Clear conversation history?") },
                                     text = { Text("This removes the saved chat from this device. This action cannot be undone.") },
@@ -896,23 +900,23 @@ class MainActivity : ComponentActivity() {
                                             savedChat = ""
                                             showClearHistoryConfirm = false
                                             android.widget.Toast.makeText(this@MainActivity, "Conversation history cleared", android.widget.Toast.LENGTH_SHORT).show()
-                                        }) { Text("Clear", color = Color(0xFFD91E3D)) }
+                                        }) { Text("Clear", color = Color(0xFFFF4D9D)) }
                                     },
                                     dismissButton = {
-                                        TextButton(onClick = { showClearHistoryConfirm = false }) { Text("Cancel", color = Color(0xFFD91E3D)) }
+                                        TextButton(onClick = { showClearHistoryConfirm = false }) { Text("Cancel", color = Color(0xFFFF4D9D)) }
                                     }
                                 )
                             }
                             Column(Modifier.weight(1f).fillMaxWidth().padding(vertical = 12.dp).verticalScroll(androidx.compose.foundation.rememberScrollState()), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                                    Text("✦", color = Color(0xFFD91E3D), fontSize = 17.sp)
+                                    Text("✦", color = Color(0xFFFF4D9D), fontSize = 17.sp)
                                     Spacer(Modifier.width(7.dp))
-                                    Text("CONVERSATION", color = Color(0xFFD91E3D), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                                    Text("CONVERSATION", color = Color(0xFFFF4D9D), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
                                     Spacer(Modifier.weight(1f))
                                     Surface(shape = RoundedCornerShape(50), color = Color(0xFF101D31),
                                         border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x668D5CFF))) {
                                         Text(if (savedChat.isBlank()) "NEW CHAT" else "HISTORY LOADED",
-                                            color = Color(0xFFD91E3D), fontSize = 8.sp, fontWeight = FontWeight.Bold,
+                                            color = Color(0xFFFF4D9D), fontSize = 8.sp, fontWeight = FontWeight.Bold,
                                             letterSpacing = .5.sp, modifier = Modifier.padding(horizontal = 9.dp, vertical = 5.dp))
                                     }
                                 }
@@ -927,12 +931,12 @@ class MainActivity : ComponentActivity() {
                                         Row(verticalAlignment = Alignment.CenterVertically) {
                                             Box(Modifier.size(27.dp).clip(CircleShape).background(Color(0xFF101D31))
                                                 .border(1.dp, Color(0x668D5CFF), CircleShape), contentAlignment = Alignment.Center) {
-                                                Text("✦", color = Color(0xFFD91E3D), fontSize = 15.sp)
+                                                Text("✦", color = Color(0xFFFF4D9D), fontSize = 15.sp)
                                             }
                                             Spacer(Modifier.width(8.dp))
                                             Column {
                                                 Text("MYRA AI", color = Color(0xFFF5F7FF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = .8.sp)
-                                                Text("YOUR PERSONAL AI COMPANION", color = Color(0xFFD91E3D), fontSize = 8.sp, letterSpacing = .7.sp)
+                                                Text("YOUR PERSONAL AI COMPANION", color = Color(0xFFFF4D9D), fontSize = 8.sp, letterSpacing = .7.sp)
                                             }
                                         }
                                         Box(Modifier.fillMaxWidth().height(1.dp).background(Color(0x668D5CFF)))
@@ -954,7 +958,7 @@ class MainActivity : ComponentActivity() {
                                                         android.widget.Toast.makeText(this@MainActivity, "Conversation copied", android.widget.Toast.LENGTH_SHORT).show()
                                                     }
                                                 ) {
-                                                    Text("⧉  Copy", color = Color(0xFFD91E3D), fontSize = 11.sp)
+                                                    Text("⧉  Copy", color = Color(0xFFFF4D9D), fontSize = 11.sp)
                                                 }
                                                 TextButton(
                                                     onClick = {
@@ -966,7 +970,7 @@ class MainActivity : ComponentActivity() {
                                                         startActivity(Intent.createChooser(shareIntent, "Share conversation"))
                                                     }
                                                 ) {
-                                                    Text("↗  Share", color = Color(0xFFD91E3D), fontSize = 11.sp)
+                                                    Text("↗  Share", color = Color(0xFFFF4D9D), fontSize = 11.sp)
                                                 }
                                             }
                                         }
@@ -980,7 +984,7 @@ class MainActivity : ComponentActivity() {
                                             border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x668D5CFF))
                                         ) {
                                             Column(Modifier.widthIn(max = 280.dp).padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                                                Text("YOU", color = Color(0xFFD91E3D), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                                                Text("YOU", color = Color(0xFFFF4D9D), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
                                                 Text(pendingMessage, color = Color(0xFFF5F7FF), fontSize = 14.sp, lineHeight = 21.sp)
                                             }
                                         }
@@ -991,15 +995,15 @@ class MainActivity : ComponentActivity() {
                                         border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x668D5CFF))
                                     ) {
                                         Row(Modifier.padding(horizontal = 12.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
-                                            Text("✦", color = Color(0xFFD91E3D), fontSize = 18.sp)
+                                            Text("✦", color = Color(0xFFFF4D9D), fontSize = 18.sp)
                                             Spacer(Modifier.width(8.dp))
-                                            Text("Myra is preparing a response…", color = Color(0xFFD91E3D), fontSize = 12.sp)
+                                            Text("Myra is preparing a response…", color = Color(0xFFFF4D9D), fontSize = 12.sp)
                                         }
                                     }
                                 }
                                 if (apiKey.isBlank()) {
-                                    Text("To send messages, add a Gemini API key in Settings.", color = Color(0xFFD91E3D), fontSize = 12.sp)
-                                    TextButton(onClick = { showChat = false; showSettings = true }) { Text("Open Settings", color = Color(0xFFD91E3D)) }
+                                    Text("To send messages, add a Gemini API key in Settings.", color = Color(0xFFFF4D9D), fontSize = 12.sp)
+                                    TextButton(onClick = { showChat = false; showSettings = true }) { Text("Open Settings", color = Color(0xFFFF4D9D)) }
                                 }
                             }
                             Text("CHAT TYPE", color = Color(0xFF9EABC2), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp, modifier = Modifier.padding(top = 8.dp))
@@ -1014,10 +1018,10 @@ class MainActivity : ComponentActivity() {
                                         onClick = { selectedChatCategory = category },
                                         label = { Text(category, fontSize = 10.sp, maxLines = 1) },
                                         colors = androidx.compose.material3.FilterChipDefaults.filterChipColors(
-                                            selectedContainerColor = Color(0xFFD91E3D),
+                                            selectedContainerColor = Color(0xFFFF4D9D),
                                             selectedLabelColor = Color.White,
                                             containerColor = Color(0xFF0B1424),
-                                            labelColor = Color(0xFFD91E3D)
+                                            labelColor = Color(0xFFFF4D9D)
                                         ),
                                         border = androidx.compose.material3.FilterChipDefaults.filterChipBorder(
                                             enabled = true,
@@ -1031,7 +1035,7 @@ class MainActivity : ComponentActivity() {
                             Row(Modifier.fillMaxWidth().padding(top = 8.dp, bottom = 6.dp), verticalAlignment = Alignment.CenterVertically) {
                                 Text("QUICK PROMPTS", color = Color(0xFF9EABC2), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
                                 Spacer(Modifier.weight(1f))
-                                Text("TAP TO START", color = Color(0xFFD91E3D), fontSize = 8.sp, letterSpacing = .6.sp)
+                                Text("TAP TO START", color = Color(0xFFFF4D9D), fontSize = 8.sp, letterSpacing = .6.sp)
                             }
                             Row(
                                 modifier = Modifier.fillMaxWidth().horizontalScroll(androidx.compose.foundation.rememberScrollState()),
@@ -1056,9 +1060,9 @@ class MainActivity : ComponentActivity() {
                                         onClick = { if (!busy) chatDraft = template },
                                         label = { Text(label, fontSize = 10.sp) },
                                         enabled = !busy,
-                                        leadingIcon = { Text("✦", color = Color(0xFFD91E3D), fontSize = 10.sp) },
+                                        leadingIcon = { Text("✦", color = Color(0xFFFF4D9D), fontSize = 10.sp) },
                                         colors = androidx.compose.material3.AssistChipDefaults.assistChipColors(
-                                            labelColor = Color(0xFFD91E3D),
+                                            labelColor = Color(0xFFFF4D9D),
                                             containerColor = Color(0xFF0B1424),
                                             disabledLabelColor = Color(0xFF9EABC2)
                                         )
@@ -1070,8 +1074,8 @@ class MainActivity : ComponentActivity() {
                                     onValueChange = { chatDraft = it },
                                     modifier = Modifier.fillMaxWidth(),
                                     placeholder = { Text(if (busy) "Myra is replying…" else "Type a message…", color = Color(0xFF8B9BB4)) },
-                                    leadingIcon = { Text("＋", color = Color(0xFFD91E3D), fontSize = 21.sp) },
-                                    label = { Text("Message", color = Color(0xFFD91E3D)) },
+                                    leadingIcon = { Text("＋", color = Color(0xFFFF4D9D), fontSize = 21.sp) },
+                                    label = { Text("Message", color = Color(0xFFFF4D9D)) },
                                     minLines = 1,
                                     maxLines = 4,
                                     enabled = !busy,
@@ -1079,13 +1083,13 @@ class MainActivity : ComponentActivity() {
                                     colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
                                         focusedTextColor = Color(0xFFF5F7FF),
                                         unfocusedTextColor = Color(0xFFF5F7FF),
-                                        focusedBorderColor = Color(0xFFD91E3D),
+                                        focusedBorderColor = Color(0xFFFF4D9D),
                                         unfocusedBorderColor = Color(0x668D5CFF),
-                                        focusedLabelColor = Color(0xFFD91E3D),
+                                        focusedLabelColor = Color(0xFFFF4D9D),
                                         unfocusedLabelColor = Color(0xFFB5A9D1),
                                         focusedContainerColor = Color(0xFF0B1424),
                                         unfocusedContainerColor = Color(0xFF0B1424),
-                                        cursorColor = Color(0xFFD91E3D),
+                                        cursorColor = Color(0xFFFF4D9D),
                                         disabledTextColor = Color(0xFF8B9BB4),
                                         disabledBorderColor = Color(0x668D5CFF)
                                     )
@@ -1098,7 +1102,7 @@ class MainActivity : ComponentActivity() {
                                 )
                                 if (chatDraft.isNotBlank() && !busy) {
                                     TextButton(onClick = { chatDraft = "" }) {
-                                        Text("Clear", color = Color(0xFFD91E3D), fontSize = 11.sp)
+                                        Text("Clear", color = Color(0xFFFF4D9D), fontSize = 11.sp)
                                     }
                                 }
                                 Button(
@@ -1124,7 +1128,7 @@ class MainActivity : ComponentActivity() {
                                         }
                                     },
                                     enabled = chatDraft.isNotBlank() && !busy && apiKey.isNotBlank(),
-                                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD91E3D), contentColor = Color.White, disabledContainerColor = Color(0x668D5CFF), disabledContentColor = Color(0xFFB5A9D1)),
+                                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF4D9D), contentColor = Color.White, disabledContainerColor = Color(0x668D5CFF), disabledContentColor = Color(0xFFB5A9D1)),
                                     shape = RoundedCornerShape(14.dp)
                                 ) { Text(if (busy) "Wait…" else "Send  ➤") }
                             }
@@ -1144,19 +1148,19 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(26.dp),
                     containerColor = Color(0xFF071426),
-                    titleContentColor = Color(0xFFD91E3D),
+                    titleContentColor = Color(0xFFFF4D9D),
                     textContentColor = Color(0xFF9EABC2),
                     tonalElevation = 0.dp,
                     onDismissRequest = { showHistory = false },
                     title = {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
-                                .background(Brush.horizontalGradient(listOf(Color(0xFFD91E3D), Color(0xFF101D31), Color(0xFF071426))))
+                                .background(Brush.horizontalGradient(listOf(Color(0xFFFF4D9D), Color(0xFF101D31), Color(0xFF071426))))
                                 .border(1.dp, Color(0xFF293B55), RoundedCornerShape(18.dp))
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
-                            Text("◈  MYRA AI • HISTORY VAULT", color = Color(0xFFD91E3D), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.4.sp)
+                            Text("◈  MYRA AI • HISTORY VAULT", color = Color(0xFFFF4D9D), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.4.sp)
                             Text("Conversation history", color = Color(0xFFF5F7FF), fontSize = 20.sp, fontWeight = FontWeight.Bold)
                             Text("Search through conversations saved on this device.", color = Color(0xFF9EABC2), fontSize = 12.sp)
                         }
@@ -1173,7 +1177,7 @@ class MainActivity : ComponentActivity() {
                                     .padding(12.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text("☷", color = Color(0xFFD91E3D), fontSize = 24.sp)
+                                Text("☷", color = Color(0xFFFF4D9D), fontSize = 24.sp)
                                 Spacer(Modifier.width(10.dp))
                                 Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                     Text(if (savedHistory.isBlank()) "No saved conversations" else "Your saved conversations", color = Color(0xFFF5F7FF), fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
@@ -1190,10 +1194,10 @@ class MainActivity : ComponentActivity() {
                                 colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
                                     focusedTextColor = Color(0xFFF5F7FF),
                                     unfocusedTextColor = Color(0xFFF5F7FF),
-                                    focusedBorderColor = Color(0xFFD91E3D),
+                                    focusedBorderColor = Color(0xFFFF4D9D),
                                     unfocusedBorderColor = Color(0xFF293B55),
-                                    focusedLabelColor = Color(0xFFD91E3D),
-                                    cursorColor = Color(0xFFD91E3D),
+                                    focusedLabelColor = Color(0xFFFF4D9D),
+                                    cursorColor = Color(0xFFFF4D9D),
                                     focusedContainerColor = Color(0xFF0B1424),
                                     unfocusedContainerColor = Color(0xFF0B1424)
                                 )
@@ -1210,7 +1214,7 @@ class MainActivity : ComponentActivity() {
                                         color = Color(0xFF9EABC2), fontSize = 11.sp, fontWeight = FontWeight.SemiBold
                                     )
                                     TextButton(onClick = { historyQuery = "" }) {
-                                        Text("Clear search", color = Color(0xFFD91E3D), fontSize = 12.sp)
+                                        Text("Clear search", color = Color(0xFFFF4D9D), fontSize = 12.sp)
                                     }
                                 }
                             }
@@ -1236,7 +1240,7 @@ class MainActivity : ComponentActivity() {
                         Button(
                             onClick = { showHistory = false },
                             shape = RoundedCornerShape(13.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD91E3D), contentColor = Color(0xFF101D31)),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF4D9D), contentColor = Color(0xFF101D31)),
                             contentPadding = PaddingValues(horizontal = 18.dp, vertical = 10.dp)
                         ) { Text("Done", fontWeight = FontWeight.Bold) }
                     },
@@ -1246,7 +1250,7 @@ class MainActivity : ComponentActivity() {
                             status = "CONVERSATION HISTORY CLEARED"
                             heardText = "Conversation history cleared on this device."
                             showHistory = false
-                        }) { Text("Clear history", color = Color(0xFFD91E3D), fontWeight = FontWeight.SemiBold) }
+                        }) { Text("Clear history", color = Color(0xFFFF4D9D), fontWeight = FontWeight.SemiBold) }
                     }
                 )
             }
@@ -1271,7 +1275,7 @@ class MainActivity : ComponentActivity() {
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
-                            Text("TASKS & REMINDERS", color = Color(0xFFD91E3D), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                            Text("TASKS & REMINDERS", color = Color(0xFFFF4D9D), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
                             Text("Tasks & reminders", color = Color(0xFFF5F7FF), fontSize = 20.sp, fontWeight = FontWeight.Bold)
                             Text("Plan your day, one task at a time.", color = Color(0xFF9EABC2), fontSize = 12.sp)
                         }
@@ -1285,7 +1289,7 @@ class MainActivity : ComponentActivity() {
                                     .padding(12.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text("☷", color = Color(0xFFD91E3D), fontSize = 25.sp)
+                                Text("☷", color = Color(0xFFFF4D9D), fontSize = 25.sp)
                                 Spacer(Modifier.width(10.dp))
                                 Column {
                                     Text("${taskLines.size} tasks in your list", color = Color(0xFFF5F7FF), fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
@@ -1303,10 +1307,10 @@ class MainActivity : ComponentActivity() {
                                 colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
                                     focusedTextColor = Color(0xFFF5F7FF),
                                     unfocusedTextColor = Color(0xFFF5F7FF),
-                                    focusedBorderColor = Color(0xFFD91E3D),
-                                    unfocusedBorderColor = Color(0xFFD91E3D).copy(alpha = .45f),
-                                    focusedLabelColor = Color(0xFFD91E3D),
-                                    cursorColor = Color(0xFFD91E3D),
+                                    focusedBorderColor = Color(0xFFFF4D9D),
+                                    unfocusedBorderColor = Color(0xFFFF4D9D).copy(alpha = .45f),
+                                    focusedLabelColor = Color(0xFFFF4D9D),
+                                    cursorColor = Color(0xFFFF4D9D),
                                     focusedContainerColor = Color(0xFF0B1424),
                                     unfocusedContainerColor = Color(0xFF0B1424)
                                 )
@@ -1319,7 +1323,7 @@ class MainActivity : ComponentActivity() {
                             ) {
                                 Text(
                                     if (taskDraft == savedTaskDraft) "All changes saved" else "Unsaved changes",
-                                    color = if (taskDraft == savedTaskDraft) Color(0xFFB8F7D4) else Color(0xFFD91E3D),
+                                    color = if (taskDraft == savedTaskDraft) Color(0xFFB8F7D4) else Color(0xFFFF4D9D),
                                     fontSize = 11.sp,
                                     fontWeight = FontWeight.SemiBold
                                 )
@@ -1327,10 +1331,10 @@ class MainActivity : ComponentActivity() {
                                     onClick = { taskDraft = "" },
                                     enabled = taskDraft.isNotEmpty()
                                 ) {
-                                    Text("Clear draft", color = if (taskDraft.isNotEmpty()) Color(0xFFD91E3D) else Color(0xFF78658F), fontSize = 12.sp)
+                                    Text("Clear draft", color = if (taskDraft.isNotEmpty()) Color(0xFFFF4D9D) else Color(0xFF78658F), fontSize = 12.sp)
                                 }
                             }
-                            Text("TIP  •  Add [x] before a finished task.", color = Color(0xFFD91E3D), fontSize = 11.sp, letterSpacing = .3.sp)
+                            Text("TIP  •  Add [x] before a finished task.", color = Color(0xFFFF4D9D), fontSize = 11.sp, letterSpacing = .3.sp)
                         }
                     },
                     confirmButton = {
@@ -1343,7 +1347,7 @@ class MainActivity : ComponentActivity() {
                             },
                             shape = RoundedCornerShape(13.dp),
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = Color(0xFFD91E3D),
+                                containerColor = Color(0xFFFF4D9D),
                                 contentColor = Color(0xFFFFFFFF)
                             ),
                             contentPadding = PaddingValues(horizontal = 18.dp, vertical = 10.dp)
@@ -1360,7 +1364,7 @@ class MainActivity : ComponentActivity() {
                                 showTasks = false
                             }
                         ) {
-                            Text("Clear all", color = Color(0xFFD91E3D), fontWeight = FontWeight.SemiBold)
+                            Text("Clear all", color = Color(0xFFFF4D9D), fontWeight = FontWeight.SemiBold)
                         }
                     }
                 )
@@ -1372,19 +1376,19 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(26.dp),
                     containerColor = Color(0xFF071426),
-                    titleContentColor = Color(0xFFD91E3D),
+                    titleContentColor = Color(0xFFFF4D9D),
                     textContentColor = Color(0xFF9EABC2),
                     tonalElevation = 0.dp,
                     onDismissRequest = { showMemory = false },
                     title = {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
-                                .background(Brush.horizontalGradient(listOf(Color(0xFFD91E3D), Color(0xFF101D31), Color(0xFF0B1424))))
+                                .background(Brush.horizontalGradient(listOf(Color(0xFFFF4D9D), Color(0xFF101D31), Color(0xFF0B1424))))
                                 .border(1.dp, Color(0xFF293B55), RoundedCornerShape(18.dp))
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
-                            Text("◈  MYRA AI • SMART MEMORY", color = Color(0xFFD91E3D), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                            Text("◈  MYRA AI • SMART MEMORY", color = Color(0xFFFF4D9D), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
                             Text("Your memory vault", color = Color(0xFFF5F7FF), fontSize = 20.sp, fontWeight = FontWeight.Bold)
                             Text("Notes are saved locally on this phone.", color = Color(0xFF9EABC2), fontSize = 12.sp)
                         }
@@ -1394,7 +1398,7 @@ class MainActivity : ComponentActivity() {
                         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                             Row(
                                 Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp))
-                                    .background(Brush.horizontalGradient(listOf(Color(0xFFD91E3D), Color(0xFF0B1424))))
+                                    .background(Brush.horizontalGradient(listOf(Color(0xFFFF4D9D), Color(0xFF0B1424))))
                                     .border(1.dp, Color(0xFF293B55), RoundedCornerShape(16.dp))
                                     .padding(13.dp),
                                 verticalAlignment = Alignment.CenterVertically
@@ -1403,7 +1407,7 @@ class MainActivity : ComponentActivity() {
                                     Modifier.size(44.dp).clip(CircleShape).background(Color(0xFF101D31))
                                         .border(1.dp, Color(0xFF293B55), CircleShape),
                                     contentAlignment = Alignment.Center
-                                ) { Text("◈", color = Color(0xFFD91E3D), fontSize = 23.sp) }
+                                ) { Text("◈", color = Color(0xFFFF4D9D), fontSize = 23.sp) }
                                 Spacer(Modifier.width(11.dp))
                                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                     Text(if (memoryDraft.isBlank()) "Your vault is ready" else "Your personal memory", color = Color(0xFFF5F7FF), fontWeight = FontWeight.Bold, fontSize = 14.sp)
@@ -1422,7 +1426,7 @@ class MainActivity : ComponentActivity() {
                                         .padding(12.dp),
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    Text("✧", color = Color(0xFFD91E3D), fontSize = 22.sp)
+                                    Text("✧", color = Color(0xFFFF4D9D), fontSize = 22.sp)
                                     Spacer(Modifier.width(9.dp))
                                     Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                         Text("Nothing saved yet", color = Color(0xFFF5F7FF), fontWeight = FontWeight.SemiBold, fontSize = 13.sp)
@@ -1430,7 +1434,7 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                             } else {
-                                Text("SAVED NOTE PREVIEW", color = Color(0xFFD91E3D), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                                Text("SAVED NOTE PREVIEW", color = Color(0xFFFF4D9D), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
                                 Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                                     savedMemoryLines.takeLast(3).forEachIndexed { index, note ->
                                         Row(
@@ -1440,7 +1444,7 @@ class MainActivity : ComponentActivity() {
                                                 .padding(horizontal = 10.dp, vertical = 8.dp),
                                             verticalAlignment = Alignment.Top
                                         ) {
-                                            Text("•", color = Color(0xFFD91E3D), fontSize = 15.sp)
+                                            Text("•", color = Color(0xFFFF4D9D), fontSize = 15.sp)
                                             Spacer(Modifier.width(7.dp))
                                             Text(note, color = Color(0xFF6D555C), fontSize = 12.sp, maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
                                         }
@@ -1458,10 +1462,10 @@ class MainActivity : ComponentActivity() {
                                 colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
                                     focusedTextColor = Color(0xFFF5F7FF),
                                     unfocusedTextColor = Color(0xFFF5F7FF),
-                                    focusedBorderColor = Color(0xFFD91E3D),
+                                    focusedBorderColor = Color(0xFFFF4D9D),
                                     unfocusedBorderColor = Color(0xFF293B55),
-                                    focusedLabelColor = Color(0xFFD91E3D),
-                                    cursorColor = Color(0xFFD91E3D),
+                                    focusedLabelColor = Color(0xFFFF4D9D),
+                                    cursorColor = Color(0xFFFF4D9D),
                                     focusedContainerColor = Color(0xFF0B1424),
                                     unfocusedContainerColor = Color(0xFF0B1424)
                                 )
@@ -1473,7 +1477,7 @@ class MainActivity : ComponentActivity() {
                             ) {
                                 Text(
                                     if (memoryDraft == (memoryPrefs.getString("memory_notes", "") ?: "")) "All changes saved" else "Unsaved changes",
-                                    color = if (memoryDraft == (memoryPrefs.getString("memory_notes", "") ?: "")) Color(0xFFB8F7D4) else Color(0xFFD91E3D),
+                                    color = if (memoryDraft == (memoryPrefs.getString("memory_notes", "") ?: "")) Color(0xFFB8F7D4) else Color(0xFFFF4D9D),
                                     fontSize = 11.sp,
                                     fontWeight = FontWeight.SemiBold
                                 )
@@ -1481,7 +1485,7 @@ class MainActivity : ComponentActivity() {
                                     onClick = { memoryDraft = "" },
                                     enabled = memoryDraft.isNotEmpty()
                                 ) {
-                                    Text("Clear draft", color = if (memoryDraft.isNotEmpty()) Color(0xFFD91E3D) else Color(0xFF78658F), fontSize = 12.sp)
+                                    Text("Clear draft", color = if (memoryDraft.isNotEmpty()) Color(0xFFFF4D9D) else Color(0xFF78658F), fontSize = 12.sp)
                                 }
                             }
                         }
@@ -1492,7 +1496,7 @@ class MainActivity : ComponentActivity() {
                             heardText = if (memoryDraft.isBlank()) "Memory cleared." else "Memory saved on this device."
                             status = "MEMORY UPDATED"
                             showMemory = false
-                        }) { Text("✦  Save memory", color = Color(0xFFD91E3D)) }
+                        }) { Text("✦  Save memory", color = Color(0xFFFF4D9D)) }
                     },
                     dismissButton = {
                         TextButton(onClick = { showMemory = false }) { Text("Cancel", color = Color(0xFF9EABC2)) }
