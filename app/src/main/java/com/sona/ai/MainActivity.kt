@@ -732,9 +732,9 @@ class MainActivity : ComponentActivity() {
                     Surface(
                         modifier = Modifier.fillMaxSize(),
                         shape = RoundedCornerShape(0.dp),
-                        color = Color(0xFF031014)
+                        color = Color(0xFF090617)
                     ) {
-                        Box(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0xFF06343A), Color(0xFF041B24), Color(0xFF02080D))))) {
+                        Box(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0xFF26103D), Color(0xFF100A24), Color(0xFF05040E))))) {
                             Column(
                                 Modifier.fillMaxSize().padding(horizontal = 24.dp, vertical = 28.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally
@@ -742,9 +742,9 @@ class MainActivity : ComponentActivity() {
                                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                                     Column(Modifier.weight(1f)) {
                                         Text("MYRA AI", color = Color(0xFFF8F2FF), fontSize = 20.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
-                                        Text("LIVE VOICE ASSISTANT", color = Color(0xFF91DDE5), fontSize = 9.sp, letterSpacing = 1.6.sp)
+                                        Text("LIVE VOICE ASSISTANT", color = Color(0xFFFF9BE3), fontSize = 9.sp, letterSpacing = 1.6.sp)
                                     }
-                                    Surface(shape = RoundedCornerShape(30.dp), color = Color(0xFF0B2930), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF237E88))) {
+                                    Surface(shape = RoundedCornerShape(30.dp), color = Color(0xFF21102F), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF8D3B80))) {
                                         Row(Modifier.padding(horizontal = 10.dp, vertical = 7.dp), verticalAlignment = Alignment.CenterVertically) {
                                             val voiceReady = status.contains("CONNECTED", true) || status.contains("LISTEN", true) || status.contains("LIVE", true)
                                             val voiceFailed = status.contains("FAILED", true) || status.contains("ERROR", true) || status.contains("DENIED", true) || status.contains("NEEDS", true) || status.contains("TIMEOUT", true)
@@ -756,18 +756,18 @@ class MainActivity : ComponentActivity() {
                                 }
                                 Spacer(Modifier.weight(1f))
                                 Box(contentAlignment = Alignment.Center, modifier = Modifier.size(280.dp)) {
-                                    Box(Modifier.size(270.dp).scale(orbScale).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF32E7F0).copy(alpha = .23f), Color(0xFF087F99).copy(alpha = .10f), Color.Transparent))))
-                                    Box(Modifier.size(242.dp).rotate(orbRotation).border(1.dp, Color(0xFF8EFAFF).copy(alpha = .72f), CircleShape))
-                                    Box(Modifier.size(224.dp).rotate(-orbRotation).border(1.dp, Color(0xFF28A8BA).copy(alpha = .8f), CircleShape))
-                                    Box(Modifier.size(210.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFB7FFFF), Color(0xFF1CB9D2), Color(0xFF087B99), Color(0xFF052D3A)))).border(2.dp, Color(0xFF8EF7FF).copy(alpha = .75f), CircleShape))
-                                    Box(Modifier.size(166.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFD8FFFF).copy(alpha = .95f), Color(0xFF63F3FF), Color(0xFF128DA8), Color.Transparent))))
-                                    Box(Modifier.size(82.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFFFFFF), Color(0xFFB4FFFF), Color(0xFF27DCEB)))))
+                                    Box(Modifier.size(270.dp).scale(orbScale).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFF78D2).copy(alpha = .23f), Color(0xFF7026A8).copy(alpha = .10f), Color.Transparent))))
+                                    Box(Modifier.size(242.dp).rotate(orbRotation).border(1.dp, Color(0xFFFFB2E9).copy(alpha = .72f), CircleShape))
+                                    Box(Modifier.size(224.dp).rotate(-orbRotation).border(1.dp, Color(0xFFB94BD4).copy(alpha = .8f), CircleShape))
+                                    Box(Modifier.size(210.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFFD9F4), Color(0xFFFF78D2), Color(0xFF8D3BCA), Color(0xFF24103E)))).border(2.dp, Color(0xFFFFB2E9).copy(alpha = .75f), CircleShape))
+                                    Box(Modifier.size(166.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFFEAF7).copy(alpha = .95f), Color(0xFFFF9BE3), Color(0xFF7026A8), Color.Transparent))))
+                                    Box(Modifier.size(82.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFFFFFF), Color(0xFFB4FFFF), Color(0xFFFF78D2)))))
                                 }
                                 Spacer(Modifier.height(18.dp))
-                                Text(if (voiceMuted) "MICROPHONE MUTED" else if (status.contains("LIVE", true) || status.contains("LISTEN", true)) "MYRA IS LISTENING" else status.uppercase(), color = Color(0xFFB9F7FC), fontSize = 11.sp, fontWeight = FontWeight.SemiBold, letterSpacing = 1.2.sp, textAlign = TextAlign.Center, maxLines = 2)
+                                Text(if (voiceMuted) "MICROPHONE MUTED" else if (status.contains("LIVE", true) || status.contains("LISTEN", true)) "MYRA IS LISTENING" else status.uppercase(), color = Color(0xFFFFC7EF), fontSize = 11.sp, fontWeight = FontWeight.SemiBold, letterSpacing = 1.2.sp, textAlign = TextAlign.Center, maxLines = 2)
                                 Spacer(Modifier.height(10.dp))
-                                Surface(color = Color(0xFF061B22).copy(alpha = .88f), shape = RoundedCornerShape(18.dp), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF15515C))) {
-                                    Text(heardText.ifBlank { "I’m listening. Start speaking whenever you’re ready." }, Modifier.fillMaxWidth().padding(16.dp), color = Color(0xFFE4FCFF), fontSize = 13.sp, lineHeight = 20.sp, textAlign = TextAlign.Center, maxLines = 4, overflow = TextOverflow.Ellipsis)
+                                Surface(color = Color(0xFF160D25).copy(alpha = .88f), shape = RoundedCornerShape(18.dp), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF6F2C83))) {
+                                    Text(heardText.ifBlank { "I’m listening. Start speaking whenever you’re ready." }, Modifier.fillMaxWidth().padding(16.dp), color = Color(0xFFFFEAF7), fontSize = 13.sp, lineHeight = 20.sp, textAlign = TextAlign.Center, maxLines = 4, overflow = TextOverflow.Ellipsis)
                                 }
                                 Spacer(Modifier.weight(1f))
                                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
@@ -779,10 +779,10 @@ class MainActivity : ComponentActivity() {
                                                 status = if (voiceMuted) "MICROPHONE MUTED" else "LIVE • SPEAK TO MYRA"
                                             },
                                             modifier = Modifier.size(58.dp),
-                                            colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFF0B3038), contentColor = Color(0xFFE4FCFF))
-                                        ) { Text(if (voiceMuted) "◖))" else "♪", fontSize = 24.sp, color = Color(0xFFE4FCFF)) }
+                                            colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFF28133B), contentColor = Color(0xFFFFEAF7))
+                                        ) { Text(if (voiceMuted) "◖))" else "♪", fontSize = 24.sp, color = Color(0xFFFFEAF7)) }
                                         Spacer(Modifier.height(7.dp))
-                                        Text(if (voiceMuted) "Unmute" else "Mute", color = Color(0xFF8FD8E0), fontSize = 11.sp)
+                                        Text(if (voiceMuted) "Unmute" else "Mute", color = Color(0xFFDDB0E8), fontSize = 11.sp)
                                     }
                                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                         androidx.compose.material3.FilledTonalIconButton(
@@ -794,7 +794,7 @@ class MainActivity : ComponentActivity() {
                                                 status = "VOICE SESSION ENDED"
                                             },
                                             modifier = Modifier.size(68.dp),
-                                            colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFFDB3568), contentColor = Color.White)
+                                            colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFFB92F8A), contentColor = Color.White)
                                         ) { Text("×", fontSize = 34.sp, color = Color.White) }
                                         Spacer(Modifier.height(7.dp))
                                         Text("End", color = Color(0xFFFFC1D8), fontSize = 11.sp)
@@ -803,10 +803,10 @@ class MainActivity : ComponentActivity() {
                                         androidx.compose.material3.FilledTonalIconButton(
                                             onClick = { showVoiceScreen = false },
                                             modifier = Modifier.size(58.dp),
-                                            colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFF0B3038), contentColor = Color(0xFFE4FCFF))
-                                        ) { Text("⌄", fontSize = 28.sp, color = Color(0xFFE4FCFF)) }
+                                            colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFF28133B), contentColor = Color(0xFFFFEAF7))
+                                        ) { Text("⌄", fontSize = 28.sp, color = Color(0xFFFFEAF7)) }
                                         Spacer(Modifier.height(7.dp))
-                                        Text("Minimize", color = Color(0xFF8FD8E0), fontSize = 11.sp)
+                                        Text("Minimize", color = Color(0xFFDDB0E8), fontSize = 11.sp)
                                     }
                                 }
                                 Spacer(Modifier.height(16.dp))
