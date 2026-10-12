@@ -4418,19 +4418,14 @@ private fun MyraHome(
             ) {
                 Box(Modifier.size(46.dp), contentAlignment = Alignment.Center) {
                     Box(Modifier.size(34.dp).clip(CircleShape).background(Color(0xFFFFE8EC)))
-                    androidx.compose.material3.Icon(
-                        imageVector = androidx.compose.material.icons.Icons.Default.Notifications,
-                        contentDescription = "Reminders and notifications",
-                        tint = Color(0xFFD91E3D),
-                        modifier = Modifier.size(23.dp)
-                    )
+                    Text("♧", color = Color(0xFFD91E3D), fontSize = 24.sp)
                 }
             }
             Spacer(Modifier.width(9.dp))
             Surface(onClick = onSettings, shape = CircleShape, color = Color(0xFFFFFEFE), shadowElevation = 2.dp,
                 border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A))) {
                 Box(Modifier.size(46.dp), contentAlignment = Alignment.Center) {
-                    androidx.compose.material3.Icon(imageVector = androidx.compose.material.icons.Icons.Default.Settings, contentDescription = "Settings", tint = Color(0xFF25151A), modifier = Modifier.size(23.dp))
+                    Text("⚙", color = Color(0xFFD91E3D), fontSize = 24.sp)
                 }
             }
         }
@@ -4528,12 +4523,7 @@ private fun MyraHome(
                     Surface(onClick = onFiles, shape = CircleShape, color = Color(0xFFFFE8EC),
                         border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A))) {
                         Box(Modifier.size(40.dp), contentAlignment = Alignment.Center) {
-                            androidx.compose.material3.Icon(
-                                imageVector = androidx.compose.material.icons.Icons.Default.AttachFile,
-                                contentDescription = "Attach a file",
-                                tint = Color(0xFFD91E3D),
-                                modifier = Modifier.size(21.dp)
-                            )
+                            Text("⌁", color = Color(0xFFD91E3D), fontSize = 25.sp)
                         }
                     }
                     androidx.compose.foundation.text.BasicTextField(
@@ -4552,12 +4542,7 @@ private fun MyraHome(
                         border = androidx.compose.foundation.BorderStroke(1.dp, Cyan.copy(alpha = .55f))
                     ) {
                         Box(Modifier.size(46.dp), contentAlignment = Alignment.Center) {
-                            androidx.compose.material3.Icon(
-                                imageVector = androidx.compose.material.icons.Icons.AutoMirrored.Filled.Send,
-                                contentDescription = "Send message",
-                                tint = Color(0xFFFFFEFE),
-                                modifier = Modifier.size(22.dp)
-                            )
+                            Text("➤", color = Color(0xFFFFFEFE), fontSize = 23.sp, fontWeight = FontWeight.Bold)
                         }
                     }
                 }
