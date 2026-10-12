@@ -4737,6 +4737,25 @@ private fun MyraHome(
                     }
                 }
             }
+        Surface(
+            onClick = onPermissions,
+            modifier = Modifier.fillMaxWidth().padding(bottom = 14.dp),
+            shape = RoundedCornerShape(20.dp),
+            color = Color(0xFFFFFEFE),
+            border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A)),
+            shadowElevation = 4.dp
+        ) {
+            Row(Modifier.padding(horizontal = 15.dp, vertical = 14.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                Box(Modifier.size(44.dp).clip(RoundedCornerShape(14.dp)).background(Color(0xFFFFE8EC)), contentAlignment = Alignment.Center) {
+                    Text("⌘", color = Color(0xFFD91E3D), fontSize = 24.sp, fontWeight = FontWeight.Bold)
+                }
+                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Text("ACCESSIBILITY & VOICE CONTROL", color = Color(0xFF2B171D), fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                    Text("Check service access and manage Android permissions", color = Color(0xFF8D7077), fontSize = 10.sp)
+                }
+                Text("›", color = Color(0xFFD91E3D), fontSize = 27.sp, fontWeight = FontWeight.Bold)
+            }
+        }
         Row(Modifier.fillMaxWidth().padding(bottom = 14.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             Surface(
                 onClick = onSettings,
