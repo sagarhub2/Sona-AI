@@ -4614,7 +4614,7 @@ private fun MyraHome(
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(14.dp)) {
                 Surface(
                     onClick = onStartVoice,
-                    modifier = Modifier.weight(1f).height(150.dp),
+                    modifier = Modifier.weight(1f).height(122.dp),
                     shape = RoundedCornerShape(24.dp),
                     color = Color(0xFFFFFEFE),
                     shadowElevation = if (busy) 12.dp else 7.dp,
@@ -4657,7 +4657,7 @@ private fun MyraHome(
                 }
                 Surface(
                     onClick = onCamera,
-                    modifier = Modifier.weight(1f).height(150.dp),
+                    modifier = Modifier.weight(1f).height(122.dp),
                     shape = RoundedCornerShape(24.dp),
                     color = Color(0xFFFFFEFE),
                     shadowElevation = 5.dp,
