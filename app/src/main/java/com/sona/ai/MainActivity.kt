@@ -4432,19 +4432,6 @@ private fun MyraHome(
                     )
                 }
             }
-            Surface(
-                onClick = onReminder,
-                shape = CircleShape,
-                color = Color(0xFF0D192B),
-                shadowElevation = 2.dp,
-                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFDBA64B))
-            ) {
-                Box(Modifier.size(46.dp), contentAlignment = Alignment.Center) {
-                    Box(Modifier.size(34.dp).clip(CircleShape).background(Color(0xFF13243B)))
-                    Text("🔔", color = Color(0xFFD91E3D), fontSize = 20.sp)
-                }
-            }
-            Spacer(Modifier.width(9.dp))
             Surface(onClick = onSettings, shape = CircleShape, color = Color(0xFF0D192B), shadowElevation = 2.dp,
                 border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFDBA64B))) {
                 Box(Modifier.size(46.dp), contentAlignment = Alignment.Center) {
