@@ -383,8 +383,8 @@ class MainActivity : ComponentActivity() {
                                     cursorColor = Color(0xFFCB1731),
                                     focusedTextColor = Color(0xFF282126),
                                     unfocusedTextColor = Color(0xFF282126),
-                                    focusedContainerColor = Color.White,
-                                    unfocusedContainerColor = Color.White
+                                    focusedContainerColor = Color(0xFF0B1424),
+                                             unfocusedContainerColor = Color(0xFF0B1424)
                                 )
                             )
                             Surface(
