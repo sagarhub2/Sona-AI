@@ -2136,6 +2136,27 @@ class MainActivity : ComponentActivity() {
             return respond("MYRA phone movement security band kar di.")
         }
 
+        if (listOf("security status", "phone security status", "anti theft status", "security ki status", "सिक्योरिटी स्टेटस").any { command.contains(it) }) {
+            val prefs = getSharedPreferences("myra_security", MODE_PRIVATE)
+            val armed = prefs.getBoolean("armed", false)
+            val events = prefs.getString("events", "").orEmpty().lines().filter { it.isNotBlank() }
+            val latest = events.firstOrNull()
+            return respond(
+                if (armed) "MYRA phone security ON hai. Movement monitoring active hone ka status saved hai. " +
+                    (latest?.let { "Last event: $it" } ?: "Abhi koi security event log nahi hai.")
+                else "MYRA phone security OFF hai. Monitoring band hai. " +
+                    (latest?.let { "Last saved event: $it" } ?: "Koi saved security event nahi hai.")
+            )
+        }
+        if (listOf("security log", "show security events", "security history", "phone security log", "सिक्योरिटी हिस्ट्री").any { command.contains(it) }) {
+            val events = getSharedPreferences("myra_security", MODE_PRIVATE)
+                .getString("events", "").orEmpty().lines().filter { it.isNotBlank() }.take(3)
+            return respond(
+                if (events.isEmpty()) "MYRA security log khaali hai. Abhi koi movement event save nahi hua."
+                else "Recent MYRA security events. " + events.mapIndexed { index, event -> "Event ${index + 1}: ${event.replace("•", ", ")}." }.joinToString(" ")
+            )
+        }
+
         if (listOf("battery status", "battery level", "how much battery", "battery kitni", "बैटरी कितनी", "बैटरी स्टेटस", "charging status").any { command.contains(it) }) {
             return try {
                 val batteryIntent = registerReceiver(null, android.content.IntentFilter(Intent.ACTION_BATTERY_CHANGED))
