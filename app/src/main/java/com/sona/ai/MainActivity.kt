@@ -1554,7 +1554,7 @@ class MainActivity : ComponentActivity() {
                 AlertDialog(
                     modifier = Modifier.fillMaxSize(),
                     shape = RoundedCornerShape(0.dp),
-                    containerColor = Color(0xFFFFFBFC),
+                    containerColor = Color(0xFF071426),
                     tonalElevation = 0.dp,
                     properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false),
                     onDismissRequest = { showSettings = false },
@@ -1596,13 +1596,13 @@ class MainActivity : ComponentActivity() {
                                 }
                                 Spacer(Modifier.width(10.dp))
                                 Column {
-                                    Text("CONTROL CENTER  •  28", color = Color(0xFFFF72D2), fontWeight = FontWeight.Black, fontSize = 10.sp, letterSpacing = 1.8.sp)
+                                    Text("CONTROL CENTER  •  MYRA", color = Color(0xFFFF72D2), fontWeight = FontWeight.Black, fontSize = 10.sp, letterSpacing = 1.8.sp)
                                     Text("Everything, tuned to you", color = Color(0xFFF7EEFF), fontWeight = FontWeight.Bold, fontSize = 16.sp)
                                 }
                             }
                             Row(
                                 Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
-                                    .background(Brush.horizontalGradient(listOf(Color(0xFF24143C), Color(0xFF17102D), Color.White)))
+                                    .background(Brush.horizontalGradient(listOf(Color(0xFF101D31), Color(0xFF0B1424), Color(0xFF101D31))))
                                     .border(1.dp, Color(0xFF8B4E9F), RoundedCornerShape(18.dp))
                                     .padding(14.dp),
                                 verticalAlignment = Alignment.CenterVertically
