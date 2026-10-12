@@ -10,6 +10,8 @@
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
     <application
         android:allowBackup="false"
         android:label="Myra AI"
@@ -34,6 +36,15 @@
             <meta-data
                 android:name="android.accessibilityservice"
                 android:resource="@xml/myra_accessibility_service" />
+        </service>
+        <service
+            android:name=".MyraMotionSecurityService"
+            android:label="MYRA AI phone movement security"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="User-enabled phone movement monitoring with a persistent notification" />
         </service>
         <service
             android:name=".MyraNotificationListenerService"
