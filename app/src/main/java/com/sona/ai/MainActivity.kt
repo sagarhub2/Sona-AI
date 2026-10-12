@@ -2166,6 +2166,35 @@ class MainActivity : ComponentActivity() {
             } catch (_: Exception) { respond("Maps directions open nahi ho paaye.") }
         }
 
+        val reminderMatch = Regex("^(?:remind me at|set reminder at|alarm at|मुझे याद दिलाना)\\s+(\\d{1,2})(?::(\\d{2}))?\\s*(am|pm)?\\s*(?:to|for|about|कि|को)?\\s*(.*)$", RegexOption.IGNORE_CASE).find(raw.trim())
+        if (reminderMatch != null) {
+            val hourRaw = reminderMatch.groupValues[1].toIntOrNull() ?: return respond("Time samajh nahi aaya. Jaise: remind me at 7:30 pm to call mom.")
+            val minute = reminderMatch.groupValues[2].ifBlank { "0" }.toIntOrNull() ?: 0
+            val meridiem = reminderMatch.groupValues[3].lowercase(Locale.ROOT)
+            val label = reminderMatch.groupValues[4].trim().ifBlank { "MYRA AI reminder" }
+            if (hourRaw !in 0..23 || minute !in 0..59 || (meridiem.isNotBlank() && hourRaw !in 1..12)) {
+                return respond("Time valid nahi hai. Example: remind me at 7:30 pm to call mom.")
+            }
+            val hour = when (meridiem) {
+                "pm" -> if (hourRaw == 12) 12 else hourRaw + 12
+                "am" -> if (hourRaw == 12) 0 else hourRaw
+                else -> hourRaw
+            }
+            return try {
+                val intent = Intent(AlarmClock.ACTION_SET_ALARM).apply {
+                    putExtra(AlarmClock.EXTRA_HOUR, hour)
+                    putExtra(AlarmClock.EXTRA_MINUTES, minute)
+                    putExtra(AlarmClock.EXTRA_MESSAGE, label)
+                    putExtra(AlarmClock.EXTRA_SKIP_UI, false)
+                }
+                if (intent.resolveActivity(packageManager) == null) respond("Alarm app available nahi hai.")
+                else {
+                    startActivity(intent)
+                    respond("Alarm/reminder details ready hain: $label. Alarm app mein confirm karke save karna.")
+                }
+            } catch (_: Exception) { respond("Alarm/reminder screen open nahi ho paayi.") }
+        }
+
         val addTaskPrefixes = listOf("add task ", "create task ", "new task ", "task add ", "काम जोड़ो ", "टास्क जोड़ो ")
         val addTaskPrefix = addTaskPrefixes.firstOrNull { command.startsWith(it) }
         if (addTaskPrefix != null) {
