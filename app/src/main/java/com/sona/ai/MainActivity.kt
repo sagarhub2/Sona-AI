@@ -2515,6 +2515,31 @@ class MainActivity : ComponentActivity() {
                 respond("Web par $query search kar rahi hoon.")
             } catch (_: Exception) { respond("Web search open nahi ho paayi.") }
         }
+        if (listOf("turn on flashlight", "flashlight on", "torch on", "torch chalu", "torch चालू", "टॉर्च चालू", "flash on").any { command.contains(it) }) {
+            return try {
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    respond("Flashlight control ke liye Camera permission chahiye. Android App Settings mein permission allow karke dobara bolo.")
+                } else {
+                    val cameraManager = getSystemService(android.content.Context.CAMERA_SERVICE) as android.hardware.camera2.CameraManager
+                    val cameraId = cameraManager.cameraIdList.firstOrNull { id ->
+                        cameraManager.getCameraCharacteristics(id).get(android.hardware.camera2.CameraCharacteristics.FLASH_INFO_AVAILABLE) == true
+                    }
+                    if (cameraId == null) respond("Is phone par flashlight available nahi hai.")
+                    else { cameraManager.setTorchMode(cameraId, true); respond("Flashlight on kar di.") }
+                }
+            } catch (_: Exception) { respond("Flashlight on nahi ho paayi. Camera permission aur phone support check karo.") }
+        }
+        if (listOf("turn off flashlight", "flashlight off", "torch off", "torch band", "टॉर्च बंद", "flash off").any { command.contains(it) }) {
+            return try {
+                val cameraManager = getSystemService(android.content.Context.CAMERA_SERVICE) as android.hardware.camera2.CameraManager
+                val cameraId = cameraManager.cameraIdList.firstOrNull { id ->
+                    cameraManager.getCameraCharacteristics(id).get(android.hardware.camera2.CameraCharacteristics.FLASH_INFO_AVAILABLE) == true
+                }
+                if (cameraId == null) respond("Is phone par flashlight available nahi hai.")
+                else { cameraManager.setTorchMode(cameraId, false); respond("Flashlight off kar di.") }
+            } catch (_: Exception) { respond("Flashlight off nahi ho paayi. Camera permission aur phone support check karo.") }
+        }
+
         if (listOf("open camera", "camera kholo", "take a photo", "photo lo", "कैमरा खोलो").any { command.contains(it) }) {
             return try {
                 val intent = Intent("android.media.action.IMAGE_CAPTURE")
