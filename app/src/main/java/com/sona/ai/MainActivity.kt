@@ -2052,6 +2052,30 @@ class MainActivity : ComponentActivity() {
                                     Text("Clear log", color = Color(0xFFCB1731), fontSize = 12.sp)
                                 }
                             }
+                            var movementSensitivity by remember {
+                                mutableFloatStateOf(securityPrefs.getFloat("sensitivity", MyraMotionSecurityService.DEFAULT_SENSITIVITY))
+                            }
+                            var alertCooldownSeconds by remember {
+                                mutableFloatStateOf(securityPrefs.getLong("cooldown_ms", MyraMotionSecurityService.DEFAULT_COOLDOWN_MS).toFloat() / 1000f)
+                            }
+                            Text("MOVEMENT SENSITIVITY", color = Color(0xFFCB1731), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.1.sp)
+                            Text(
+                                if (movementSensitivity < 2.5f) "High sensitivity • more alerts" else if (movementSensitivity > 4.0f) "Low sensitivity • fewer alerts" else "Balanced • ${"%.1f".format(java.util.Locale.US, movementSensitivity)} m/s²",
+                                color = Color(0xFF44383D), fontSize = 12.sp
+                            )
+                            Slider(value = movementSensitivity, onValueChange = { movementSensitivity = it }, valueRange = 1.5f..5.5f, steps = 7, colors = SliderDefaults.colors(thumbColor = Color(0xFFCB1731), activeTrackColor = Color(0xFFCB1731)))
+                            Text("ALERT COOLDOWN • ${alertCooldownSeconds.toInt()} SECONDS", color = Color(0xFFCB1731), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.1.sp)
+                            Slider(value = alertCooldownSeconds, onValueChange = { alertCooldownSeconds = it }, valueRange = 5f..60f, steps = 10, colors = SliderDefaults.colors(thumbColor = Color(0xFFCB1731), activeTrackColor = Color(0xFFCB1731)))
+                            Text("Lower sensitivity means fewer alerts; a longer cooldown limits repeat alerts. These settings cannot tell who moved the phone.", color = Color(0xFF8C7E83), fontSize = 10.sp)
+                            OutlinedButton(
+                                onClick = {
+                                    securityPrefs.edit().putFloat("sensitivity", movementSensitivity).putLong("cooldown_ms", alertCooldownSeconds.toLong() * 1000L).apply()
+                                    status = "SECURITY SETTINGS SAVED"
+                                    heardText = "Security sensitivity aur cooldown settings save ho gayi."
+                                },
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(12.dp)
+                            ) { Text("Save security settings", color = Color(0xFFCB1731), fontWeight = FontWeight.Bold) }
                             Text("RECENT EVENTS", color = Color(0xFFCB1731), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.2.sp)
                             if (securityEvents.isEmpty()) {
                                 Text("No saved security events yet.", color = Color(0xFF8C7E83), fontSize = 12.sp)
