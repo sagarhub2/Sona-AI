@@ -2124,6 +2124,28 @@ class MainActivity : ComponentActivity() {
         if (listOf("today's date", "what date", "today date", "date today", "आज की तारीख", "आज कौन सा दिन").any { command.contains(it) }) {
             return respond("Aaj ${dateFormatter.format(now.time)} hai.")
         }
+        val youtubeSearchPrefixes = listOf("search youtube for ", "search on youtube for ", "youtube par ", "youtube pe ", "यूट्यूब पर ")
+        val youtubePrefix = youtubeSearchPrefixes.firstOrNull { command.startsWith(it) }
+        if (youtubePrefix != null) {
+            val query = raw.trim().drop(youtubePrefix.length).trim()
+            if (query.isBlank()) return respond("Kya search karna hai? Topic batao.")
+            return try {
+                val searchUri = Uri.parse("https://www.youtube.com/results?search_query=" + URLEncoder.encode(query, "UTF-8"))
+                startActivity(Intent(Intent.ACTION_VIEW, searchUri))
+                respond("YouTube par $query search kar rahi hoon.")
+            } catch (_: Exception) { respond("YouTube search open nahi ho paayi.") }
+        }
+        val webSearchPrefixes = listOf("search for ", "google ", "search web for ", "web search ")
+        val webPrefix = webSearchPrefixes.firstOrNull { command.startsWith(it) }
+        if (webPrefix != null) {
+            val query = raw.trim().drop(webPrefix.length).trim()
+            if (query.isBlank()) return respond("Kya search karna hai? Topic batao.")
+            return try {
+                val searchUri = Uri.parse("https://www.google.com/search?q=" + URLEncoder.encode(query, "UTF-8"))
+                startActivity(Intent(Intent.ACTION_VIEW, searchUri))
+                respond("Web par $query search kar rahi hoon.")
+            } catch (_: Exception) { respond("Web search open nahi ho paayi.") }
+        }
         if (command.contains("open settings") || command.contains("phone settings") || command.contains("फोन की सेटिंग")) {
             return try {
                 startActivity(Intent(android.provider.Settings.ACTION_SETTINGS))
