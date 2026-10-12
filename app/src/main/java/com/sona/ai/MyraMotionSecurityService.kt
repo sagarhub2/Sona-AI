@@ -75,7 +75,10 @@ class MyraMotionSecurityService : Service(), SensorEventListener {
         baseline = baseline * 0.92f + magnitude * 0.08f
         val movement = kotlin.math.abs(magnitude - baseline)
         val now = SystemClock.elapsedRealtime()
-        if (movement > 3.2f && now - lastAlertAt > ALERT_COOLDOWN_MS) {
+        val securityPrefs = getSharedPreferences("myra_security", MODE_PRIVATE)
+        val movementThreshold = securityPrefs.getFloat("sensitivity", DEFAULT_SENSITIVITY)
+        val cooldownMs = securityPrefs.getLong("cooldown_ms", DEFAULT_COOLDOWN_MS)
+        if (movement > movementThreshold && now - lastAlertAt > cooldownMs) {
             lastAlertAt = now
             saveEvent("Movement detected")
             val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
@@ -130,6 +133,7 @@ class MyraMotionSecurityService : Service(), SensorEventListener {
         const val ACTION_DISARM = "com.sona.ai.security.DISARM"
         private const val CHANNEL_ID = "myra_phone_security"
         private const val NOTIFICATION_ID = 7401
-        private const val ALERT_COOLDOWN_MS = 15_000L
+        const val DEFAULT_SENSITIVITY = 3.2f
+        const val DEFAULT_COOLDOWN_MS = 15_000L
     }
 }
