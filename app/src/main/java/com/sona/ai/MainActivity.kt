@@ -2399,6 +2399,22 @@ class MainActivity : ComponentActivity() {
                 respond("Media volume kam kar diya. Volume level ${audio.getStreamVolume(android.media.AudioManager.STREAM_MUSIC)} of $max.")
             } catch (_: Exception) { respond("Media volume change nahi ho paaya.") }
         }
+        val volumePercentMatch = Regex("(?:set|change|make)?\\s*(?:media\\s*)?volume\\s*(?:to|at|on)?\\s*(\\d{1,3})\\s*%?", RegexOption.IGNORE_CASE).find(command)
+        if (volumePercentMatch != null && listOf("volume", "आवाज़", "वॉल्यूम").any { command.contains(it) }) {
+            val percent = volumePercentMatch.groupValues[1].toIntOrNull()
+                ?: return respond("Volume percentage samajh nahi aaya.")
+            if (percent !in 0..100) return respond("Volume 0 se 100 percent ke beech set karo.")
+            return try {
+                val audio = getSystemService(AUDIO_SERVICE) as android.media.AudioManager
+                val max = audio.getStreamMaxVolume(android.media.AudioManager.STREAM_MUSIC)
+                val target = (max * percent / 100f).toInt().coerceIn(0, max)
+                audio.setStreamVolume(android.media.AudioManager.STREAM_MUSIC, target, 0)
+                respond("Media volume $percent percent par set kar diya.")
+            } catch (_: Exception) {
+                respond("Volume set nahi ho paaya. Phone ki volume settings check karo.")
+            }
+        }
+
         if (listOf("what is my volume", "volume status", "volume kitna hai", "आवाज़ कितनी है").any { command.contains(it) }) {
             val audio = getSystemService(AUDIO_SERVICE) as android.media.AudioManager
             val current = audio.getStreamVolume(android.media.AudioManager.STREAM_MUSIC)
