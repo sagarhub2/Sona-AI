@@ -2964,7 +2964,7 @@ class MainActivity : ComponentActivity() {
             } catch (_: Exception) { respond("Alarm/reminder screen open nahi ho paayi.") }
         }
 
-        val addTaskPrefixes = listOf("add task ", "create task ", "new task ", "task add ", "काम जोड़ो ", "टास्क जोड़ो ")
+        val addTaskPrefixes = listOf("add task ", "create task ", "new task ", "task add ", "काम जोड़ो ", "टास्क जोड़ो ", "नया काम जोड़ो ", "मेरा काम जोड़ो ", "कार्य जोड़ो ")
         val addTaskPrefix = addTaskPrefixes.firstOrNull { command.startsWith(it) }
         if (addTaskPrefix != null) {
             val task = raw.trim().drop(addTaskPrefix.length).trim()
@@ -2979,13 +2979,13 @@ class MainActivity : ComponentActivity() {
             } catch (_: Exception) { respond("Task save nahi ho paaya.") }
         }
 
-        if (listOf("show my tasks", "list tasks", "read my tasks", "what are my tasks", "mere tasks batao", "मेरे काम बताओ").any { command.contains(it) }) {
+        if (listOf("show my tasks", "list tasks", "read my tasks", "what are my tasks", "mere tasks batao", "मेरे काम बताओ", "मेरे टास्क बताओ", "मेरी टास्क लिस्ट", "आज के काम बताओ").any { command.contains(it) }) {
             val tasks = getSharedPreferences("myra_private", MODE_PRIVATE).getString("sona_tasks", "").orEmpty()
                 .lines().map { it.trim() }.filter { it.isNotEmpty() }.take(5)
             return respond(if (tasks.isEmpty()) "Task list abhi khaali hai." else "Tumhare tasks: " + tasks.joinToString(". "))
         }
 
-        val completeTaskPrefixes = listOf("complete task ", "finish task ", "mark task done ", "task complete ", "काम पूरा ", "टास्क पूरा ")
+        val completeTaskPrefixes = listOf("complete task ", "finish task ", "mark task done ", "task complete ", "काम पूरा ", "टास्क पूरा ", "काम पूरा हुआ ", "कार्य पूरा ", "टास्क कम्प्लीट ")
         val completePrefix = completeTaskPrefixes.firstOrNull { command.startsWith(it) }
         if (completePrefix != null) {
             val target = raw.trim().drop(completePrefix.length).trim()
