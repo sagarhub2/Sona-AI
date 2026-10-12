@@ -4665,7 +4665,7 @@ private fun MyraHome(
                 }
                 Surface(
                     onClick = onCamera,
-                    modifier = Modifier.weight(1f).height(122.dp),
+                    modifier = Modifier.weight(1f).height(112.dp),
                     shape = RoundedCornerShape(18.dp),
                     color = Color(0xFFFFFEFE),
                     shadowElevation = 5.dp,
@@ -4681,7 +4681,7 @@ private fun MyraHome(
                                     .background(Brush.radialGradient(listOf(Color(0xFFFFB7C2), Color(0xFFD91E3D), Color(0xFF64101F))))
                                     .border(1.dp, Color(0xFFD91E3D), CircleShape),
                                     contentAlignment = Alignment.Center
-                                ) { Text("📷", color = Color(0xFFFFFEFE), fontSize = 22.sp, fontWeight = FontWeight.Bold) }
+                                ) { Text("◎", color = Color(0xFFFFFEFE), fontSize = 26.sp, fontWeight = FontWeight.Bold) }
                             }
                             Surface(
                                 shape = RoundedCornerShape(50),
