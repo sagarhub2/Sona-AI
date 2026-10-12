@@ -2136,6 +2136,16 @@ class MainActivity : ComponentActivity() {
             return respond("MYRA phone movement security band kar di.")
         }
 
+        if (listOf("security help", "phone security help", "anti theft help", "security commands", "सिक्योरिटी मदद").any { command.contains(it) }) {
+            return respond(
+                "MYRA phone security commands. Say arm security to start visible movement monitoring. " +
+                "Say disarm security to stop it. Say security status to hear whether it is marked on or off. " +
+                "Say security log to hear recent saved movement events. Say share security report to open the Android share menu. " +
+                "Movement can also come from vibration or transport, so it does not identify a person. " +
+                "This feature does not secretly take photos or automatically send reports."
+            )
+        }
+
         if (listOf("security status", "phone security status", "anti theft status", "security ki status", "सिक्योरिटी स्टेटस").any { command.contains(it) }) {
             val prefs = getSharedPreferences("myra_security", MODE_PRIVATE)
             val armed = prefs.getBoolean("armed", false)
