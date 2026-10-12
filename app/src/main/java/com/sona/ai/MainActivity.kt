@@ -2451,6 +2451,15 @@ class MainActivity : ComponentActivity() {
             return respond("Media volume $current of $max hai.")
         }
 
+        if (listOf("read my notifications", "read notifications", "read recent notifications", "what are my notifications", "मेरे नोटिफिकेशन पढ़ो", "नोटिफिकेशन पढ़कर सुनाओ", "नोटिफिकेशन सुनाओ").any { command.contains(it) }) {
+            val notificationPrefs = getSharedPreferences("myra_notifications", MODE_PRIVATE)
+            val recent = notificationPrefs.getString("recent", "").orEmpty()
+                .lines().filter { it.isNotBlank() }.take(5)
+            if (recent.isEmpty()) {
+                return respond("Koi saved notification nahi mili. Android Settings mein Myra AI ka Notification Access enable karo, phir naya notification aane par dobara try karo.")
+            }
+            return respond("Aapke recent notifications. " + recent.joinToString(". Next notification. "))
+        }
         if (listOf("battery status", "battery level", "how much battery", "battery kitni", "बैटरी कितनी", "बैटरी स्टेटस", "charging status").any { command.contains(it) }) {
             return try {
                 val batteryIntent = registerReceiver(null, android.content.IntentFilter(Intent.ACTION_BATTERY_CHANGED))
