@@ -2146,6 +2146,50 @@ class MainActivity : ComponentActivity() {
                 respond("Web par $query search kar rahi hoon.")
             } catch (_: Exception) { respond("Web search open nahi ho paayi.") }
         }
+        val eventPrefixes = listOf("create event ", "add calendar event ", "schedule event ", "calendar event ")
+        val eventPrefix = eventPrefixes.firstOrNull { command.startsWith(it) }
+        if (eventPrefix != null) {
+            val title = raw.trim().drop(eventPrefix.length).trim()
+            if (title.isBlank()) return respond("Event ka title batao.")
+            return try {
+                val intent = Intent(Intent.ACTION_INSERT).apply {
+                    data = android.provider.CalendarContract.Events.CONTENT_URI
+                    putExtra(android.provider.CalendarContract.Events.TITLE, title)
+                    putExtra(android.provider.CalendarContract.Events.DESCRIPTION, "Created with MYRA AI")
+                }
+                if (intent.resolveActivity(packageManager) == null) respond("Calendar app available nahi hai.")
+                else { startActivity(intent); respond("Calendar mein '$title' event ke liye details confirm kar lo.") }
+            } catch (_: Exception) { respond("Calendar event screen open nahi ho paayi.") }
+        }
+
+        val openPrefix = listOf("open app ", "launch app ", "open ")
+            .firstOrNull { command.startsWith(it) }
+        if (openPrefix != null) {
+            val appQuery = command.removePrefix(openPrefix).trim()
+            val reserved = listOf("settings", "phone settings", "youtube", "timer")
+            if (appQuery.isBlank() || reserved.contains(appQuery)) {
+                // Specific built-in actions are handled in the dedicated branches below.
+            } else {
+                return try {
+                    val launcherIntent = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
+                    val matches = packageManager.queryIntentActivities(launcherIntent, 0)
+                    val match = matches.firstOrNull { info ->
+                        info.loadLabel(packageManager).toString().trim().equals(appQuery, ignoreCase = true)
+                    } ?: matches.firstOrNull { info ->
+                        info.loadLabel(packageManager).toString().trim().contains(appQuery, ignoreCase = true)
+                    }
+                    val launch = match?.activityInfo?.let { info ->
+                        packageManager.getLaunchIntentForPackage(info.packageName)
+                    }
+                    if (launch != null) {
+                        startActivity(launch)
+                        respond("Opening ${match.loadLabel(packageManager)}.")
+                    } else {
+                        respond("App '$appQuery' nahi mila. App ka naam dobara bolo.")
+                    }
+                } catch (_: Exception) { respond("Is app ko open nahi kar paayi.") }
+            }
+        }
         if (command.contains("open settings") || command.contains("phone settings") || command.contains("फोन की सेटिंग")) {
             return try {
                 startActivity(Intent(android.provider.Settings.ACTION_SETTINGS))
