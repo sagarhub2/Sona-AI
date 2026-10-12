@@ -1995,7 +1995,7 @@ class MainActivity : ComponentActivity() {
             if (showSecurityDashboard) {
                 val securityPrefs = getSharedPreferences("myra_security", MODE_PRIVATE)
                 val securityArmed = securityPrefs.getBoolean("armed", false)
-                val securityEvents = securityPrefs.getString("events", "").orEmpty().lines().filter { it.isNotBlank() }.take(8)
+                val allSecurityEvents = securityPrefs.getString("events", "").orEmpty().lines().filter { it.isNotBlank() }.take(30)
                 AlertDialog(
                     onDismissRequest = { showSecurityDashboard = false },
                     shape = RoundedCornerShape(24.dp),
@@ -2092,7 +2092,23 @@ class MainActivity : ComponentActivity() {
                                 modifier = Modifier.fillMaxWidth(),
                                 shape = RoundedCornerShape(12.dp)
                             ) { Text("Save security settings", color = Color(0xFFCB1731), fontWeight = FontWeight.Bold) }
-                            Text("RECENT EVENTS", color = Color(0xFFCB1731), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.2.sp)
+                            var eventFilter by remember { mutableStateOf("All") }
+                            val todayPrefix = java.text.SimpleDateFormat("dd MMM yyyy", java.util.Locale.getDefault()).format(java.util.Date())
+                            val securityEvents = if (eventFilter == "Today") allSecurityEvents.filter { it.startsWith(todayPrefix) } else allSecurityEvents
+                            Text("SECURITY EVENT HISTORY • ${allSecurityEvents.size}", color = Color(0xFFCB1731), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.1.sp)
+                            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                listOf("All", "Today").forEach { filter ->
+                                    FilterChip(
+                                        selected = eventFilter == filter,
+                                        onClick = { eventFilter = filter },
+                                        label = { Text(if (filter == "All") "All events" else "Today") },
+                                        colors = FilterChipDefaults.filterChipColors(
+                                            selectedContainerColor = Color(0xFFFFE0E6),
+                                            selectedLabelColor = Color(0xFFCB1731)
+                                        )
+                                    )
+                                }
+                            }
                             if (securityEvents.isEmpty()) {
                                 Text("No saved security events yet.", color = Color(0xFF8C7E83), fontSize = 12.sp)
                             } else {
