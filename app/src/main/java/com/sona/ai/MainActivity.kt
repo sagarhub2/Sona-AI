@@ -1498,15 +1498,15 @@ class MainActivity : ComponentActivity() {
                 AlertDialog(
                     modifier = Modifier.fillMaxSize(),
                     shape = RoundedCornerShape(0.dp),
-                    containerColor = Color(0xFF0B0820),
+                    containerColor = Color(0xFFFFFBFC),
                     tonalElevation = 0.dp,
                     properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false),
                     onDismissRequest = { showSettings = false },
                     title = {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(20.dp))
-                                .background(Brush.horizontalGradient(listOf(Color(0xFFFF72D2), Color(0xFF8B5CF6), Color(0xFF061B35))))
-                                .border(1.dp, Color(0xFFFF9AE6), RoundedCornerShape(20.dp)).padding(16.dp),
+                                .background(Brush.horizontalGradient(listOf(Color(0xFFD91E3D), Color(0xFFB71C38), Color(0xFF7D172C))))
+                                .border(1.dp, Color(0xFFFFDCE3), RoundedCornerShape(20.dp)).padding(16.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
