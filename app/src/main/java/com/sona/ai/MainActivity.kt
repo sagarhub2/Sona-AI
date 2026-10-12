@@ -4707,7 +4707,7 @@ private fun MyraHome(
                             Text("Object Scan", color = Color(0xFF8D7077), fontSize = 10.sp)
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                                 Box(Modifier.size(6.dp).clip(CircleShape).background(Color(0xFFD91E3D)))
-                                Text("Point, capture, explore", color = Color(0xFF8D7077), fontSize = 9.sp)
+                                Text("Scan  •  Live  •  Detect", color = Color(0xFF8D7077), fontSize = 9.sp)
                             }
                             TextButton(
                                 onClick = {
