@@ -2846,11 +2846,15 @@ class MainActivity : ComponentActivity() {
             } catch (_: Exception) { respond("Calendar event screen open nahi ho paayi.") }
         }
 
-        val openPrefix = listOf("open app ", "launch app ", "open ")
+        val openPrefix = listOf("open app ", "launch app ", "open ", "launch ", "खोलो ", "ओपन ")
             .firstOrNull { command.startsWith(it) }
-        if (openPrefix != null) {
-            val appQuery = command.removePrefix(openPrefix).trim()
-            val reserved = listOf("settings", "phone settings", "youtube", "timer")
+        val suffixAppQuery = listOf(" kholo", " khol do", " खोलो", " खोल दो", " open")
+            .firstOrNull { command.endsWith(it) }
+            ?.let { command.removeSuffix(it).trim() }
+        val appQueryFromVoice = openPrefix?.let { command.removePrefix(it).trim() } ?: suffixAppQuery
+        if (appQueryFromVoice != null) {
+            val appQuery = appQueryFromVoice
+            val reserved = listOf("settings", "phone settings", "youtube", "timer", "सेटिंग्स", "यूट्यूब", "टाइमर")
             if (appQuery.isBlank() || reserved.contains(appQuery)) {
                 // Specific built-in actions are handled in the dedicated branches below.
             } else {
