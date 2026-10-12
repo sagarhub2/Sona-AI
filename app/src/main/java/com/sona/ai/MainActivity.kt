@@ -2395,7 +2395,18 @@ class MainActivity : ComponentActivity() {
             val percent = if (level >= 0) level * 100 / scale else -1
             val plugged = batteryIntent?.getIntExtra(android.os.BatteryManager.EXTRA_PLUGGED, 0) ?: 0
             val batterySummary = if (percent >= 0) "Battery $percent percent, ${if (plugged != 0) "charging" else "not charging"}." else "Battery status unavailable."
-            return respond("Abhi ${timeFormatter.format(now.time)} hain. Aaj ${dateFormatter.format(now.time)} hai. $batterySummary")
+            val connectivity = getSystemService(CONNECTIVITY_SERVICE) as android.net.ConnectivityManager
+            val network = connectivity.activeNetwork
+            val capabilities = network?.let { connectivity.getNetworkCapabilities(it) }
+            val networkSummary = when {
+                capabilities == null -> "Internet connection unavailable."
+                capabilities.hasTransport(android.net.NetworkCapabilities.TRANSPORT_WIFI) -> "Connected through Wi-Fi."
+                capabilities.hasTransport(android.net.NetworkCapabilities.TRANSPORT_CELLULAR) -> "Connected through mobile data."
+                else -> "Connected to a network."
+            }
+            val powerManager = getSystemService(POWER_SERVICE) as android.os.PowerManager
+            val saverSummary = if (powerManager.isPowerSaveMode) "Battery saver is on." else "Battery saver is off."
+            return respond("Abhi ${timeFormatter.format(now.time)} hain. Aaj ${dateFormatter.format(now.time)} hai. $batterySummary $networkSummary $saverSummary")
         }
         if (listOf("what time", "current time", "time is it", "समय क्या", "कितने बजे").any { command.contains(it) }) {
             return respond("Abhi time ${timeFormatter.format(now.time)} hai.")
