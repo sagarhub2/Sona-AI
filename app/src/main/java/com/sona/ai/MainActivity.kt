@@ -5167,7 +5167,7 @@ private fun QuickTile(title: String, subtitle: String, modifier: Modifier = Modi
             modifier = Modifier.fillMaxSize().padding(13.dp),
             verticalArrangement = Arrangement.Center
         ) {
-            Text(title, color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
+            Text(title, color = Color(0xFF4B1722), fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
             Spacer(Modifier.height(5.dp))
             Text(subtitle, color = Color(0xFF8C7E83), fontSize = 11.sp)
         }
