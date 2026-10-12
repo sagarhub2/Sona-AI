@@ -4663,7 +4663,7 @@ private fun MyraHome(
                     shadowElevation = 5.dp,
                     border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A))
                 ) {
-                    Column(Modifier.fillMaxSize().padding(15.dp), verticalArrangement = Arrangement.SpaceBetween) {
+                    Column(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0xFFFFE8EC), Color(0xFFFFFEFE), Color(0xFFFFF4F5)))).padding(15.dp), verticalArrangement = Arrangement.SpaceBetween) {
                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                             Box(contentAlignment = Alignment.Center) {
                                 Box(Modifier.size(62.dp).clip(CircleShape)
