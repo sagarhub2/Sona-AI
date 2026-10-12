@@ -2024,6 +2024,34 @@ class MainActivity : ComponentActivity() {
                                     Text(if (securityArmed) "Visible movement monitoring was enabled." else "Say “arm security” to start monitoring.", color = Color(0xFF8C7E83), fontSize = 11.sp)
                                 }
                             }
+                            Row(
+                                Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                OutlinedButton(
+                                    onClick = {
+                                        stopService(Intent(this@MainActivity, MyraMotionSecurityService::class.java))
+                                        securityPrefs.edit().putBoolean("armed", false).apply()
+                                        status = "SECURITY DISABLED"
+                                        heardText = "MYRA phone movement security band kar di."
+                                    },
+                                    modifier = Modifier.weight(1f),
+                                    shape = RoundedCornerShape(12.dp)
+                                ) {
+                                    Text("Disarm", color = Color(0xFFCB1731), fontSize = 12.sp)
+                                }
+                                OutlinedButton(
+                                    onClick = {
+                                        securityPrefs.edit().putString("events", "").apply()
+                                        status = "SECURITY LOG CLEARED"
+                                        heardText = "Saved security event history cleared."
+                                    },
+                                    modifier = Modifier.weight(1f),
+                                    shape = RoundedCornerShape(12.dp)
+                                ) {
+                                    Text("Clear log", color = Color(0xFFCB1731), fontSize = 12.sp)
+                                }
+                            }
                             Text("RECENT EVENTS", color = Color(0xFFCB1731), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.2.sp)
                             if (securityEvents.isEmpty()) {
                                 Text("No saved security events yet.", color = Color(0xFF8C7E83), fontSize = 12.sp)
