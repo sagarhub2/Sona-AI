@@ -855,6 +855,8 @@ class MainActivity : ComponentActivity() {
                 var showClearHistoryConfirm by remember { mutableStateOf(false) }
                 val chatPrefs = getSharedPreferences("myra_private", MODE_PRIVATE)
                 var savedChat by remember { mutableStateOf(chatPrefs.getString("conversation_history", "").orEmpty()) }
+                var selectedChatCategory by remember { mutableStateOf("General Chat") }
+                val chatCategories = listOf("General Chat", "Study Help", "Image Generation", "Code Assistant", "Travel Plans", "Health & Fitness", "Creative Ideas")
                 Dialog(
                     onDismissRequest = { showChat = false },
                     properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false)
@@ -999,6 +1001,32 @@ class MainActivity : ComponentActivity() {
                                     TextButton(onClick = { showChat = false; showSettings = true }) { Text("Open Settings", color = Color(0xFFD91E3D)) }
                                 }
                             }
+                            Text("CHAT TYPE", color = Color(0xFF8D7077), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp, modifier = Modifier.padding(top = 8.dp))
+                            Row(
+                                modifier = Modifier.fillMaxWidth().horizontalScroll(androidx.compose.foundation.rememberScrollState()),
+                                horizontalArrangement = Arrangement.spacedBy(7.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                chatCategories.forEach { category ->
+                                    androidx.compose.material3.FilterChip(
+                                        selected = selectedChatCategory == category,
+                                        onClick = { selectedChatCategory = category },
+                                        label = { Text(category, fontSize = 10.sp, maxLines = 1) },
+                                        colors = androidx.compose.material3.FilterChipDefaults.filterChipColors(
+                                            selectedContainerColor = Color(0xFFD91E3D),
+                                            selectedLabelColor = Color.White,
+                                            containerColor = Color(0xFFFFFEFE),
+                                            labelColor = Color(0xFFD91E3D)
+                                        ),
+                                        border = androidx.compose.material3.FilterChipDefaults.filterChipBorder(
+                                            enabled = true,
+                                            selected = selectedChatCategory == category,
+                                            borderColor = Color(0x33D9A04A),
+                                            selectedBorderColor = Color(0xFFD9A04A)
+                                        )
+                                    )
+                                }
+                            }
                             Row(Modifier.fillMaxWidth().padding(top = 8.dp, bottom = 6.dp), verticalAlignment = Alignment.CenterVertically) {
                                 Text("QUICK PROMPTS", color = Color(0xFF8D7077), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
                                 Spacer(Modifier.weight(1f))
@@ -1081,7 +1109,16 @@ class MainActivity : ComponentActivity() {
                                             } else {
                                                 pendingMessage = message
                                                 chatDraft = ""
-                                                askGemini(message)
+                                                val categoryInstruction = when (selectedChatCategory) {
+                                                "Study Help" -> "Act as a patient study tutor. Explain clearly, step by step, and support learning. "
+                                                "Image Generation" -> "Help create a detailed, safe image-generation prompt. Ask for missing visual details if needed. "
+                                                "Code Assistant" -> "Act as a coding assistant. Give correct code, explain changes, and mention important assumptions. "
+                                                "Travel Plans" -> "Act as a travel planner. Consider budget, timing, safety, and practical logistics. "
+                                                "Health & Fitness" -> "Give general, age-appropriate wellness information and encourage a qualified professional for medical concerns. "
+                                                "Creative Ideas" -> "Act as a creative brainstorming partner and offer several original options. "
+                                                else -> ""
+                                            }
+                                            askGemini(if (categoryInstruction.isBlank()) message else "$categoryInstruction\\nUser request: $message")
                                             }
                                         }
                                     },
