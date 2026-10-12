@@ -2355,6 +2355,22 @@ class MainActivity : ComponentActivity() {
             )
         }
 
+        if (listOf("read notifications", "read my notifications", "read recent notifications", "notifications suna do", "notification padho", "मेरे नोटिफिकेशन पढ़ो", "नोटिफिकेशन सुनाओ").any { command.contains(it) }) {
+            val recent = getSharedPreferences("myra_notifications", MODE_PRIVATE)
+                .getString("recent", "").orEmpty().lines().filter { it.isNotBlank() }.take(5)
+            return respond(
+                if (recent.isEmpty()) "Abhi koi saved notification nahi hai. Notifications padhne ke liye Android Settings mein Myra AI ka Notification Access enable karo."
+                else "Recent notifications. " + recent.mapIndexed { index, item ->
+                    val safeItem = item.replace(Regex("\\s+"), " ").take(300)
+                    "Notification ${index + 1}: $safeItem."
+                }.joinToString(" ")
+            )
+        }
+        if (listOf("clear notification history", "clear saved notifications", "notification history clear", "notifications hata do", "नोटिफिकेशन हिस्ट्री साफ करो").any { command.contains(it) }) {
+            getSharedPreferences("myra_notifications", MODE_PRIVATE).edit().putString("recent", "").apply()
+            return respond("MYRA ki saved notification history clear kar di. Original phone notifications nahi hatayi gayi.")
+        }
+
         val mediaAction = when {
             listOf("pause music", "pause song", "music pause", "gaana roko", "गाना रोक दो", "म्यूजिक रोक दो").any { command.contains(it) } -> android.view.KeyEvent.KEYCODE_MEDIA_PAUSE
             listOf("resume music", "play music", "resume song", "music chalao", "gaana chalao", "गाना चलाओ", "म्यूजिक चलाओ").any { command.contains(it) } -> android.view.KeyEvent.KEYCODE_MEDIA_PLAY
