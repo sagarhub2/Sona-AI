@@ -4648,7 +4648,7 @@ private fun MyraHome(
                                     .background(Brush.radialGradient(listOf(Color(0xFFFFB7C2), Color(0xFFD91E3D), Color(0xFF64101F))))
                                     .border(1.dp, if (busy) Color(0xFFD91E3D) else Color(0xFFD91E3D), CircleShape),
                                     contentAlignment = Alignment.Center
-                                ) { Text(if (busy) "•••" else "♫", color = Color(0xFFFFFEFE), fontSize = 24.sp, fontWeight = FontWeight.Bold) } 
+                                ) { Text(if (busy) "•••" else "≋", color = Color(0xFFFFFEFE), fontSize = 27.sp, fontWeight = FontWeight.Bold) } 
                             }
                             Surface(
                                 shape = RoundedCornerShape(50),
@@ -4691,7 +4691,7 @@ private fun MyraHome(
                                     .background(Brush.radialGradient(listOf(Color(0xFFFFB7C2), Color(0xFFD91E3D), Color(0xFF64101F))))
                                     .border(1.dp, Color(0xFFD91E3D), CircleShape),
                                     contentAlignment = Alignment.Center
-                                ) { Text("◎", color = Color(0xFFFFFEFE), fontSize = 26.sp, fontWeight = FontWeight.Bold) }
+                                ) { Text("▣", color = Color(0xFFFFFEFE), fontSize = 25.sp, fontWeight = FontWeight.Bold) }
                             }
                             Surface(
                                 shape = RoundedCornerShape(50),
@@ -4738,7 +4738,7 @@ private fun MyraHome(
                             .background(Color(0xFFFFE8EC))
                             .border(1.dp, Color(0xFFD9A04A), RoundedCornerShape(13.dp)),
                             contentAlignment = Alignment.Center) {
-                            Text("♥", color = Color(0xFFD91E3D), fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                            Text("◉", color = Color(0xFFD91E3D), fontSize = 22.sp, fontWeight = FontWeight.Bold)
                         }
                         Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
                             Text("SMART MEMORY", color = Color(0xFF2B171D), fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1, letterSpacing = .35.sp)
@@ -4764,7 +4764,7 @@ private fun MyraHome(
                             .background(Color(0xFFFFE8EC))
                             .border(1.dp, Color(0xFFD9A04A), RoundedCornerShape(13.dp)),
                             contentAlignment = Alignment.Center) {
-                            Text("✓", color = Color(0xFFD91E3D), fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                            Text("▦", color = Color(0xFFD91E3D), fontSize = 22.sp, fontWeight = FontWeight.Bold)
                         }
                         Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
                             Text("TASKS & REMINDERS", color = Color(0xFF2B171D), fontSize = 9.sp, fontWeight = FontWeight.Bold, maxLines = 1, letterSpacing = .2.sp)
