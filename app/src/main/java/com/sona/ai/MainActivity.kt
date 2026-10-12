@@ -2189,6 +2189,28 @@ class MainActivity : ComponentActivity() {
             return respond("Pending message draft cancel kar diya.")
         }
 
+        val smsPrefixes = listOf("sms message saying ", "text message saying ", "sms likho ", "एसएमएस लिखो ")
+        val smsPrefix = smsPrefixes.firstOrNull { command.startsWith(it) }
+        if (smsPrefix != null) {
+            val message = raw.trim().drop(smsPrefix.length).trim()
+            if (message.isBlank()) return respond("SMS mein kya likhna hai? Bolo: SMS message saying hello.")
+            pendingMessageDraft = message
+            return respond("SMS draft yeh hai: $message. Sun lo. Theek ho to mic dabakar 'confirm SMS' bolo; cancel ke liye 'cancel message' bolo.")
+        }
+        if (listOf("confirm sms", "sms confirm", "open sms").any { command == it || command.startsWith("$it ") }) {
+            val draft = pendingMessageDraft
+            if (draft.isNullOrBlank()) return respond("Pending SMS draft nahi hai. Pehle bolo: SMS message saying hello.")
+            return try {
+                val smsUri = Uri.parse("smsto:")
+                val intent = Intent(Intent.ACTION_SENDTO, smsUri).apply { putExtra("sms_body", draft) }
+                startActivity(intent)
+                pendingMessageDraft = null
+                respond("SMS app khol di aur message prefill kar diya. Recipient verify karke Send tum dabana.")
+            } catch (_: Exception) {
+                respond("SMS app open nahi ho paayi. Phone mein messaging app check karo.")
+            }
+        }
+
         val whatsappPrefixes = listOf("whatsapp message saying ", "message on whatsapp saying ", "whatsapp par message ", "व्हाट्सऐप पर मैसेज ")
         val whatsappPrefix = whatsappPrefixes.firstOrNull { command.startsWith(it) }
         if (whatsappPrefix != null) {
