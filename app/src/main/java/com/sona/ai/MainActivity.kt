@@ -2146,6 +2146,13 @@ class MainActivity : ComponentActivity() {
             }
         }
 
+        if (listOf("open airplane mode settings", "airplane mode settings", "airplane mode kholo", "एयरप्लेन मोड सेटिंग").any { command.contains(it) }) {
+            return try {
+                startActivity(Intent(android.provider.Settings.ACTION_AIRPLANE_MODE_SETTINGS))
+                respond("Airplane mode settings khol di hain. Toggle tum khud kar sakte ho.")
+            } catch (_: Exception) { respond("Airplane mode settings open nahi ho paayi.") }
+        }
+
         if (listOf("what time", "current time", "time is it", "समय क्या", "कितने बजे").any { command.contains(it) }) {
             return respond("Abhi time ${timeFormatter.format(now.time)} hai.")
         }
