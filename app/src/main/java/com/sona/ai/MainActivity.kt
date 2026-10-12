@@ -4975,9 +4975,9 @@ private fun MyraFeaturesMenu(
     onMedia: () -> Unit, onReminder: () -> Unit, onWeb: () -> Unit, onDevice: () -> Unit
 ) {
     val items = listOf(
-        Triple("Voice Assistant", "Talk naturally with Myra", "🎙") to onVoice,
-        Triple("Phone & Calls", "Contacts and dialer", "☎") to onContacts,
-        Triple("Apps & Media", "Open music and media apps", "▦") to onMedia,
+        Triple("Voice Mode", "Natural conversation and hands-free voice", "♫") to onVoice,
+        Triple("Calling & Contacts", "Contacts, calls and dialer", "☎") to onContacts,
+        Triple("Media Control", "Play, pause and control media", "♫") to onMedia,
         Triple("Neural Lens", "Open camera for visual input", "◎") to onCamera,
         Triple("Files & Documents", "Browse PDFs, images and files", "▤") to onFiles,
         Triple("Notes & Voice Notes", "Open your saved notes", "✎") to onMemory,
@@ -4987,7 +4987,7 @@ private fun MyraFeaturesMenu(
         Triple("Web Search", "Search the internet", "⌕") to onWeb,
         Triple("Smart Memory", "Personal preferences and memory", "✦") to onMemory,
         Triple("Conversation History", "Review previous chats", "☷") to onHistory,
-        Triple("Personalize Myra", "Appearance and API key", "◇") to onSettings
+        Triple("Settings & Appearance", "Profile, voice, theme and API key", "⚙") to onSettings
     )
     Box(Modifier.fillMaxSize().background(Color(0xFFFFF7F8)).statusBarsPadding().navigationBarsPadding()) {
         Column(Modifier.fillMaxSize().padding(horizontal = 18.dp)) {
