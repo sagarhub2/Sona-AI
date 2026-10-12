@@ -2189,6 +2189,30 @@ class MainActivity : ComponentActivity() {
             return respond("Pending message draft cancel kar diya.")
         }
 
+        val emailPrefixes = listOf("email message saying ", "draft email saying ", "email likho ", "ईमेल लिखो ")
+        val emailPrefix = emailPrefixes.firstOrNull { command.startsWith(it) }
+        if (emailPrefix != null) {
+            val message = raw.trim().drop(emailPrefix.length).trim()
+            if (message.isBlank()) return respond("Email mein kya likhna hai? Bolo: email message saying hello.")
+            pendingMessageDraft = message
+            return respond("Email draft yeh hai: $message. Sun lo. Theek ho to mic dabakar 'confirm email' bolo; cancel ke liye 'cancel message' bolo.")
+        }
+        if (listOf("confirm email", "email confirm", "open email").any { command == it || command.startsWith("$it ") }) {
+            val draft = pendingMessageDraft
+            if (draft.isNullOrBlank()) return respond("Pending email draft nahi hai. Pehle bolo: email message saying hello.")
+            return try {
+                val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:")).apply {
+                    putExtra(Intent.EXTRA_SUBJECT, "Message from MYRA AI")
+                    putExtra(Intent.EXTRA_TEXT, draft)
+                }
+                startActivity(intent)
+                pendingMessageDraft = null
+                respond("Email app khol di aur draft prefill kar diya. Recipient aur message check karke Send tum dabana.")
+            } catch (_: Exception) {
+                respond("Email app open nahi ho paayi. Phone mein email app check karo.")
+            }
+        }
+
         val smsPrefixes = listOf("sms message saying ", "text message saying ", "sms likho ", "एसएमएस लिखो ")
         val smsPrefix = smsPrefixes.firstOrNull { command.startsWith(it) }
         if (smsPrefix != null) {
