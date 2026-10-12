@@ -1778,7 +1778,6 @@ class MainActivity : ComponentActivity() {
                                 .putString("profile_bio", profileBioDraft.trim().take(120))
                                 .putString("profile_interests", profileInterestsDraft.trim().take(100))
                                 .putString("profile_photo_uri", profilePhotoUri)
-                                .putString("profile_photo_uri", profilePhotoUri)
                                 .putString("assistant_name", assistantNameDraft.trim().take(32).ifBlank { "Myra" })
                                 .putString("language", languageDraft.trim())
                                 .putString("voice_style", voiceDraft.trim())
