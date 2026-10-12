@@ -750,42 +750,42 @@ class MainActivity : ComponentActivity() {
                     Surface(
                         modifier = Modifier.fillMaxSize(),
                         shape = RoundedCornerShape(0.dp),
-                        color = Color(0xFF090617)
+                        color = Color(0xFFFFFBFC)
                     ) {
-                        Box(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0xFF26103D), Color(0xFF100A24), Color(0xFF05040E))))) {
+                        Box(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0xFFFFF1F3), Color(0xFFFFFBFC), Color(0xFFFFE8EC))))) {
                             Column(
                                 Modifier.fillMaxSize().padding(horizontal = 24.dp, vertical = 28.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                                     Column(Modifier.weight(1f)) {
-                                        Text("MYRA AI", color = Color(0xFFF8F2FF), fontSize = 20.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
-                                        Text("LIVE VOICE ASSISTANT", color = Color(0xFFFF9BE3), fontSize = 9.sp, letterSpacing = 1.6.sp)
+                                        Text("MYRA AI", color = Color(0xFF2B171D), fontSize = 20.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                                        Text("LIVE VOICE ASSISTANT", color = Color(0xFFD91E3D), fontSize = 9.sp, letterSpacing = 1.6.sp)
                                     }
-                                    Surface(shape = RoundedCornerShape(30.dp), color = Color(0xFF21102F), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF8D3B80))) {
+                                    Surface(shape = RoundedCornerShape(30.dp), color = Color(0xFFFFFEFE), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A))) {
                                         Row(Modifier.padding(horizontal = 10.dp, vertical = 7.dp), verticalAlignment = Alignment.CenterVertically) {
                                             val voiceReady = status.contains("CONNECTED", true) || status.contains("LISTEN", true) || status.contains("LIVE", true)
                                             val voiceFailed = status.contains("FAILED", true) || status.contains("ERROR", true) || status.contains("DENIED", true) || status.contains("NEEDS", true) || status.contains("TIMEOUT", true)
                                             Box(Modifier.size(6.dp).clip(CircleShape).background(if (voiceReady) Color(0xFF66F0BC) else if (voiceFailed) Color(0xFFFF7185) else Color(0xFFFFC15A)))
                                             Spacer(Modifier.width(7.dp))
-                                            Text(when { voiceReady -> "CONNECTED"; voiceFailed -> "CHECK SETUP"; else -> "CONNECTING" }, color = Color(0xFFD6FBFF), fontSize = 9.sp, fontWeight = FontWeight.Bold)
+                                            Text(when { voiceReady -> "CONNECTED"; voiceFailed -> "CHECK SETUP"; else -> "CONNECTING" }, color = Color(0xFF8D7077), fontSize = 9.sp, fontWeight = FontWeight.Bold)
                                         }
                                     }
                                 }
                                 Spacer(Modifier.weight(1f))
                                 Box(contentAlignment = Alignment.Center, modifier = Modifier.size(280.dp)) {
-                                    Box(Modifier.size(270.dp).scale(orbScale).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFF78D2).copy(alpha = .23f), Color(0xFF7026A8).copy(alpha = .10f), Color.Transparent))))
-                                    Box(Modifier.size(242.dp).rotate(orbRotation).border(1.dp, Color(0xFFFFB2E9).copy(alpha = .72f), CircleShape))
-                                    Box(Modifier.size(224.dp).rotate(-orbRotation).border(1.dp, Color(0xFFB94BD4).copy(alpha = .8f), CircleShape))
-                                    Box(Modifier.size(210.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFFD9F4), Color(0xFFFF78D2), Color(0xFF8D3BCA), Color(0xFF24103E)))).border(2.dp, Color(0xFFFFB2E9).copy(alpha = .75f), CircleShape))
-                                    Box(Modifier.size(166.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFFEAF7).copy(alpha = .95f), Color(0xFFFF9BE3), Color(0xFF7026A8), Color.Transparent))))
-                                    Box(Modifier.size(82.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFFFFFF), Color(0xFFB4FFFF), Color(0xFFFF78D2)))))
+                                    Box(Modifier.size(270.dp).scale(orbScale).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFF6F89).copy(alpha = .26f), Color(0xFFFFA3B1).copy(alpha = .12f), Color.Transparent))))
+                                    Box(Modifier.size(242.dp).rotate(orbRotation).border(1.dp, Color(0xFFD91E3D).copy(alpha = .48f), CircleShape))
+                                    Box(Modifier.size(224.dp).rotate(-orbRotation).border(1.dp, Color(0xFFD9A04A).copy(alpha = .72f), CircleShape))
+                                    Box(Modifier.size(210.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF080508), Color(0xFF7C1021), Color(0xFFD91E3D), Color(0xFF020202)))).border(2.dp, Color(0xFFFFE3A5).copy(alpha = .8f), CircleShape))
+                                    Box(Modifier.size(166.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF2B171D).copy(alpha = .95f), Color(0xFFD91E3D), Color(0xFF7026A8), Color.Transparent))))
+                                    Box(Modifier.size(82.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFFFFFF), Color(0xFFFFE3A5), Color(0xFFFF6F89)))))
                                 }
                                 Spacer(Modifier.height(18.dp))
-                                Text(if (voiceMuted) "MICROPHONE MUTED" else if (status.contains("LIVE", true) || status.contains("LISTEN", true)) "MYRA IS LISTENING" else status.uppercase(), color = Color(0xFFFFC7EF), fontSize = 11.sp, fontWeight = FontWeight.SemiBold, letterSpacing = 1.2.sp, textAlign = TextAlign.Center, maxLines = 2)
+                                Text(if (voiceMuted) "MICROPHONE MUTED" else if (status.contains("LIVE", true) || status.contains("LISTEN", true)) "MYRA IS LISTENING" else status.uppercase(), color = Color(0xFFD91E3D), fontSize = 11.sp, fontWeight = FontWeight.SemiBold, letterSpacing = 1.2.sp, textAlign = TextAlign.Center, maxLines = 2)
                                 Spacer(Modifier.height(10.dp))
-                                Surface(color = Color(0xFF160D25).copy(alpha = .88f), shape = RoundedCornerShape(18.dp), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF6F2C83))) {
-                                    Text(heardText.ifBlank { "I’m listening. Start speaking whenever you’re ready." }, Modifier.fillMaxWidth().padding(16.dp), color = Color(0xFFFFEAF7), fontSize = 13.sp, lineHeight = 20.sp, textAlign = TextAlign.Center, maxLines = 4, overflow = TextOverflow.Ellipsis)
+                                Surface(color = Color(0xFFFFFEFE).copy(alpha = .92f), shape = RoundedCornerShape(18.dp), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A))) {
+                                    Text(heardText.ifBlank { "I’m listening. Start speaking whenever you’re ready." }, Modifier.fillMaxWidth().padding(16.dp), color = Color(0xFF2B171D), fontSize = 13.sp, lineHeight = 20.sp, textAlign = TextAlign.Center, maxLines = 4, overflow = TextOverflow.Ellipsis)
                                 }
                                 Spacer(Modifier.weight(1f))
                                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
@@ -797,10 +797,10 @@ class MainActivity : ComponentActivity() {
                                                 status = if (voiceMuted) "MICROPHONE MUTED" else "LIVE • SPEAK TO MYRA"
                                             },
                                             modifier = Modifier.size(58.dp),
-                                            colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFF28133B), contentColor = Color(0xFFFFEAF7))
-                                        ) { Text(if (voiceMuted) "◖))" else "♪", fontSize = 24.sp, color = Color(0xFFFFEAF7)) }
+                                            colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFFFFFEFE), contentColor = Color(0xFF2B171D))
+                                        ) { Text(if (voiceMuted) "◖))" else "♪", fontSize = 24.sp, color = Color(0xFF2B171D)) }
                                         Spacer(Modifier.height(7.dp))
-                                        Text(if (voiceMuted) "Unmute" else "Mute", color = Color(0xFFDDB0E8), fontSize = 11.sp)
+                                        Text(if (voiceMuted) "Unmute" else "Mute", color = Color(0xFF8D7077), fontSize = 11.sp)
                                     }
                                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                         androidx.compose.material3.FilledTonalIconButton(
@@ -812,23 +812,23 @@ class MainActivity : ComponentActivity() {
                                                 status = "VOICE SESSION ENDED"
                                             },
                                             modifier = Modifier.size(68.dp),
-                                            colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFFB92F8A), contentColor = Color.White)
+                                            colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFFD91E3D), contentColor = Color.White)
                                         ) { Text("×", fontSize = 34.sp, color = Color.White) }
                                         Spacer(Modifier.height(7.dp))
-                                        Text("End", color = Color(0xFFFFC1D8), fontSize = 11.sp)
+                                        Text("End", color = Color(0xFF8D7077), fontSize = 11.sp)
                                     }
                                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                         androidx.compose.material3.FilledTonalIconButton(
                                             onClick = { showVoiceScreen = false },
                                             modifier = Modifier.size(58.dp),
-                                            colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFF28133B), contentColor = Color(0xFFFFEAF7))
-                                        ) { Text("⌄", fontSize = 28.sp, color = Color(0xFFFFEAF7)) }
+                                            colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFFFFFEFE), contentColor = Color(0xFF2B171D))
+                                        ) { Text("⌄", fontSize = 28.sp, color = Color(0xFF2B171D)) }
                                         Spacer(Modifier.height(7.dp))
-                                        Text("Minimize", color = Color(0xFFDDB0E8), fontSize = 11.sp)
+                                        Text("Minimize", color = Color(0xFF8D7077), fontSize = 11.sp)
                                     }
                                 }
                                 Spacer(Modifier.height(16.dp))
-                                Text("VOICE SESSION • GEMINI LIVE", color = Color(0xFF5A9DA6), fontSize = 9.sp, letterSpacing = 1.2.sp)
+                                Text("VOICE SESSION • GEMINI LIVE", color = Color(0xFFD9A04A), fontSize = 9.sp, letterSpacing = 1.2.sp)
                             }
                         }
                     }
