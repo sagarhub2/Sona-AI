@@ -705,7 +705,13 @@ class MainActivity : ComponentActivity() {
             }
             if (showVoiceScreen) {
                 Dialog(
-                    onDismissRequest = { showVoiceScreen = false },
+                    onDismissRequest = {
+                        liveVoiceSession?.stop()
+                        liveVoiceSession = null
+                        voiceMuted = false
+                        showVoiceScreen = false
+                        status = "VOICE SESSION ENDED"
+                    },
                     properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false)
                 ) {
                     val voiceTransition = androidx.compose.animation.core.rememberInfiniteTransition(label = "lia-voice-orb")
@@ -740,9 +746,11 @@ class MainActivity : ComponentActivity() {
                                     }
                                     Surface(shape = RoundedCornerShape(30.dp), color = Color(0xFF0B2930), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF237E88))) {
                                         Row(Modifier.padding(horizontal = 10.dp, vertical = 7.dp), verticalAlignment = Alignment.CenterVertically) {
-                                            Box(Modifier.size(6.dp).clip(CircleShape).background(if (status.contains("CONNECTED", true) || status.contains("LISTEN", true)) Color(0xFF66F0BC) else Color(0xFFFFC15A)))
+                                            val voiceReady = status.contains("CONNECTED", true) || status.contains("LISTEN", true) || status.contains("LIVE", true)
+                                            val voiceFailed = status.contains("FAILED", true) || status.contains("ERROR", true) || status.contains("DENIED", true) || status.contains("NEEDS", true) || status.contains("TIMEOUT", true)
+                                            Box(Modifier.size(6.dp).clip(CircleShape).background(if (voiceReady) Color(0xFF66F0BC) else if (voiceFailed) Color(0xFFFF7185) else Color(0xFFFFC15A)))
                                             Spacer(Modifier.width(7.dp))
-                                            Text(if (status.contains("CONNECTED", true) || status.contains("LISTEN", true)) "CONNECTED" else "CONNECTING", color = Color(0xFFD6FBFF), fontSize = 9.sp, fontWeight = FontWeight.Bold)
+                                            Text(when { voiceReady -> "CONNECTED"; voiceFailed -> "CHECK SETUP"; else -> "CONNECTING" }, color = Color(0xFFD6FBFF), fontSize = 9.sp, fontWeight = FontWeight.Bold)
                                         }
                                     }
                                 }
@@ -2029,7 +2037,8 @@ class MainActivity : ComponentActivity() {
         if (busy) return
         if (apiKey.isBlank()) {
             status = "VOICE MODE NEEDS SETUP"
-            heardText = "Open Settings to add your Gemini key, then tap Voice again."
+            heardText = "Add your Gemini API key in Settings to start live voice."
+            showSettings = true
             return
         }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
