@@ -52,9 +52,9 @@ import java.util.Locale
 import kotlinx.coroutines.launch
 
 private var activeThemeName by mutableStateOf("Holographic")
-private val Night: Color get() = Color(0xFFFFF7F8)
-private val Violet: Color get() = Color(0xFFCB1731)
-private val Cyan: Color get() = Color(0xFFF0B8C1)
+private val Night: Color get() = Color(0xFF050B16)
+private val Violet: Color get() = Color(0xFF8D5CFF)
+private val Cyan: Color get() = Color(0xFFFF4D9D)
 private const val AUDIO_PERMISSION_REQUEST = 410
 private const val CAMERA_PERMISSION_REQUEST = 411
 
@@ -189,18 +189,19 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             MaterialTheme(
-                colorScheme = lightColorScheme(
+                colorScheme = darkColorScheme(
                     primary = Violet,
                     onPrimary = Color.White,
-                    secondary = Color(0xFFB5122A),
+                    secondary = Color(0xFFFF4D9D),
                     onSecondary = Color.White,
                     background = Night,
-                    onBackground = Color(0xFF282126),
-                    surface = Color.White,
-                    onSurface = Color(0xFF282126),
-                    surfaceVariant = Color(0xFFFFE8EC),
-                    onSurfaceVariant = Color(0xFF51464A),
-                    error = Color(0xFFB5122A)
+                    onBackground = Color(0xFFF5F7FF),
+                    surface = Color(0xFF071426),
+                    onSurface = Color(0xFFF5F7FF),
+                    surfaceVariant = Color(0xFF101D31),
+                    onSurfaceVariant = Color(0xFFB8A9D8),
+                    error = Color(0xFFFF7185),
+                    onError = Color(0xFF050B16)
                 )
             ) {
             var showPremiumIntro by remember { mutableStateOf(true) }
@@ -648,7 +649,7 @@ class MainActivity : ComponentActivity() {
                 AlertDialog(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(28.dp),
-                    containerColor = Color(0xFFFFFBFC),
+                    containerColor = Color(0xFF071426),
                     titleContentColor = Color(0xFFF5F7FF),
                     textContentColor = Color(0xFF9EABC2),
                     tonalElevation = 8.dp,
@@ -1150,7 +1151,7 @@ class MainActivity : ComponentActivity() {
                     title = {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
-                                .background(Brush.horizontalGradient(listOf(Color(0xFFD91E3D), Color(0xFF101D31), Color(0xFFFFFBFC))))
+                                .background(Brush.horizontalGradient(listOf(Color(0xFFD91E3D), Color(0xFF101D31), Color(0xFF071426))))
                                 .border(1.dp, Color(0xFF293B55), RoundedCornerShape(18.dp))
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
