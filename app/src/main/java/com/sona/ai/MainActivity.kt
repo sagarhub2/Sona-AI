@@ -65,6 +65,8 @@ class MainActivity : ComponentActivity() {
     private var showTasks by mutableStateOf(false)
     private var showHistory by mutableStateOf(false)
     private var showChat by mutableStateOf(false)
+    private var showVoiceScreen by mutableStateOf(false)
+    private var voiceMuted by mutableStateOf(false)
     private var showDeviceInfo by mutableStateOf(false)
     private var showFeaturesMenu by mutableStateOf(false)
     private var showTriggers by mutableStateOf(false)
@@ -698,6 +700,103 @@ class MainActivity : ComponentActivity() {
                         ) { Text("DONE", color = Color.White, fontWeight = FontWeight.Bold) }
                     }
                 )
+            }
+            if (showVoiceScreen) {
+                Dialog(
+                    onDismissRequest = { showVoiceScreen = false },
+                    properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false)
+                ) {
+                    val voiceTransition = androidx.compose.animation.core.rememberInfiniteTransition(label = "lia-voice-orb")
+                    val orbScale by voiceTransition.animateFloat(
+                        initialValue = 0.94f, targetValue = 1.06f,
+                        animationSpec = androidx.compose.animation.core.infiniteRepeatable(
+                            animation = androidx.compose.animation.core.tween(1500, easing = androidx.compose.animation.core.FastOutSlowInEasing),
+                            repeatMode = androidx.compose.animation.core.RepeatMode.Reverse
+                        ), label = "lia-orb-pulse"
+                    )
+                    Surface(
+                        modifier = Modifier.fillMaxSize(),
+                        shape = RoundedCornerShape(0.dp),
+                        color = Color(0xFF080612)
+                    ) {
+                        Box(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0xFF21113E), Color(0xFF0D091B), Color(0xFF05040B))))) {
+                            Column(
+                                Modifier.fillMaxSize().padding(horizontal = 24.dp, vertical = 28.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                                    Column(Modifier.weight(1f)) {
+                                        Text("MYRA AI", color = Color(0xFFF8F2FF), fontSize = 20.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                                        Text("LIVE VOICE ASSISTANT", color = Color(0xFFBBA6E9), fontSize = 9.sp, letterSpacing = 1.6.sp)
+                                    }
+                                    Surface(shape = RoundedCornerShape(30.dp), color = Color(0xFF24183D), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF7952B8))) {
+                                        Row(Modifier.padding(horizontal = 10.dp, vertical = 7.dp), verticalAlignment = Alignment.CenterVertically) {
+                                            Box(Modifier.size(6.dp).clip(CircleShape).background(if (status.contains("CONNECTED", true) || status.contains("LISTEN", true)) Color(0xFF66F0BC) else Color(0xFFFFC15A)))
+                                            Spacer(Modifier.width(7.dp))
+                                            Text(if (status.contains("CONNECTED", true) || status.contains("LISTEN", true)) "CONNECTED" else "CONNECTING", color = Color(0xFFE4D8FF), fontSize = 9.sp, fontWeight = FontWeight.Bold)
+                                        }
+                                    }
+                                }
+                                Spacer(Modifier.weight(1f))
+                                Box(contentAlignment = Alignment.Center, modifier = Modifier.size(280.dp)) {
+                                    Box(Modifier.size(270.dp).scale(orbScale).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFB84DFF).copy(alpha = .23f), Color(0xFF6D31C5).copy(alpha = .10f), Color.Transparent))))
+                                    Box(Modifier.size(210.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFF7BEE), Color(0xFF9B45F4), Color(0xFF4A1F91), Color(0xFF160D36)))).border(2.dp, Color(0xFFDB9AFF).copy(alpha = .75f), CircleShape))
+                                    Box(Modifier.size(166.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFFD7FF).copy(alpha = .95f), Color(0xFFC75AFF), Color(0xFF7628C6), Color.Transparent))))
+                                    Box(Modifier.size(82.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFFFFFF), Color(0xFFFFC3FF), Color(0xFFD05BFF)))))
+                                }
+                                Spacer(Modifier.height(18.dp))
+                                Text(if (voiceMuted) "MICROPHONE MUTED" else status.uppercase(), color = Color(0xFFD9C9FF), fontSize = 11.sp, fontWeight = FontWeight.SemiBold, letterSpacing = 1.2.sp, textAlign = TextAlign.Center, maxLines = 2)
+                                Spacer(Modifier.height(10.dp))
+                                Surface(color = Color(0xFF171027).copy(alpha = .88f), shape = RoundedCornerShape(18.dp), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF49316F))) {
+                                    Text(heardText.ifBlank { "I’m listening. Start speaking whenever you’re ready." }, Modifier.fillMaxWidth().padding(16.dp), color = Color(0xFFF3ECFF), fontSize = 13.sp, lineHeight = 20.sp, textAlign = TextAlign.Center, maxLines = 4, overflow = TextOverflow.Ellipsis)
+                                }
+                                Spacer(Modifier.weight(1f))
+                                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
+                                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                        androidx.compose.material3.FilledTonalIconButton(
+                                            onClick = {
+                                                val audio = getSystemService(Context.AUDIO_SERVICE) as android.media.AudioManager
+                                                voiceMuted = !voiceMuted
+                                                if (voiceMuted) audio.adjustStreamVolume(android.media.AudioManager.STREAM_MUSIC, android.media.AudioManager.ADJUST_MUTE, 0)
+                                                else audio.adjustStreamVolume(android.media.AudioManager.STREAM_MUSIC, android.media.AudioManager.ADJUST_UNMUTE, 0)
+                                            },
+                                            modifier = Modifier.size(58.dp),
+                                            colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFF2A1D45), contentColor = Color(0xFFF0E7FF)
+                                        ) { Icon(if (voiceMuted) Icons.Default.VolumeOff else Icons.Default.VolumeUp, contentDescription = if (voiceMuted) "Unmute audio" else "Mute audio") }
+                                        Spacer(Modifier.height(7.dp))
+                                        Text(if (voiceMuted) "Unmute" else "Mute", color = Color(0xFFC5B5E8), fontSize = 11.sp)
+                                    }
+                                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                        androidx.compose.material3.FilledTonalIconButton(
+                                            onClick = {
+                                                liveVoiceSession?.stop()
+                                                liveVoiceSession = null
+                                                showVoiceScreen = false
+                                                voiceMuted = false
+                                                status = "VOICE SESSION ENDED"
+                                            },
+                                            modifier = Modifier.size(68.dp),
+                                            colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFFDB3568), contentColor = Color.White)
+                                        ) { Icon(Icons.Default.CallEnd, contentDescription = "End voice session", modifier = Modifier.size(28.dp)) }
+                                        Spacer(Modifier.height(7.dp))
+                                        Text("End", color = Color(0xFFFFC1D8), fontSize = 11.sp)
+                                    }
+                                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                        androidx.compose.material3.FilledTonalIconButton(
+                                            onClick = { showVoiceScreen = false },
+                                            modifier = Modifier.size(58.dp),
+                                            colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFF2A1D45), contentColor = Color(0xFFF0E7FF)
+                                        ) { Icon(Icons.Default.KeyboardArrowDown, contentDescription = "Minimize voice screen") }
+                                        Spacer(Modifier.height(7.dp))
+                                        Text("Minimize", color = Color(0xFFC5B5E8), fontSize = 11.sp)
+                                    }
+                                }
+                                Spacer(Modifier.height(16.dp))
+                                Text("VOICE SESSION • GEMINI LIVE", color = Color(0xFF766492), fontSize = 9.sp, letterSpacing = 1.2.sp)
+                            }
+                        }
+                    }
+                }
             }
             if (showChat) {
                 var chatDraft by remember { mutableStateOf("") }
@@ -1940,6 +2039,8 @@ class MainActivity : ComponentActivity() {
         liveVoiceSession?.stop()
         liveVoiceSession = null
         status = "STARTING GEMINI LIVE AUDIO…"
+        showVoiceScreen = true
+        voiceMuted = false
         liveVoiceSession = LiveVoiceSession(
             apiKey = apiKey,
             onStatus = { message -> runOnUiThread { status = message } },
