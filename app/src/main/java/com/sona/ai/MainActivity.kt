@@ -4725,7 +4725,7 @@ private fun MyraHome(
                         Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
                             Text("SMART MEMORY", color = Color(0xFF2B171D), fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1, letterSpacing = .35.sp)
                             Text("Saved context", color = Color(0xFF8D7077), fontSize = 9.sp, maxLines = 1)
-                            Surface(shape = RoundedCornerShape(50), color = Color(0xFF9B6BFF).copy(alpha = .13f)) {
+                            Surface(shape = RoundedCornerShape(50), color = Color(0xFFFFE8EC)) {
                                 Text("PERSONAL  ↗", modifier = Modifier.padding(horizontal = 7.dp, vertical = 3.dp),
                                     color = Color(0xFFD91E3D), fontSize = 7.sp, fontWeight = FontWeight.Bold, letterSpacing = .35.sp)
                             }
