@@ -4545,7 +4545,7 @@ private fun MyraHome(
                 }
             }
             Row(Modifier.fillMaxWidth().padding(top = 24.dp, bottom = 12.dp), verticalAlignment = Alignment.CenterVertically) {
-                Text("Quick access", color = ink, fontSize = 19.sp, fontWeight = FontWeight.Bold)
+                Text("Quick Access", color = ink, fontSize = 19.sp, fontWeight = FontWeight.Bold)
                 Spacer(Modifier.weight(1f))
                 Text(if (hasKey) "GEMINI • READY" else "CONNECT GEMINI", color = Color(0xFFD91E3D), fontSize = 9.sp, fontWeight = FontWeight.Bold,
                     modifier = Modifier.clickable { onSettings() })
@@ -4559,7 +4559,7 @@ private fun MyraHome(
                     shadowElevation = if (busy) 12.dp else 7.dp,
                     border = androidx.compose.foundation.BorderStroke(1.5.dp, if (busy) Color(0xFFD91E3D) else Color(0xFFD9A04A))
                 ) {
-                    Column(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0xFFFFE8EC), Color(0xFFFFFEFE), Color(0xFF160D25)))).padding(15.dp), verticalArrangement = Arrangement.SpaceBetween) {
+                    Column(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0xFFFFE8EC), Color(0xFFFFFEFE), Color(0xFFFFF4F5)))).padding(15.dp), verticalArrangement = Arrangement.SpaceBetween) {
                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                             Box(contentAlignment = Alignment.Center) {
                                 Box(Modifier.size(if (busy) 62.dp else 58.dp).clip(CircleShape)
@@ -4573,7 +4573,7 @@ private fun MyraHome(
                             }
                             Surface(
                                 shape = RoundedCornerShape(50),
-                                color = Color(0xFF24102F),
+                                color = Color(0xFFFFF0F2),
                                 border = androidx.compose.foundation.BorderStroke(1.dp, if (busy) Color(0xFFD91E3D) else Color(0xFFD9A04A))
                             ) {
                                 Row(Modifier.padding(horizontal = 9.dp, vertical = 5.dp), verticalAlignment = Alignment.CenterVertically,
