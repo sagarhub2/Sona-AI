@@ -2137,7 +2137,19 @@ class MainActivity : ComponentActivity() {
                             }
                             Text("Privacy", color = Color(0xFFFF72D2), fontWeight = FontWeight.Bold, fontSize = 13.sp)
                             Text("Myra's service is configured not to retrieve screen content. It does not read screen text, record what you view, or type into other apps. Android requires you to enable or disable this access yourself.", color = Color(0xFFE5DDF0), fontSize = 12.sp)
-                            Text("If the status still says Not enabled after returning, check that “Myra AI accessibility navigation” is switched on in Android Accessibility settings.", color = Color(0xFFB8A9D8), fontSize = 11.sp)
+                            Text("Try saying", color = Color(0xFFFF72D2), fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                            listOf(
+                                "“Back jao” / “वापस जाओ”",
+                                "“Home jao” / “होम पर जाओ”",
+                                "“Notifications kholo” / “नोटिफिकेशन खोलो”",
+                                "“Quick settings kholo” / “क्विक सेटिंग खोलो”",
+                                "“Recent apps kholo” / “हाल के ऐप दिखाओ”"
+                            ).forEach { example ->
+                                Text("• $example", color = Color(0xFFE5DDF0), fontSize = 12.sp)
+                            }
+                            Text("Troubleshooting", color = Color(0xFFFF72D2), fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                            Text("1. Tap Open Android settings and open Downloaded/Installed apps under Accessibility (the label varies by phone). 2. Select Myra AI accessibility navigation and switch it on. 3. Accept Android's confirmation. 4. Return to MYRA and tap Refresh status. 5. If it is enabled but commands do not work, reopen MYRA and check microphone permission and the selected voice input language.", color = Color(0xFFE5DDF0), fontSize = 12.sp)
+                            Text("If the status still says Not enabled after returning, check that “Myra AI accessibility navigation” is switched on in Android Accessibility settings. Some manufacturers rename or move this menu.", color = Color(0xFFB8A9D8), fontSize = 11.sp)
                         }
                     },
                     confirmButton = {
