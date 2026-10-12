@@ -4519,12 +4519,12 @@ private fun MyraHome(
             if (heardText.isNotBlank() && heardText != "Add your Gemini API key in Settings to enable AI.") {
                 Surface(
                     Modifier.fillMaxWidth().padding(top = 14.dp),
-                    shape = RoundedCornerShape(22.dp), color = Color(0xFF160D25), shadowElevation = 3.dp,
+                    shape = RoundedCornerShape(22.dp), color = Color(0xFFFFFEFE), shadowElevation = 3.dp,
                     border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A))
                 ) {
                     Column(Modifier.padding(15.dp)) {
                         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                            Box(Modifier.size(30.dp).clip(CircleShape).background(Violet.copy(alpha = .16f))
+                            Box(Modifier.size(30.dp).clip(CircleShape).background(Color(0xFFFFE8EC))
                                 .border(1.dp, Color(0xFFD9A04A), CircleShape), contentAlignment = Alignment.Center) {
                                 Text("✦", color = Color(0xFFD91E3D), fontSize = 17.sp)
                             }
@@ -4534,12 +4534,12 @@ private fun MyraHome(
                             }
                             Text("AI", color = Color(0xFFD91E3D), fontSize = 10.sp, fontWeight = FontWeight.Black)
                         }
-                        Box(Modifier.padding(top = 11.dp).fillMaxWidth().height(1.dp).background(Violet.copy(alpha = .28f)))
+                        Box(Modifier.padding(top = 11.dp).fillMaxWidth().height(1.dp).background(Color(0x33D9A04A)))
                         Text(heardText, color = ink, fontSize = 14.sp, lineHeight = 21.sp, modifier = Modifier.padding(top = 10.dp))
                         Row(Modifier.fillMaxWidth().padding(top = 5.dp), horizontalArrangement = Arrangement.End) {
-                            TextButton(onClick = onSpeakAnswer) { Text("Speak", color = Cyan) }
-                            TextButton(onClick = onCopyAnswer) { Text("Copy", color = Violet) }
-                            TextButton(onClick = onShareAnswer) { Text("Share", color = Violet) }
+                            TextButton(onClick = onSpeakAnswer) { Text("Speak", color = Color(0xFFD91E3D)) }
+                            TextButton(onClick = onCopyAnswer) { Text("Copy", color = Color(0xFFD91E3D)) }
+                            TextButton(onClick = onShareAnswer) { Text("Share", color = Color(0xFFD91E3D)) }
                         }
                     }
                 }
