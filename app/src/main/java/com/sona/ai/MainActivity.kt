@@ -4475,7 +4475,7 @@ private fun MyraHome(
                         .background(Brush.radialGradient(listOf(Color(0xFF080508), Color(0xFF16060B), Color(0xFF020202))))
                         .border(1.dp, Color(0xFFFF465F).copy(alpha = .95f), CircleShape)
                         .padding(5.dp)
-                        .border(3.dp, Color(0xFF3A174B).copy(alpha = .95f), CircleShape),
+                        .border(3.dp, Color(0xFFD91E3D).copy(alpha = .72f), CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -4539,7 +4539,7 @@ private fun MyraHome(
                         value = prompt, onValueChange = { prompt = it },
                         modifier = Modifier.weight(1f).padding(horizontal = 10.dp, vertical = 8.dp),
                         singleLine = true, textStyle = androidx.compose.ui.text.TextStyle(color = ink, fontSize = 15.sp),
-                        cursorBrush = androidx.compose.ui.graphics.SolidColor(Cyan),
+                        cursorBrush = androidx.compose.ui.graphics.SolidColor(Color(0xFFD91E3D)),
                         decorationBox = { inner ->
                             if (prompt.isEmpty()) Text("Type a message…", color = muted, fontSize = 14.sp)
                             inner()
