@@ -4813,6 +4813,44 @@ private fun MyraHome(
                 }
             }
         }
+        Row(Modifier.fillMaxWidth().padding(bottom = 14.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            Surface(
+                onClick = onHistory,
+                modifier = Modifier.weight(1f),
+                shape = RoundedCornerShape(18.dp),
+                color = Color(0xFFFFFEFE),
+                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A)),
+                shadowElevation = 3.dp
+            ) {
+                Row(Modifier.padding(horizontal = 13.dp, vertical = 13.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                    Box(Modifier.size(38.dp).clip(RoundedCornerShape(12.dp)).background(Color(0xFFFFE8EC)), contentAlignment = Alignment.Center) {
+                        Text("◷", color = Color(0xFFD91E3D), fontSize = 23.sp, fontWeight = FontWeight.Bold)
+                    }
+                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                        Text("HISTORY", color = Color(0xFF2B171D), fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+                        Text("Chats & activity", color = Color(0xFF8D7077), fontSize = 9.sp, maxLines = 1)
+                    }
+                }
+            }
+            Surface(
+                onClick = onDeviceSettings,
+                modifier = Modifier.weight(1f),
+                shape = RoundedCornerShape(18.dp),
+                color = Color(0xFFFFFEFE),
+                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A)),
+                shadowElevation = 3.dp
+            ) {
+                Row(Modifier.padding(horizontal = 13.dp, vertical = 13.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                    Box(Modifier.size(38.dp).clip(RoundedCornerShape(12.dp)).background(Color(0xFFFFE8EC)), contentAlignment = Alignment.Center) {
+                        Text("⚙", color = Color(0xFFD91E3D), fontSize = 21.sp)
+                    }
+                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                        Text("DEVICE SETTINGS", color = Color(0xFF2B171D), fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+                        Text("Phone controls", color = Color(0xFF8D7077), fontSize = 9.sp, maxLines = 1)
+                    }
+                }
+            }
+        }
         Row(
             Modifier.fillMaxWidth().background(Color(0xFFFFFEFE)).border(1.dp, Color(0x33D9A04A))
                 .padding(horizontal = 12.dp, vertical = 7.dp),
