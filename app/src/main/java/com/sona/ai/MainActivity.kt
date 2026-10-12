@@ -4475,7 +4475,17 @@ private fun MyraHome(
                     contentAlignment = Alignment.Center
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("M", color = Color(0xFFFFFEFE), fontSize = 54.sp, fontWeight = FontWeight.Light, lineHeight = 56.sp)
+                        androidx.compose.foundation.Canvas(Modifier.size(width = 76.dp, height = 50.dp)) {
+                            val logo = androidx.compose.ui.graphics.Path().apply {
+                                moveTo(size.width * 0.08f, size.height * 0.88f)
+                                lineTo(size.width * 0.25f, size.height * 0.12f)
+                                lineTo(size.width * 0.50f, size.height * 0.62f)
+                                lineTo(size.width * 0.75f, size.height * 0.12f)
+                                lineTo(size.width * 0.92f, size.height * 0.88f)
+                            }
+                            drawPath(logo, Color(0xFFFFFEFE), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 4.dp.toPx(), cap = androidx.compose.ui.graphics.StrokeCap.Round, join = androidx.compose.ui.graphics.StrokeJoin.Round))
+                            drawLine(Color(0xFFFF465F), androidx.compose.ui.geometry.Offset(size.width * 0.34f, size.height * 0.46f), androidx.compose.ui.geometry.Offset(size.width * 0.66f, size.height * 0.46f), strokeWidth = 2.dp.toPx())
+                        }
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text("MYR", color = Color(0xFFFFFEFE), fontSize = 23.sp, fontWeight = FontWeight.Black, letterSpacing = 1.sp)
                             Text("A", color = Color(0xFFFFE3A5), fontSize = 23.sp, fontWeight = FontWeight.Black)
