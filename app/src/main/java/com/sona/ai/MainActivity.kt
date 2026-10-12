@@ -1760,10 +1760,21 @@ class MainActivity : ComponentActivity() {
                                     ) { Box(contentAlignment = Alignment.Center) { Text(symbol, fontSize = 20.sp) } }
                                 }
                             }
-                            OutlinedTextField(value = assistantNameDraft, onValueChange = { assistantNameDraft = it.take(32) }, label = { Text("Assistant name") }, singleLine = true, modifier = Modifier.fillMaxWidth())
-                            OutlinedTextField(value = userNameDraft, onValueChange = { userNameDraft = it.take(50) }, label = { Text("What should Myra call you?") }, singleLine = true, supportingText = { Text("${userNameDraft.length}/50") }, modifier = Modifier.fillMaxWidth())
-                            OutlinedTextField(value = profileBioDraft, onValueChange = { profileBioDraft = it.take(120) }, label = { Text("Short profile bio (optional)") }, placeholder = { Text("e.g. Student, developer, creative thinker") }, minLines = 2, maxLines = 3, supportingText = { Text("${profileBioDraft.length}/120 • Helps personalize replies") }, modifier = Modifier.fillMaxWidth())
-                            OutlinedTextField(value = profileInterestsDraft, onValueChange = { profileInterestsDraft = it.take(100) }, label = { Text("Interests & goals (optional)") }, placeholder = { Text("e.g. Android apps, coding, design, study") }, singleLine = false, minLines = 2, maxLines = 3, supportingText = { Text("${profileInterestsDraft.length}/100 • Separate items with commas") }, modifier = Modifier.fillMaxWidth())
+                            val profileFieldColors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = Color(0xFFFF72D2),
+                                unfocusedBorderColor = Color(0xFF344B68),
+                                focusedLabelColor = Color(0xFFFF72D2),
+                                unfocusedLabelColor = Color(0xFFB8A9D8),
+                                cursorColor = Color(0xFFFF72D2),
+                                focusedTextColor = Color(0xFFF7EEFF),
+                                unfocusedTextColor = Color(0xFFF7EEFF),
+                                focusedContainerColor = Color(0xFF0D192B),
+                                unfocusedContainerColor = Color(0xFF0D192B)
+                            )
+                            OutlinedTextField(value = assistantNameDraft, onValueChange = { assistantNameDraft = it.take(32) }, label = { Text("Assistant name") }, singleLine = true, modifier = Modifier.fillMaxWidth(), colors = profileFieldColors)
+                            OutlinedTextField(value = userNameDraft, onValueChange = { userNameDraft = it.take(50) }, label = { Text("What should Myra call you?") }, singleLine = true, supportingText = { Text("${userNameDraft.length}/50") }, modifier = Modifier.fillMaxWidth(), colors = profileFieldColors)
+                            OutlinedTextField(value = profileBioDraft, onValueChange = { profileBioDraft = it.take(120) }, label = { Text("Short profile bio (optional)") }, placeholder = { Text("e.g. Student, developer, creative thinker") }, minLines = 2, maxLines = 3, supportingText = { Text("${profileBioDraft.length}/120 • Helps personalize replies") }, modifier = Modifier.fillMaxWidth(), colors = profileFieldColors)
+                            OutlinedTextField(value = profileInterestsDraft, onValueChange = { profileInterestsDraft = it.take(100) }, label = { Text("Interests & goals (optional)") }, placeholder = { Text("e.g. Android apps, coding, design, study") }, singleLine = false, minLines = 2, maxLines = 3, supportingText = { Text("${profileInterestsDraft.length}/100 • Separate items with commas") }, modifier = Modifier.fillMaxWidth(), colors = profileFieldColors)
                             OutlinedButton(
                                 onClick = {
                                     val profileSummary = buildString {
