@@ -4434,6 +4434,11 @@ private fun MyraHome(
                 .padding(horizontal = 20.dp)
         ) {
             Box(Modifier.fillMaxWidth().height(258.dp), contentAlignment = Alignment.Center) {
+                // Layered soft rose halos create the reference's atmospheric holographic glow.
+                Box(Modifier.size(270.dp).clip(CircleShape)
+                    .background(Brush.radialGradient(listOf(Color(0x44FF526E), Color(0x22FF8EA0), Color.Transparent))))
+                Box(Modifier.size(248.dp).clip(CircleShape)
+                    .background(Brush.radialGradient(listOf(Color(0x33D91E3D), Color(0x18FFB7C2), Color.Transparent))))
                 Box(Modifier.size(244.dp).rotate(rotation).border(1.dp, Color(0x55D91E3D), CircleShape))
                 Box(Modifier.size(226.dp).rotate(-rotation * .7f)
                     .border(1.dp, Color(0x44D9A04A), CircleShape))
