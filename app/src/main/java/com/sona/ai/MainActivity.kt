@@ -2189,6 +2189,28 @@ class MainActivity : ComponentActivity() {
             return respond("Pending message draft cancel kar diya.")
         }
 
+        val whatsappPrefixes = listOf("whatsapp message saying ", "message on whatsapp saying ", "whatsapp par message ", "व्हाट्सऐप पर मैसेज ")
+        val whatsappPrefix = whatsappPrefixes.firstOrNull { command.startsWith(it) }
+        if (whatsappPrefix != null) {
+            val message = raw.trim().drop(whatsappPrefix.length).trim()
+            if (message.isBlank()) return respond("WhatsApp par kya message likhna hai? Bolo: WhatsApp message saying hello.")
+            pendingMessageDraft = message
+            return respond("WhatsApp message yeh hai: $message. Sun lo. Theek ho to mic dabakar 'confirm WhatsApp' bolo; cancel ke liye 'cancel message' bolo.")
+        }
+        if (listOf("confirm whatsapp", "whatsapp confirm", "haan whatsapp", "whatsapp kholo").any { command == it || command.startsWith("$it ") }) {
+            val draft = pendingMessageDraft
+            if (draft.isNullOrBlank()) return respond("Pending message nahi hai. Pehle WhatsApp message bolo.")
+            return try {
+                val encoded = URLEncoder.encode(draft, "UTF-8")
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://wa.me/?text=$encoded"))
+                pendingMessageDraft = null
+                startActivity(intent)
+                respond("WhatsApp khol diya aur message prefill kar diya. Chat choose karke message check karo aur Send dabao.")
+            } catch (_: Exception) {
+                respond("WhatsApp message open nahi ho paaya. WhatsApp installed hai ya nahi check karo.")
+            }
+        }
+
         val draftPrefixes = listOf("draft message saying ", "write message saying ", "compose message ", "message draft ", "message likho ", "मैसेज लिखो ")
         val draftPrefix = draftPrefixes.firstOrNull { command.startsWith(it) }
         if (draftPrefix != null) {
