@@ -2388,6 +2388,15 @@ class MainActivity : ComponentActivity() {
             } catch (_: Exception) { respond("Airplane mode settings open nahi ho paayi.") }
         }
 
+        if (listOf("what is happening now", "what's happening now", "give me a quick status", "my phone status", "abhi kya chal raha hai", "abhi ka status", "अभी क्या चल रहा है", "फोन का स्टेटस").any { command.contains(it) }) {
+            val batteryIntent = registerReceiver(null, android.content.IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+            val level = batteryIntent?.getIntExtra(android.os.BatteryManager.EXTRA_LEVEL, -1) ?: -1
+            val scale = (batteryIntent?.getIntExtra(android.os.BatteryManager.EXTRA_SCALE, 100) ?: 100).coerceAtLeast(1)
+            val percent = if (level >= 0) level * 100 / scale else -1
+            val plugged = batteryIntent?.getIntExtra(android.os.BatteryManager.EXTRA_PLUGGED, 0) ?: 0
+            val batterySummary = if (percent >= 0) "Battery $percent percent, ${if (plugged != 0) "charging" else "not charging"}." else "Battery status unavailable."
+            return respond("Abhi ${timeFormatter.format(now.time)} hain. Aaj ${dateFormatter.format(now.time)} hai. $batterySummary")
+        }
         if (listOf("what time", "current time", "time is it", "समय क्या", "कितने बजे").any { command.contains(it) }) {
             return respond("Abhi time ${timeFormatter.format(now.time)} hai.")
         }
