@@ -4417,15 +4417,20 @@ private fun MyraHome(
                 border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A))
             ) {
                 Box(Modifier.size(46.dp), contentAlignment = Alignment.Center) {
-                    Box(Modifier.size(34.dp).clip(CircleShape).background(Violet.copy(alpha = .12f)))
-                    Text("♧", color = Color(0xFFD91E3D), fontSize = 23.sp)
+                    Box(Modifier.size(34.dp).clip(CircleShape).background(Color(0xFFFFE8EC)))
+                    androidx.compose.material3.Icon(
+                        imageVector = androidx.compose.material.icons.Icons.Default.Notifications,
+                        contentDescription = "Reminders and notifications",
+                        tint = Color(0xFFD91E3D),
+                        modifier = Modifier.size(23.dp)
+                    )
                 }
             }
             Spacer(Modifier.width(9.dp))
             Surface(onClick = onSettings, shape = CircleShape, color = Color(0xFFFFFEFE), shadowElevation = 2.dp,
                 border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A))) {
                 Box(Modifier.size(46.dp), contentAlignment = Alignment.Center) {
-                    Text("⚙", color = Color(0xFF25151A), fontSize = 23.sp)
+                    androidx.compose.material3.Icon(imageVector = androidx.compose.material.icons.Icons.Default.Settings, contentDescription = "Settings", tint = Color(0xFF25151A), modifier = Modifier.size(23.dp))
                 }
             }
         }
