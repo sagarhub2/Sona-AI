@@ -5160,8 +5160,8 @@ private fun QuickTile(title: String, subtitle: String, modifier: Modifier = Modi
         onClick = { onClick?.invoke() },
         enabled = onClick != null,
         shape = shape,
-        color = Color(0xFF10172E),
-        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF29335B))
+        color = Color(0xFFFFF8F9),
+        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0D8DE))
     ) {
         Column(
             modifier = Modifier.fillMaxSize().padding(13.dp),
