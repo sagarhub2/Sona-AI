@@ -816,11 +816,11 @@ class MainActivity : ComponentActivity() {
                 var savedChat by remember { mutableStateOf(chatPrefs.getString("conversation_history", "").orEmpty()) }
                 Dialog(
                     onDismissRequest = { showChat = false },
-                    properties = DialogProperties(usePlatformDefaultWidth = false)
+                    properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false)
                 ) {
                     Surface(
-                        modifier = Modifier.fillMaxWidth(0.96f).fillMaxHeight(0.88f),
-                        shape = RoundedCornerShape(26.dp),
+                        modifier = Modifier.fillMaxSize(),
+                        shape = RoundedCornerShape(0.dp),
                         color = Color(0xFF17132F),
                         border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF7657B8)),
                         tonalElevation = 0.dp
