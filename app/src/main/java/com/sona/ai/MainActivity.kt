@@ -2579,6 +2579,17 @@ class MainActivity : ComponentActivity() {
         if (listOf("today's date", "what date", "today date", "date today", "आज की तारीख", "आज कौन सा दिन").any { command.contains(it) }) {
             return respond("Aaj ${dateFormatter.format(now.time)} hai.")
         }
+        val playOnYoutube = Regex("^(?:play|चलाओ|चला दो)\\s+(.+?)\\s+(?:on youtube|on YouTube|youtube par|youtube pe)$", RegexOption.IGNORE_CASE).find(raw.trim())
+        val youtubePlayPrefix = listOf("youtube play ", "play on youtube ", "यूट्यूब पर चलाओ ").firstOrNull { command.startsWith(it) }
+        val playbackQuery = playOnYoutube?.groupValues?.get(1)?.trim()
+            ?: youtubePlayPrefix?.let { raw.trim().drop(it.length).trim() }
+        if (!playbackQuery.isNullOrBlank()) {
+            return try {
+                val searchUri = Uri.parse("https://www.youtube.com/results?search_query=" + URLEncoder.encode(playbackQuery, "UTF-8"))
+                startActivity(Intent(Intent.ACTION_VIEW, searchUri))
+                respond("YouTube par $playbackQuery ke results khol rahi hoon. Video choose karke play kar sakte ho.")
+            } catch (_: Exception) { respond("YouTube search open nahi ho paayi.") }
+        }
         val youtubeSearchPrefixes = listOf("search youtube for ", "search on youtube for ", "youtube par ", "youtube pe ", "यूट्यूब पर ")
         val youtubePrefix = youtubeSearchPrefixes.firstOrNull { command.startsWith(it) }
         if (youtubePrefix != null) {
