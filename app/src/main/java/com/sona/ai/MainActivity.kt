@@ -1443,6 +1443,8 @@ class MainActivity : ComponentActivity() {
                 var confirmProfileReset by remember { mutableStateOf(false) }
                 var languageDraft by remember { mutableStateOf(prefs.getString("language", "Auto (match me)") ?: "Auto (match me)") }
                 var voiceDraft by remember { mutableStateOf(prefs.getString("voice_style", "Warm & natural") ?: "Warm & natural") }
+                var availableVoiceNames by remember { mutableStateOf(textToSpeech?.voices.orEmpty().filter { it.locale.language == "hi" || it.locale.language == "en" }.map { it.name }.distinct().sorted()) }
+                var selectedVoiceName by remember { mutableStateOf(prefs.getString("tts_voice_name", "").orEmpty()) }
                 var personalityDraft by remember { mutableStateOf(prefs.getString("personality", "Friendly, helpful, concise") ?: "Friendly, helpful, concise") }
                 var speakReplies by remember { mutableStateOf(prefs.getBoolean("speak_replies", true)) }
                 var speechRate by remember { mutableFloatStateOf(prefs.getFloat("speech_rate", 0.94f)) }
@@ -1762,6 +1764,38 @@ class MainActivity : ComponentActivity() {
                                     if (selected) Text("✓ SELECTED", color = Color(0xFFFF72D2), fontSize = 9.sp, fontWeight = FontWeight.Bold)
                                 }
                             }
+                            Text("INSTALLED TTS VOICES", color = Color(0xFFFF72D2), fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                            Text("Choose an actual voice provided by your phone's speech engine. Available voices depend on installed language packs.", color = Color(0xFFB8A9D8), fontSize = 11.sp)
+                            if (availableVoiceNames.isEmpty()) {
+                                Text("Voice list unavailable yet. Reopen Settings after speech engine initialization.", color = Color(0xFFFFB86B), fontSize = 11.sp)
+                            } else {
+                                availableVoiceNames.forEach { voiceName ->
+                                    val selected = selectedVoiceName == voiceName
+                                    Row(
+                                        Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp))
+                                            .background(if (selected) Color(0x33FF72D2) else Color(0xFF0B0820))
+                                            .border(1.dp, if (selected) Color(0xFFFF72D2) else Color(0xFF49365F), RoundedCornerShape(10.dp))
+                                            .clickable {
+                                                selectedVoiceName = voiceName
+                                                val voice = textToSpeech?.voices.orEmpty().firstOrNull { it.name == voiceName }
+                                                if (voice != null && textToSpeech?.setVoice(voice) == TextToSpeech.SUCCESS) {
+                                                    textToSpeech?.setLanguage(voice.locale)
+                                                    languageDraft = voice.locale.displayName
+                                                    status = "VOICE SELECTED • ${voice.locale.displayName}"
+                                                } else {
+                                                    status = "VOICE COULD NOT BE SELECTED"
+                                                }
+                                            }.padding(horizontal = 10.dp, vertical = 9.dp),
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Column(Modifier.weight(1f)) {
+                                            Text(voiceName, color = if (selected) Color(0xFFFF72D2) else Color(0xFFE6DDF8), fontSize = 12.sp)
+                                            Text(textToSpeech?.voices.orEmpty().firstOrNull { it.name == voiceName }?.locale?.displayName ?: "Installed voice", color = Color(0xFFB8A9D8), fontSize = 10.sp)
+                                        }
+                                        if (selected) Text("✓", color = Color(0xFFFF72D2), fontWeight = FontWeight.Bold)
+                                    }
+                                }
+                            }
                             OutlinedTextField(value = voiceDraft, onValueChange = { voiceDraft = it }, label = { Text("Custom voice style preference") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                             OutlinedButton(
                                 onClick = {
@@ -1934,6 +1968,7 @@ class MainActivity : ComponentActivity() {
                                 .putString("assistant_name", assistantNameDraft.trim().take(32).ifBlank { "Myra" })
                                 .putString("language", languageDraft.trim())
                                 .putString("voice_style", voiceDraft.trim())
+                                .putString("tts_voice_name", selectedVoiceName)
                                 .putString("personality", personalityDraft.trim())
                                 .putBoolean("speak_replies", speakReplies)
                                 .putFloat("speech_rate", speechRate)
