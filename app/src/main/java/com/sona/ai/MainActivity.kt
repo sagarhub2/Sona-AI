@@ -4411,7 +4411,7 @@ private fun MyraHome(
             Surface(
                 onClick = onReminder,
                 shape = CircleShape,
-                color = Color(0xFF1A0D12),
+                color = Color(0xFFFFFEFE),
                 shadowElevation = 2.dp,
                 border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A))
             ) {
@@ -4421,7 +4421,7 @@ private fun MyraHome(
                 }
             }
             Spacer(Modifier.width(9.dp))
-            Surface(onClick = onSettings, shape = CircleShape, color = Color(0xFF1A0D12), shadowElevation = 2.dp,
+            Surface(onClick = onSettings, shape = CircleShape, color = Color(0xFFFFFEFE), shadowElevation = 2.dp,
                 border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A))) {
                 Box(Modifier.size(46.dp), contentAlignment = Alignment.Center) {
                     Text("⚙", color = Violet, fontSize = 23.sp)
@@ -4449,9 +4449,9 @@ private fun MyraHome(
                     contentAlignment = Alignment.Center
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("M", color = Color(0xFF1A0D12), fontSize = 54.sp, fontWeight = FontWeight.Light, lineHeight = 56.sp)
+                        Text("M", color = Color(0xFFFFFEFE), fontSize = 54.sp, fontWeight = FontWeight.Light, lineHeight = 56.sp)
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text("MYR", color = Color(0xFF1A0D12), fontSize = 23.sp, fontWeight = FontWeight.Black, letterSpacing = 1.sp)
+                            Text("MYR", color = Color(0xFFFFFEFE), fontSize = 23.sp, fontWeight = FontWeight.Black, letterSpacing = 1.sp)
                             Text("A", color = Color(0xFFFFE3A5), fontSize = 23.sp, fontWeight = FontWeight.Black)
                         }
                         Text("—  A I   A S S I S T A N T  —", color = Color(0xFFFFE3A5), fontSize = 6.sp, letterSpacing = 1.sp)
@@ -4463,7 +4463,7 @@ private fun MyraHome(
                 }
                 Surface(
                     shape = RoundedCornerShape(50),
-                    color = Color(0xFF1A0D12),
+                    color = Color(0xFFFFFEFE),
                     border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A))
                 ) {
                     Text(if (busy) "●  PROCESSING" else if (hasKey) "●  READY TO ASSIST" else "●  AWAITING SETUP",
@@ -4485,11 +4485,11 @@ private fun MyraHome(
             }
             Surface(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(28.dp), color = Color(0xFF1A0D12), shadowElevation = 4.dp,
+                shape = RoundedCornerShape(28.dp), color = Color(0xFFFFFEFE), shadowElevation = 4.dp,
                 border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A))
             ) {
                 Row(Modifier.padding(horizontal = 12.dp, vertical = 9.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Surface(onClick = onFiles, shape = CircleShape, color = Color(0xFF1A1030),
+                    Surface(onClick = onFiles, shape = CircleShape, color = Color(0xFFFFE8EC),
                         border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A))) {
                         Box(Modifier.size(40.dp), contentAlignment = Alignment.Center) {
                             Text("♧", color = Color(0xFFD91E3D), fontSize = 22.sp)
@@ -4511,7 +4511,7 @@ private fun MyraHome(
                         border = androidx.compose.foundation.BorderStroke(1.dp, Cyan.copy(alpha = .55f))
                     ) {
                         Box(Modifier.size(46.dp), contentAlignment = Alignment.Center) {
-                            Text("➤", color = Color(0xFF1A0D12), fontSize = 23.sp, fontWeight = FontWeight.Bold)
+                            Text("➤", color = Color(0xFFFFFEFE), fontSize = 23.sp, fontWeight = FontWeight.Bold)
                         }
                     }
                 }
@@ -4529,7 +4529,7 @@ private fun MyraHome(
                                 Text("✦", color = Color(0xFFD91E3D), fontSize = 17.sp)
                             }
                             Column(Modifier.weight(1f).padding(start = 9.dp)) {
-                                Text("MYRA AI", color = Color(0xFFFFEAF7), fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                                Text("MYRA AI", color = Color(0xFF2B171D), fontSize = 12.sp, fontWeight = FontWeight.Bold)
                                 Text(if (busy) "Preparing response…" else "LATEST RESPONSE", color = Color(0xFFD91E3D), fontSize = 8.sp, letterSpacing = .8.sp)
                             }
                             Text("AI", color = Color(0xFFD91E3D), fontSize = 10.sp, fontWeight = FontWeight.Black)
@@ -4555,21 +4555,21 @@ private fun MyraHome(
                     onClick = onStartVoice,
                     modifier = Modifier.weight(1f).height(150.dp),
                     shape = RoundedCornerShape(24.dp),
-                    color = Color(0xFF1A0D12),
+                    color = Color(0xFFFFFEFE),
                     shadowElevation = if (busy) 12.dp else 7.dp,
                     border = androidx.compose.foundation.BorderStroke(1.5.dp, if (busy) Color(0xFFD91E3D) else Color(0xFFD9A04A))
                 ) {
-                    Column(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0xFF1A1030), Color(0xFF1A0D12), Color(0xFF160D25)))).padding(15.dp), verticalArrangement = Arrangement.SpaceBetween) {
+                    Column(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0xFFFFE8EC), Color(0xFFFFFEFE), Color(0xFF160D25)))).padding(15.dp), verticalArrangement = Arrangement.SpaceBetween) {
                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                             Box(contentAlignment = Alignment.Center) {
                                 Box(Modifier.size(if (busy) 62.dp else 58.dp).clip(CircleShape)
-                                    .background(Color(0xFF1A1030))
+                                    .background(Color(0xFFFFE8EC))
                                     .border(1.dp, if (busy) Color(0xFFD91E3D) else Color(0xFFD9A04A), CircleShape))
                                 Box(Modifier.size(48.dp).clip(CircleShape)
                                     .background(Brush.radialGradient(listOf(Color(0xFFFFB7C2), Color(0xFFD91E3D), Color(0xFF64101F))))
                                     .border(1.dp, if (busy) Color(0xFFD91E3D) else Color(0xFFD91E3D), CircleShape),
                                     contentAlignment = Alignment.Center
-                                ) { Text(if (busy) "•••" else "🎙", color = Color(0xFF1A0D12), fontSize = 24.sp, fontWeight = FontWeight.Bold) } 
+                                ) { Text(if (busy) "•••" else "🎙", color = Color(0xFFFFFEFE), fontSize = 24.sp, fontWeight = FontWeight.Bold) } 
                             }
                             Surface(
                                 shape = RoundedCornerShape(50),
@@ -4585,11 +4585,11 @@ private fun MyraHome(
                             }
                         }
                         Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
-                            Text("Voice Mode", color = Color(0xFFFFEAF7), fontSize = 18.sp, fontWeight = FontWeight.Bold)
-                            Text(if (busy) "Connecting to your assistant…" else status, color = Color(0xFFB7A5C8), fontSize = 10.sp, maxLines = 2, lineHeight = 14.sp)
+                            Text("Voice Mode", color = Color(0xFF2B171D), fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                            Text(if (busy) "Connecting to your assistant…" else status, color = Color(0xFF8D7077), fontSize = 10.sp, maxLines = 2, lineHeight = 14.sp)
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                                 Box(Modifier.size(6.dp).clip(CircleShape).background(if (busy) Color(0xFFD91E3D) else Color(0xFFD91E3D)))
-                                Text(if (busy) "Live session in progress" else "Tap to speak with Myra", color = Color(0xFFB7A5C8), fontSize = 9.sp)
+                                Text(if (busy) "Live session in progress" else "Tap to speak with Myra", color = Color(0xFF8D7077), fontSize = 9.sp)
                             }
                         }
                     }
@@ -4598,7 +4598,7 @@ private fun MyraHome(
                     onClick = onCamera,
                     modifier = Modifier.weight(1f).height(150.dp),
                     shape = RoundedCornerShape(24.dp),
-                    color = Color(0xFF1A0D12),
+                    color = Color(0xFFFFFEFE),
                     shadowElevation = 5.dp,
                     border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A))
                 ) {
@@ -4606,17 +4606,17 @@ private fun MyraHome(
                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                             Box(contentAlignment = Alignment.Center) {
                                 Box(Modifier.size(62.dp).clip(CircleShape)
-                                    .background(Color(0xFF1A1030))
+                                    .background(Color(0xFFFFE8EC))
                                     .border(1.dp, Color(0xFFD9A04A), CircleShape))
                                 Box(Modifier.size(48.dp).clip(CircleShape)
                                     .background(Brush.radialGradient(listOf(Color(0xFFFFB7C2), Color(0xFFD91E3D), Color(0xFF64101F))))
                                     .border(1.dp, Color(0xFFD91E3D), CircleShape),
                                     contentAlignment = Alignment.Center
-                                ) { Text("◎", color = Color(0xFF1A0D12), fontSize = 25.sp, fontWeight = FontWeight.Bold) }
+                                ) { Text("◎", color = Color(0xFFFFFEFE), fontSize = 25.sp, fontWeight = FontWeight.Bold) }
                             }
                             Surface(
                                 shape = RoundedCornerShape(50),
-                                color = Color(0xFF1A1030),
+                                color = Color(0xFFFFE8EC),
                                 border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A))
                             ) {
                                 Text("NEURAL LENS", modifier = Modifier.padding(horizontal = 9.dp, vertical = 5.dp),
@@ -4624,11 +4624,11 @@ private fun MyraHome(
                             }
                         }
                         Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
-                            Text("Neural Lens", color = Color(0xFFFFEAF7), fontSize = 17.sp, fontWeight = FontWeight.Bold)
-                            Text("Camera • visual input", color = Color(0xFFB7A5C8), fontSize = 10.sp)
+                            Text("Neural Lens", color = Color(0xFF2B171D), fontSize = 17.sp, fontWeight = FontWeight.Bold)
+                            Text("Camera • visual input", color = Color(0xFF8D7077), fontSize = 10.sp)
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                                 Box(Modifier.size(6.dp).clip(CircleShape).background(Color(0xFFD91E3D)))
-                                Text("Tap to capture a view", color = Color(0xFFB7A5C8), fontSize = 9.sp)
+                                Text("Tap to capture a view", color = Color(0xFF8D7077), fontSize = 9.sp)
                             }
                             TextButton(
                                 onClick = {
@@ -4649,21 +4649,21 @@ private fun MyraHome(
                     onClick = onMemory,
                     modifier = Modifier.weight(1f).height(100.dp),
                     shape = RoundedCornerShape(20.dp),
-                    color = Color(0xFF1A0D12),
+                    color = Color(0xFFFFFEFE),
                     border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A)),
                     shadowElevation = 5.dp
                 ) {
                     Row(Modifier.fillMaxSize().padding(horizontal = 12.dp, vertical = 11.dp),
                         verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                         Box(Modifier.size(40.dp).clip(RoundedCornerShape(13.dp))
-                            .background(Color(0xFF1A1030))
+                            .background(Color(0xFFFFE8EC))
                             .border(1.dp, Color(0xFFD9A04A), RoundedCornerShape(13.dp)),
                             contentAlignment = Alignment.Center) {
                             Text("♥", color = Color(0xFFD91E3D), fontSize = 22.sp, fontWeight = FontWeight.Bold)
                         }
                         Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                            Text("SMART MEMORY", color = Color(0xFFFFEAF7), fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1, letterSpacing = .35.sp)
-                            Text("Saved context", color = Color(0xFFB7A5C8), fontSize = 9.sp, maxLines = 1)
+                            Text("SMART MEMORY", color = Color(0xFF2B171D), fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1, letterSpacing = .35.sp)
+                            Text("Saved context", color = Color(0xFF8D7077), fontSize = 9.sp, maxLines = 1)
                             Surface(shape = RoundedCornerShape(50), color = Color(0xFF9B6BFF).copy(alpha = .13f)) {
                                 Text("PERSONAL  ↗", modifier = Modifier.padding(horizontal = 7.dp, vertical = 3.dp),
                                     color = Color(0xFFD91E3D), fontSize = 7.sp, fontWeight = FontWeight.Bold, letterSpacing = .35.sp)
@@ -4675,22 +4675,22 @@ private fun MyraHome(
                     onClick = onTasks,
                     modifier = Modifier.weight(1f).height(100.dp),
                     shape = RoundedCornerShape(20.dp),
-                    color = Color(0xFF1A0D12),
+                    color = Color(0xFFFFFEFE),
                     border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A)),
                     shadowElevation = 5.dp
                 ) {
                     Row(Modifier.fillMaxSize().padding(horizontal = 12.dp, vertical = 11.dp),
                         verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                         Box(Modifier.size(40.dp).clip(RoundedCornerShape(13.dp))
-                            .background(Color(0xFF1A1030))
+                            .background(Color(0xFFFFE8EC))
                             .border(1.dp, Color(0xFFD9A04A), RoundedCornerShape(13.dp)),
                             contentAlignment = Alignment.Center) {
                             Text("✓", color = Color(0xFFD91E3D), fontSize = 22.sp, fontWeight = FontWeight.Bold)
                         }
                         Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                            Text("TASKS & REMINDERS", color = Color(0xFFFFEAF7), fontSize = 9.sp, fontWeight = FontWeight.Bold, maxLines = 1, letterSpacing = .2.sp)
-                            Text("Stay organized", color = Color(0xFFB7A5C8), fontSize = 9.sp, maxLines = 1)
-                            Surface(shape = RoundedCornerShape(50), color = Color(0xFF1A1030)) {
+                            Text("TASKS & REMINDERS", color = Color(0xFF2B171D), fontSize = 9.sp, fontWeight = FontWeight.Bold, maxLines = 1, letterSpacing = .2.sp)
+                            Text("Stay organized", color = Color(0xFF8D7077), fontSize = 9.sp, maxLines = 1)
+                            Surface(shape = RoundedCornerShape(50), color = Color(0xFFFFE8EC)) {
                                 Text("PLANNING  ↗", modifier = Modifier.padding(horizontal = 7.dp, vertical = 3.dp),
                                     color = Color(0xFFD91E3D), fontSize = 7.sp, fontWeight = FontWeight.Bold, letterSpacing = .3.sp)
                             }
@@ -4704,17 +4704,17 @@ private fun MyraHome(
                     onClick = onFiles,
                     modifier = Modifier.weight(1f),
                     shape = RoundedCornerShape(18.dp),
-                    color = Color(0xFF1A0D12),
+                    color = Color(0xFFFFFEFE),
                     border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A)),
                     shadowElevation = 3.dp
                 ) {
                     Row(Modifier.padding(horizontal = 13.dp, vertical = 13.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                        Box(Modifier.size(38.dp).clip(RoundedCornerShape(12.dp)).background(Color(0xFF1A1030)), contentAlignment = Alignment.Center) {
+                        Box(Modifier.size(38.dp).clip(RoundedCornerShape(12.dp)).background(Color(0xFFFFE8EC)), contentAlignment = Alignment.Center) {
                             Text("▤", color = Color(0xFFD91E3D), fontSize = 22.sp, fontWeight = FontWeight.Bold)
                         }
                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                            Text("FILES & DOCS", color = Color(0xFFFFEAF7), fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1)
-                            Text("Your documents", color = Color(0xFFB7A5C8), fontSize = 9.sp, maxLines = 1)
+                            Text("FILES & DOCS", color = Color(0xFF2B171D), fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+                            Text("Your documents", color = Color(0xFF8D7077), fontSize = 9.sp, maxLines = 1)
                         }
                     }
                 }
@@ -4722,17 +4722,17 @@ private fun MyraHome(
                     onClick = onChat,
                     modifier = Modifier.weight(1f),
                     shape = RoundedCornerShape(18.dp),
-                    color = Color(0xFF1A0D12),
+                    color = Color(0xFFFFFEFE),
                     border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A)),
                     shadowElevation = 3.dp
                 ) {
                     Row(Modifier.padding(horizontal = 13.dp, vertical = 13.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                        Box(Modifier.size(38.dp).clip(RoundedCornerShape(12.dp)).background(Color(0xFF1A1030)), contentAlignment = Alignment.Center) {
+                        Box(Modifier.size(38.dp).clip(RoundedCornerShape(12.dp)).background(Color(0xFFFFE8EC)), contentAlignment = Alignment.Center) {
                             Text("☰", color = Color(0xFFD91E3D), fontSize = 20.sp, fontWeight = FontWeight.Bold)
                         }
                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                            Text("CHAT & HISTORY", color = Color(0xFFFFEAF7), fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1)
-                            Text("Your conversations", color = Color(0xFFB7A5C8), fontSize = 9.sp, maxLines = 1)
+                            Text("CHAT & HISTORY", color = Color(0xFF2B171D), fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+                            Text("Your conversations", color = Color(0xFF8D7077), fontSize = 9.sp, maxLines = 1)
                         }
                     }
                 }
@@ -4742,17 +4742,17 @@ private fun MyraHome(
                 onClick = onSettings,
                 modifier = Modifier.weight(1f),
                 shape = RoundedCornerShape(18.dp),
-                color = Color(0xFF1A0D12),
+                color = Color(0xFFFFFEFE),
                 border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A)),
                 shadowElevation = 3.dp
             ) {
                 Row(Modifier.padding(horizontal = 13.dp, vertical = 13.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Box(Modifier.size(38.dp).clip(RoundedCornerShape(12.dp)).background(Color(0xFF1A1030)), contentAlignment = Alignment.Center) {
+                    Box(Modifier.size(38.dp).clip(RoundedCornerShape(12.dp)).background(Color(0xFFFFE8EC)), contentAlignment = Alignment.Center) {
                         Text("⚙", color = Color(0xFFD91E3D), fontSize = 21.sp)
                     }
                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                        Text("SETTINGS", color = Color(0xFFFFEAF7), fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1)
-                        Text("Profile & preferences", color = Color(0xFFB7A5C8), fontSize = 9.sp, maxLines = 1)
+                        Text("SETTINGS", color = Color(0xFF2B171D), fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+                        Text("Profile & preferences", color = Color(0xFF8D7077), fontSize = 9.sp, maxLines = 1)
                     }
                 }
             }
@@ -4760,17 +4760,17 @@ private fun MyraHome(
                 onClick = onReminder,
                 modifier = Modifier.weight(1f),
                 shape = RoundedCornerShape(18.dp),
-                color = Color(0xFF1A0D12),
+                color = Color(0xFFFFFEFE),
                 border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A)),
                 shadowElevation = 3.dp
             ) {
                 Row(Modifier.padding(horizontal = 13.dp, vertical = 13.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Box(Modifier.size(38.dp).clip(RoundedCornerShape(12.dp)).background(Color(0xFF1A1030)), contentAlignment = Alignment.Center) {
+                    Box(Modifier.size(38.dp).clip(RoundedCornerShape(12.dp)).background(Color(0xFFFFE8EC)), contentAlignment = Alignment.Center) {
                         Text("ϟ", color = Color(0xFFD91E3D), fontSize = 22.sp, fontWeight = FontWeight.Bold)
                     }
                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                        Text("TRIGGERS", color = Color(0xFFFFEAF7), fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1)
-                        Text("Device actions", color = Color(0xFFB7A5C8), fontSize = 9.sp, maxLines = 1)
+                        Text("TRIGGERS", color = Color(0xFF2B171D), fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+                        Text("Device actions", color = Color(0xFF8D7077), fontSize = 9.sp, maxLines = 1)
                     }
                 }
             }
@@ -4780,17 +4780,17 @@ private fun MyraHome(
                 onClick = onSettings,
                 modifier = Modifier.weight(1f),
                 shape = RoundedCornerShape(18.dp),
-                color = Color(0xFF1A0D12),
+                color = Color(0xFFFFFEFE),
                 border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A)),
                 shadowElevation = 3.dp
             ) {
                 Row(Modifier.padding(horizontal = 13.dp, vertical = 13.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Box(Modifier.size(38.dp).clip(RoundedCornerShape(12.dp)).background(Color(0xFF1A1030)), contentAlignment = Alignment.Center) {
+                    Box(Modifier.size(38.dp).clip(RoundedCornerShape(12.dp)).background(Color(0xFFFFE8EC)), contentAlignment = Alignment.Center) {
                         Text("◉", color = Color(0xFFD91E3D), fontSize = 21.sp)
                     }
                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                        Text("PROFILE", color = Color(0xFFFFEAF7), fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1)
-                        Text("Personalize Myra", color = Color(0xFFB7A5C8), fontSize = 9.sp, maxLines = 1)
+                        Text("PROFILE", color = Color(0xFF2B171D), fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+                        Text("Personalize Myra", color = Color(0xFF8D7077), fontSize = 9.sp, maxLines = 1)
                     }
                 }
             }
@@ -4798,51 +4798,52 @@ private fun MyraHome(
                 onClick = onPermissions,
                 modifier = Modifier.weight(1f),
                 shape = RoundedCornerShape(18.dp),
-                color = Color(0xFF1A0D12),
+                color = Color(0xFFFFFEFE),
                 border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A)),
                 shadowElevation = 3.dp
             ) {
                 Row(Modifier.padding(horizontal = 13.dp, vertical = 13.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Box(Modifier.size(38.dp).clip(RoundedCornerShape(12.dp)).background(Color(0xFF1A1030)), contentAlignment = Alignment.Center) {
+                    Box(Modifier.size(38.dp).clip(RoundedCornerShape(12.dp)).background(Color(0xFFFFE8EC)), contentAlignment = Alignment.Center) {
                         Text("✓", color = Color(0xFFD91E3D), fontSize = 21.sp, fontWeight = FontWeight.Bold)
                     }
                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                        Text("PERMISSIONS", color = Color(0xFFFFEAF7), fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1)
-                        Text("Device access", color = Color(0xFFB7A5C8), fontSize = 9.sp, maxLines = 1)
+                        Text("PERMISSIONS", color = Color(0xFF2B171D), fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+                        Text("Device access", color = Color(0xFF8D7077), fontSize = 9.sp, maxLines = 1)
                     }
                 }
             }
         }
         Row(
-            Modifier.fillMaxWidth().background(Color(0xFF1A0D12)).border(1.dp, Color(0xFF51245B))
-                .padding(horizontal = 22.dp, vertical = 7.dp),
+            Modifier.fillMaxWidth().background(Color(0xFFFFFEFE)).border(1.dp, Color(0x33D9A04A))
+                .padding(horizontal = 12.dp, vertical = 7.dp),
             horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically
         ) {
-            Column(Modifier.weight(1f).clip(RoundedCornerShape(18.dp)).clickable { /* already on Home */ }.padding(vertical = 4.dp),
+            Column(Modifier.weight(1f).clip(RoundedCornerShape(16.dp)).clickable { }.padding(vertical = 4.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("⌂", color = red, fontSize = 23.sp, fontWeight = FontWeight.Bold)
-                Text("Home", color = red, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                Text("⌂", color = red, fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                Text("Home", color = red, fontSize = 10.sp, fontWeight = FontWeight.Bold)
             }
-            Column(Modifier.weight(1f).clip(RoundedCornerShape(18.dp)).clickable { onChat() }.padding(vertical = 4.dp),
+            Column(Modifier.weight(1f).clip(RoundedCornerShape(16.dp)).clickable { onChat() }.padding(vertical = 4.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("▤", color = muted, fontSize = 21.sp)
-                Text("Chat", color = muted, fontSize = 11.sp)
+                Text("▤", color = muted, fontSize = 20.sp)
+                Text("Chat", color = muted, fontSize = 10.sp)
             }
-            Column(Modifier.weight(1f).clip(RoundedCornerShape(18.dp)).clickable { onStartVoice() }.padding(vertical = 4.dp),
+            Column(Modifier.weight(1.15f).clip(CircleShape).background(
+                Brush.radialGradient(listOf(Color(0xFFFFD4DB), Color(0xFFD91E3D), Color(0xFF7C1021)))
+            ).border(1.dp, Color(0xFFFFE3A5), CircleShape).clickable { onStartVoice() }
+                .padding(vertical = 6.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(if (busy) "•••" else "≋", color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                Text("Voice", color = Color.White, fontSize = 9.sp, fontWeight = FontWeight.Bold)
+            }
+            Column(Modifier.weight(1f).clip(RoundedCornerShape(16.dp)).clickable { onReminder() }.padding(vertical = 4.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(if (busy) "•••" else "≋", color = if (busy) Color(0xFFD91E3D) else muted, fontSize = 23.sp, fontWeight = FontWeight.Bold)
-                Text("Voice", color = if (busy) Color(0xFFD91E3D) else muted, fontSize = 11.sp)
+                Text("ϟ", color = muted, fontSize = 21.sp, fontWeight = FontWeight.Bold)
+                Text("Triggers", color = muted, fontSize = 10.sp)
             }
-            Column(
-                Modifier.weight(1f).clip(RoundedCornerShape(18.dp))
-                    .background(Color(0xFF1A1030))
-                    .border(1.dp, Color(0xFFD9A04A), RoundedCornerShape(18.dp))
-                    .clickable { onReminder() }
-                    .padding(vertical = 5.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text("ϟ", color = Color(0xFFD91E3D), fontSize = 23.sp, fontWeight = FontWeight.Bold)
-                Text("Triggers", color = Color(0xFFD91E3D), fontSize = 11.sp, fontWeight = FontWeight.Bold)
+            Column(Modifier.weight(1f).clip(RoundedCornerShape(16.dp)).clickable { onSettings() }.padding(vertical = 4.dp),
+                horizontalAlignment = Alignment.CenterHorizontally) {
+                Text("⚙", color = muted, fontSize = 20.sp)
+                Text("Settings", color = muted, fontSize = 10.sp)
             }
         }
     }
