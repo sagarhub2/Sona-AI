@@ -984,6 +984,7 @@ class MainActivity : ComponentActivity() {
                                     TextButton(onClick = { showChat = false; showSettings = true }) { Text("Open Settings", color = Color(0xFFD91E3D)) }
                                 }
                             }
+                            Text("QUICK PROMPTS", color = Color(0xFF8D7077), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp, modifier = Modifier.padding(top = 8.dp, bottom = 6.dp))
                             Row(
                                 modifier = Modifier.fillMaxWidth().horizontalScroll(androidx.compose.foundation.rememberScrollState()),
                                 horizontalArrangement = Arrangement.spacedBy(6.dp),
@@ -1011,7 +1012,7 @@ class MainActivity : ComponentActivity() {
                                         colors = androidx.compose.material3.AssistChipDefaults.assistChipColors(
                                             labelColor = Color(0xFFD91E3D),
                                             containerColor = Color(0xFFFFFEFE),
-                                            disabledLabelColor = Color(0xFFB5A9D1)
+                                            disabledLabelColor = Color(0xFF8D7077)
                                         )
                                     )
                                 }
@@ -1030,12 +1031,12 @@ class MainActivity : ComponentActivity() {
                                     colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
                                         focusedTextColor = Color(0xFF2B171D),
                                         unfocusedTextColor = Color(0xFF2B171D),
-                                        focusedBorderColor = Color(0xFFFF9BE3),
+                                        focusedBorderColor = Color(0xFFD91E3D),
                                         unfocusedBorderColor = Color(0x33D9A04A),
-                                        focusedLabelColor = Color(0xFFFFB2E9),
+                                        focusedLabelColor = Color(0xFFD91E3D),
                                         unfocusedLabelColor = Color(0xFFB5A9D1),
-                                        focusedContainerColor = Color(0xFF100A24),
-                                        unfocusedContainerColor = Color(0xFF100A24),
+                                        focusedContainerColor = Color(0xFFFFFEFE),
+                                        unfocusedContainerColor = Color(0xFFFFFEFE),
                                         cursorColor = Color(0xFFFFB2E9),
                                         disabledTextColor = Color(0xFFB5A9D1),
                                         disabledBorderColor = Color(0x33D9A04A)
