@@ -160,7 +160,7 @@ class MainActivity : ComponentActivity() {
                             status = "NO SPEECH DETECTED"
                         } else {
                             heardText = "You: $phrase"
-                            askGemini(phrase)
+                            if (!handleLocalVoiceCommand(phrase)) askGemini(phrase)
                         }
                     }
                     override fun onPartialResults(partialResults: Bundle?) {}
@@ -2102,6 +2102,61 @@ class MainActivity : ComponentActivity() {
             }
         }
         editor.apply()
+    }
+
+    /** Handle simple local commands without needing an AI response. */
+    private fun handleLocalVoiceCommand(raw: String): Boolean {
+        val command = raw.trim().lowercase(Locale.ROOT)
+        val now = java.util.Calendar.getInstance()
+        val dateFormatter = java.text.SimpleDateFormat("EEEE, d MMMM yyyy", Locale.getDefault())
+        val timeFormatter = java.text.SimpleDateFormat("h:mm a", Locale.getDefault())
+
+        fun respond(message: String): Boolean {
+            heardText = message
+            status = "LOCAL COMMAND COMPLETED"
+            if (ttsReady) textToSpeech?.speak(message, TextToSpeech.QUEUE_FLUSH, null, "myra-local-command")
+            return true
+        }
+
+        if (listOf("what time", "current time", "time is it", "समय क्या", "कितने बजे").any { command.contains(it) }) {
+            return respond("Abhi time ${timeFormatter.format(now.time)} hai.")
+        }
+        if (listOf("today's date", "what date", "today date", "date today", "आज की तारीख", "आज कौन सा दिन").any { command.contains(it) }) {
+            return respond("Aaj ${dateFormatter.format(now.time)} hai.")
+        }
+        if (command.contains("open settings") || command.contains("phone settings") || command.contains("फोन की सेटिंग")) {
+            return try {
+                startActivity(Intent(android.provider.Settings.ACTION_SETTINGS))
+                respond("Opening phone settings.")
+            } catch (_: Exception) { respond("Phone settings could not be opened.") }
+        }
+        if (command.contains("open youtube") || command.contains("youtube kholo") || command.contains("यूट्यूब खोल")) {
+            return try {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com")))
+                respond("Opening YouTube.")
+            } catch (_: Exception) { respond("YouTube could not be opened.") }
+        }
+        val timerMatch = Regex("(?:set|start|create)?\\s*(?:a\\s*)?(?:timer|टाइमर)\\s*(?:for|of|का|लगाओ)?\\s*(\\d{1,3})\\s*(seconds?|secs?|minutes?|mins?|hours?|hrs?|सेकंड|मिनट|घंटे?)", RegexOption.IGNORE_CASE).find(command)
+        if (timerMatch != null) {
+            val amount = timerMatch.groupValues[1].toIntOrNull() ?: return respond("Timer duration samajh nahi aayi.")
+            val unit = timerMatch.groupValues[2].lowercase(Locale.ROOT)
+            val seconds = when {
+                unit.startsWith("hour") || unit.startsWith("hr") || unit.startsWith("घंट") -> amount * 3600
+                unit.startsWith("sec") || unit.startsWith("सेकंड") -> amount
+                else -> amount * 60
+            }
+            if (seconds <= 0 || seconds > 86400) return respond("Timer 1 second se 24 hours ke beech hona chahiye.")
+            return try {
+                val intent = Intent(AlarmClock.ACTION_SET_TIMER).apply {
+                    putExtra(AlarmClock.EXTRA_LENGTH, seconds)
+                    putExtra(AlarmClock.EXTRA_MESSAGE, "MYRA AI timer")
+                    putExtra(AlarmClock.EXTRA_SKIP_UI, false)
+                }
+                if (intent.resolveActivity(packageManager) == null) respond("Is phone par timer app available nahi hai.")
+                else { startActivity(intent); respond("Opening timer for $amount $unit.") }
+            } catch (_: Exception) { respond("Timer app could not be opened.") }
+        }
+        return false
     }
 
     private fun requestOrStartVoice() {
