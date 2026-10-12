@@ -1618,9 +1618,9 @@ class MainActivity : ComponentActivity() {
                                     Text("PERSONAL PROFILE  •  ACTIVE", color = Cyan, fontSize = 9.sp, letterSpacing = 1.sp)
                                     Surface(
                                         shape = RoundedCornerShape(50),
-                                        color = if (apiKey.isBlank()) Color(0xFFFFF0D9) else Color(0xFFE5F8EF),
+                                        color = if (apiKey.isBlank()) Color(0xFF302319) else Color(0xFF102D2A),
                                         border = androidx.compose.foundation.BorderStroke(
-                                            1.dp, (if (apiKey.isBlank()) Color(0xFFFFB86B) else Cyan).copy(alpha = .45f)
+                                            1.dp, (if (apiKey.isBlank()) Color(0xFFFFB86B) else Color(0xFF56D6A0)).copy(alpha = .65f)
                                         )
                                     ) {
                                         Row(
@@ -1632,7 +1632,7 @@ class MainActivity : ComponentActivity() {
                                                 .background(if (apiKey.isBlank()) Color(0xFFFFB86B) else Cyan))
                                             Text(
                                                 if (apiKey.isBlank()) "SETUP REQUIRED" else "GEMINI KEY SAVED",
-                                                color = if (apiKey.isBlank()) Color(0xFFFFB86B) else Cyan,
+                                                color = if (apiKey.isBlank()) Color(0xFFFFC078) else Color(0xFF8CF5D5),
                                                 fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .35.sp
                                             )
                                         }
