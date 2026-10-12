@@ -3819,6 +3819,18 @@ For privacy, I do not silently send messages or place calls. Android may ask you
                 val body = rawPrompt.replace(Regex("(?i)^(message|sms|text)\\s*"), "").trim()
                 launch(Intent(Intent.ACTION_SENDTO, android.net.Uri.parse("smsto:")).apply { putExtra("sms_body", body) }, "Message draft opened; review recipient and send")
             }
+            listOf("open chrome", "chrome kholo", "browser kholo", "open browser").any { prompt.contains(it) } ->
+                launchAppOrWeb("com.android.chrome", "https://www.google.com", "Opening browser")
+            listOf("open maps", "maps kholo", "google maps kholo", "नक्शा खोलो").any { prompt.contains(it) } ->
+                launchAppOrWeb("com.google.android.apps.maps", "https://maps.google.com", "Opening Maps")
+            listOf("open settings", "settings kholo", "phone settings kholo", "सेटिंग खोलो").any { prompt.contains(it) } ->
+                launch(Intent(android.provider.Settings.ACTION_SETTINGS), "Opening phone settings")
+            listOf("open calculator", "calculator kholo", "कैलकुलेटर खोलो").any { prompt.contains(it) } ->
+                launchAppOrWeb("com.google.android.calculator", "https://www.google.com/search?q=calculator", "Opening calculator")
+            listOf("open phone", "phone kholo", "dialer kholo", "फोन खोलो").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_DIAL), "Opening phone dialer")
+            listOf("open messages", "messages kholo", "sms kholo", "मैसेज खोलो").any { prompt.contains(it) } ->
+                launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("sms:")), "Opening messages")
             listOf("open instagram", "instagram kholo").any { prompt.contains(it) } ->
                 launchAppOrWeb("com.instagram.android", "https://www.instagram.com", "Opening Instagram")
             listOf("open whatsapp", "whatsapp kholo").any { prompt.contains(it) } ->
