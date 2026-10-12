@@ -900,7 +900,7 @@ class MainActivity : ComponentActivity() {
                                 }
                                 Surface(
                                     modifier = Modifier.fillMaxWidth(),
-                                    shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp, bottomStart = 20.dp, bottomEnd = 6.dp),
+                                    shape = RoundedCornerShape(22.dp),
                                     color = Color(0xFFFFFEFE),
                                     border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x33D9A04A)),
                                     tonalElevation = 0.dp
@@ -914,12 +914,12 @@ class MainActivity : ComponentActivity() {
                                             Spacer(Modifier.width(8.dp))
                                             Column {
                                                 Text("MYRA AI", color = Color(0xFF2B171D), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = .8.sp)
-                                                Text("PERSONAL AI", color = Color(0xFFD91E3D), fontSize = 8.sp, letterSpacing = 1.sp)
+                                                Text("YOUR PERSONAL AI COMPANION", color = Color(0xFFD91E3D), fontSize = 8.sp, letterSpacing = .7.sp)
                                             }
                                         }
                                         Box(Modifier.fillMaxWidth().height(1.dp).background(Color(0x33D9A04A)))
                                         Text(
-                                            if (savedChat.isBlank()) "Hey! I’m Myra. Ask me anything to start chatting."
+                                            if (savedChat.isBlank()) "Hey, I’m Myra ✦\nYour personal AI companion. Ask a question, explore an idea, or tell me what you need help with."
                                             else savedChat.replace("\\\\n", "\\n"),
                                             color = Color(0xFF2B171D), fontSize = 14.sp, lineHeight = 22.sp
                                         )
