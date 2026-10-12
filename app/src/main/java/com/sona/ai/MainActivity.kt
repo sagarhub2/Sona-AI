@@ -4614,7 +4614,7 @@ private fun MyraHome(
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(14.dp)) {
                 Surface(
                     onClick = onStartVoice,
-                    modifier = Modifier.weight(1f).height(100.dp),
+                    modifier = Modifier.weight(1f).height(122.dp),
                     shape = RoundedCornerShape(18.dp),
                     color = Color(0xFFFFFEFE),
                     shadowElevation = if (busy) 12.dp else 7.dp,
@@ -4708,7 +4708,7 @@ private fun MyraHome(
             Row(Modifier.fillMaxWidth().padding(top = 12.dp, bottom = 15.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 Surface(
                     onClick = onMemory,
-                    modifier = Modifier.weight(1f).height(100.dp),
+                    modifier = Modifier.weight(1f).height(112.dp),
                     shape = RoundedCornerShape(20.dp),
                     color = Color(0xFFFFFEFE),
                     border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A)),
