@@ -555,12 +555,12 @@ class MainActivity : ComponentActivity() {
                     title = {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
-                                .background(Brush.horizontalGradient(listOf(Color(0xFF101D31), Color.White, Color(0xFF0B1424))))
-                                .border(1.dp, Color(0xFFF0B8C1), RoundedCornerShape(18.dp))
+                                .background(Brush.horizontalGradient(listOf(Color(0xFF101D31), Color(0xFF0B1424), Color(0xFF071426))))
+                                .border(1.dp, Color(0xFF8D5CFF), RoundedCornerShape(18.dp))
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
-                            Text("◈  MYRA AI • DOCUMENT HUB", color = Color(0xFFCB1731), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.4.sp)
+                            Text("◈  MYRA AI • DOCUMENT HUB", color = Color(0xFFFF4D9D), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.4.sp)
                             Text("Files & documents", color = Color(0xFFF5F7FF), fontSize = 21.sp, fontWeight = FontWeight.Bold)
                             Text("Choose what you want to open from your phone.", color = Color(0xFF9EABC2), fontSize = 12.sp)
                         }
@@ -586,7 +586,7 @@ class MainActivity : ComponentActivity() {
                                     modifier = Modifier.fillMaxWidth(),
                                     shape = RoundedCornerShape(16.dp),
                                     color = Color(0xFF0B1424),
-                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0B8C1)),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF8D5CFF)),
                                     shadowElevation = 1.dp
                                 ) {
                                     Row(
@@ -596,35 +596,35 @@ class MainActivity : ComponentActivity() {
                                         Box(
                                             Modifier.size(44.dp).clip(RoundedCornerShape(13.dp))
                                                 .background(Color(0xFF101D31))
-                                                .border(1.dp, Color(0xFFF0B8C1), RoundedCornerShape(13.dp)),
+                                                .border(1.dp, Color(0xFF8D5CFF), RoundedCornerShape(13.dp)),
                                             contentAlignment = Alignment.Center
                                         ) {
-                                            Text(icon, color = Color(0xFFCB1731), fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                                            Text(icon, color = Color(0xFFFF4D9D), fontSize = 22.sp, fontWeight = FontWeight.Bold)
                                         }
                                         Spacer(Modifier.width(12.dp))
                                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                             Text(heading, color = Color(0xFFF5F7FF), fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
                                             Text(detail, color = Color(0xFF9EABC2), fontSize = 11.sp)
                                         }
-                                        Text("›", color = Color(0xFFCB1731), fontSize = 24.sp)
+                                        Text("›", color = Color(0xFFFF4D9D), fontSize = 24.sp)
                                     }
                                 }
                             }
                             Row(
                                 Modifier.fillMaxWidth().clip(RoundedCornerShape(13.dp))
-                                    .background(Color(0xFFFFF3F5))
-                                    .border(1.dp, Color(0xFFF5D8DE), RoundedCornerShape(13.dp))
+                                    .background(Color(0xFF101D31))
+                                    .border(1.dp, Color(0xFF63305F), RoundedCornerShape(13.dp))
                                     .padding(horizontal = 11.dp, vertical = 10.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text("✓", color = Color(0xFF38845B), fontSize = 17.sp, fontWeight = FontWeight.Bold)
+                                Text("✓", color = Color(0xFF66F0BC), fontSize = 17.sp, fontWeight = FontWeight.Bold)
                                 Spacer(Modifier.width(8.dp))
                                 Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                                     Text("Private file access", color = Color(0xFFF5F7FF), fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
                                     Text("Choose files explicitly; Android controls access.", color = Color(0xFF9EABC2), fontSize = 10.sp)
                                 }
                             }
-                            Text("CHOOSE A FILE TYPE", color = Color(0xFFCB1731), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                            Text("CHOOSE A FILE TYPE", color = Color(0xFFFF4D9D), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
                             FileTypeCard("▤", "All files", "Browse available file types", "*/*")
                             FileTypeCard("PDF", "PDF documents", "Choose a PDF file", "application/pdf")
                             FileTypeCard("▧", "Photos & images", "Choose an image from storage", "image/*")
@@ -634,7 +634,7 @@ class MainActivity : ComponentActivity() {
                     },
                     confirmButton = {
                         TextButton(onClick = { showFiles = false }) {
-                            Text("Close", color = Color(0xFFCB1731), fontWeight = FontWeight.SemiBold)
+                            Text("Close", color = Color(0xFFFF4D9D), fontWeight = FontWeight.SemiBold)
                         }
                     }
                 )
@@ -656,20 +656,20 @@ class MainActivity : ComponentActivity() {
                     title = {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(21.dp))
-                                .background(Brush.linearGradient(listOf(Color(0xFF101D31), Color.White, Color(0xFFFFF2F4))))
-                                .border(1.dp, Color(0xFFF0B8C1), RoundedCornerShape(21.dp))
+                                .background(Brush.linearGradient(listOf(Color(0xFF101D31), Color(0xFF071426), Color(0xFF0B1424))))
+                                .border(1.dp, Color(0xFF8D5CFF), RoundedCornerShape(21.dp))
                                 .padding(16.dp),
                             verticalArrangement = Arrangement.spacedBy(7.dp)
                         ) {
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(11.dp)) {
                                 Box(
                                     Modifier.size(48.dp).clip(RoundedCornerShape(15.dp))
-                                        .background(Brush.linearGradient(listOf(Color(0xFFFFA4B1), Color(0xFFCB1731))))
-                                        .border(1.dp, Color(0xFFE98B99), RoundedCornerShape(15.dp)),
+                                        .background(Brush.linearGradient(listOf(Color(0xFF8D5CFF), Color(0xFFFF4D9D))))
+                                        .border(1.dp, Color(0xFF8D5CFF), RoundedCornerShape(15.dp)),
                                     contentAlignment = Alignment.Center
-                                ) { Text("▣", color = Color.White, fontSize = 25.sp, fontWeight = FontWeight.Bold) }
+                                ) { Text("▣", color = Color(0xFF071426), fontSize = 25.sp, fontWeight = FontWeight.Bold) }
                                 Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                                    Text("MYRA AI • SYSTEM STATUS", color = Color(0xFFCB1731), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.1.sp)
+                                    Text("MYRA AI • SYSTEM STATUS", color = Color(0xFFFF4D9D), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.1.sp)
                                     Text("Device Info", color = Color(0xFFF5F7FF), fontSize = 23.sp, fontWeight = FontWeight.Bold)
                                 }
                             }
@@ -683,8 +683,8 @@ class MainActivity : ComponentActivity() {
                                 Surface(
                                     modifier = Modifier.fillMaxWidth(),
                                     shape = RoundedCornerShape(16.dp),
-                                    color = Color.White,
-                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF0B8C1)),
+                                    color = Color(0xFF071426),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF8D5CFF)),
                                     tonalElevation = 0.dp
                                 ) {
                                     Row(
@@ -695,9 +695,9 @@ class MainActivity : ComponentActivity() {
                                         Box(
                                             Modifier.size(39.dp).clip(RoundedCornerShape(12.dp))
                                                 .background(Color(0xFF101D31))
-                                                .border(1.dp, Color(0xFFF0B8C1), RoundedCornerShape(12.dp)),
+                                                .border(1.dp, Color(0xFF8D5CFF), RoundedCornerShape(12.dp)),
                                             contentAlignment = Alignment.Center
-                                        ) { Text(icon, color = Color(0xFFCB1731), fontSize = 20.sp, fontWeight = FontWeight.Bold) }
+                                        ) { Text(icon, color = Color(0xFFFF4D9D), fontSize = 20.sp, fontWeight = FontWeight.Bold) }
                                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                             Text(label.uppercase(), color = Color(0xFF9EABC2), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = .7.sp)
                                             Text(value, color = Color(0xFFF5F7FF), fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
@@ -709,15 +709,15 @@ class MainActivity : ComponentActivity() {
                             DeviceInfoRow("◇", "Android Version", android.os.Build.VERSION.RELEASE + " • API " + android.os.Build.VERSION.SDK_INT)
                             DeviceInfoRow("▤", "Battery", if (percent >= 0) percent.toString() + "%" else "Unavailable")
                             DeviceInfoRow("ϟ", "Power", if (plugged != 0) "Charging / connected" else "Not charging")
-                            Text("MYRA AI  •  " + packageName, color = Color(0xFF9B6B75), fontSize = 9.sp, letterSpacing = .4.sp)
+                            Text("MYRA AI  •  " + packageName, color = Color(0xFFB8A9D8), fontSize = 9.sp, letterSpacing = .4.sp)
                         }
                     },
                     confirmButton = {
                         Button(
                             onClick = { showDeviceInfo = false },
                             shape = RoundedCornerShape(14.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFCB1731))
-                        ) { Text("DONE", color = Color.White, fontWeight = FontWeight.Bold) }
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF4D9D))
+                        ) { Text("DONE", color = Color(0xFF071426), fontWeight = FontWeight.Bold) }
                     }
                 )
             }
