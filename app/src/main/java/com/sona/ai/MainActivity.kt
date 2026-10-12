@@ -455,7 +455,7 @@ class MainActivity : ComponentActivity() {
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
-                            Text("◈  MYRA AI • TRIGGER CENTER", color = Cyan, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                            Text("◈  MYRA AI • TRIGGER CENTER", color = Color(0xFFFFDCE3), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
                             Text("Triggers & clock", color = Color.White, fontSize = 21.sp, fontWeight = FontWeight.Bold)
                             Text("Choose an action to open your phone's Clock app.", color = Color.White.copy(alpha = .88f), fontSize = 12.sp)
                         }
@@ -468,7 +468,7 @@ class MainActivity : ComponentActivity() {
                                     onClick = action,
                                     modifier = Modifier.fillMaxWidth(),
                                     shape = RoundedCornerShape(16.dp),
-                                    color = Color(0xFF171018),
+                                    color = Color(0xFFFFF7F8),
                                     border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFCB1731)),
                                     shadowElevation = 0.dp
                                 ) {
@@ -478,16 +478,16 @@ class MainActivity : ComponentActivity() {
                                     ) {
                                         Box(
                                             Modifier.size(44.dp).clip(RoundedCornerShape(13.dp))
-                                                .background(Color(0xFF2A101B))
+                                                .background(Color(0xFFFFE8EC))
                                                 .border(1.dp, Color(0xFFCB1731), RoundedCornerShape(13.dp)),
                                             contentAlignment = Alignment.Center
-                                        ) { Text(icon, color = Color(0xFFFF7185), fontSize = 23.sp) }
+                                        ) { Text(icon, color = Color(0xFFD91E3D), fontSize = 23.sp) }
                                         Spacer(Modifier.width(12.dp))
                                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                             Text(heading, color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
-                                            Text(detail, color = Color(0xFFC6B8C0), fontSize = 11.sp)
+                                            Text(detail, color = Color(0xFF8D7077), fontSize = 11.sp)
                                         }
-                                        Text("›", color = Color(0xFFFF7185), fontSize = 25.sp)
+                                        Text("›", color = Color(0xFFD91E3D), fontSize = 25.sp)
                                     }
                                 }
                             }
@@ -510,7 +510,7 @@ class MainActivity : ComponentActivity() {
                         }
                     },
                     confirmButton = {
-                        TextButton(onClick = { showTriggers = false }) { Text("Close", color = Violet) }
+                        TextButton(onClick = { showTriggers = false }) { Text("Close", color = Color(0xFFD91E3D)) }
                     }
                 )
             }
