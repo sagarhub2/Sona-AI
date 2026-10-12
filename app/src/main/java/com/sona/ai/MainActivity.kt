@@ -2276,6 +2276,19 @@ class MainActivity : ComponentActivity() {
             return true
         }
 
+        if (listOf("read my notifications", "read notifications", "read my messages", "notifications suna do", "notification padh ke sunao", "मेरे नोटिफिकेशन पढ़ो", "मैसेज पढ़कर सुनाओ").any { command.contains(it) }) {
+            val prefs = getSharedPreferences("myra_notifications", MODE_PRIVATE)
+            val entries = prefs.getString("recent", "").orEmpty().lines().filter { it.isNotBlank() }.take(3)
+            if (entries.isEmpty()) {
+                return respond("Recent notifications nahi mili. Android Settings mein MYRA notification access enable hona chahiye.")
+            }
+            return respond("Recent notifications. " + entries.joinToString(". Next notification. ") { it.substringAfter(": ").take(240) })
+        }
+        if (listOf("clear notification history", "clear notifications history", "notification history clear karo", "नोटिफिकेशन हिस्ट्री साफ करो").any { command.contains(it) }) {
+            getSharedPreferences("myra_notifications", MODE_PRIVATE).edit().putString("recent", "").apply()
+            return respond("MYRA ki saved notification history clear kar di.")
+        }
+
         if (listOf("arm security", "enable phone security", "start anti theft", "secure my phone", "फोन सिक्योर करो", "सिक्योरिटी चालू करो").any { command.contains(it) }) {
             return try {
                 val serviceIntent = Intent(this, MyraMotionSecurityService::class.java).setAction(MyraMotionSecurityService.ACTION_ARM)
