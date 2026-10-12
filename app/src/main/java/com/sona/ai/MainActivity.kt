@@ -1321,7 +1321,6 @@ class MainActivity : ComponentActivity() {
                     if (uri != null) {
                         try { profilePhotoContext.contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION) } catch (_: Exception) { }
                         profilePhotoUri = uri.toString()
-                        prefs.edit().putString("profile_photo_uri", profilePhotoUri).apply()
                     }
                 }
                 var confirmProfileReset by remember { mutableStateOf(false) }
@@ -1500,7 +1499,7 @@ class MainActivity : ComponentActivity() {
                             }
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
                                 OutlinedButton(onClick = { profilePhotoPicker.launch(arrayOf("image/*")) }, modifier = Modifier.weight(1f)) { Text(if (profilePhotoUri.isBlank()) "Choose profile photo" else "Change photo") }
-                                TextButton(onClick = { profilePhotoUri = ""; prefs.edit().remove("profile_photo_uri").apply() }, enabled = profilePhotoUri.isNotBlank()) { Text("Remove") }
+                                TextButton(onClick = { profilePhotoUri = "" }, enabled = profilePhotoUri.isNotBlank()) { Text("Remove") }
                             }
                             val profileCompletion = listOf(
                                 userNameDraft.isNotBlank(),
@@ -1778,6 +1777,7 @@ class MainActivity : ComponentActivity() {
                                 .putString("profile_avatar", profileAvatarDraft)
                                 .putString("profile_bio", profileBioDraft.trim().take(120))
                                 .putString("profile_interests", profileInterestsDraft.trim().take(100))
+                                .putString("profile_photo_uri", profilePhotoUri)
                                 .putString("profile_photo_uri", profilePhotoUri)
                                 .putString("assistant_name", assistantNameDraft.trim().take(32).ifBlank { "Myra" })
                                 .putString("language", languageDraft.trim())
