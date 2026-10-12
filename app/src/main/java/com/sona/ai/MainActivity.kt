@@ -4401,7 +4401,7 @@ private fun MyraHome(
                 }
                 Text("—  A I   A S S I S T A N T  —", color = muted, fontSize = 7.sp, letterSpacing = 1.2.sp)
                 Row(Modifier.padding(top = 6.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                    Box(Modifier.size(5.dp).clip(CircleShape).background(if (busy) Cyan else Violet))
+                    Box(Modifier.size(5.dp).clip(CircleShape).background(if (busy) Color(0xFFD91E3D) else Color(0xFFD91E3D)))
                     Text(
                         when { busy -> "ASSISTANT BUSY"; !hasKey -> "SETUP REQUIRED"; else -> "SYSTEM READY" },
                         color = if (busy) Color(0xFFD91E3D) else if (hasKey) Color(0xFFD91E3D) else Color(0xFFB87525),
@@ -4425,7 +4425,7 @@ private fun MyraHome(
             Surface(onClick = onSettings, shape = CircleShape, color = Color(0xFFFFFEFE), shadowElevation = 2.dp,
                 border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFD9A04A))) {
                 Box(Modifier.size(46.dp), contentAlignment = Alignment.Center) {
-                    Text("⚙", color = Violet, fontSize = 23.sp)
+                    Text("⚙", color = Color(0xFF25151A), fontSize = 23.sp)
                 }
             }
         }
