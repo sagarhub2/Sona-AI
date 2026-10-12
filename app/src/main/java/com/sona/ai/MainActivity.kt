@@ -3800,15 +3800,15 @@ For privacy, I do not silently send messages or place calls. Android may ask you
                 launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://fast.com")), "Opening internet speed test")
             listOf("open google drive", "google drive kholo", "drive kholo").any { prompt.contains(it) } ->
                 launch(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://drive.google.com")), "Opening Google Drive")
-            listOf("go back", "press back", "back jao", "peeche jao").any { prompt == it } ->
+            listOf("go back", "press back", "back jao", "peeche jao", "वापस जाओ", "पीछे जाओ", "एक कदम पीछे", "पिछली स्क्रीन").any { prompt == it } ->
                 runAccessibilityAction(MyraAccessibilityService.ACTION_BACK, "Going back")
-            listOf("go home", "home screen kholo", "home jao", "ghar screen kholo").any { prompt == it } ->
+            listOf("go home", "home screen kholo", "home jao", "ghar screen kholo", "होम पर जाओ", "होम स्क्रीन खोलो", "घर स्क्रीन खोलो", "मुख्य स्क्रीन").any { prompt == it } ->
                 runAccessibilityAction(MyraAccessibilityService.ACTION_HOME, "Going to Home screen")
-            listOf("open notifications", "show notifications", "notification panel kholo", "notifications kholo").any { prompt == it } ->
+            listOf("open notifications", "show notifications", "notification panel kholo", "notifications kholo", "नोटिफिकेशन खोलो", "नोटिफिकेशन दिखाओ", "सूचनाएं खोलो", "सूचना पैनल खोलो").any { prompt == it } ->
                 runAccessibilityAction(MyraAccessibilityService.ACTION_NOTIFICATIONS, "Opening notifications")
-            listOf("open quick settings", "quick settings kholo", "control center kholo", "quick panel kholo").any { prompt == it } ->
+            listOf("open quick settings", "quick settings kholo", "control center kholo", "quick panel kholo", "क्विक सेटिंग खोलो", "कंट्रोल सेंटर खोलो", "क्विक पैनल खोलो").any { prompt == it } ->
                 runAccessibilityAction(MyraAccessibilityService.ACTION_QUICK_SETTINGS, "Opening Quick Settings")
-            listOf("open recent apps", "recent apps kholo", "app switcher kholo").any { prompt == it } ->
+            listOf("open recent apps", "recent apps kholo", "app switcher kholo", "हाल के ऐप दिखाओ", "हाल के ऐप खोलो", "ऐप स्विचर खोलो", "पिछले ऐप दिखाओ").any { prompt == it } ->
                 runAccessibilityAction(MyraAccessibilityService.ACTION_RECENTS, "Opening recent apps")
             listOf("accessibility settings", "open accessibility", "accessibility kholo", "accessibility setting kholo").any { prompt.contains(it) } ->
                 launch(Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS), "Opening Accessibility settings")
