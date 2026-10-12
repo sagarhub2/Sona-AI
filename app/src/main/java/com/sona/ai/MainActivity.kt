@@ -2442,7 +2442,7 @@ class MainActivity : ComponentActivity() {
                     containerColor = Color(0xFF071426),
                     title = {
                         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                            Text("PERMISSION CENTER", color = Color(0xFFCB1731), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.5.sp)
+                            Text("PERMISSION CENTER", color = Color(0xFFFF72D2), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.5.sp)
                             Text("App permissions", color = Color(0xFFF5F7FF), fontSize = 22.sp, fontWeight = FontWeight.Bold)
                             Text("Review access used by Myra AI. You stay in control.", color = Color(0xFF9EABC2), fontSize = 12.sp)
                         }
@@ -2457,23 +2457,23 @@ class MainActivity : ComponentActivity() {
                                 Row(
                                     Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp))
                                         .background(Color(0xFF0B1424))
-                                        .border(1.dp, if (granted) Color(0xFFB9E3C8) else Color(0xFF293B55), RoundedCornerShape(14.dp))
+                                        .border(1.dp, if (granted) Color(0xFF56D6A0) else Color(0xFF293B55), RoundedCornerShape(14.dp))
                                         .padding(11.dp),
                                     verticalAlignment = Alignment.CenterVertically,
                                     horizontalArrangement = Arrangement.spacedBy(10.dp)
                                 ) {
                                     Box(
                                         Modifier.size(34.dp).clip(CircleShape)
-                                            .background(if (granted) Color(0xFF123329) else Color(0xFF301A2A)),
+                                            .background(if (granted) Color(0xFF123329) else Color(0xFF301522)),
                                         contentAlignment = Alignment.Center
                                     ) {
-                                        Text(if (granted) "✓" else "!", color = if (granted) Color(0xFF287A48) else Color(0xFFCB1731), fontWeight = FontWeight.Bold)
+                                        Text(if (granted) "✓" else "!", color = if (granted) Color(0xFF8CF5D5) else Color(0xFFFF72D2), fontWeight = FontWeight.Bold)
                                     }
                                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                                         Text(label, color = Color(0xFFF5F7FF), fontWeight = FontWeight.SemiBold, fontSize = 13.sp)
                                         Text(purpose, color = Color(0xFF9EABC2), fontSize = 10.sp)
                                     }
-                                    Text(if (granted) "Allowed" else "Not allowed", color = if (granted) Color(0xFF287A48) else Color(0xFFCB1731), fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                                    Text(if (granted) "Allowed" else "Not allowed", color = if (granted) Color(0xFF8CF5D5) else Color(0xFFFF72D2), fontSize = 10.sp, fontWeight = FontWeight.Bold)
                                 }
                             }
                             Text("Some permissions may be optional or only needed for specific features.", color = Color(0xFF9EABC2), fontSize = 11.sp)
@@ -2485,7 +2485,7 @@ class MainActivity : ComponentActivity() {
                             try {
                                 startActivity(Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, android.net.Uri.parse("package:$packageName")))
                             } catch (_: Exception) { status = "APP SETTINGS UNAVAILABLE" }
-                        }) { Text("Open Android settings", color = Color(0xFFCB1731), fontWeight = FontWeight.Bold) }
+                        }) { Text("Open Android settings", color = Color(0xFFFF72D2), fontWeight = FontWeight.Bold) }
                     },
                     dismissButton = {
                         TextButton(onClick = { showPermissionDashboard = false }) { Text("Done", color = Color(0xFF9EABC2)) }
