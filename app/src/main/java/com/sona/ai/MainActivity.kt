@@ -4501,11 +4501,11 @@ private fun MyraHome(
                                 lineTo(size.width * 0.75f, size.height * 0.12f)
                                 lineTo(size.width * 0.92f, size.height * 0.88f)
                             }
-                            drawPath(logo, Color(0xFF0D192B), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 4.dp.toPx(), cap = androidx.compose.ui.graphics.StrokeCap.Round, join = androidx.compose.ui.graphics.StrokeJoin.Round))
+                            drawPath(logo, Color(0xFFFFFEFE), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 4.dp.toPx(), cap = androidx.compose.ui.graphics.StrokeCap.Round, join = androidx.compose.ui.graphics.StrokeJoin.Round))
                             drawLine(Color(0xFFFF465F), androidx.compose.ui.geometry.Offset(size.width * 0.34f, size.height * 0.46f), androidx.compose.ui.geometry.Offset(size.width * 0.66f, size.height * 0.46f), strokeWidth = 2.dp.toPx())
                         }
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text("MYR", color = Color(0xFF0D192B), fontSize = 23.sp, fontWeight = FontWeight.Black, letterSpacing = 1.sp)
+                            Text("MYR", color = Color(0xFFFFFEFE), fontSize = 23.sp, fontWeight = FontWeight.Black, letterSpacing = 1.sp)
                             Text("A", color = Color(0xFFFFD980), fontSize = 23.sp, fontWeight = FontWeight.Black)
                         }
                         Text("—  A I   A S S I S T A N T  —", color = Color(0xFFFFD980), fontSize = 6.sp, letterSpacing = 1.sp)
@@ -4569,7 +4569,7 @@ private fun MyraHome(
                         border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFFA4B3).copy(alpha = .9f))
                     ) {
                         Box(Modifier.size(46.dp), contentAlignment = Alignment.Center) {
-                            Text("➤", color = Color(0xFF0D192B), fontSize = 23.sp, fontWeight = FontWeight.Bold)
+                            Text("➤", color = Color(0xFFFFFEFE), fontSize = 23.sp, fontWeight = FontWeight.Bold)
                         }
                     }
                 }
@@ -4646,7 +4646,7 @@ private fun MyraHome(
                                     .background(Brush.radialGradient(listOf(Color(0xFFFFB7C2), Color(0xFFD91E3D), Color(0xFF64101F))))
                                     .border(1.dp, if (busy) Color(0xFFD91E3D) else Color(0xFFD91E3D), CircleShape),
                                     contentAlignment = Alignment.Center
-                                ) { Text(if (busy) "•••" else "≋", color = Color(0xFF0D192B), fontSize = 27.sp, fontWeight = FontWeight.Bold) } 
+                                ) { Text(if (busy) "•••" else "≋", color = Color(0xFFFFFEFE), fontSize = 27.sp, fontWeight = FontWeight.Bold) } 
                             }
                             Surface(
                                 shape = RoundedCornerShape(50),
@@ -4689,7 +4689,7 @@ private fun MyraHome(
                                     .background(Brush.radialGradient(listOf(Color(0xFFFFB7C2), Color(0xFFD91E3D), Color(0xFF64101F))))
                                     .border(1.dp, Color(0xFFD91E3D), CircleShape),
                                     contentAlignment = Alignment.Center
-                                ) { Text("▣", color = Color(0xFF0D192B), fontSize = 25.sp, fontWeight = FontWeight.Bold) }
+                                ) { Text("▣", color = Color(0xFFFFFEFE), fontSize = 25.sp, fontWeight = FontWeight.Bold) }
                             }
                             Surface(
                                 shape = RoundedCornerShape(50),
