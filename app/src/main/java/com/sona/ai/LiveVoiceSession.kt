@@ -30,6 +30,7 @@ class LiveVoiceSession(
     @Volatile private var turnReceivedAudio = false
     @Volatile private var pendingOutputTranscript = ""
     private val running = AtomicBoolean(false)
+    private val muted = AtomicBoolean(false)
     private val setupCompleted = AtomicBoolean(false)
     private val client = OkHttpClient.Builder()
         .connectTimeout(20, TimeUnit.SECONDS)
@@ -40,6 +41,12 @@ class LiveVoiceSession(
     @Volatile private var recorder: AudioRecord? = null
     @Volatile private var player: AudioTrack? = null
     @Volatile private var micThread: Thread? = null
+
+    /** Stop sending captured microphone audio to Gemini while muted. */
+    fun setMuted(mute: Boolean) {
+        muted.set(mute)
+        onStatus(if (mute) "MICROPHONE MUTED" else "LIVE • SPEAK TO MYRA")
+    }
 
     fun start() {
         if (apiKey.isBlank()) { onStatus("ADD GEMINI KEY IN SETTINGS"); return }
@@ -175,7 +182,9 @@ class LiveVoiceSession(
                 while (running.get()) {
                     val n = input.read(buffer, 0, buffer.size, AudioRecord.READ_BLOCKING)
                     if (n > 0 && running.get()) {
-                        val chunk = Base64.encodeToString(buffer.copyOf(n), Base64.NO_WRAP)
+                        // When muted, send silence frames instead of the captured microphone samples.
+                        val audioFrame = if (muted.get()) ByteArray(n) else buffer.copyOf(n)
+                        val chunk = Base64.encodeToString(audioFrame, Base64.NO_WRAP)
                         val message = JSONObject().put("realtimeInput", JSONObject().put("audio",
                             JSONObject().put("mimeType", "audio/pcm;rate=16000").put("data", chunk)))
                         if (socket?.send(message.toString()) != true) break
@@ -191,6 +200,7 @@ class LiveVoiceSession(
 
     fun stop() {
         running.set(false)
+        muted.set(false)
         setupCompleted.set(false)
         try { micThread?.interrupt() } catch (_: Exception) {}
         try { recorder?.stop() } catch (_: Exception) {}
