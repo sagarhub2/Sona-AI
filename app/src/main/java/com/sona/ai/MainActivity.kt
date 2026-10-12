@@ -1752,10 +1752,10 @@ class MainActivity : ComponentActivity() {
                                         onClick = { profileAvatarDraft = symbol },
                                         modifier = Modifier.weight(1f).height(42.dp),
                                         shape = RoundedCornerShape(12.dp),
-                                        color = if (profileAvatarDraft == symbol) Color(0xFFFFDCE3) else Color.White,
+                                        color = if (profileAvatarDraft == symbol) Color(0xFF301A2A) else Color(0xFF0D192B),
                                         border = androidx.compose.foundation.BorderStroke(
                                             if (profileAvatarDraft == symbol) 2.dp else 1.dp,
-                                            if (profileAvatarDraft == symbol) Color(0xFFFF72D2) else Color(0xFF8B4E9F)
+                                            if (profileAvatarDraft == symbol) Color(0xFFFF72D2) else Color(0xFF344B68)
                                         )
                                     ) { Box(contentAlignment = Alignment.Center) { Text(symbol, fontSize = 20.sp) } }
                                 }
