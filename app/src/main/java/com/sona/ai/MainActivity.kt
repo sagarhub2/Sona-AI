@@ -4701,7 +4701,7 @@ private fun MyraHome(
                     shape = RoundedCornerShape(18.dp),
                     color = Color(0xFF0D192B),
                     shadowElevation = 3.dp,
-                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF263A55))
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF344B68))
                 ) {
                     Column(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0xFF13243B), Color(0xFF0D192B), Color(0xFF0A1526)))).padding(15.dp), verticalArrangement = Arrangement.SpaceBetween) {
                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
@@ -4726,10 +4726,10 @@ private fun MyraHome(
                         }
                         Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
                             Text("Neural Lens", color = Color(0xFFF5F7FF), fontSize = 17.sp, fontWeight = FontWeight.Bold)
-                            Text("Object Scan", color = Color(0xFF8D7077), fontSize = 10.sp)
+                            Text("Object Scan", color = Color(0xFF9EABC2), fontSize = 10.sp)
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                                 Box(Modifier.size(6.dp).clip(CircleShape).background(Color(0xFFD91E3D)))
-                                Text("Scan  •  Live  •  Detect", color = Color(0xFF8D7077), fontSize = 9.sp)
+                                Text("Scan  •  Live  •  Detect", color = Color(0xFF9EABC2), fontSize = 9.sp)
                             }
                             TextButton(
                                 onClick = {
