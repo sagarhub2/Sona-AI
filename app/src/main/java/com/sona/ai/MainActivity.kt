@@ -784,6 +784,7 @@ class MainActivity : ComponentActivity() {
                                 }
                                 Spacer(Modifier.height(18.dp))
                                 Text(if (voiceMuted) "MICROPHONE MUTED" else if (status.contains("LIVE", true) || status.contains("LISTEN", true)) "MYRA IS LISTENING" else status.uppercase(), color = Color(0xFFD91E3D), fontSize = 11.sp, fontWeight = FontWeight.SemiBold, letterSpacing = 1.2.sp, textAlign = TextAlign.Center, maxLines = 2)
+                                 Text(if (voiceMuted) "Unmute your microphone to continue" else "Speak naturally — Myra is ready to hear you", color = Color(0xFF8D7077), fontSize = 10.sp, textAlign = TextAlign.Center, maxLines = 2)
                                 Spacer(Modifier.height(10.dp))
                                 Surface(modifier = Modifier.fillMaxWidth(), color = Color(0xFFFFFEFE).copy(alpha = .96f), shape = RoundedCornerShape(22.dp), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x66D9A04A))) {
                                     Column(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 14.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -802,7 +803,7 @@ class MainActivity : ComponentActivity() {
                                             },
                                             modifier = Modifier.size(58.dp),
                                             colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFFFFFEFE), contentColor = Color(0xFF2B171D))
-                                        ) { Text(if (voiceMuted) "◖))" else "♪", fontSize = 24.sp, color = Color(0xFF2B171D)) }
+                                        ) { Text(if (voiceMuted) "×" else "♫", fontSize = 24.sp, color = Color(0xFFD91E3D)) }
                                         Spacer(Modifier.height(7.dp))
                                         Text(if (voiceMuted) "Unmute" else "Mute", color = Color(0xFF8D7077), fontSize = 11.sp)
                                     }
@@ -832,7 +833,7 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                                 Spacer(Modifier.height(16.dp))
-                                Text("VOICE SESSION • GEMINI LIVE", color = Color(0xFFD9A04A), fontSize = 9.sp, letterSpacing = 1.2.sp)
+                                Text("✦  MYRA AI  •  POWERED BY GEMINI LIVE  ✦", color = Color(0xFFD9A04A), fontSize = 9.sp, letterSpacing = .7.sp, textAlign = TextAlign.Center)
                             }
                         }
                     }
