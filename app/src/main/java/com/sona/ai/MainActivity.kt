@@ -1142,22 +1142,22 @@ class MainActivity : ComponentActivity() {
                 AlertDialog(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(26.dp),
-                    containerColor = Color(0xFFFFFBFC),
+                    containerColor = Color(0xFF071426),
                     titleContentColor = Color(0xFFD91E3D),
-                    textContentColor = Color(0xFF6D555C),
+                    textContentColor = Color(0xFF9EABC2),
                     tonalElevation = 0.dp,
                     onDismissRequest = { showHistory = false },
                     title = {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
-                                .background(Brush.horizontalGradient(listOf(Color(0xFFD91E3D), Color(0xFFFFF1F3), Color(0xFFFFFBFC))))
-                                .border(1.dp, Color(0xFFFFDCE3), RoundedCornerShape(18.dp))
+                                .background(Brush.horizontalGradient(listOf(Color(0xFFD91E3D), Color(0xFF101D31), Color(0xFFFFFBFC))))
+                                .border(1.dp, Color(0xFF293B55), RoundedCornerShape(18.dp))
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
                             Text("◈  MYRA AI • HISTORY VAULT", color = Color(0xFFD91E3D), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.4.sp)
-                            Text("Conversation history", color = Color(0xFF2B171D), fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                            Text("Search through conversations saved on this device.", color = Color(0xFF8D7077), fontSize = 12.sp)
+                            Text("Conversation history", color = Color(0xFFF5F7FF), fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                            Text("Search through conversations saved on this device.", color = Color(0xFF9EABC2), fontSize = 12.sp)
                         }
                     },
                     text = {
@@ -1167,16 +1167,16 @@ class MainActivity : ComponentActivity() {
                         ) {
                             Row(
                                 Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp))
-                                    .background(Color(0xFFFFF1F3))
-                                    .border(1.dp, Color(0xFFFFDCE3), RoundedCornerShape(14.dp))
+                                    .background(Color(0xFF101D31))
+                                    .border(1.dp, Color(0xFF293B55), RoundedCornerShape(14.dp))
                                     .padding(12.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Text("☷", color = Color(0xFFD91E3D), fontSize = 24.sp)
                                 Spacer(Modifier.width(10.dp))
                                 Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                                    Text(if (savedHistory.isBlank()) "No saved conversations" else "Your saved conversations", color = Color(0xFF2B171D), fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
-                                    Text(if (savedHistory.isBlank()) "Ask Myra a question to start your history." else "${savedHistory.lines().count { it.isNotBlank() }} saved history lines", color = Color(0xFF8D7077), fontSize = 11.sp)
+                                    Text(if (savedHistory.isBlank()) "No saved conversations" else "Your saved conversations", color = Color(0xFFF5F7FF), fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+                                    Text(if (savedHistory.isBlank()) "Ask Myra a question to start your history." else "${savedHistory.lines().count { it.isNotBlank() }} saved history lines", color = Color(0xFF9EABC2), fontSize = 11.sp)
                                 }
                             }
                             OutlinedTextField(
@@ -1187,14 +1187,14 @@ class MainActivity : ComponentActivity() {
                                 singleLine = true,
                                 modifier = Modifier.fillMaxWidth(),
                                 colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
-                                    focusedTextColor = Color(0xFF292126),
-                                    unfocusedTextColor = Color(0xFF292126),
+                                    focusedTextColor = Color(0xFFF5F7FF),
+                                    unfocusedTextColor = Color(0xFFF5F7FF),
                                     focusedBorderColor = Color(0xFFD91E3D),
-                                    unfocusedBorderColor = Color(0xFFFFDCE3),
+                                    unfocusedBorderColor = Color(0xFF293B55),
                                     focusedLabelColor = Color(0xFFD91E3D),
                                     cursorColor = Color(0xFFD91E3D),
-                                    focusedContainerColor = Color(0xFFFFF1F3),
-                                    unfocusedContainerColor = Color(0xFFFFF1F3)
+                                    focusedContainerColor = Color(0xFF0B1424),
+                                    unfocusedContainerColor = Color(0xFF0B1424)
                                 )
                             )
                             if (historyQuery.isNotBlank()) {
@@ -1206,7 +1206,7 @@ class MainActivity : ComponentActivity() {
                                     val matchCount = visibleHistory.lines().count { it.isNotBlank() }
                                     Text(
                                         if (matchCount == 0) "No matches" else "$matchCount matching lines",
-                                        color = Color(0xFF8D7077), fontSize = 11.sp, fontWeight = FontWeight.SemiBold
+                                        color = Color(0xFF9EABC2), fontSize = 11.sp, fontWeight = FontWeight.SemiBold
                                     )
                                     TextButton(onClick = { historyQuery = "" }) {
                                         Text("Clear search", color = Color(0xFFD91E3D), fontSize = 12.sp)
@@ -1216,15 +1216,15 @@ class MainActivity : ComponentActivity() {
                             Surface(
                                 modifier = Modifier.fillMaxWidth(),
                                 shape = RoundedCornerShape(15.dp),
-                                color = Color(0xFFFFF9FA),
-                                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFFDCE3))
+                                color = Color(0xFF0B1424),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF293B55))
                             ) {
                                 Text(
                                     if (savedHistory.isBlank()) "No saved conversation history yet. Ask Myra a question to start."
                                     else if (visibleHistory.isBlank()) "No matching history lines found. Try another keyword or clear your search."
                                     else visibleHistory,
                                     modifier = Modifier.padding(13.dp),
-                                    color = Color(0xFF6D555C),
+                                    color = Color(0xFFF5F7FF),
                                     fontSize = 12.sp,
                                     lineHeight = 19.sp
                                 )
@@ -1235,7 +1235,7 @@ class MainActivity : ComponentActivity() {
                         Button(
                             onClick = { showHistory = false },
                             shape = RoundedCornerShape(13.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD91E3D), contentColor = Color(0xFFFFF1F3)),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD91E3D), contentColor = Color(0xFF101D31)),
                             contentPadding = PaddingValues(horizontal = 18.dp, vertical = 10.dp)
                         ) { Text("Done", fontWeight = FontWeight.Bold) }
                     },
