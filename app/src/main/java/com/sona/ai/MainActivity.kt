@@ -3913,3 +3913,5 @@ private fun QuickTile(title: String, subtitle: String, modifier: Modifier = Modi
         }
     }
 }
+
+// Rebuild trigger: LiveVoiceSession.setMuted is now present on main.
