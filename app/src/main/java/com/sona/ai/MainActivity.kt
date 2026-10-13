@@ -924,10 +924,13 @@ class MainActivity : ComponentActivity() {
                                             heardText = "Start the live voice session before changing Boss Mode, so the setting can reach MYRA."
                                         } else {
                                             val nextBossMode = !bossMode
-                                            activeSession.setBossMode(nextBossMode)
-                                            bossMode = nextBossMode
-                                            heardText = if (bossMode) "Boss Mode enabled for this voice session." else "Boss Mode disabled; normal voice style restored."
-                                            status = if (bossMode) "BOSS MODE ACTIVE" else "LIVE • SPEAK TO MYRA"
+                                            if (activeSession.setBossMode(nextBossMode)) {
+                                                bossMode = nextBossMode
+                                                heardText = if (bossMode) "Boss Mode enabled for this voice session." else "Boss Mode disabled; normal voice style restored."
+                                                status = if (bossMode) "BOSS MODE ACTIVE" else "LIVE • SPEAK TO MYRA"
+                                            } else {
+                                                heardText = "MYRA voice is still connecting. Try Boss Mode again once the live session is ready."
+                                            }
                                         }
                                     },
                                     colors = androidx.compose.material3.ButtonDefaults.filledTonalButtonColors(containerColor = if (bossMode) Color(0xFFFF3155) else Color(0xFF0D192B), contentColor = if (bossMode) Color.White else Color(0xFFFF3155)),
