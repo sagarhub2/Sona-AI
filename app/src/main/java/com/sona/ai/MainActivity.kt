@@ -789,12 +789,26 @@ class MainActivity : ComponentActivity() {
                                 Spacer(Modifier.weight(1f))
                                 Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(5.dp)) {
                                     Text(
-                                        if (voiceMuted) "MICROPHONE MUTED" else if (status.contains("CONNECT", true) || status.contains("LISTEN", true)) "I’M LISTENING" else "VOICE SESSION",
-                                        color = if (voiceMuted) Color(0xFF8298B8) else Color(0xFFFF3155),
+                                        when {
+                                            voiceMuted -> "MICROPHONE MUTED"
+                                            status.contains("THINK", true) || status.contains("PROCESS", true) || status.contains("REPLY", true) -> "PROCESSING"
+                                            status.contains("CONNECT", true) || status.contains("LISTEN", true) || status.contains("LIVE", true) -> "I’M LISTENING"
+                                            else -> "VOICE SESSION"
+                                        },
+                                        color = when {
+                                            voiceMuted -> Color(0xFF8298B8)
+                                            status.contains("THINK", true) || status.contains("PROCESS", true) || status.contains("REPLY", true) -> Color(0xFF73DFFF)
+                                            else -> Color(0xFFFF3155)
+                                        },
                                         fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 2.sp
                                     )
                                     Text(
-                                        if (voiceMuted) "Tap unmute when you’re ready" else "Speak naturally — I’m right here",
+                                        when {
+                                            voiceMuted -> "Tap unmute when you’re ready"
+                                            status.contains("THINK", true) || status.contains("PROCESS", true) || status.contains("REPLY", true) -> "Give me a moment — I’m working on it"
+                                            status.contains("CONNECT", true) || status.contains("LISTEN", true) || status.contains("LIVE", true) -> "Speak naturally — I’m right here"
+                                            else -> "Start a voice session when you’re ready"
+                                        },
                                         color = Color(0xFF8298B8), fontSize = 11.sp
                                     )
                                 }
