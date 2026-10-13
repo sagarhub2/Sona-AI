@@ -492,7 +492,7 @@ class MainActivity : ComponentActivity() {
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
-                            Text("◈  MYRA AI • TRIGGER CENTER", color = Color(0xFFB8A9FF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                            Text("◈  MYRA AI • TRIGGER CENTER", color = Color(0xFF53E5F5), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
                             Text("Triggers & clock", color = Color.White, fontSize = 21.sp, fontWeight = FontWeight.Bold)
                             Text("Choose an action to open your phone's Clock app.", color = Color.White.copy(alpha = .88f), fontSize = 12.sp)
                         }
@@ -825,7 +825,7 @@ class MainActivity : ComponentActivity() {
                                     Spacer(Modifier.width(9.dp))
                                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                         Text("MYRA VOICE", color = Color(0xFFF5F7FF), fontSize = 22.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 1.1.sp)
-                                        Text("LIVE VOICE  •  NATURAL CONVERSATION", color = Color(0xFFB46CFF), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.05.sp)
+                                        Text("LIVE VOICE  •  NATURAL CONVERSATION", color = Color(0xFF53E5F5), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.05.sp)
                                     }
                                     val voiceStatusAccent = when {
                                         voiceMuted -> Color(0xFF8298B8)
@@ -1199,7 +1199,7 @@ class MainActivity : ComponentActivity() {
                                 Spacer(Modifier.width(10.dp))
                                 Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                     Text("MYRA", color = Color(0xFFF5F7FF), fontSize = 23.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 2.2.sp)
-                                    Text("YOUR PERSONAL AI COMPANION", color = Color(0xFF9CB4D0), fontSize = 8.sp, fontWeight = FontWeight.SemiBold, letterSpacing = 1.25.sp)
+                                    Text("NEURAL CHAT  •  CONTEXT AWARE", color = Color(0xFF9CB4D0), fontSize = 8.sp, fontWeight = FontWeight.SemiBold, letterSpacing = 1.1.sp)
                                     Row(
                                         Modifier.padding(top = 2.dp).clip(RoundedCornerShape(20.dp))
                                             .background(Color(0xFF172B42)).border(1.dp, Color(0xFFB46CFF).copy(alpha = .28f), RoundedCornerShape(20.dp))
