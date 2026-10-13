@@ -917,7 +917,17 @@ class MainActivity : ComponentActivity() {
                                     Text(if (bossMode) "BOSS MODE ACTIVE" else "READY WHEN YOU ARE", color = if (bossMode) Color(0xFFFFB547) else Color(0xFF536A89), fontSize = 8.sp, letterSpacing = .35.sp)
                                 }
                                 androidx.compose.material3.FilledTonalButton(
-                                    onClick = { bossMode = !bossMode },
+                                    onClick = {
+                                        bossMode = !bossMode
+                                        val modeInstruction = if (bossMode) {
+                                            "Boss Mode is ON. For the rest of this voice conversation, be proactive, concise, confident and action-oriented. Offer clear next steps, but always ask before sensitive actions or actions that change the device."
+                                        } else {
+                                            "Boss Mode is OFF. Return to your normal warm, friendly, conversational Myra voice style."
+                                        }
+                                        liveVoiceSession?.setBossMode(bossMode)
+                                        heardText = if (bossMode) "Boss Mode enabled for this voice session." else "Boss Mode disabled; normal voice style restored."
+                                        status = if (bossMode) "BOSS MODE ACTIVE" else "LIVE • SPEAK TO MYRA"
+                                    },
                                     colors = androidx.compose.material3.ButtonDefaults.filledTonalButtonColors(containerColor = if (bossMode) Color(0xFFFF3155) else Color(0xFF0D192B), contentColor = if (bossMode) Color.White else Color(0xFFFF3155)),
                                     border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFF3155)),
                                     shape = RoundedCornerShape(24.dp)
