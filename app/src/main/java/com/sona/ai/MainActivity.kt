@@ -2278,11 +2278,11 @@ class MainActivity : ComponentActivity() {
                     containerColor = Color(0xFF071426),
                     title = {
                         Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
-                            Text("MYRA AI • ACCESSIBILITY", color = Color(0xFFFF4D9D), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.4.sp)
+                            Text("MYRA AI • ACCESSIBILITY", color = Color(0xFFFF3155), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.4.sp)
                             Text("Voice navigation access", color = Color.White, fontSize = 21.sp, fontWeight = FontWeight.Bold)
                             Text(
                                 if (accessibilityEnabled) "Status: Enabled on this device" else "Status: Not enabled",
-                                color = if (accessibilityEnabled) Color(0xFF56D6A0) else Color(0xFFFFB86B),
+                                color = if (accessibilityEnabled) Color(0xFF56D6A0) else Color(0xFFFF7A91),
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.Bold
                             )
@@ -2293,8 +2293,8 @@ class MainActivity : ComponentActivity() {
                             Modifier.fillMaxWidth().heightIn(max = 390.dp).verticalScroll(androidx.compose.foundation.rememberScrollState()),
                             verticalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
-                            Text("What it does", color = Color(0xFFFF4D9D), fontWeight = FontWeight.Bold, fontSize = 13.sp)
-                            Text("When you enable the service yourself in Android settings, Myra can perform only the navigation actions listed below after you ask for them.", color = Color(0xFFDCE5F7), fontSize = 12.sp)
+                            Text("What it does", color = Color(0xFFFF3155), fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                            Text("When you enable the service yourself in Android settings, Myra can perform only the navigation actions listed below after you ask for them.", color = Color(0xFFC8D5E8), fontSize = 12.sp)
                             listOf(
                                 "Back — return to the previous screen",
                                 "Home — go to the home screen",
@@ -2303,7 +2303,7 @@ class MainActivity : ComponentActivity() {
                                 "Recent Apps — show the app switcher"
                             ).forEach { action ->
                                 Row(
-                                    Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(Color(0xFF101D31)).padding(10.dp),
+                                    Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(Color(0xFF111A2B)).padding(10.dp),
                                     verticalAlignment = Alignment.CenterVertically,
                                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                                 ) {
@@ -2311,9 +2311,9 @@ class MainActivity : ComponentActivity() {
                                     Text(action, color = Color.White, fontSize = 12.sp)
                                 }
                             }
-                            Text("Privacy", color = Color(0xFFFF4D9D), fontWeight = FontWeight.Bold, fontSize = 13.sp)
-                            Text("Myra's service is configured not to retrieve screen content. It does not read screen text, record what you view, or type into other apps. Android requires you to enable or disable this access yourself.", color = Color(0xFFDCE5F7), fontSize = 12.sp)
-                            Text("Try saying", color = Color(0xFFFF4D9D), fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                            Text("Privacy", color = Color(0xFFFF3155), fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                            Text("Myra's service is configured not to retrieve screen content. It does not read screen text, record what you view, or type into other apps. Android requires you to enable or disable this access yourself.", color = Color(0xFFC8D5E8), fontSize = 12.sp)
+                            Text("Try saying", color = Color(0xFFFF3155), fontWeight = FontWeight.Bold, fontSize = 13.sp)
                             listOf(
                                 "“Back jao” / “वापस जाओ”",
                                 "“Home jao” / “होम पर जाओ”",
@@ -2321,11 +2321,11 @@ class MainActivity : ComponentActivity() {
                                 "“Quick settings kholo” / “क्विक सेटिंग खोलो”",
                                 "“Recent apps kholo” / “हाल के ऐप दिखाओ”"
                             ).forEach { example ->
-                                Text("• $example", color = Color(0xFFDCE5F7), fontSize = 12.sp)
+                                Text("• $example", color = Color(0xFFC8D5E8), fontSize = 12.sp)
                             }
-                            Text("Troubleshooting", color = Color(0xFFFF4D9D), fontWeight = FontWeight.Bold, fontSize = 13.sp)
-                            Text("1. Tap Open Android settings and open Downloaded/Installed apps under Accessibility (the label varies by phone). 2. Select Myra AI accessibility navigation and switch it on. 3. Accept Android's confirmation. 4. Return to MYRA and tap Refresh status. 5. If it is enabled but commands do not work, reopen MYRA and check microphone permission and the selected voice input language.", color = Color(0xFFDCE5F7), fontSize = 12.sp)
-                            Text("If the status still says Not enabled after returning, check that “Myra AI accessibility navigation” is switched on in Android Accessibility settings. Some manufacturers rename or move this menu.", color = Color(0xFFB8A9D8), fontSize = 11.sp)
+                            Text("Troubleshooting", color = Color(0xFFFF3155), fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                            Text("1. Tap Open Android settings and open Downloaded/Installed apps under Accessibility (the label varies by phone). 2. Select Myra AI accessibility navigation and switch it on. 3. Accept Android's confirmation. 4. Return to MYRA and tap Refresh status. 5. If it is enabled but commands do not work, reopen MYRA and check microphone permission and the selected voice input language.", color = Color(0xFFC8D5E8), fontSize = 12.sp)
+                            Text("If the status still says Not enabled after returning, check that “Myra AI accessibility navigation” is switched on in Android Accessibility settings. Some manufacturers rename or move this menu.", color = Color(0xFF9CB4D0), fontSize = 11.sp)
                         }
                     },
                     confirmButton = {
@@ -2337,13 +2337,13 @@ class MainActivity : ComponentActivity() {
                                 status = "ACCESSIBILITY SETTINGS UNAVAILABLE"
                                 heardText = "Could not open Android Accessibility settings on this device."
                             }
-                        }) { Text("Open Android settings", color = Color(0xFFFF4D9D), fontWeight = FontWeight.Bold) }
+                        }) { Text("Open Android settings", color = Color(0xFFFF3155), fontWeight = FontWeight.Bold) }
                     },
                     dismissButton = {
                         TextButton(onClick = {
                             accessibilityEnabled = isMyraAccessibilityEnabled()
                             status = if (accessibilityEnabled) "ACCESSIBILITY SERVICE ENABLED" else "ACCESSIBILITY SERVICE NOT ENABLED"
-                        }) { Text("Refresh status", color = Color(0xFFB8A9D8)) }
+                        }) { Text("Refresh status", color = Color(0xFF9CB4D0)) }
                     }
                 )
             }
