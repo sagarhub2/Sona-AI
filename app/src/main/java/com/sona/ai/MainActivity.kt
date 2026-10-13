@@ -5591,23 +5591,21 @@ private fun MyraHome(
             Row(Modifier.fillMaxWidth().padding(top = 14.dp, bottom = 9.dp), verticalAlignment = Alignment.CenterVertically) {
                 Column(Modifier.weight(1f)) {
                     Text("QUICK ACCESS", color = Color(0xFFF5F7FF), fontSize = 14.sp, fontWeight = FontWeight.Bold, letterSpacing = .8.sp)
-                    Text("CHAT  •  VOICE  •  VISION  •  MEMORY", color = Color(0xFF7F95B5), fontSize = 8.sp, letterSpacing = 1.1.sp, modifier = Modifier.padding(top = 2.dp))
+                    Text("CHAT  •  VOICE  •  TRIGGERS  •  SETTINGS", color = Color(0xFF7F95B5), fontSize = 8.sp, letterSpacing = 1.1.sp, modifier = Modifier.padding(top = 2.dp))
                 }
-                Text("04 TOOLS", color = Color(0xFF55E7F5), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .8.sp)
+                Text("04 SHORTCUTS", color = Color(0xFF55E7F5), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .8.sp)
             }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(9.dp)) {
                 HomeGlassCard("Chat", "Ask anything", "▣", Color(0xFF9666FF), Modifier.weight(1f)) { onChat() }
-                HomeGlassCard("Voice", "Speak & listen", "♫", Color(0xFF55E7F5), Modifier.weight(1f)) { onStartVoice() }
+                HomeGlassCard("Voice", "Speak naturally", "♫", Color(0xFF55E7F5), Modifier.weight(1f)) { onStartVoice() }
             }
             Spacer(Modifier.height(9.dp))
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(9.dp)) {
-                HomeGlassCard("Camera", "See & analyze", "◎", Color(0xFF28D9B0), Modifier.weight(1f)) { onCamera() }
-                HomeGlassCard("Memory", "Remember", "✧", Color(0xFF9D7BFF), Modifier.weight(1f)) { onMemory() }
+                HomeGlassCard("Trigger", "Phone actions", "⌘", Color(0xFF28D9B0), Modifier.weight(1f)) { onFeatures() }
+                HomeGlassCard("Settings", "Personalize MYRA", "⚙", Color(0xFF9D7BFF), Modifier.weight(1f)) { onSettings() }
             }
-            // Keep the Home shortcuts focused: Chat, Voice, Camera and Memory are already
-            // presented in the Quick Access cards above, so duplicate shortcut rows are omitted.
-            // Secondary tools and workspace shortcuts are intentionally kept off Home.
-        // They remain available from the Settings / Profile and feature menus.
+            // Camera, memory and productivity tools remain accessible from the feature workspace,
+            // keeping the Home dashboard aligned with the five primary destinations.
         // Floating HUD-style navigation: separated from the screen edge with a soft holographic rim.
         Row(
             Modifier.fillMaxWidth().padding(horizontal = 10.dp, vertical = 7.dp)
