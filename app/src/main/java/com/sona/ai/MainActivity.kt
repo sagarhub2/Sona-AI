@@ -85,6 +85,7 @@ class MainActivity : ComponentActivity() {
     private var liveVoiceSession: LiveVoiceSession? = null
     private var textToSpeech: TextToSpeech? = null
     private var ttsReady = false
+    private lateinit var cameraCaptureLauncher: androidx.activity.result.ActivityResultLauncher<Void?>
 
     override fun onResume() {
         super.onResume()
@@ -112,20 +113,34 @@ class MainActivity : ComponentActivity() {
 
     private fun openCameraForNeuralLens() {
         try {
-            val cameraIntent = Intent("android.media.action.IMAGE_CAPTURE")
-            if (cameraIntent.resolveActivity(packageManager) != null) {
-                startActivity(cameraIntent)
-                status = "CAMERA OPENED • CAPTURE A PHOTO"
-            } else {
-                status = "NO CAMERA APP AVAILABLE"
-            }
+            status = "NEURAL LENS • OPENING CAMERA"
+            cameraCaptureLauncher.launch(null)
         } catch (_: Exception) {
             status = "CAMERA UNAVAILABLE"
+            heardText = "Couldn't open the camera. Check that a camera app is available and try again."
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        cameraCaptureLauncher = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) { bitmap ->
+            if (bitmap == null) {
+                status = "CAMERA CAPTURE CANCELLED"
+            } else {
+                try {
+                    val imageFile = java.io.File(cacheDir, "myra_camera_${System.currentTimeMillis()}.jpg")
+                    imageFile.outputStream().use { stream ->
+                        bitmap.compress(android.graphics.Bitmap.CompressFormat.JPEG, 90, stream)
+                    }
+                    bitmap.recycle()
+                    askGeminiAboutImage(Uri.fromFile(imageFile))
+                } catch (_: Exception) {
+                    try { bitmap.recycle() } catch (_: Exception) { }
+                    status = "CAMERA IMAGE SAVE FAILED"
+                    heardText = "MYRA couldn't prepare the captured photo. Please try again."
+                }
+            }
+        }
         migrateLegacyPreferences()
         activeThemeName = getSharedPreferences("myra_private", MODE_PRIVATE).getString("theme_style", "Holographic") ?: "Holographic"
         apiKey = getSharedPreferences("myra_private", MODE_PRIVATE).getString("gemini_key", "") ?: ""
