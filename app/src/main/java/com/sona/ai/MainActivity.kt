@@ -1348,12 +1348,15 @@ class MainActivity : ComponentActivity() {
                                     Column(Modifier.padding(15.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                                         Row(verticalAlignment = Alignment.CenterVertically) {
                                             Box(Modifier.size(32.dp).clip(CircleShape)
-                                                .background(Brush.radialGradient(listOf(Color(0xFF40152A), Color(0xFF13243B), Color(0xFF071426))))
-                                                .border(1.dp, Color(0xFFFF3155).copy(alpha = .75f), CircleShape),
+                                                .background(Brush.radialGradient(listOf(Color(0xFF73DFFF).copy(alpha = .38f), Color(0xFF40152A), Color(0xFF071426))))
+                                                .border(1.dp, Color(0xFF73DFFF).copy(alpha = .85f), CircleShape),
                                                 contentAlignment = Alignment.Center) {
-                                                Box(Modifier.size(17.dp).clip(CircleShape)
-                                                    .background(Brush.radialGradient(listOf(Color(0xFFFF7890), Color(0xFFFF3155), Color(0xFF080B14))))
-                                                    .border(1.dp, Color(0xFFFFB5C2).copy(alpha = .8f), CircleShape))
+                                                Box(Modifier.size(21.dp).clip(CircleShape)
+                                                    .background(Brush.radialGradient(listOf(Color(0xFFFFB5C2), Color(0xFFFF3155), Color(0xFF080B14))))
+                                                    .border(1.dp, Color(0xFFFFB5C2).copy(alpha = .9f), CircleShape))
+                                                Box(Modifier.size(8.dp).clip(CircleShape)
+                                                    .background(Color(0xFF050B16))
+                                                    .border(1.dp, Color(0xFF73DFFF), CircleShape))
                                             }
                                             Spacer(Modifier.width(8.dp))
                                             Column {
