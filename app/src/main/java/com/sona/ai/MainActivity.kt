@@ -1577,7 +1577,7 @@ class MainActivity : ComponentActivity() {
                                     }
                                 )
                             }
-                            Column(Modifier.weight(1f).fillMaxWidth().padding(vertical = 12.dp).verticalScroll(androidx.compose.foundation.rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                            Column(Modifier.weight(1f).fillMaxWidth().padding(vertical = 9.dp).verticalScroll(androidx.compose.foundation.rememberScrollState()), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                                 if (isFreshChat || savedChat.isBlank()) {
                                     Surface(
                                         modifier = Modifier.fillMaxWidth(),
@@ -1588,7 +1588,7 @@ class MainActivity : ComponentActivity() {
                                     ) {
                                         Row(
                                             Modifier.fillMaxWidth().background(Brush.horizontalGradient(listOf(Color(0xFF10243A), Color(0xFF0B1424), Color(0xFF0D192B))))
-                                                .padding(15.dp),
+                                                .padding(13.dp),
                                             verticalAlignment = Alignment.CenterVertically,
                                             horizontalArrangement = Arrangement.spacedBy(12.dp)
                                         ) {
@@ -1860,7 +1860,7 @@ class MainActivity : ComponentActivity() {
                             }
                             Spacer(Modifier.height(6.dp))
                             Row(
-                                modifier = Modifier.fillMaxWidth().padding(top = 5.dp, bottom = 2.dp),
+                                modifier = Modifier.fillMaxWidth().padding(top = 3.dp, bottom = 1.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
@@ -1879,7 +1879,7 @@ class MainActivity : ComponentActivity() {
                                     minLines = 1,
                                     maxLines = 4,
                                     enabled = !busy,
-                                    shape = RoundedCornerShape(20.dp),
+                                    shape = RoundedCornerShape(18.dp),
                                     colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
                                         focusedTextColor = Color(0xFFF5F7FF),
                                         unfocusedTextColor = Color(0xFFF5F7FF),
@@ -1963,8 +1963,8 @@ class MainActivity : ComponentActivity() {
                                     },
                                     enabled = chatDraft.isNotBlank() && !busy && apiKey.isNotBlank(),
                                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF55E7F5), contentColor = Color.White, disabledContainerColor = Color(0xFF314B6A), disabledContentColor = Color(0xFFB8C5DA)),
-                                    modifier = Modifier.height(48.dp),
-                                    shape = RoundedCornerShape(16.dp),
+                                    modifier = Modifier.height(44.dp),
+                                    shape = RoundedCornerShape(15.dp),
                                     contentPadding = PaddingValues(horizontal = 18.dp, vertical = 0.dp)
                                 ) {
                                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(7.dp)) {
