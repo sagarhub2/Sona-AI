@@ -4969,10 +4969,10 @@ private fun MyraHome(
                         }
                         Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
                             Text("Voice Mode", color = Color(0xFFF5F7FF), fontSize = 18.sp, fontWeight = FontWeight.Bold)
-                            Text(if (busy) "Connecting to your assistant…" else "Holographic Orb", color = Color(0xFF9EABC2), fontSize = 10.sp, maxLines = 2, lineHeight = 14.sp)
+                            Text(if (busy) "Connecting to your assistant…" else "Your voice-first AI companion", color = Color(0xFF9EABC2), fontSize = 10.sp, maxLines = 2, lineHeight = 14.sp)
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                                Box(Modifier.size(6.dp).clip(CircleShape).background(if (busy) Color(0xFFFF3155) else Color(0xFFFF3155)))
-                                Text(if (busy) "Live session in progress" else "Tap to speak with Myra", color = Color(0xFF9EABC2), fontSize = 9.sp)
+                                Box(Modifier.size(6.dp).clip(CircleShape).background(if (busy) Color(0xFFFF3155) else Color(0xFF37D8E8)))
+                                Text(if (busy) "Live session in progress" else "VOICE  •  TAP TO CONNECT", color = Color(0xFF9EABC2), fontSize = 8.sp, letterSpacing = .35.sp)
                             }
                         }
                     }
