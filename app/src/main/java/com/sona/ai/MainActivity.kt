@@ -1132,12 +1132,12 @@ class MainActivity : ComponentActivity() {
                     Surface(
                         modifier = Modifier.fillMaxSize(),
                         shape = RoundedCornerShape(0.dp),
-                        color = Color(0xFF050B16),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A)),
+                        color = Color(0xFF070711),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF50305F)),
                         tonalElevation = 0.dp
                     ) {
                         Column(Modifier.fillMaxSize()
-                            .background(Brush.verticalGradient(listOf(Color(0xFF071426), Color(0xFF050B16), Color(0xFF0B1020))))
+                            .background(Brush.verticalGradient(listOf(Color(0xFF130B25), Color(0xFF050711), Color(0xFF100A20))))
                             .padding(16.dp)
                             .imePadding()) {
                             Row(
@@ -1170,8 +1170,8 @@ class MainActivity : ComponentActivity() {
                                 }
                                 Surface(
                                     onClick = { showChatSearch = !showChatSearch; if (!showChatSearch) chatSearchQuery = "" },
-                                    shape = CircleShape, color = Color(0xFF0D192B),
-                                    border = androidx.compose.foundation.BorderStroke(1.dp, if (showChatSearch) Color(0xFFFF3155) else Color(0xFF73DFFF).copy(alpha = .55f))
+                                    shape = CircleShape, color = Color(0xFF171025),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, if (showChatSearch) Color(0xFFFF3155) else Color(0xFFB66BFF).copy(alpha = .65f))
                                 ) {
                                     Box(Modifier.size(38.dp), contentAlignment = Alignment.Center) {
                                         Text("⌕", color = if (showChatSearch) Color(0xFFFF3155) else Color(0xFF73DFFF), fontSize = 23.sp)
@@ -1196,8 +1196,8 @@ class MainActivity : ComponentActivity() {
                                         selectedChatTab = "Conversations"
                                         status = "NEW CHAT DRAFT READY"
                                     },
-                                    shape = CircleShape, color = Color(0xFF0D192B),
-                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))
+                                    shape = CircleShape, color = Color(0xFF171025),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF50305F))
                                 ) {
                                     Box(Modifier.size(38.dp), contentAlignment = Alignment.Center) {
                                         Text("＋", color = Color(0xFF73DFFF), fontSize = 23.sp)
