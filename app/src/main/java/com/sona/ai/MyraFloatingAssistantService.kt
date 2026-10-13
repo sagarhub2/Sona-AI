@@ -63,7 +63,7 @@ class MyraFloatingAssistantService : Service() {
         var startX = 0
         var startY = 0
         var moved = false
-        root.setOnTouchListener { _, event ->
+        web.setOnTouchListener { _, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     downX = event.rawX; downY = event.rawY
