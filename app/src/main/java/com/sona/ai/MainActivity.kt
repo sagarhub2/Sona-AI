@@ -1110,7 +1110,10 @@ class MainActivity : ComponentActivity() {
                                 Modifier.fillMaxWidth().padding(top = 2.dp, bottom = 8.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text("Chat", modifier = Modifier.weight(1f), color = Color(0xFFF5F7FF), fontSize = 24.sp, fontWeight = FontWeight.SemiBold, letterSpacing = (-.35).sp)
+                                Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                                    Text("Chat", color = Color(0xFFF5F7FF), fontSize = 24.sp, fontWeight = FontWeight.SemiBold, letterSpacing = (-.35).sp)
+                                    Text("YOUR SPACE WITH MYRA", color = Color(0xFFFF3155), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.35.sp)
+                                }
                                 Surface(
                                     onClick = { showChatSearch = !showChatSearch; if (!showChatSearch) chatSearchQuery = "" },
                                     shape = CircleShape, color = Color(0xFF0D192B),
