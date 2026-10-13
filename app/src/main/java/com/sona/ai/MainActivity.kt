@@ -852,7 +852,7 @@ class MainActivity : ComponentActivity() {
                                         }
                                     }
                                 }
-                                Spacer(Modifier.height(24.dp))
+                                Spacer(Modifier.height(15.dp))
                                 Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(5.dp)) {
                                     Text(
                                         when {
@@ -915,10 +915,10 @@ class MainActivity : ComponentActivity() {
                                         )
                                     }
                                 }
-                                Spacer(Modifier.height(12.dp))
+                                Spacer(Modifier.height(8.dp))
                                 Box(
                                     contentAlignment = Alignment.Center,
-                                    modifier = Modifier.size(224.dp).clickable {
+                                    modifier = Modifier.size(204.dp).clickable {
                                         val canRetryVoice = liveVoiceSession == null ||
                                             status.contains("FAILED", true) ||
                                             status.contains("ERROR", true) ||
@@ -928,14 +928,14 @@ class MainActivity : ComponentActivity() {
                                         if (canRetryVoice) startVoiceRecognition()
                                     }
                                 ) {
-                                    Box(Modifier.size(218.dp).scale(orbScale).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF1C4BFF).copy(alpha = .28f), Color(0xFFB46CFF).copy(alpha = .20f), Color.Transparent))))
-                                    Box(Modifier.size(207.dp).rotate(orbRotation).border(1.5.dp, Color(0xFF416DFF).copy(alpha = .85f), CircleShape))
-                                    Box(Modifier.size(188.dp).rotate(-orbRotation * 1.15f).border(2.dp, Color(0xFFB46CFF).copy(alpha = .9f), CircleShape))
-                                    Box(Modifier.size(174.dp).rotate(orbRotation * .7f).border(1.dp, Color(0xFF55E7F5).copy(alpha = .8f), CircleShape))
-                                    Box(Modifier.size(166.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF0B1740), Color(0xFF101A35), Color(0xFF35145F), Color(0xFF020712)))).border(2.dp, Color(0xFFB46CFF).copy(alpha = .9f), CircleShape))
+                                    Box(Modifier.size(198.dp).scale(orbScale).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF1C4BFF).copy(alpha = .28f), Color(0xFFB46CFF).copy(alpha = .20f), Color.Transparent))))
+                                    Box(Modifier.size(190.dp).rotate(orbRotation).border(1.5.dp, Color(0xFF416DFF).copy(alpha = .85f), CircleShape))
+                                    Box(Modifier.size(174.dp).rotate(-orbRotation * 1.15f).border(2.dp, Color(0xFFB46CFF).copy(alpha = .9f), CircleShape))
+                                    Box(Modifier.size(160.dp).rotate(orbRotation * .7f).border(1.dp, Color(0xFF55E7F5).copy(alpha = .8f), CircleShape))
+                                    Box(Modifier.size(150.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF0B1740), Color(0xFF101A35), Color(0xFF35145F), Color(0xFF020712)))).border(2.dp, Color(0xFFB46CFF).copy(alpha = .9f), CircleShape))
                                     // Layered holographic rings form the animated MYRA voice core.
-                                    Box(Modifier.size(60.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF172C65), Color(0xFF0B1028), Color(0xFF050712)))).border(1.dp, Color(0xFF55E7F5).copy(alpha = .9f), CircleShape))
-                                    Box(Modifier.size(36.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFB8F8FF), Color(0xFF55E7F5).copy(alpha = .78f), Color(0xFF9666FF).copy(alpha = .32f), Color.Transparent))).border(1.dp, Color(0xFFD8F9FF).copy(alpha = .9f), CircleShape))
+                                    Box(Modifier.size(54.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF172C65), Color(0xFF0B1028), Color(0xFF050712)))).border(1.dp, Color(0xFF55E7F5).copy(alpha = .9f), CircleShape))
+                                    Box(Modifier.size(32.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFB8F8FF), Color(0xFF55E7F5).copy(alpha = .78f), Color(0xFF9666FF).copy(alpha = .32f), Color.Transparent))).border(1.dp, Color(0xFFD8F9FF).copy(alpha = .9f), CircleShape))
                                     Box(Modifier.size(12.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color.White, Color(0xFF55E7F5)))))
                                 }
                                 Surface(
@@ -5686,11 +5686,11 @@ private fun MyraHome(
 
 @Composable
 private fun HomeGlassCard(title: String, subtitle: String, symbol: String, tint: Color, modifier: Modifier = Modifier, onClick: () -> Unit) {
-    Surface(modifier = modifier.height(86.dp), onClick = onClick, shape = RoundedCornerShape(20.dp),
+    Surface(modifier = modifier.height(76.dp), onClick = onClick, shape = RoundedCornerShape(18.dp),
         color = Color(0xCC111A32), shadowElevation = 4.dp,
         border = androidx.compose.foundation.BorderStroke(1.dp, tint.copy(alpha = .78f))) {
         Row(Modifier.fillMaxSize().padding(horizontal = 10.dp), verticalAlignment = Alignment.CenterVertically) {
-            Box(Modifier.size(40.dp).clip(RoundedCornerShape(13.dp)).background(Brush.linearGradient(listOf(tint, tint.copy(alpha = .35f)))),
+            Box(Modifier.size(34.dp).clip(RoundedCornerShape(11.dp)).background(Brush.linearGradient(listOf(tint, tint.copy(alpha = .35f)))),
                 contentAlignment = Alignment.Center) { Text(symbol, color = Color.White, fontSize = 19.sp) }
             Column(Modifier.weight(1f).padding(start = 8.dp), verticalArrangement = Arrangement.Center) {
                 Text(title, color = Color(0xFFF5F7FF), fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
