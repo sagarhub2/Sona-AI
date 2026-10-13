@@ -930,10 +930,10 @@ class MainActivity : ComponentActivity() {
                                     Box(Modifier.size(218.dp).scale(orbScale).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF55E7F5).copy(alpha = .26f), Color(0xFF21183D).copy(alpha = .12f), Color.Transparent))))
                                     Box(Modifier.size(200.dp).rotate(orbRotation).border(1.dp, Color(0xFFB46CFF).copy(alpha = .62f), CircleShape))
                                     Box(Modifier.size(184.dp).rotate(-orbRotation).border(1.dp, Color(0xFF55E7F5).copy(alpha = .78f), CircleShape))
-                                    Box(Modifier.size(170.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF071426), Color(0xFF160A12), Color(0xFF55E7F5), Color(0xFF020202)))).border(2.dp, Color(0xFFB46CFF).copy(alpha = .78f), CircleShape))
+                                    Box(Modifier.size(170.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF071426), Color(0xFF101A35), Color(0xFF55E7F5), Color(0xFF020712)))).border(2.dp, Color(0xFFB46CFF).copy(alpha = .78f), CircleShape))
                                     // Dual-tone cyan and violet rings give the MYRA voice core its holographic look.
                                     Box(Modifier.size(134.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF020202), Color(0xFF071426), Color(0xFFB46CFF).copy(alpha = .38f), Color(0xFF55E7F5).copy(alpha = .76f), Color.Transparent))))
-                                    Box(Modifier.size(72.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF020202), Color(0xFF050505), Color(0xFF40101D)))).border(1.dp, Color(0xFF55E7F5).copy(alpha = .9f), CircleShape))
+                                    Box(Modifier.size(72.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF020202), Color(0xFF050505), Color(0xFF142B4B)))).border(1.dp, Color(0xFF55E7F5).copy(alpha = .9f), CircleShape))
                                 }
                                 // Compact waveform gives the voice state a visible, reference-style cue.
                                 Row(
@@ -972,7 +972,7 @@ class MainActivity : ComponentActivity() {
                                                     when {
                                                         voiceMuted -> Color(0xFF314B6A)
                                                         index % 5 == 0 -> Color(0xFFB46CFF)
-                                                        index % 3 == 0 -> Color(0xFFFF7890)
+                                                        index % 3 == 0 -> Color(0xFF8B7CFF)
                                                         else -> Color(0xFF55E7F5)
                                                     }
                                                 )
@@ -1413,7 +1413,7 @@ class MainActivity : ComponentActivity() {
                                         ) {
                                             Box(
                                                 Modifier.size(54.dp).clip(CircleShape)
-                                                    .background(Brush.radialGradient(listOf(Color(0xFFE8D7FF), Color(0xFF9666FF), Color(0xFF40101D), Color(0xFF050B16))))
+                                                    .background(Brush.radialGradient(listOf(Color(0xFFE8D7FF), Color(0xFF9666FF), Color(0xFF142B4B), Color(0xFF050B16))))
                                                     .border(1.dp, Color(0xFF9666FF).copy(alpha = .85f), CircleShape),
                                                 contentAlignment = Alignment.Center
                                             ) {
