@@ -1582,10 +1582,10 @@ class MainActivity : ComponentActivity() {
                                         onClick = { if (!busy) chatDraft = template },
                                         label = { Text(label, fontSize = 10.sp) },
                                         enabled = !busy,
-                                        leadingIcon = { Text("✦", color = Color(0xFFFF3155), fontSize = 10.sp) },
+                                        leadingIcon = { Text("✦", color = Color(0xFF73DFFF), fontSize = 10.sp) },
                                         colors = androidx.compose.material3.AssistChipDefaults.assistChipColors(
-                                            labelColor = Color(0xFFFF3155),
-                                            containerColor = Color(0xFF0D192B),
+                                            labelColor = Color(0xFFB8F4FF),
+                                            containerColor = Color(0xFF0B192B),
                                             disabledLabelColor = Color(0xFFB8C5DA)
                                         )
                                     )
@@ -1606,8 +1606,8 @@ class MainActivity : ComponentActivity() {
                                     onValueChange = { chatDraft = it },
                                     modifier = Modifier.fillMaxWidth(),
                                     placeholder = { Text(if (busy) "MYRA IS REPLYING…" else "Message MYRA…", color = Color(0xFF8298B8), fontSize = 13.sp) },
-                                    leadingIcon = { Text("✦", color = Color(0xFFFF3155), fontSize = 18.sp) },
-                                    label = { Text("ASK MYRA", color = Color(0xFFFF3155), letterSpacing = .8.sp) },
+                                    leadingIcon = { Text("✦", color = Color(0xFF73DFFF), fontSize = 18.sp) },
+                                    label = { Text("ASK MYRA", color = Color(0xFF73DFFF), letterSpacing = .8.sp) },
                                     minLines = 1,
                                     maxLines = 4,
                                     enabled = !busy,
@@ -1615,9 +1615,9 @@ class MainActivity : ComponentActivity() {
                                     colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
                                         focusedTextColor = Color(0xFFF5F7FF),
                                         unfocusedTextColor = Color(0xFFF5F7FF),
-                                        focusedBorderColor = Color(0xFFFF3155),
+                                        focusedBorderColor = Color(0xFF73DFFF),
                                         unfocusedBorderColor = Color(0xFF314B6A),
-                                        focusedLabelColor = Color(0xFFFF3155),
+                                        focusedLabelColor = Color(0xFF73DFFF),
                                         unfocusedLabelColor = Color(0xFFB8C5DA),
                                         focusedContainerColor = Color(0xFF0D192B),
                                         unfocusedContainerColor = Color(0xFF0D192B),
