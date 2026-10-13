@@ -765,7 +765,7 @@ class MainActivity : ComponentActivity() {
                                         Text("LIVE VOICE ASSISTANT", color = Color(0xFFFF3155), fontSize = 9.sp, letterSpacing = 1.6.sp)
                                          Text("NATURAL CONVERSATION  •  HANDS-FREE", color = Color(0xFFB8C5DA), fontSize = 8.sp, letterSpacing = .35.sp)
                                     }
-                                    Surface(shape = RoundedCornerShape(30.dp), color = Color(0xFF0D192B), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF2C66D))) {
+                                    Surface(shape = RoundedCornerShape(30.dp), color = Color(0xFF0D192B), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFF3155))) {
                                         Row(Modifier.padding(horizontal = 10.dp, vertical = 7.dp), verticalAlignment = Alignment.CenterVertically) {
                                             val voiceReady = status.contains("CONNECTED", true) || status.contains("LISTEN", true) || status.contains("LIVE", true)
                                             val voiceFailed = status.contains("FAILED", true) || status.contains("ERROR", true) || status.contains("DENIED", true) || status.contains("NEEDS", true) || status.contains("TIMEOUT", true)
@@ -779,8 +779,8 @@ class MainActivity : ComponentActivity() {
                                 Box(contentAlignment = Alignment.Center, modifier = Modifier.size(244.dp)) {
                                     Box(Modifier.size(236.dp).scale(orbScale).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFF3155).copy(alpha = .26f), Color(0xFF40152A).copy(alpha = .12f), Color.Transparent))))
                                     Box(Modifier.size(216.dp).rotate(orbRotation).border(1.dp, Color(0xFFFF3155).copy(alpha = .48f), CircleShape))
-                                    Box(Modifier.size(198.dp).rotate(-orbRotation).border(1.dp, Color(0xFFF2C66D).copy(alpha = .72f), CircleShape))
-                                    Box(Modifier.size(184.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF070B14), Color(0xFF160A12), Color(0xFFFF3155), Color(0xFF020202)))).border(2.dp, Color(0xFFFFE3A5).copy(alpha = .8f), CircleShape))
+                                    Box(Modifier.size(198.dp).rotate(-orbRotation).border(1.dp, Color(0xFFFF3155).copy(alpha = .72f), CircleShape))
+                                    Box(Modifier.size(184.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF070B14), Color(0xFF160A12), Color(0xFFFF3155), Color(0xFF020202)))).border(2.dp, Color(0xFFFF3155).copy(alpha = .8f), CircleShape))
                                     // Keep the emblem visibly black at its core; the red light stays on the rim.
                                     Box(Modifier.size(146.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF020202), Color(0xFF070B14), Color(0xFFFF3155).copy(alpha = .78f), Color.Transparent))))
                                     Box(Modifier.size(72.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF020202), Color(0xFF050505), Color(0xFF40101D)))).border(1.dp, Color(0xFFFF3155).copy(alpha = .8f), CircleShape))
@@ -798,7 +798,7 @@ class MainActivity : ComponentActivity() {
                                                 .width(3.dp)
                                                 .height((if (status.contains("LISTEN", true) || status.contains("LIVE", true)) height else 5).dp)
                                                 .clip(RoundedCornerShape(4.dp))
-                                                .background(if (index % 4 == 0) Color(0xFFF2C66D) else Color(0xFFFF3155))
+                                                .background(if (index % 4 == 0) Color(0xFFFF3155) else Color(0xFFFF3155))
                                         )
                                     }
                                 }
@@ -806,7 +806,7 @@ class MainActivity : ComponentActivity() {
                                 androidx.compose.material3.FilledTonalButton(
                                     onClick = { bossMode = !bossMode },
                                     colors = androidx.compose.material3.ButtonDefaults.filledTonalButtonColors(containerColor = if (bossMode) Color(0xFFFF3155) else Color(0xFF0D192B), contentColor = if (bossMode) Color.White else Color(0xFFFF3155)),
-                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF2C66D)),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFF3155)),
                                     shape = RoundedCornerShape(24.dp)
                                 ) {
                                     Text(if (bossMode) "♛  BOSS MODE ON" else "♛  Boss Mode", fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
@@ -862,7 +862,7 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                                 Spacer(Modifier.height(16.dp))
-                                Text("✦  MYRA AI  •  POWERED BY GEMINI LIVE  ✦", color = Color(0xFFF2C66D), fontSize = 9.sp, letterSpacing = .7.sp, textAlign = TextAlign.Center)
+                                Text("✦  MYRA AI  •  POWERED BY GEMINI LIVE  ✦", color = Color(0xFFFF3155), fontSize = 9.sp, letterSpacing = .7.sp, textAlign = TextAlign.Center)
                             }
                         }
                     }
