@@ -894,6 +894,16 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                                 Spacer(Modifier.height(5.dp))
+                                Row(
+                                    Modifier.fillMaxWidth().padding(vertical = 3.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                ) {
+                                    Box(Modifier.width(3.dp).height(14.dp).clip(CircleShape).background(Color(0xFFFF3155)))
+                                    Text("VOICE CONTROLS", color = Color(0xFF9CB4D0), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.1.sp)
+                                    Spacer(Modifier.weight(1f))
+                                    Text(if (bossMode) "BOSS MODE ACTIVE" else "READY WHEN YOU ARE", color = if (bossMode) Color(0xFFFFB547) else Color(0xFF536A89), fontSize = 8.sp, letterSpacing = .35.sp)
+                                }
                                 androidx.compose.material3.FilledTonalButton(
                                     onClick = { bossMode = !bossMode },
                                     colors = androidx.compose.material3.ButtonDefaults.filledTonalButtonColors(containerColor = if (bossMode) Color(0xFFFF3155) else Color(0xFF0D192B), contentColor = if (bossMode) Color.White else Color(0xFFFF3155)),
