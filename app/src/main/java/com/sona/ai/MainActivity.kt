@@ -859,7 +859,18 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                                 Spacer(Modifier.height(12.dp))
-                                Box(contentAlignment = Alignment.Center, modifier = Modifier.size(244.dp)) {
+                                Box(
+                                    contentAlignment = Alignment.Center,
+                                    modifier = Modifier.size(244.dp).clickable {
+                                        val canRetryVoice = liveVoiceSession == null ||
+                                            status.contains("FAILED", true) ||
+                                            status.contains("ERROR", true) ||
+                                            status.contains("DENIED", true) ||
+                                            status.contains("NEEDS", true) ||
+                                            status.contains("TIMEOUT", true)
+                                        if (canRetryVoice) startVoiceRecognition()
+                                    }
+                                ) {
                                     Box(Modifier.size(236.dp).scale(orbScale).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFF3155).copy(alpha = .26f), Color(0xFF40152A).copy(alpha = .12f), Color.Transparent))))
                                     Box(Modifier.size(216.dp).rotate(orbRotation).border(1.dp, Color(0xFFFF3155).copy(alpha = .48f), CircleShape))
                                     Box(Modifier.size(198.dp).rotate(-orbRotation).border(1.dp, Color(0xFFFF3155).copy(alpha = .72f), CircleShape))
