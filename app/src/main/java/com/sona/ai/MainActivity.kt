@@ -1503,18 +1503,18 @@ class MainActivity : ComponentActivity() {
                                                     bottomStart = if (isUserMessage) 18.dp else 5.dp,
                                                     bottomEnd = if (isUserMessage) 5.dp else 18.dp
                                                 ),
-                                                color = if (isUserMessage) Color(0xFF10263D) else Color(0xFF0D192B),
+                                                color = if (isUserMessage) Color(0xFF102C43) else Color(0xFF0B1729),
                                                 border = androidx.compose.foundation.BorderStroke(
                                                     1.dp,
-                                                    if (isUserMessage) Color(0xFF55E7F5).copy(alpha = .72f)
-                                                    else Color(0xFF9666FF).copy(alpha = .62f)
+                                                    if (isUserMessage) Color(0xFF55E7F5).copy(alpha = .78f)
+                                                    else Color(0xFF8B7CFF).copy(alpha = .68f)
                                                 ),
                                                 tonalElevation = 0.dp
                                             ) {
-                                                Column(Modifier.padding(horizontal = 14.dp, vertical = 11.dp), verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                                                Column(Modifier.padding(horizontal = 15.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                                                     Text(
                                                         if (isUserMessage) "YOU" else "MYRA",
-                                                        color = if (isUserMessage) Color(0xFF55E7F5) else Color(0xFFB46CFF),
+                                                        color = if (isUserMessage) Color(0xFF70F0FF) else Color(0xFFB6A2FF),
                                                         fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.1.sp
                                                     )
                                                     Text(
@@ -1591,7 +1591,7 @@ class MainActivity : ComponentActivity() {
                                     TextButton(onClick = { showChat = false; showSettings = true }) { Text("Open Settings", color = Color(0xFF55E7F5)) }
                                 }
                             }
-                            Text("CHOOSE YOUR MODE", color = Color(0xFF55E7F5), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp, modifier = Modifier.padding(top = 10.dp))
+                            Row(Modifier.fillMaxWidth().padding(top = 10.dp, bottom = 2.dp), verticalAlignment = Alignment.CenterVertically) {\n                                Text("CHOOSE YOUR MODE", color = Color(0xFF55E7F5), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)\n                                Spacer(Modifier.weight(1f))\n                                Text("7 MODES", color = Color(0xFF7E91B0), fontSize = 8.sp, fontWeight = FontWeight.SemiBold, letterSpacing = .8.sp)\n                            }
                             Row(
                                 modifier = Modifier.fillMaxWidth().horizontalScroll(androidx.compose.foundation.rememberScrollState()),
                                 horizontalArrangement = Arrangement.spacedBy(7.dp),
