@@ -5553,7 +5553,7 @@ private fun MyraHome(
             }
             Row(Modifier.fillMaxWidth().padding(bottom = 4.dp), horizontalArrangement = Arrangement.SpaceAround) {
                 listOf(
-                    Triple("Apps", "▦", Color(0xFF55E7F5)),
+                    Triple("Chat", "✉", Color(0xFF55E7F5)),
                     Triple("Camera", "◎", Color(0xFF28D9B0)),
                     Triple("Files", "⌁", Color(0xFFB46CFF)),
                     Triple("Settings", "⚙", Color(0xFFFFB547))
@@ -5562,7 +5562,7 @@ private fun MyraHome(
                         modifier = Modifier.weight(1f).clip(RoundedCornerShape(15.dp))
                             .clickable {
                                 when (index) {
-                                    0 -> onReminder()
+                                    0 -> onChat()
                                     1 -> onCamera()
                                     2 -> onFiles()
                                     else -> onSettings()
