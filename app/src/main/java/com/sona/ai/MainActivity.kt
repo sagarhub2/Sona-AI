@@ -1046,12 +1046,26 @@ class MainActivity : ComponentActivity() {
                 var pendingMessage by remember { mutableStateOf("") }
                 var showClearHistoryConfirm by remember { mutableStateOf(false) }
                 val chatPrefs = getSharedPreferences("myra_private", MODE_PRIVATE)
-                var savedChat by remember { mutableStateOf(chatPrefs.getString("conversation_history", "").orEmpty()) }
-                var isFreshChat by remember { mutableStateOf(false) }
-                androidx.compose.runtime.DisposableEffect(chatPrefs) {
+                var activeChatSessionId by remember {
+                    mutableStateOf(chatPrefs.getString("active_chat_session_id", "").orEmpty().ifBlank {
+                        val newId = System.currentTimeMillis().toString()
+                        val legacyHistory = chatPrefs.getString("conversation_history", "").orEmpty()
+                        chatPrefs.edit()
+                            .putString("active_chat_session_id", newId)
+                            .putString("chat_session_$newId", legacyHistory)
+                            .apply()
+                        newId
+                    })
+                }
+                var savedChat by remember {
+                    mutableStateOf(chatPrefs.getString("chat_session_$activeChatSessionId", "").orEmpty())
+                }
+                var isFreshChat by remember { mutableStateOf(savedChat.isBlank()) }
+                androidx.compose.runtime.DisposableEffect(chatPrefs, activeChatSessionId) {
+                    val sessionKey = "chat_session_$activeChatSessionId"
                     val historyListener = android.content.SharedPreferences.OnSharedPreferenceChangeListener { preferences, key ->
-                        if (key == "conversation_history") {
-                            savedChat = preferences.getString("conversation_history", "").orEmpty()
+                        if (key == sessionKey) {
+                            savedChat = preferences.getString(sessionKey, "").orEmpty()
                             pendingMessage = ""
                             isFreshChat = false
                         }
