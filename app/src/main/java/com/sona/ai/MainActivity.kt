@@ -852,7 +852,7 @@ class MainActivity : ComponentActivity() {
                                         Text(
                                             when {
                                                 voiceMuted -> "Microphone input is paused"
-                                                voiceFailed -> "Check setup to reconnect"
+                                                (status.contains("FAILED", true) || status.contains("ERROR", true) || status.contains("DENIED", true) || status.contains("NEEDS", true) || status.contains("TIMEOUT", true)) -> "Check setup to reconnect"
                                                 status.contains("THINK", true) || status.contains("PROCESS", true) || status.contains("REPLY", true) -> "Preparing your response…"
                                                 status.contains("CONNECT", true) || status.contains("LISTEN", true) || status.contains("LIVE", true) -> "Listening for your voice"
                                                 else -> "Ready when you are"
@@ -864,7 +864,7 @@ class MainActivity : ComponentActivity() {
                                     Surface(
                                         shape = RoundedCornerShape(10.dp),
                                         color = Color(0xFF102238),
-                                        border = androidx.compose.foundation.BorderStroke(1.dp, if (voiceMuted || voiceFailed) Color(0xFFFF3155).copy(alpha = .65f) else Color(0xFF73DFFF).copy(alpha = .55f))
+                                        border = androidx.compose.foundation.BorderStroke(1.dp, if (voiceMuted || status.contains("FAILED", true) || status.contains("ERROR", true) || status.contains("DENIED", true) || status.contains("NEEDS", true) || status.contains("TIMEOUT", true)) Color(0xFFFF3155).copy(alpha = .65f) else Color(0xFF73DFFF).copy(alpha = .55f))
                                     ) {
                                         Text(
                                             if (voiceMuted) "MUTED" else if (status.contains("THINK", true) || status.contains("PROCESS", true) || status.contains("REPLY", true)) "WORKING" else if (status.contains("LISTEN", true) || status.contains("LIVE", true) || status.contains("CONNECT", true)) "LIVE" else "READY",
