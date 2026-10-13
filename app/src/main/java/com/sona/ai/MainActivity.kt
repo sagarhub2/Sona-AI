@@ -1033,6 +1033,19 @@ class MainActivity : ComponentActivity() {
                 val chatPrefs = getSharedPreferences("myra_private", MODE_PRIVATE)
                 var savedChat by remember { mutableStateOf(chatPrefs.getString("conversation_history", "").orEmpty()) }
                 var isFreshChat by remember { mutableStateOf(false) }
+                androidx.compose.runtime.DisposableEffect(chatPrefs) {
+                    val historyListener = android.content.SharedPreferences.OnSharedPreferenceChangeListener { preferences, key ->
+                        if (key == "conversation_history") {
+                            savedChat = preferences.getString("conversation_history", "").orEmpty()
+                            pendingMessage = ""
+                            isFreshChat = false
+                        }
+                    }
+                    chatPrefs.registerOnSharedPreferenceChangeListener(historyListener)
+                    onDispose {
+                        chatPrefs.unregisterOnSharedPreferenceChangeListener(historyListener)
+                    }
+                }
                 var selectedChatCategory by remember { mutableStateOf("General Chat") }
                 var selectedChatTab by remember { mutableStateOf("Conversations") }
                 var showChatSearch by remember { mutableStateOf(false) }
