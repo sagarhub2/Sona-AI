@@ -4630,7 +4630,7 @@ private fun MyraHome(
                 Box(
                     Modifier.size((156f * (if (animatedOrb) pulse else 1f)).dp).clip(CircleShape)
                         .background(Brush.radialGradient(listOf(Color(0xFF080508), Color(0xFF16060B), Color(0xFF020202))))
-                        .border(1.dp, Color(0xFFFF465F).copy(alpha = .95f), CircleShape)
+                        .border(1.dp, Color(0xFFFF3155).copy(alpha = .95f), CircleShape)
                         .padding(5.dp)
                         .border(3.dp, Color(0xFFFF3155).copy(alpha = .72f), CircleShape),
                     contentAlignment = Alignment.Center
@@ -4645,7 +4645,7 @@ private fun MyraHome(
                                 lineTo(size.width * 0.92f, size.height * 0.88f)
                             }
                             drawPath(logo, Color(0xFFFF3155), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 4.dp.toPx(), cap = androidx.compose.ui.graphics.StrokeCap.Round, join = androidx.compose.ui.graphics.StrokeJoin.Round))
-                            drawLine(Color(0xFFFF465F), androidx.compose.ui.geometry.Offset(size.width * 0.34f, size.height * 0.46f), androidx.compose.ui.geometry.Offset(size.width * 0.66f, size.height * 0.46f), strokeWidth = 2.dp.toPx())
+                            drawLine(Color(0xFFFF3155), androidx.compose.ui.geometry.Offset(size.width * 0.34f, size.height * 0.46f), androidx.compose.ui.geometry.Offset(size.width * 0.66f, size.height * 0.46f), strokeWidth = 2.dp.toPx())
                         }
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text("MYR", color = Color(0xFFFFFEFE), fontSize = 23.sp, fontWeight = FontWeight.Black, letterSpacing = 1.sp)
@@ -4786,7 +4786,7 @@ private fun MyraHome(
                                     .background(Color(0xFF13243B))
                                     .border(1.dp, if (busy) Color(0xFFFF3155) else Color(0xFF314B6A), CircleShape))
                                 Box(Modifier.size(48.dp).clip(CircleShape)
-                                    .background(Brush.radialGradient(listOf(Color(0xFFB90E35), Color(0xFFFF3155), Color(0xFF250713))))
+                                    .background(Brush.radialGradient(listOf(Color(0xFF8D102B), Color(0xFFFF3155), Color(0xFF250713))))
                                     .border(1.dp, if (busy) Color(0xFFFF3155) else Color(0xFFFF3155), CircleShape),
                                     contentAlignment = Alignment.Center
                                 ) { Text(if (busy) "•••" else "≋", color = Color(0xFFFFFEFE), fontSize = 27.sp, fontWeight = FontWeight.Bold) } 
@@ -4820,7 +4820,7 @@ private fun MyraHome(
                     shape = RoundedCornerShape(18.dp),
                     color = Color(0xFF0D192B),
                     shadowElevation = 3.dp,
-                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF344B68))
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))
                 ) {
                     Column(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0xFF13243B), Color(0xFF0D192B), Color(0xFF0A1526)))).padding(15.dp), verticalArrangement = Arrangement.SpaceBetween) {
                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
@@ -4829,7 +4829,7 @@ private fun MyraHome(
                                     .background(Color(0xFF13243B))
                                     .border(1.dp, Color(0xFF314B6A), CircleShape))
                                 Box(Modifier.size(48.dp).clip(CircleShape)
-                                    .background(Brush.radialGradient(listOf(Color(0xFFB90E35), Color(0xFFFF3155), Color(0xFF250713))))
+                                    .background(Brush.radialGradient(listOf(Color(0xFF8D102B), Color(0xFFFF3155), Color(0xFF250713))))
                                     .border(1.dp, Color(0xFFFF3155), CircleShape),
                                     contentAlignment = Alignment.Center
                                 ) { Text("▣", color = Color(0xFFFFFEFE), fontSize = 25.sp, fontWeight = FontWeight.Bold) }
@@ -4850,7 +4850,7 @@ private fun MyraHome(
                                 Box(Modifier.size(6.dp).clip(CircleShape)
                                     .background(Color(0xFFFF3155))
                                     .border(1.dp, Color(0xFFFFB36B), CircleShape))
-                                Text("SCAN  •  LIVE  •  DETECT", color = Color(0xFFB8C5DA), fontSize = 9.sp, letterSpacing = .55.sp)
+                                Text("SCAN  •  LIVE  •  DETECT", color = Color(0xFF9CB4D0), fontSize = 9.sp, letterSpacing = .55.sp)
                             }
                             TextButton(
                                 onClick = {
