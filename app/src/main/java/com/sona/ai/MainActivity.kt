@@ -651,7 +651,7 @@ class MainActivity : ComponentActivity() {
                     shape = RoundedCornerShape(28.dp),
                     containerColor = Color(0xFF071426),
                     titleContentColor = Color(0xFFF5F7FF),
-                    textContentColor = Color(0xFF9EABC2),
+                    textContentColor = Color(0xFF9CB4D0),
                     tonalElevation = 8.dp,
                     onDismissRequest = { showDeviceInfo = false },
                     title = {
@@ -674,7 +674,7 @@ class MainActivity : ComponentActivity() {
                                     Text("Device Info", color = Color(0xFFF5F7FF), fontSize = 23.sp, fontWeight = FontWeight.Bold)
                                 }
                             }
-                            Text("A quick overview of your phone and power status.", color = Color(0xFF9EABC2), fontSize = 12.sp)
+                            Text("A quick overview of your phone and power status.", color = Color(0xFF9CB4D0), fontSize = 12.sp)
                         }
                     },
                     text = {
@@ -700,7 +700,7 @@ class MainActivity : ComponentActivity() {
                                             contentAlignment = Alignment.Center
                                         ) { Text(icon, color = Color(0xFFFF3155), fontSize = 20.sp, fontWeight = FontWeight.Bold) }
                                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                                            Text(label.uppercase(), color = Color(0xFF9EABC2), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = .7.sp)
+                                            Text(label.uppercase(), color = Color(0xFF9CB4D0), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = .7.sp)
                                             Text(value, color = Color(0xFFF5F7FF), fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
                                         }
                                     }
@@ -710,7 +710,7 @@ class MainActivity : ComponentActivity() {
                             DeviceInfoRow("◇", "Android Version", android.os.Build.VERSION.RELEASE + " • API " + android.os.Build.VERSION.SDK_INT)
                             DeviceInfoRow("▤", "Battery", if (percent >= 0) percent.toString() + "%" else "Unavailable")
                             DeviceInfoRow("ϟ", "Power", if (plugged != 0) "Charging / connected" else "Not charging")
-                            Text("MYRA AI  •  " + packageName, color = Color(0xFFB8A9D8), fontSize = 9.sp, letterSpacing = .4.sp)
+                            Text("MYRA AI  •  " + packageName, color = Color(0xFF9CB4D0), fontSize = 9.sp, letterSpacing = .4.sp)
                         }
                     },
                     confirmButton = {
