@@ -78,12 +78,15 @@ class LiveVoiceSession(
     fun start() {
         if (apiKey.isBlank()) { onStatus("ADD GEMINI KEY IN SETTINGS"); return }
         if (!running.compareAndSet(false, true)) { onStatus("LIVE VOICE IS ALREADY RUNNING"); return }
+        // Reset per-session state so a reconnect cannot inherit a previous setup/turn.
+        setupCompleted.set(false)
+        turnReceivedAudio = false
+        pendingOutputTranscript = ""
         onStatus("CONNECTING TO GEMINI LIVE…")
         val url = "wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key=" + URLEncoder.encode(apiKey, "UTF-8")
         socket = client.newWebSocket(Request.Builder().url(url).build(), object : WebSocketListener() {
             override fun onOpen(ws: WebSocket, response: Response) {
-                // Match LIA's Gemini Live setup: audio modality + explicit voice,
-                // with transcription settings at the setup level.
+                // Configure Gemini Live audio output, voice, and transcription settings.
                 val setup = JSONObject().put("setup", JSONObject()
                     .put("model", "models/$model")
                     .put("generationConfig", JSONObject()
@@ -123,6 +126,7 @@ class LiveVoiceSession(
                         val error = root.optJSONObject("error")
                         onStatus("GEMINI ERROR: " + (error?.optString("message") ?: "Unknown setup error").take(140))
                         stopAudio()
+                        ws.close(1000, "Gemini returned an error")
                         return
                     }
                     if (root.has("setupComplete")) {
@@ -204,7 +208,7 @@ class LiveVoiceSession(
             player = output
             output.play()
             input.startRecording()
-            onStatus("LIVE • SPEAK TO SONA")
+            onStatus("LIVE • SPEAK TO MYRA")
             micThread = Thread({
                 val buffer = ByteArray(3200)
                 while (running.get()) {
