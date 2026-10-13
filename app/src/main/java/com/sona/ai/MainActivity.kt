@@ -828,27 +828,14 @@ class MainActivity : ComponentActivity() {
                                         Text("Voice Assistant", color = Color(0xFFF5F7FF), fontSize = 21.sp, fontWeight = FontWeight.Bold, letterSpacing = .1.sp)
                                         Text("Tap to start or say “Hey Myra”", color = Color(0xFFB6C5DE), fontSize = 11.sp, fontWeight = FontWeight.Medium, letterSpacing = .1.sp)
                                     }
-                                    val voiceStatusAccent = when {
-                                        voiceMuted -> Color(0xFF8298B8)
-                                        voiceFailed -> Color(0xFF55E7F5)
-                                        status.contains("THINK", true) || status.contains("PROCESS", true) || status.contains("REPLY", true) -> Color(0xFFB46CFF)
-                                        voiceReady -> Color(0xFF66F0BC)
-                                        else -> Color(0xFF53E5F5)
-                                    }
-                                    Surface(shape = RoundedCornerShape(30.dp), color = Color(0xFF0D192B), border = androidx.compose.foundation.BorderStroke(1.dp, voiceStatusAccent.copy(alpha = .8f))) {
-                                        Row(Modifier.padding(horizontal = 10.dp, vertical = 7.dp), verticalAlignment = Alignment.CenterVertically) {
-                                            Box(Modifier.size(6.dp).clip(CircleShape).background(voiceStatusAccent))
-                                            Spacer(Modifier.width(7.dp))
-                                            Text(
-                                                when {
-                                                    voiceMuted -> "MIC MUTED"
-                                                    voiceFailed -> "CHECK SETUP"
-                                                    status.contains("THINK", true) || status.contains("PROCESS", true) || status.contains("REPLY", true) -> "PROCESSING"
-                                                    voiceReady -> "CONNECTED"
-                                                    else -> "STANDBY"
-                                                },
-                                                color = voiceStatusAccent, fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = .35.sp
-                                            )
+                                    Surface(
+                                        onClick = { showSettings = true },
+                                        shape = RoundedCornerShape(14.dp),
+                                        color = Color(0xFF0D192B),
+                                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))
+                                    ) {
+                                        Box(Modifier.size(38.dp), contentAlignment = Alignment.Center) {
+                                            Text("⚙", color = Color(0xFFF5F7FF), fontSize = 20.sp)
                                         }
                                     }
                                 }
