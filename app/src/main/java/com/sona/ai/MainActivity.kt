@@ -1152,10 +1152,10 @@ class MainActivity : ComponentActivity() {
                                 Spacer(Modifier.width(10.dp))
                                 Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                     Text("MYRA", color = Color(0xFFF5F7FF), fontSize = 24.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.1.sp)
-                                     Text("AI CONVERSATION SPACE", color = Color(0xFF8298B8), fontSize = 8.sp, fontWeight = FontWeight.Medium, letterSpacing = 1.3.sp)
+                                     Text("AI CONVERSATION SPACE", color = Color(0xFF9CB4D0), fontSize = 9.sp, fontWeight = FontWeight.SemiBold, letterSpacing = 1.45.sp)
                                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                         Box(Modifier.size(6.dp).clip(CircleShape).background(Color(0xFF73DFFF)))
-                                        Text("ONLINE  •  READY TO HELP", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.05.sp)
+                                        Text("ONLINE  •  READY TO HELP", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.15.sp)
                                     }
                                 }
                                 Surface(
@@ -1550,12 +1550,12 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                             Row(
-                                modifier = Modifier.fillMaxWidth().padding(top = 3.dp),
+                                modifier = Modifier.fillMaxWidth().padding(top = 5.dp, bottom = 2.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
-                                Box(Modifier.width(3.dp).height(16.dp).clip(CircleShape).background(Color(0xFFFF3155)))
-                                Text("MESSAGE COMPOSER", color = Color(0xFF9CB4D0), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.1.sp)
+                                Box(Modifier.width(3.dp).height(16.dp).clip(CircleShape).background(Brush.verticalGradient(listOf(Color(0xFF73DFFF), Color(0xFFFF3155)))))
+                                Text("MESSAGE COMPOSER", color = Color(0xFFB8C5DA), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
                                 Spacer(Modifier.weight(1f))
                                 Text("SECURE SESSION", color = Color(0xFF536A89), fontSize = 8.sp, letterSpacing = .5.sp)
                             }
