@@ -1528,7 +1528,7 @@ class MainActivity : ComponentActivity() {
                                     TextButton(onClick = { showChat = false; showSettings = true }) { Text("Open Settings", color = Color(0xFFFF3155)) }
                                 }
                             }
-                            Text("CHAT TYPE", color = Color(0xFFB8C5DA), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp, modifier = Modifier.padding(top = 8.dp))
+                            Text("CHAT TYPE", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp, modifier = Modifier.padding(top = 10.dp))
                             Row(
                                 modifier = Modifier.fillMaxWidth().horizontalScroll(androidx.compose.foundation.rememberScrollState()),
                                 horizontalArrangement = Arrangement.spacedBy(7.dp),
@@ -1597,7 +1597,7 @@ class MainActivity : ComponentActivity() {
                                 horizontalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
                                 Box(Modifier.width(3.dp).height(16.dp).clip(CircleShape).background(Brush.verticalGradient(listOf(Color(0xFF73DFFF), Color(0xFFFF3155)))))
-                                Text("MESSAGE COMPOSER", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                                Text("MESSAGE COMPOSER", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.8.sp)
                                 Spacer(Modifier.weight(1f))
                                 Text("✦ SECURE SESSION", color = Color(0xFFFF3155), fontSize = 8.sp, letterSpacing = .7.sp)
                             }
@@ -1605,7 +1605,7 @@ class MainActivity : ComponentActivity() {
                                     value = chatDraft,
                                     onValueChange = { chatDraft = it },
                                     modifier = Modifier.fillMaxWidth(),
-                                    placeholder = { Text(if (busy) "MYRA IS REPLYING…" else "Message MYRA…", color = Color(0xFF8298B8), fontSize = 13.sp) },
+                                    placeholder = { Text(if (busy) "MYRA IS REPLYING…" else "Ask anything…", color = Color(0xFF8298B8), fontSize = 13.sp) },
                                     leadingIcon = { Text("✦", color = Color(0xFF73DFFF), fontSize = 18.sp) },
                                     label = { Text("ASK MYRA", color = Color(0xFF73DFFF), letterSpacing = .8.sp) },
                                     minLines = 1,
