@@ -52,7 +52,13 @@ class LiveVoiceSession(
      * Update the voice conversation's style without reconnecting the audio session.
      * Gemini Live accepts client content turns while the WebSocket session is active.
      */
-    fun setBossMode(enabled: Boolean) {
+    fun setBossMode(enabled: Boolean): Boolean {
+        // A session object can exist while the WebSocket is still connecting.
+        // Do not report the mode as active until Gemini Live setup has completed.
+        if (!running.get() || !setupCompleted.get()) {
+            onStatus("BOSS MODE • WAITING FOR VOICE CONNECTION")
+            return false
+        }
         val instruction = if (enabled) {
             "System-style preference for the rest of this conversation: Boss Mode is ON. Be proactive, concise, confident and action-oriented. Offer clear next steps. Always ask for confirmation before sensitive actions or device-changing actions."
         } else {
@@ -66,6 +72,7 @@ class LiveVoiceSession(
         val sent = socket?.send(message.toString()) == true
         if (!sent) onStatus("BOSS MODE • WAITING FOR VOICE CONNECTION")
         else onStatus(if (enabled) "BOSS MODE ACTIVE" else "LIVE • SPEAK TO MYRA")
+        return sent
     }
 
     fun start() {
