@@ -876,6 +876,11 @@ class MainActivity : ComponentActivity() {
                 var savedChat by remember { mutableStateOf(chatPrefs.getString("conversation_history", "").orEmpty()) }
                 var selectedChatCategory by remember { mutableStateOf("General Chat") }
                 var selectedChatTab by remember { mutableStateOf("Conversations") }
+                var showChatSearch by remember { mutableStateOf(false) }
+                var chatSearchQuery by remember { mutableStateOf("") }
+                val chatSearchResult = if (chatSearchQuery.isBlank()) savedChat else savedChat.lines()
+                    .filter { it.contains(chatSearchQuery, ignoreCase = true) }
+                    .joinToString("\n")
                 val chatCategories = listOf("General Chat", "Study Help", "Image Generation", "Code Assistant", "Travel Plans", "Health & Fitness", "Creative Ideas")
                 Dialog(
                     onDismissRequest = { showChat = false },
@@ -900,16 +905,38 @@ class MainActivity : ComponentActivity() {
                                         Text("M", color = Color(0xFFFF3155), fontSize = 23.sp, fontWeight = FontWeight.Black)
                                     }
                                     Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                                        Text("MYRA AI", color = Color(0xFFF5F7FF), fontSize = 20.sp, fontWeight = FontWeight.Bold, letterSpacing = .7.sp)
+                                        Text("Chat", color = Color(0xFFF5F7FF), fontSize = 20.sp, fontWeight = FontWeight.Bold, letterSpacing = .2.sp)
                                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                                             Box(Modifier.size(6.dp).clip(CircleShape).background(if (apiKey.isBlank()) Color(0xFFFFB36B) else if (busy) Color(0xFFFF3155) else Color(0xFF66F0BC)))
                                             Text(if (busy) "THINKING…" else if (apiKey.isBlank()) "SETUP REQUIRED" else "ONLINE • READY", color = Color(0xFF9CB4D0), fontSize = 9.sp, letterSpacing = .6.sp)
                                         }
                                     }
                                 }
-                                TextButton(onClick = { showChat = false }) { Text("✕", color = Color(0xFFFF3155), fontSize = 20.sp) }
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    TextButton(onClick = { showChatSearch = !showChatSearch; if (!showChatSearch) chatSearchQuery = "" }) {
+                                        Text("⌕", color = if (showChatSearch) Color(0xFFFF3155) else Color(0xFFF5F7FF), fontSize = 25.sp)
+                                    }
+                                    TextButton(onClick = { showChat = false }) { Text("✕", color = Color(0xFFFF3155), fontSize = 20.sp) }
+                                }
                             }
                             HorizontalDivider(color = Color(0xFF314B6A))
+                            if (showChatSearch) {
+                                OutlinedTextField(
+                                    value = chatSearchQuery,
+                                    onValueChange = { chatSearchQuery = it },
+                                    modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+                                    singleLine = true,
+                                    placeholder = { Text("Search conversations…", color = Color(0xFF8198B5)) },
+                                    leadingIcon = { Text("⌕", color = Color(0xFFFF3155), fontSize = 20.sp) },
+                                    shape = RoundedCornerShape(16.dp),
+                                    colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
+                                        focusedTextColor = Color(0xFFF5F7FF), unfocusedTextColor = Color(0xFFF5F7FF),
+                                        focusedBorderColor = Color(0xFFFF3155), unfocusedBorderColor = Color(0xFF314B6A),
+                                        focusedContainerColor = Color(0xFF0D192B), unfocusedContainerColor = Color(0xFF0D192B),
+                                        cursorColor = Color(0xFFFF3155)
+                                    )
+                                )
+                            }
                             Row(
                                 Modifier.fillMaxWidth().padding(top = 10.dp, bottom = 4.dp),
                                 horizontalArrangement = Arrangement.spacedBy(10.dp),
@@ -1019,7 +1046,8 @@ class MainActivity : ComponentActivity() {
                                         Box(Modifier.fillMaxWidth().height(1.dp).background(Color(0xFF314B6A)))
                                         Text(
                                             if (savedChat.isBlank()) "Hey, I’m Myra ✦\nYour personal AI companion. Ask a question, explore an idea, or tell me what you need help with."
-                                            else savedChat.replace("\\\\n", "\\n"),
+                                            else if (chatSearchQuery.isBlank()) savedChat.replace("\\\\n", "\\n")
+                                            else chatSearchResult.replace("\\\\n", "\\n").ifBlank { "No matching conversation text found." },
                                             color = Color(0xFFF5F7FF), fontSize = 14.sp, lineHeight = 22.sp
                                         )
                                         if (savedChat.isNotBlank()) {
