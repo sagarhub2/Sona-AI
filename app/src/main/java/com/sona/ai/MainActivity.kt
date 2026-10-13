@@ -781,10 +781,28 @@ class MainActivity : ComponentActivity() {
                                     Box(Modifier.size(216.dp).rotate(orbRotation).border(1.dp, Color(0xFFE83E5B).copy(alpha = .48f), CircleShape))
                                     Box(Modifier.size(198.dp).rotate(-orbRotation).border(1.dp, Color(0xFFF2C66D).copy(alpha = .72f), CircleShape))
                                     Box(Modifier.size(184.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF080508), Color(0xFF8D174B), Color(0xFFE83E5B), Color(0xFF020202)))).border(2.dp, Color(0xFFFFE3A5).copy(alpha = .8f), CircleShape))
-                                    Box(Modifier.size(146.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF28151B).copy(alpha = .95f), Color(0xFFE83E5B), Color(0xFFE83E5B), Color.Transparent))))
-                                    Box(Modifier.size(72.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFFE3A5), Color(0xFFE83E5B), Color(0xFF30164D)))))
+                                    // Keep the emblem visibly black at its core; the red light stays on the rim.
+                                    Box(Modifier.size(146.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF020202), Color(0xFF080508), Color(0xFFE83E5B).copy(alpha = .78f), Color.Transparent))))
+                                    Box(Modifier.size(72.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF020202), Color(0xFF050505), Color(0xFF2A080E)))).border(1.dp, Color(0xFFE83E5B).copy(alpha = .8f), CircleShape))
                                 }
-                                Spacer(Modifier.height(12.dp))
+                                // Compact waveform gives the voice state a visible, reference-style cue.
+                                Row(
+                                    Modifier.fillMaxWidth().height(30.dp),
+                                    horizontalArrangement = Arrangement.Center,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    val waveformHeights = listOf(7, 12, 18, 10, 22, 14, 26, 16, 11, 23, 14, 19, 9, 15, 7)
+                                    waveformHeights.forEachIndexed { index, height ->
+                                        Box(
+                                            Modifier.padding(horizontal = 2.dp)
+                                                .width(3.dp)
+                                                .height((if (status.contains("LISTEN", true) || status.contains("LIVE", true)) height else 5).dp)
+                                                .clip(RoundedCornerShape(4.dp))
+                                                .background(if (index % 4 == 0) Color(0xFFF2C66D) else Color(0xFFE83E5B))
+                                        )
+                                    }
+                                }
+                                Spacer(Modifier.height(5.dp))
                                 androidx.compose.material3.FilledTonalButton(
                                     onClick = { bossMode = !bossMode },
                                     colors = androidx.compose.material3.ButtonDefaults.filledTonalButtonColors(containerColor = if (bossMode) Color(0xFFE83E5B) else Color(0xFFFFFBFC), contentColor = if (bossMode) Color.White else Color(0xFFE83E5B)),
@@ -909,6 +927,14 @@ class MainActivity : ComponentActivity() {
                                 }
                                 Spacer(Modifier.weight(1f))
                                 Surface(
+                                    onClick = {
+                                        chatDraft = ""
+                                        pendingMessage = ""
+                                        selectedChatCategory = "General Chat"
+                                        selectedChatTab = "Conversations"
+                                        status = "NEW CHAT DRAFT READY"
+                                        android.widget.Toast.makeText(this@MainActivity, "New chat draft ready", android.widget.Toast.LENGTH_SHORT).show()
+                                    },
                                     shape = CircleShape,
                                     color = Color(0xFFFFEFF2),
                                     border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x66E83E5B))
