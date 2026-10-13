@@ -787,7 +787,7 @@ class MainActivity : ComponentActivity() {
                                     Spacer(Modifier.width(9.dp))
                                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                         Text("Voice Mode", color = Color(0xFFF5F7FF), fontSize = 20.sp, fontWeight = FontWeight.SemiBold, letterSpacing = .1.sp)
-                                        Text("LIVE VOICE ASSISTANT", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.35.sp)
+                                        Text("MYRA LIVE • VOICE AI", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.35.sp)
                                     }
                                     val voiceStatusAccent = when {
                                         voiceMuted -> Color(0xFF8298B8)
@@ -946,7 +946,7 @@ class MainActivity : ComponentActivity() {
                                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                                 ) {
                                     Box(Modifier.width(3.dp).height(14.dp).clip(CircleShape).background(Brush.verticalGradient(listOf(Color(0xFF73DFFF), Color(0xFFFF3155)))))
-                                    Text("VOICE CONTROLS", color = Color(0xFFB8C5DA), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                                    Text("VOICE CONTROLS", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
                                     Spacer(Modifier.weight(1f))
                                     Text(if (bossMode) "BOSS MODE ACTIVE" else "READY WHEN YOU ARE", color = if (bossMode) Color(0xFFFFB547) else Color(0xFF536A89), fontSize = 8.sp, letterSpacing = .35.sp)
                                 }
@@ -977,7 +977,7 @@ class MainActivity : ComponentActivity() {
                                 Surface(
                                     color = Color(0xFF0D192B),
                                     shape = RoundedCornerShape(18.dp),
-                                    border = androidx.compose.foundation.BorderStroke(1.dp, if (voiceMuted) Color(0xFF536A89) else Color(0xFF314B6A))
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, if (voiceMuted) Color(0xFF536A89) else Color(0xFF73DFFF).copy(alpha = .48f))
                                 ) {
                                     Row(
                                         Modifier.fillMaxWidth().padding(horizontal = 13.dp, vertical = 11.dp),
@@ -1008,7 +1008,7 @@ class MainActivity : ComponentActivity() {
                                 Spacer(Modifier.height(10.dp))
                                 Surface(modifier = Modifier.fillMaxWidth(), color = Color(0xFF0D192B).copy(alpha = .96f), shape = RoundedCornerShape(22.dp), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))) {
                                     Column(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(5.dp)) {
-                                         Text("LIVE TRANSCRIPT", color = Color(0xFFFF3155), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                                         Text("LIVE TRANSCRIPT", color = Color(0xFF73DFFF), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
                                          Text(heardText.ifBlank { "I’m listening. Start speaking whenever you’re ready." }, color = Color(0xFFF5F7FF), fontSize = 13.sp, lineHeight = 20.sp, textAlign = TextAlign.Center, maxLines = 3, overflow = TextOverflow.Ellipsis)
                                      }
                                 }
