@@ -5543,46 +5543,8 @@ private fun MyraHome(
                 HomeGlassCard("Camera", "See & analyze", "◎", Color(0xFF28D9B0), Modifier.weight(1f)) { onCamera() }
                 HomeGlassCard("Memory", "Remember", "✧", Color(0xFF9D7BFF), Modifier.weight(1f)) { onMemory() }
             }
-            Row(
-                Modifier.fillMaxWidth().padding(top = 13.dp, bottom = 5.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text("Quick Actions", color = Color(0xFFF5F7FF), fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
-                Spacer(Modifier.weight(1f))
-                Text("SHORTCUTS", color = Color(0xFF7F95B5), fontSize = 8.sp, letterSpacing = 1.sp)
-            }
-            Row(Modifier.fillMaxWidth().padding(bottom = 4.dp), horizontalArrangement = Arrangement.SpaceAround) {
-                listOf(
-                    Triple("Chat", "✉", Color(0xFF55E7F5)),
-                    Triple("Camera", "◎", Color(0xFF28D9B0)),
-                    Triple("Files", "⌁", Color(0xFFB46CFF)),
-                    Triple("Settings", "⚙", Color(0xFFFFB547))
-                ).forEachIndexed { index, item ->
-                    Column(
-                        modifier = Modifier.weight(1f).clip(RoundedCornerShape(15.dp))
-                            .clickable {
-                                when (index) {
-                                    0 -> onChat()
-                                    1 -> onCamera()
-                                    2 -> onFiles()
-                                    else -> onSettings()
-                                }
-                            }.padding(vertical = 7.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(5.dp)
-                    ) {
-                        Box(
-                            Modifier.size(42.dp).clip(CircleShape)
-                                .background(Brush.radialGradient(listOf(item.third.copy(alpha = .35f), Color(0xFF0B1424))))
-                                .border(1.dp, item.third.copy(alpha = .65f), CircleShape),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(item.second, color = item.third, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                        }
-                        Text(item.first, color = Color(0xFFDCE7FA), fontSize = 9.sp, maxLines = 1)
-                    }
-                }
-            }
+            // Keep the Home shortcuts focused: Chat, Voice, Camera and Memory are already
+            // presented in the Quick Access cards above, so duplicate shortcut rows are omitted.
             // Secondary tools and workspace shortcuts are intentionally kept off Home.
         // They remain available from the Settings / Profile and feature menus.
         // Floating HUD-style navigation: separated from the screen edge with a soft holographic rim.
