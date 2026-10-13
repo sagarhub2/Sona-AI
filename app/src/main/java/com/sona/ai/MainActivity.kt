@@ -825,7 +825,7 @@ class MainActivity : ComponentActivity() {
                                     Spacer(Modifier.width(9.dp))
                                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                         Text("MYRA VOICE", color = Color(0xFFF5F7FF), fontSize = 22.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 1.1.sp)
-                                        Text("LIVE VOICE  •  NATURAL CONVERSATION", color = Color(0xFF53E5F5), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.05.sp)
+                                        Text("LIVE VOICE  •  HANDS-FREE AI COMPANION", color = Color(0xFF53E5F5), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.05.sp)
                                     }
                                     val voiceStatusAccent = when {
                                         voiceMuted -> Color(0xFF8298B8)
@@ -1335,7 +1335,7 @@ class MainActivity : ComponentActivity() {
                                     onValueChange = { chatSearchQuery = it },
                                     modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
                                     singleLine = true,
-                                    placeholder = { Text("Search conversations…", color = Color(0xFF8198B5)) },
+                                    placeholder = { Text("Search your MYRA conversations…", color = Color(0xFF8198B5)) },
                                     leadingIcon = { Text("⌕", color = Color(0xFF55E7F5), fontSize = 20.sp) },
                                     trailingIcon = {
                                         if (chatSearchQuery.isNotEmpty()) {
@@ -1391,7 +1391,7 @@ class MainActivity : ComponentActivity() {
                                     border = androidx.compose.foundation.BorderStroke(1.dp, if (showSessionList) Color(0xFF9666FF) else Color(0xFF314B6A))
                                 ) {
                                     Text(
-                                        "My chats ${chatSessions.size}",
+                                        "SAVED CHATS  •  ${chatSessions.size}",
                                         modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
                                         color = Color(0xFFF5F7FF), fontSize = 12.sp, fontWeight = FontWeight.Medium
                                     )
@@ -1416,8 +1416,8 @@ class MainActivity : ComponentActivity() {
                                         }
                                         if (chatSessions.isEmpty()) {
                                             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                                                Text("NO SAVED CHATS YET", color = Color(0xFFBBA0FF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = .7.sp)
-                                                Text("Start a new chat or send your first message. MYRA conversations will appear here.", color = Color(0xFF9CB4D0), fontSize = 12.sp)
+                                                Text("YOUR CHAT SPACE IS EMPTY", color = Color(0xFFBBA0FF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = .7.sp)
+                                                Text("Start a conversation with MYRA. Your saved chats will appear here for quick access.", color = Color(0xFF9CB4D0), fontSize = 12.sp)
                                             }
                                         } else {
                                             chatSessions.forEach { (sessionId, transcript) ->
