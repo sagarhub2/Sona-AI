@@ -5265,7 +5265,9 @@ private fun MyraHome(
                     }
                 }
             }
-            // Secondary tools and workspace shortcuts are intentionally kept off Home.\n        // They remain available from the Settings / Profile and feature menus.\n        Row(
+            // Secondary tools and workspace shortcuts are intentionally kept off Home.
+        // They remain available from the Settings / Profile and feature menus.
+        Row(
             Modifier.fillMaxWidth().background(Color(0xFF0D192B)).border(1.dp, Color(0x33FF3155))
                 .padding(horizontal = 12.dp, vertical = 7.dp),
             horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically
