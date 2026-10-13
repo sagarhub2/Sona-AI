@@ -1234,8 +1234,8 @@ class MainActivity : ComponentActivity() {
                                             }
                                         },
                                         shape = RoundedCornerShape(18.dp),
-                                        color = if (active) Color(0xFFFF3155) else Color(0xFF0D192B),
-                                        border = androidx.compose.foundation.BorderStroke(1.dp, if (active) Color(0xFFFF3155) else Color(0xFF314B6A))
+                                        color = if (active) Color(0xFF14283D) else Color(0xFF0D192B),
+                                        border = androidx.compose.foundation.BorderStroke(1.dp, if (active) Color(0xFF73DFFF) else Color(0xFF314B6A))
                                     ) {
                                         Text(
                                             tab,
@@ -1249,8 +1249,8 @@ class MainActivity : ComponentActivity() {
                                 Surface(
                                     onClick = { showSessionList = !showSessionList },
                                     shape = RoundedCornerShape(18.dp),
-                                    color = if (showSessionList) Color(0xFFFF3155) else Color(0xFF0D192B),
-                                    border = androidx.compose.foundation.BorderStroke(1.dp, if (showSessionList) Color(0xFFFF3155) else Color(0xFF314B6A))
+                                    color = if (showSessionList) Color(0xFF14283D) else Color(0xFF0D192B),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, if (showSessionList) Color(0xFF73DFFF) else Color(0xFF314B6A))
                                 ) {
                                     Text(
                                         "My chats ${chatSessions.size}",
@@ -1272,7 +1272,10 @@ class MainActivity : ComponentActivity() {
                                             .verticalScroll(androidx.compose.foundation.rememberScrollState()),
                                         verticalArrangement = Arrangement.spacedBy(6.dp)
                                     ) {
-                                        Text("SAVED CONVERSATIONS", color = Color(0xFFFF3155), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(7.dp)) {
+                                            Box(Modifier.size(6.dp).clip(CircleShape).background(Color(0xFF73DFFF)))
+                                            Text("SAVED CONVERSATIONS", color = Color(0xFF73DFFF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                                        }
                                         if (chatSessions.isEmpty()) {
                                             Text("Your chats will appear here after your first message.", color = Color(0xFF9CB4D0), fontSize = 12.sp)
                                         } else {
