@@ -818,6 +818,7 @@ class MainActivity : ComponentActivity() {
                                     Text(
                                         when {
                                             voiceMuted -> "MICROPHONE MUTED"
+                                            voiceFailed -> "VOICE NEEDS ATTENTION"
                                             status.contains("THINK", true) || status.contains("PROCESS", true) || status.contains("REPLY", true) -> "PROCESSING"
                                             status.contains("CONNECT", true) || status.contains("LISTEN", true) || status.contains("LIVE", true) -> "I’M LISTENING"
                                             else -> "VOICE SESSION"
@@ -832,6 +833,7 @@ class MainActivity : ComponentActivity() {
                                     Text(
                                         when {
                                             voiceMuted -> "Tap unmute when you’re ready"
+                                            voiceFailed -> "Check microphone permission or voice setup"
                                             status.contains("THINK", true) || status.contains("PROCESS", true) || status.contains("REPLY", true) -> "Give me a moment — I’m working on it"
                                             status.contains("CONNECT", true) || status.contains("LISTEN", true) || status.contains("LIVE", true) -> "Speak naturally — I’m right here"
                                             else -> "Start a voice session when you’re ready"
