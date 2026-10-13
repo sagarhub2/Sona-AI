@@ -809,7 +809,14 @@ class MainActivity : ComponentActivity() {
                                                 .width(3.dp)
                                                 .height((if (status.contains("LISTEN", true) || status.contains("LIVE", true)) height else 5).dp)
                                                 .clip(RoundedCornerShape(4.dp))
-                                                .background(if (index % 4 == 0) Color(0xFFFF3155) else Color(0xFFFF3155))
+                                                .background(
+                                                    when {
+                                                        voiceMuted -> Color(0xFF314B6A)
+                                                        index % 5 == 0 -> Color(0xFF73DFFF)
+                                                        index % 3 == 0 -> Color(0xFFFF7890)
+                                                        else -> Color(0xFFFF3155)
+                                                    }
+                                                )
                                         )
                                     }
                                 }
