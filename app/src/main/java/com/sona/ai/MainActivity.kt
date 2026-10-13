@@ -1090,6 +1090,20 @@ class MainActivity : ComponentActivity() {
                                             }
                                         }
                                         Box(Modifier.fillMaxWidth().height(1.dp).background(Color(0xFF314B6A)))
+                                        Row(
+                                            Modifier.fillMaxWidth(),
+                                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                            verticalAlignment = Alignment.CenterVertically
+                                        ) {
+                                            Box(Modifier.size(5.dp).clip(CircleShape).background(Color(0xFFFF3155)))
+                                            Text(
+                                                if (savedChat.isBlank()) "MYRA IS READY" else "LAST CONVERSATION",
+                                                color = Color(0xFF9CB4D0), fontSize = 8.sp,
+                                                fontWeight = FontWeight.Bold, letterSpacing = 1.sp
+                                            )
+                                            Spacer(Modifier.weight(1f))
+                                            Text("AI COMPANION", color = Color(0xFFFF3155), fontSize = 8.sp, letterSpacing = .5.sp)
+                                        }
                                         Text(
                                             if (savedChat.isBlank()) "Hey, I’m Myra ✦\nYour personal AI companion. Ask a question, explore an idea, or tell me what you need help with."
                                             else if (chatSearchQuery.isBlank()) savedChat.replace("\\\\n", "\\n")
