@@ -1238,9 +1238,9 @@ class MainActivity : ComponentActivity() {
                                     value = chatDraft,
                                     onValueChange = { chatDraft = it },
                                     modifier = Modifier.fillMaxWidth(),
-                                    placeholder = { Text(if (busy) "Myra is replying…" else "Type a message…", color = Color(0xFF314B6A)) },
-                                    leadingIcon = { Text("＋", color = Color(0xFFFF3155), fontSize = 21.sp) },
-                                    label = { Text("Message", color = Color(0xFFFF3155)) },
+                                    placeholder = { Text(if (busy) "MYRA IS REPLYING…" else "Message MYRA…", color = Color(0xFF8298B8), fontSize = 13.sp) },
+                                    leadingIcon = { Text("✦", color = Color(0xFFFF3155), fontSize = 18.sp) },
+                                    label = { Text("ASK MYRA", color = Color(0xFFFF3155), letterSpacing = .8.sp) },
                                     minLines = 1,
                                     maxLines = 4,
                                     enabled = !busy,
@@ -1262,7 +1262,7 @@ class MainActivity : ComponentActivity() {
                             Spacer(Modifier.height(8.dp))
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
                                 Text(
-                                    if (busy) "MYRA IS THINKING…" else if (chatDraft.isNotBlank()) "${chatDraft.length} characters • Draft not sent" else "PRIVATE CHAT  •  REPLIES APPEAR HERE",
+                                    if (busy) "MYRA IS THINKING…" else if (chatDraft.isNotBlank()) "${chatDraft.length} CHARACTERS  •  DRAFT NOT SENT" else "YOUR SPACE TO THINK, ASK & CREATE",
                                     color = Color(0xFF314B6A), fontSize = 9.sp, letterSpacing = .25.sp, modifier = Modifier.weight(1f)
                                 )
                                 if (chatDraft.isNotBlank() && !busy) {
