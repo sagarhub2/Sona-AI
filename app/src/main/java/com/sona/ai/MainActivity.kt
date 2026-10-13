@@ -557,11 +557,11 @@ class MainActivity : ComponentActivity() {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
                                 .background(Brush.horizontalGradient(listOf(Color(0xFF101D31), Color(0xFF0B1424), Color(0xFF071426))))
-                                .border(1.dp, Color(0xFF8D5CFF), RoundedCornerShape(18.dp))
+                                .border(1.dp, Color(0xFFFF3155), RoundedCornerShape(18.dp))
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
-                            Text("◈  MYRA AI • DOCUMENT HUB", color = Color(0xFFFF4D9D), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.4.sp)
+                            Text("◈  MYRA AI • DOCUMENT HUB", color = Color(0xFFFF3155), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.4.sp)
                             Text("Files & documents", color = Color(0xFFF5F7FF), fontSize = 21.sp, fontWeight = FontWeight.Bold)
                             Text("Choose what you want to open from your phone.", color = Color(0xFF9EABC2), fontSize = 12.sp)
                         }
@@ -587,7 +587,7 @@ class MainActivity : ComponentActivity() {
                                     modifier = Modifier.fillMaxWidth(),
                                     shape = RoundedCornerShape(16.dp),
                                     color = Color(0xFF0B1424),
-                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF8D5CFF)),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFF3155)),
                                     shadowElevation = 1.dp
                                 ) {
                                     Row(
@@ -597,17 +597,17 @@ class MainActivity : ComponentActivity() {
                                         Box(
                                             Modifier.size(44.dp).clip(RoundedCornerShape(13.dp))
                                                 .background(Color(0xFF101D31))
-                                                .border(1.dp, Color(0xFF8D5CFF), RoundedCornerShape(13.dp)),
+                                                .border(1.dp, Color(0xFFFF3155), RoundedCornerShape(13.dp)),
                                             contentAlignment = Alignment.Center
                                         ) {
-                                            Text(icon, color = Color(0xFFFF4D9D), fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                                            Text(icon, color = Color(0xFFFF3155), fontSize = 22.sp, fontWeight = FontWeight.Bold)
                                         }
                                         Spacer(Modifier.width(12.dp))
                                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                             Text(heading, color = Color(0xFFF5F7FF), fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
                                             Text(detail, color = Color(0xFF9EABC2), fontSize = 11.sp)
                                         }
-                                        Text("›", color = Color(0xFFFF4D9D), fontSize = 24.sp)
+                                        Text("›", color = Color(0xFFFF3155), fontSize = 24.sp)
                                     }
                                 }
                             }
@@ -625,7 +625,7 @@ class MainActivity : ComponentActivity() {
                                     Text("Choose files explicitly; Android controls access.", color = Color(0xFF9EABC2), fontSize = 10.sp)
                                 }
                             }
-                            Text("CHOOSE A FILE TYPE", color = Color(0xFFFF4D9D), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                            Text("CHOOSE A FILE TYPE", color = Color(0xFFFF3155), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
                             FileTypeCard("▤", "All files", "Browse available file types", "*/*")
                             FileTypeCard("PDF", "PDF documents", "Choose a PDF file", "application/pdf")
                             FileTypeCard("▧", "Photos & images", "Choose an image from storage", "image/*")
@@ -635,7 +635,7 @@ class MainActivity : ComponentActivity() {
                     },
                     confirmButton = {
                         TextButton(onClick = { showFiles = false }) {
-                            Text("Close", color = Color(0xFFFF4D9D), fontWeight = FontWeight.SemiBold)
+                            Text("Close", color = Color(0xFFFF3155), fontWeight = FontWeight.SemiBold)
                         }
                     }
                 )
@@ -658,19 +658,19 @@ class MainActivity : ComponentActivity() {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(21.dp))
                                 .background(Brush.linearGradient(listOf(Color(0xFF101D31), Color(0xFF071426), Color(0xFF0B1424))))
-                                .border(1.dp, Color(0xFF8D5CFF), RoundedCornerShape(21.dp))
+                                .border(1.dp, Color(0xFFFF3155), RoundedCornerShape(21.dp))
                                 .padding(16.dp),
                             verticalArrangement = Arrangement.spacedBy(7.dp)
                         ) {
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(11.dp)) {
                                 Box(
                                     Modifier.size(48.dp).clip(RoundedCornerShape(15.dp))
-                                        .background(Brush.linearGradient(listOf(Color(0xFF8D5CFF), Color(0xFFFF4D9D))))
-                                        .border(1.dp, Color(0xFF8D5CFF), RoundedCornerShape(15.dp)),
+                                        .background(Brush.linearGradient(listOf(Color(0xFFFF3155), Color(0xFFFF3155))))
+                                        .border(1.dp, Color(0xFFFF3155), RoundedCornerShape(15.dp)),
                                     contentAlignment = Alignment.Center
                                 ) { Text("▣", color = Color(0xFF071426), fontSize = 25.sp, fontWeight = FontWeight.Bold) }
                                 Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                                    Text("MYRA AI • SYSTEM STATUS", color = Color(0xFFFF4D9D), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.1.sp)
+                                    Text("MYRA AI • SYSTEM STATUS", color = Color(0xFFFF3155), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.1.sp)
                                     Text("Device Info", color = Color(0xFFF5F7FF), fontSize = 23.sp, fontWeight = FontWeight.Bold)
                                 }
                             }
@@ -685,7 +685,7 @@ class MainActivity : ComponentActivity() {
                                     modifier = Modifier.fillMaxWidth(),
                                     shape = RoundedCornerShape(16.dp),
                                     color = Color(0xFF071426),
-                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF8D5CFF)),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFF3155)),
                                     tonalElevation = 0.dp
                                 ) {
                                     Row(
@@ -696,9 +696,9 @@ class MainActivity : ComponentActivity() {
                                         Box(
                                             Modifier.size(39.dp).clip(RoundedCornerShape(12.dp))
                                                 .background(Color(0xFF101D31))
-                                                .border(1.dp, Color(0xFF8D5CFF), RoundedCornerShape(12.dp)),
+                                                .border(1.dp, Color(0xFFFF3155), RoundedCornerShape(12.dp)),
                                             contentAlignment = Alignment.Center
-                                        ) { Text(icon, color = Color(0xFFFF4D9D), fontSize = 20.sp, fontWeight = FontWeight.Bold) }
+                                        ) { Text(icon, color = Color(0xFFFF3155), fontSize = 20.sp, fontWeight = FontWeight.Bold) }
                                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                             Text(label.uppercase(), color = Color(0xFF9EABC2), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = .7.sp)
                                             Text(value, color = Color(0xFFF5F7FF), fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
@@ -717,7 +717,7 @@ class MainActivity : ComponentActivity() {
                         Button(
                             onClick = { showDeviceInfo = false },
                             shape = RoundedCornerShape(14.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF4D9D))
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF3155))
                         ) { Text("DONE", color = Color(0xFF071426), fontWeight = FontWeight.Bold) }
                     }
                 )
@@ -1212,7 +1212,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(26.dp),
                     containerColor = Color(0xFF071426),
-                    titleContentColor = Color(0xFFFF4D9D),
+                    titleContentColor = Color(0xFFFF3155),
                     textContentColor = Color(0xFF9EABC2),
                     tonalElevation = 0.dp,
                     onDismissRequest = { showHistory = false },
@@ -1224,7 +1224,7 @@ class MainActivity : ComponentActivity() {
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
-                            Text("◈  MYRA AI • HISTORY VAULT", color = Color(0xFFFF4D9D), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.4.sp)
+                            Text("◈  MYRA AI • HISTORY VAULT", color = Color(0xFFFF3155), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.4.sp)
                             Text("Conversation history", color = Color(0xFFF5F7FF), fontSize = 20.sp, fontWeight = FontWeight.Bold)
                             Text("Search through conversations saved on this device.", color = Color(0xFF9EABC2), fontSize = 12.sp)
                         }
@@ -1241,7 +1241,7 @@ class MainActivity : ComponentActivity() {
                                     .padding(12.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text("☷", color = Color(0xFFFF4D9D), fontSize = 24.sp)
+                                Text("☷", color = Color(0xFFFF3155), fontSize = 24.sp)
                                 Spacer(Modifier.width(10.dp))
                                 Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                     Text(if (savedHistory.isBlank()) "No saved conversations" else "Your saved conversations", color = Color(0xFFF5F7FF), fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
@@ -1258,10 +1258,10 @@ class MainActivity : ComponentActivity() {
                                 colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
                                     focusedTextColor = Color(0xFFF5F7FF),
                                     unfocusedTextColor = Color(0xFFF5F7FF),
-                                    focusedBorderColor = Color(0xFFFF4D9D),
+                                    focusedBorderColor = Color(0xFFFF3155),
                                     unfocusedBorderColor = Color(0xFF293B55),
-                                    focusedLabelColor = Color(0xFFFF4D9D),
-                                    cursorColor = Color(0xFFFF4D9D),
+                                    focusedLabelColor = Color(0xFFFF3155),
+                                    cursorColor = Color(0xFFFF3155),
                                     focusedContainerColor = Color(0xFF0B1424),
                                     unfocusedContainerColor = Color(0xFF0B1424)
                                 )
@@ -1278,7 +1278,7 @@ class MainActivity : ComponentActivity() {
                                         color = Color(0xFF9EABC2), fontSize = 11.sp, fontWeight = FontWeight.SemiBold
                                     )
                                     TextButton(onClick = { historyQuery = "" }) {
-                                        Text("Clear search", color = Color(0xFFFF4D9D), fontSize = 12.sp)
+                                        Text("Clear search", color = Color(0xFFFF3155), fontSize = 12.sp)
                                     }
                                 }
                             }
@@ -1304,7 +1304,7 @@ class MainActivity : ComponentActivity() {
                         Button(
                             onClick = { showHistory = false },
                             shape = RoundedCornerShape(13.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF4D9D), contentColor = Color(0xFF101D31)),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF3155), contentColor = Color(0xFF101D31)),
                             contentPadding = PaddingValues(horizontal = 18.dp, vertical = 10.dp)
                         ) { Text("Done", fontWeight = FontWeight.Bold) }
                     },
@@ -1314,7 +1314,7 @@ class MainActivity : ComponentActivity() {
                             status = "CONVERSATION HISTORY CLEARED"
                             heardText = "Conversation history cleared on this device."
                             showHistory = false
-                        }) { Text("Clear history", color = Color(0xFFFF4D9D), fontWeight = FontWeight.SemiBold) }
+                        }) { Text("Clear history", color = Color(0xFFFF3155), fontWeight = FontWeight.SemiBold) }
                     }
                 )
             }
@@ -1339,7 +1339,7 @@ class MainActivity : ComponentActivity() {
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
-                            Text("TASKS & REMINDERS", color = Color(0xFFFF4D9D), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                            Text("TASKS & REMINDERS", color = Color(0xFFFF3155), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
                             Text("Tasks & reminders", color = Color(0xFFF5F7FF), fontSize = 20.sp, fontWeight = FontWeight.Bold)
                             Text("Plan your day, one task at a time.", color = Color(0xFF9EABC2), fontSize = 12.sp)
                         }
@@ -1353,7 +1353,7 @@ class MainActivity : ComponentActivity() {
                                     .padding(12.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text("☷", color = Color(0xFFFF4D9D), fontSize = 25.sp)
+                                Text("☷", color = Color(0xFFFF3155), fontSize = 25.sp)
                                 Spacer(Modifier.width(10.dp))
                                 Column {
                                     Text("${taskLines.size} tasks in your list", color = Color(0xFFF5F7FF), fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
@@ -1371,10 +1371,10 @@ class MainActivity : ComponentActivity() {
                                 colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
                                     focusedTextColor = Color(0xFFF5F7FF),
                                     unfocusedTextColor = Color(0xFFF5F7FF),
-                                    focusedBorderColor = Color(0xFFFF4D9D),
-                                    unfocusedBorderColor = Color(0xFFFF4D9D).copy(alpha = .45f),
-                                    focusedLabelColor = Color(0xFFFF4D9D),
-                                    cursorColor = Color(0xFFFF4D9D),
+                                    focusedBorderColor = Color(0xFFFF3155),
+                                    unfocusedBorderColor = Color(0xFFFF3155).copy(alpha = .45f),
+                                    focusedLabelColor = Color(0xFFFF3155),
+                                    cursorColor = Color(0xFFFF3155),
                                     focusedContainerColor = Color(0xFF0B1424),
                                     unfocusedContainerColor = Color(0xFF0B1424)
                                 )
@@ -1387,7 +1387,7 @@ class MainActivity : ComponentActivity() {
                             ) {
                                 Text(
                                     if (taskDraft == savedTaskDraft) "All changes saved" else "Unsaved changes",
-                                    color = if (taskDraft == savedTaskDraft) Color(0xFFB8F7D4) else Color(0xFFFF4D9D),
+                                    color = if (taskDraft == savedTaskDraft) Color(0xFFB8F7D4) else Color(0xFFFF3155),
                                     fontSize = 11.sp,
                                     fontWeight = FontWeight.SemiBold
                                 )
@@ -1395,10 +1395,10 @@ class MainActivity : ComponentActivity() {
                                     onClick = { taskDraft = "" },
                                     enabled = taskDraft.isNotEmpty()
                                 ) {
-                                    Text("Clear draft", color = if (taskDraft.isNotEmpty()) Color(0xFFFF4D9D) else Color(0xFF78658F), fontSize = 12.sp)
+                                    Text("Clear draft", color = if (taskDraft.isNotEmpty()) Color(0xFFFF3155) else Color(0xFF78658F), fontSize = 12.sp)
                                 }
                             }
-                            Text("TIP  •  Add [x] before a finished task.", color = Color(0xFFFF4D9D), fontSize = 11.sp, letterSpacing = .3.sp)
+                            Text("TIP  •  Add [x] before a finished task.", color = Color(0xFFFF3155), fontSize = 11.sp, letterSpacing = .3.sp)
                         }
                     },
                     confirmButton = {
@@ -1411,7 +1411,7 @@ class MainActivity : ComponentActivity() {
                             },
                             shape = RoundedCornerShape(13.dp),
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = Color(0xFFFF4D9D),
+                                containerColor = Color(0xFFFF3155),
                                 contentColor = Color(0xFFFFFFFF)
                             ),
                             contentPadding = PaddingValues(horizontal = 18.dp, vertical = 10.dp)
@@ -1428,7 +1428,7 @@ class MainActivity : ComponentActivity() {
                                 showTasks = false
                             }
                         ) {
-                            Text("Clear all", color = Color(0xFFFF4D9D), fontWeight = FontWeight.SemiBold)
+                            Text("Clear all", color = Color(0xFFFF3155), fontWeight = FontWeight.SemiBold)
                         }
                     }
                 )
@@ -1440,7 +1440,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(26.dp),
                     containerColor = Color(0xFF071426),
-                    titleContentColor = Color(0xFFFF4D9D),
+                    titleContentColor = Color(0xFFFF3155),
                     textContentColor = Color(0xFF9EABC2),
                     tonalElevation = 0.dp,
                     onDismissRequest = { showMemory = false },
@@ -1452,7 +1452,7 @@ class MainActivity : ComponentActivity() {
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
-                            Text("◈  MYRA AI • SMART MEMORY", color = Color(0xFFFF4D9D), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                            Text("◈  MYRA AI • SMART MEMORY", color = Color(0xFFFF3155), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
                             Text("Your memory vault", color = Color(0xFFF5F7FF), fontSize = 20.sp, fontWeight = FontWeight.Bold)
                             Text("Notes are saved locally on this phone.", color = Color(0xFF9EABC2), fontSize = 12.sp)
                         }
@@ -1462,7 +1462,7 @@ class MainActivity : ComponentActivity() {
                         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                             Row(
                                 Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp))
-                                    .background(Brush.horizontalGradient(listOf(Color(0xFFFF4D9D), Color(0xFF0B1424))))
+                                    .background(Brush.horizontalGradient(listOf(Color(0xFFFF3155), Color(0xFF0B1424))))
                                     .border(1.dp, Color(0xFF293B55), RoundedCornerShape(16.dp))
                                     .padding(13.dp),
                                 verticalAlignment = Alignment.CenterVertically
@@ -1471,7 +1471,7 @@ class MainActivity : ComponentActivity() {
                                     Modifier.size(44.dp).clip(CircleShape).background(Color(0xFF101D31))
                                         .border(1.dp, Color(0xFF293B55), CircleShape),
                                     contentAlignment = Alignment.Center
-                                ) { Text("◈", color = Color(0xFFFF4D9D), fontSize = 23.sp) }
+                                ) { Text("◈", color = Color(0xFFFF3155), fontSize = 23.sp) }
                                 Spacer(Modifier.width(11.dp))
                                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                     Text(if (memoryDraft.isBlank()) "Your vault is ready" else "Your personal memory", color = Color(0xFFF5F7FF), fontWeight = FontWeight.Bold, fontSize = 14.sp)
@@ -1490,7 +1490,7 @@ class MainActivity : ComponentActivity() {
                                         .padding(12.dp),
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    Text("✧", color = Color(0xFFFF4D9D), fontSize = 22.sp)
+                                    Text("✧", color = Color(0xFFFF3155), fontSize = 22.sp)
                                     Spacer(Modifier.width(9.dp))
                                     Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                         Text("Nothing saved yet", color = Color(0xFFF5F7FF), fontWeight = FontWeight.SemiBold, fontSize = 13.sp)
@@ -1498,7 +1498,7 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                             } else {
-                                Text("SAVED NOTE PREVIEW", color = Color(0xFFFF4D9D), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                                Text("SAVED NOTE PREVIEW", color = Color(0xFFFF3155), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
                                 Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                                     savedMemoryLines.takeLast(3).forEachIndexed { index, note ->
                                         Row(
@@ -1508,7 +1508,7 @@ class MainActivity : ComponentActivity() {
                                                 .padding(horizontal = 10.dp, vertical = 8.dp),
                                             verticalAlignment = Alignment.Top
                                         ) {
-                                            Text("•", color = Color(0xFFFF4D9D), fontSize = 15.sp)
+                                            Text("•", color = Color(0xFFFF3155), fontSize = 15.sp)
                                             Spacer(Modifier.width(7.dp))
                                             Text(note, color = Color(0xFF6D555C), fontSize = 12.sp, maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
                                         }
@@ -1526,10 +1526,10 @@ class MainActivity : ComponentActivity() {
                                 colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
                                     focusedTextColor = Color(0xFFF5F7FF),
                                     unfocusedTextColor = Color(0xFFF5F7FF),
-                                    focusedBorderColor = Color(0xFFFF4D9D),
+                                    focusedBorderColor = Color(0xFFFF3155),
                                     unfocusedBorderColor = Color(0xFF293B55),
-                                    focusedLabelColor = Color(0xFFFF4D9D),
-                                    cursorColor = Color(0xFFFF4D9D),
+                                    focusedLabelColor = Color(0xFFFF3155),
+                                    cursorColor = Color(0xFFFF3155),
                                     focusedContainerColor = Color(0xFF0B1424),
                                     unfocusedContainerColor = Color(0xFF0B1424)
                                 )
@@ -1541,7 +1541,7 @@ class MainActivity : ComponentActivity() {
                             ) {
                                 Text(
                                     if (memoryDraft == (memoryPrefs.getString("memory_notes", "") ?: "")) "All changes saved" else "Unsaved changes",
-                                    color = if (memoryDraft == (memoryPrefs.getString("memory_notes", "") ?: "")) Color(0xFFB8F7D4) else Color(0xFFFF4D9D),
+                                    color = if (memoryDraft == (memoryPrefs.getString("memory_notes", "") ?: "")) Color(0xFFB8F7D4) else Color(0xFFFF3155),
                                     fontSize = 11.sp,
                                     fontWeight = FontWeight.SemiBold
                                 )
@@ -1549,7 +1549,7 @@ class MainActivity : ComponentActivity() {
                                     onClick = { memoryDraft = "" },
                                     enabled = memoryDraft.isNotEmpty()
                                 ) {
-                                    Text("Clear draft", color = if (memoryDraft.isNotEmpty()) Color(0xFFFF4D9D) else Color(0xFF78658F), fontSize = 12.sp)
+                                    Text("Clear draft", color = if (memoryDraft.isNotEmpty()) Color(0xFFFF3155) else Color(0xFF78658F), fontSize = 12.sp)
                                 }
                             }
                         }
@@ -1560,7 +1560,7 @@ class MainActivity : ComponentActivity() {
                             heardText = if (memoryDraft.isBlank()) "Memory cleared." else "Memory saved on this device."
                             status = "MEMORY UPDATED"
                             showMemory = false
-                        }) { Text("✦  Save memory", color = Color(0xFFFF4D9D)) }
+                        }) { Text("✦  Save memory", color = Color(0xFFFF3155)) }
                     },
                     dismissButton = {
                         TextButton(onClick = { showMemory = false }) { Text("Cancel", color = Color(0xFF9EABC2)) }
