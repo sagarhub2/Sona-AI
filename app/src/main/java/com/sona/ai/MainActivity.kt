@@ -1281,7 +1281,7 @@ class MainActivity : ComponentActivity() {
                                         verticalAlignment = Alignment.CenterVertically,
                                         horizontalArrangement = Arrangement.spacedBy(6.dp)
                                     ) {
-                                        Box(Modifier.size(5.dp).clip(CircleShape).background(Color(0xFF66F0BC)))
+                                        Box(Modifier.size(5.dp).clip(CircleShape).background(if (apiKey.isBlank()) Color(0xFF55E7F5) else if (busy) Color(0xFFFFC857) else Color(0xFF66F0BC)))
                                         Text(if (apiKey.isBlank()) "API KEY REQUIRED" else if (busy) "MYRA IS THINKING" else "AI SYSTEM READY", color = if (apiKey.isBlank()) Color(0xFF55E7F5) else if (busy) Color(0xFFFFC857) else Color(0xFF9666FF), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
                                     }
                                 }
