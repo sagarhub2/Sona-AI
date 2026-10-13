@@ -506,8 +506,8 @@ class MainActivity : ComponentActivity() {
                                     modifier = Modifier.fillMaxWidth(),
                                     shape = RoundedCornerShape(16.dp),
                                     color = Color(0xFF0B1424),
-                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF22D3EE)),
-                                    shadowElevation = 0.dp
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF9666FF).copy(alpha = .55f)),
+                                    shadowElevation = 2.dp
                                 ) {
                                     Row(
                                         Modifier.padding(13.dp),
@@ -515,16 +515,16 @@ class MainActivity : ComponentActivity() {
                                     ) {
                                         Box(
                                             Modifier.size(44.dp).clip(RoundedCornerShape(13.dp))
-                                                .background(Color(0xFF111A2B))
-                                                .border(1.dp, Color(0xFFFF72D2), RoundedCornerShape(13.dp)),
+                                                .background(Brush.linearGradient(listOf(Color(0xFF241B43), Color(0xFF102B40))))
+                                                .border(1.dp, Color(0xFF53E5F5).copy(alpha = .8f), RoundedCornerShape(13.dp)),
                                             contentAlignment = Alignment.Center
-                                        ) { Text(icon, color = Color(0xFFFF72D2), fontSize = 23.sp) }
+                                        ) { Text(icon, color = Color(0xFFE8D7FF), fontSize = 23.sp) }
                                         Spacer(Modifier.width(12.dp))
                                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                             Text(heading, color = Color(0xFFF5F7FF), fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
                                             Text(detail, color = Color(0xFF9CB4D0), fontSize = 11.sp)
                                         }
-                                        Text("›", color = Color(0xFFFF72D2), fontSize = 25.sp)
+                                        Text("›", color = Color(0xFF53E5F5), fontSize = 25.sp)
                                     }
                                 }
                             }
