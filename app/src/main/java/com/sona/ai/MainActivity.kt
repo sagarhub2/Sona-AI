@@ -1847,7 +1847,7 @@ class MainActivity : ComponentActivity() {
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
-                            Text("TASKS & REMINDERS", color = Color(0xFF9666FF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                            Text("TASKS & REMINDERS", color = Color(0xFF55E7F5), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
                             Text("Tasks & reminders", color = Color(0xFFF5F7FF), fontSize = 20.sp, fontWeight = FontWeight.Bold)
                             Text("Plan your day, one task at a time.", color = Color(0xFF9CB4D0), fontSize = 12.sp)
                         }
@@ -1861,7 +1861,7 @@ class MainActivity : ComponentActivity() {
                                     .padding(12.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text("☷", color = Color(0xFF9666FF), fontSize = 25.sp)
+                                Text("☷", color = Color(0xFF55E7F5), fontSize = 25.sp)
                                 Spacer(Modifier.width(10.dp))
                                 Column {
                                     Text("${taskLines.size} tasks in your list", color = Color(0xFFF5F7FF), fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
@@ -1960,7 +1960,7 @@ class MainActivity : ComponentActivity() {
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
-                            Text("◈  MYRA AI • SMART MEMORY", color = Color(0xFF9666FF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                            Text("◈  MYRA AI • SMART MEMORY", color = Color(0xFF55E7F5), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
                             Text("Your memory vault", color = Color(0xFFF5F7FF), fontSize = 20.sp, fontWeight = FontWeight.Bold)
                             Text("Notes are saved locally on this phone.", color = Color(0xFF9CB4D0), fontSize = 12.sp)
                         }
@@ -1998,7 +1998,7 @@ class MainActivity : ComponentActivity() {
                                         .padding(12.dp),
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    Text("✧", color = Color(0xFF9666FF), fontSize = 22.sp)
+                                    Text("✧", color = Color(0xFF55E7F5), fontSize = 22.sp)
                                     Spacer(Modifier.width(9.dp))
                                     Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                         Text("Nothing saved yet", color = Color(0xFFF5F7FF), fontWeight = FontWeight.SemiBold, fontSize = 13.sp)
@@ -2006,7 +2006,7 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                             } else {
-                                Text("SAVED NOTE PREVIEW", color = Color(0xFF9666FF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                                Text("SAVED NOTE PREVIEW", color = Color(0xFF55E7F5), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
                                 Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                                     savedMemoryLines.takeLast(3).forEachIndexed { index, note ->
                                         Row(
@@ -2018,7 +2018,7 @@ class MainActivity : ComponentActivity() {
                                         ) {
                                             Text("•", color = Color(0xFF9666FF), fontSize = 15.sp)
                                             Spacer(Modifier.width(7.dp))
-                                            Text(note, color = Color(0xFF21183D), fontSize = 12.sp, maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
+                                            Text(note, color = Color(0xFFF5F7FF), fontSize = 12.sp, maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
                                         }
                                     }
                                 }
