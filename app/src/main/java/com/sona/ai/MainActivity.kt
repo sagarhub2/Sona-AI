@@ -1427,6 +1427,38 @@ class MainActivity : ComponentActivity() {
                                             }
                                         }
                                     }
+                                    Column(
+                                        Modifier.fillMaxWidth().padding(top = 10.dp),
+                                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                                    ) {
+                                        Text("TRY ASKING MYRA", color = Color(0xFF8FA8C8), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                                        Row(
+                                            Modifier.fillMaxWidth().horizontalScroll(androidx.compose.foundation.rememberScrollState()),
+                                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                        ) {
+                                            listOf("Explain a topic", "Help me write", "Build an app idea", "Plan my day").forEach { suggestion ->
+                                                Surface(
+                                                    onClick = {
+                                                        chatDraft = when (suggestion) {
+                                                            "Explain a topic" -> "Explain a topic to me step by step."
+                                                            "Help me write" -> "Help me write something clear and engaging."
+                                                            "Build an app idea" -> "Help me plan an Android app idea."
+                                                            else -> "Help me make a practical plan for my day."
+                                                        }
+                                                    },
+                                                    shape = RoundedCornerShape(14.dp),
+                                                    color = Color(0xFF0C1B2D),
+                                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF55E7F5).copy(alpha = .35f))
+                                                ) {
+                                                    Text(
+                                                        suggestion,
+                                                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 9.dp),
+                                                        color = Color(0xFFB8D9EC), fontSize = 11.sp, fontWeight = FontWeight.Medium
+                                                    )
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
