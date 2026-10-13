@@ -1492,11 +1492,11 @@ class MainActivity : ComponentActivity() {
                                     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                                         Surface(
                                             shape = RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp, bottomStart = 18.dp, bottomEnd = 5.dp),
-                                            color = Color(0xFF13243B),
-                                            border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))
+                                            color = Color(0xFF10263D),
+                                            border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF73DFFF).copy(alpha = .55f))
                                         ) {
                                             Column(Modifier.widthIn(max = 280.dp).padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                                                Text("YOU", color = Color(0xFFFF3155), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                                                Text("YOU", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.4.sp)
                                                 Text(pendingMessage, color = Color(0xFFF5F7FF), fontSize = 14.sp, lineHeight = 21.sp)
                                                 if (!busy && status == "AI CONNECTION FAILED") {
                                                     TextButton(onClick = {
@@ -1540,16 +1540,16 @@ class MainActivity : ComponentActivity() {
                                         onClick = { selectedChatCategory = category },
                                         label = { Text(category, fontSize = 10.sp, maxLines = 1) },
                                         colors = androidx.compose.material3.FilterChipDefaults.filterChipColors(
-                                            selectedContainerColor = Color(0xFFFF3155),
-                                            selectedLabelColor = Color.White,
+                                            selectedContainerColor = Color(0xFF123149),
+                                            selectedLabelColor = Color(0xFFB8F4FF),
                                             containerColor = Color(0xFF0D192B),
-                                            labelColor = Color(0xFFFF3155)
+                                            labelColor = Color(0xFF9CB4D0)
                                         ),
                                         border = androidx.compose.material3.FilterChipDefaults.filterChipBorder(
                                             enabled = true,
                                             selected = selectedChatCategory == category,
                                             borderColor = Color(0xFF314B6A),
-                                            selectedBorderColor = Color(0xFFFF3155)
+                                            selectedBorderColor = Color(0xFF73DFFF)
                                         )
                                     )
                                 }
