@@ -5119,9 +5119,9 @@ private fun MyraHome(
                     .background(Brush.radialGradient(listOf(Color(0x44FF526E), Color(0x22FF8EA0), Color.Transparent))))
                 Box(Modifier.size(248.dp).clip(CircleShape)
                     .background(Brush.radialGradient(listOf(Color(0x33D91E3D), Color(0x18FFB7C2), Color.Transparent))))
-                Box(Modifier.size(244.dp).rotate(rotation).border(1.dp, Color(0x55D91E3D), CircleShape))
+                Box(Modifier.size(244.dp).rotate(rotation).border(1.dp, Color(0x6673DFFF), CircleShape))
                 Box(Modifier.size(226.dp).rotate(-rotation * .7f)
-                    .border(1.dp, Color(0x44D9A04A), CircleShape))
+                    .border(1.dp, Color(0x66FF3155), CircleShape))
                 Box(Modifier.size(208.dp).rotate(rotation * .45f)
                     .border(2.dp, Color(0x88D91E3D), CircleShape))
                 Box(Modifier.size(184.dp).clip(CircleShape)
@@ -5174,7 +5174,7 @@ private fun MyraHome(
                     color = Color(0xFFF5F7FF), fontSize = 30.sp,
                     fontWeight = FontWeight.Bold, letterSpacing = (-.4).sp, maxLines = 1
                 )
-                Text("How can I help you today?", color = muted, fontSize = 13.sp,
+                Text("Your AI companion is ready to help", color = muted, fontSize = 13.sp,
                     modifier = Modifier.padding(top = 3.dp, bottom = 16.dp))
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                     Box(Modifier.width(24.dp).height(1.dp).background(Color(0xFF314B6A)))
