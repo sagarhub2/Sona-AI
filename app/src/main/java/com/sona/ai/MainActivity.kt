@@ -1380,7 +1380,7 @@ class MainActivity : ComponentActivity() {
                                             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
                                                 Text("HELLO, I'M MYRA", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.4.sp)
                                                 Text("What can I help you with today?", color = Color(0xFFF5F7FF), fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
-                                                Text("Ask anything. Let's figure it out together.", color = Color(0xFF9CB4D0), fontSize = 10.sp)
+                                                Text("Chat naturally • ideas, study, code and everyday help", color = Color(0xFF9CB4D0), fontSize = 10.sp)
                                             }
                                         }
                                     }
@@ -1433,7 +1433,7 @@ class MainActivity : ComponentActivity() {
                                             Spacer(Modifier.width(8.dp))
                                             Column {
                                                 Text("MYRA AI", color = Color(0xFFF5F7FF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = .8.sp)
-                                                Text("YOUR PERSONAL AI COMPANION", color = Color(0xFF73DFFF), fontSize = 8.sp, letterSpacing = 1.1.sp)
+                                                Text("YOUR AI • ALWAYS READY", color = Color(0xFF73DFFF), fontSize = 8.sp, letterSpacing = 1.1.sp)
                                             }
                                         }
                                         Box(Modifier.fillMaxWidth().height(1.dp).background(Color(0xFF314B6A)))
@@ -1449,7 +1449,7 @@ class MainActivity : ComponentActivity() {
                                                 fontWeight = FontWeight.Bold, letterSpacing = 1.sp
                                             )
                                             Spacer(Modifier.weight(1f))
-                                            Text("AI COMPANION", color = Color(0xFFFF3155), fontSize = 8.sp, letterSpacing = .5.sp)
+                                            Text("GEMINI-POWERED", color = Color(0xFF73DFFF), fontSize = 8.sp, letterSpacing = .7.sp)
                                         }
                                         Text(
                                             if (isFreshChat || savedChat.isBlank()) "Hey, I’m Myra ✦\nYour personal AI companion. Ask a question, explore an idea, or tell me what you need help with."
