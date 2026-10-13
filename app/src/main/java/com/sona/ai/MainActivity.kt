@@ -1050,12 +1050,26 @@ class MainActivity : ComponentActivity() {
                                     Column(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(5.dp)) {
                                          Text("LIVE TRANSCRIPT", color = Color(0xFFB46CFF), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
                                          Text(heardText.ifBlank { "I’m listening. Start speaking whenever you’re ready." }, color = Color(0xFFF5F7FF), fontSize = 13.sp, lineHeight = 20.sp, textAlign = TextAlign.Center, maxLines = 3, overflow = TextOverflow.Ellipsis)
-                                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End, verticalAlignment = Alignment.CenterVertically) {
+                                             if (heardText.isNotBlank()) {
+                                                 TextButton(
+                                                     onClick = {
+                                                         heardText = ""
+                                                         android.widget.Toast.makeText(this@MainActivity, "Transcript cleared", android.widget.Toast.LENGTH_SHORT).show()
+                                                     },
+                                                     contentPadding = PaddingValues(horizontal = 6.dp, vertical = 0.dp)
+                                                 ) { Text("CLEAR", color = Color(0xFFB8C5DA), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = .45.sp) }
+                                             }
                                              TextButton(
                                                  onClick = {
-                                                     val clipboard = getSystemService(android.content.ClipboardManager::class.java)
-                                                     clipboard?.setPrimaryClip(android.content.ClipData.newPlainText("MYRA live transcript", heardText))
-                                                     android.widget.Toast.makeText(this@MainActivity, "Transcript copied", android.widget.Toast.LENGTH_SHORT).show()
+                                                     val transcript = heardText.trim()
+                                                     if (transcript.isNotBlank()) {
+                                                         val clipboard = getSystemService(android.content.ClipboardManager::class.java)
+                                                         clipboard?.setPrimaryClip(android.content.ClipData.newPlainText("MYRA live transcript", transcript))
+                                                         android.widget.Toast.makeText(this@MainActivity, "Transcript copied", android.widget.Toast.LENGTH_SHORT).show()
+                                                     } else {
+                                                         android.widget.Toast.makeText(this@MainActivity, "No transcript to copy yet", android.widget.Toast.LENGTH_SHORT).show()
+                                                     }
                                                  },
                                                  contentPadding = PaddingValues(horizontal = 6.dp, vertical = 0.dp)
                                              ) { Text("⧉ COPY TRANSCRIPT", color = Color(0xFF55E7F5), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = .45.sp) }
