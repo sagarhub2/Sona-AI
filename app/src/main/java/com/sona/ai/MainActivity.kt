@@ -5174,30 +5174,30 @@ private fun MyraHome(
                         cubicTo(size.width * 0.16f, size.height * 0.05f, size.width * 0.28f, size.height * 0.72f, size.width * 0.47f, size.height * 0.43f)
                         cubicTo(size.width * 0.66f, size.height * 0.12f, size.width * 0.78f, size.height * 0.84f, size.width, size.height * 0.42f)
                     }
-                    drawPath(wave, Color(0x33FF6F89), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2.dp.toPx()))
-                    drawPath(wave, Color(0x1EFFA3B1), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 7.dp.toPx()))
+                    drawPath(wave, Color(0x3355E7F5), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2.dp.toPx()))
+                    drawPath(wave, Color(0x1E9666FF), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 7.dp.toPx()))
                     val secondWave = androidx.compose.ui.graphics.Path().apply {
                         moveTo(0f, size.height * 0.68f)
                         cubicTo(size.width * 0.2f, size.height * 0.92f, size.width * 0.3f, size.height * 0.24f, size.width * 0.52f, size.height * 0.64f)
                         cubicTo(size.width * 0.73f, size.height * 0.96f, size.width * 0.85f, size.height * 0.18f, size.width, size.height * 0.58f)
                     }
-                    drawPath(secondWave, Color(0x22FF526E), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 1.5.dp.toPx()))
+                    drawPath(secondWave, Color(0x2255E7F5), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 1.5.dp.toPx()))
                 }
                 // Layered soft rose halos create the reference's atmospheric holographic glow.
                 Box(Modifier.size(270.dp).clip(CircleShape)
-                    .background(Brush.radialGradient(listOf(Color(0x44FF526E), Color(0x22FF8EA0), Color.Transparent))))
+                    .background(Brush.radialGradient(listOf(Color(0x4455E7F5), Color(0x229666FF), Color.Transparent))))
                 Box(Modifier.size(248.dp).clip(CircleShape)
-                    .background(Brush.radialGradient(listOf(Color(0x33D91E3D), Color(0x18FFB7C2), Color.Transparent))))
+                    .background(Brush.radialGradient(listOf(Color(0x339666FF), Color(0x1855E7F5), Color.Transparent))))
                 Box(Modifier.size(244.dp).rotate(rotation).border(1.dp, Color(0x6673DFFF), CircleShape))
                 Box(Modifier.size(226.dp).rotate(-rotation * .7f)
-                    .border(1.dp, Color(0x66FF3155), CircleShape))
+                    .border(1.dp, Color(0x6655E7F5), CircleShape))
                 Box(Modifier.size(208.dp).rotate(rotation * .45f)
-                    .border(2.dp, Color(0x88D91E3D), CircleShape))
+                    .border(2.dp, Color(0x889666FF), CircleShape))
                 Box(Modifier.size(184.dp).clip(CircleShape)
-                    .background(Brush.radialGradient(listOf(Color(0x55F05A75), Color(0x22D91E3D), Color.Transparent))))
+                    .background(Brush.radialGradient(listOf(Color(0x5555E7F5), Color(0x229666FF), Color.Transparent))))
                 Box(
                     Modifier.size((156f * (if (animatedOrb) pulse else 1f)).dp).clip(CircleShape)
-                        .background(Brush.radialGradient(listOf(Color(0xFF080508), Color(0xFF16060B), Color(0xFF020202))))
+                        .background(Brush.radialGradient(listOf(Color(0xFF050B16), Color(0xFF101A35), Color(0xFF020712))))
                         .border(1.dp, Color(0xFF9666FF).copy(alpha = .95f), CircleShape)
                         .padding(5.dp)
                         .border(3.dp, Color(0xFF9666FF).copy(alpha = .72f), CircleShape),
@@ -5303,7 +5303,7 @@ private fun MyraHome(
                             }
                             Text("AI", color = Color(0xFF9666FF), fontSize = 10.sp, fontWeight = FontWeight.Black)
                         }
-                        Box(Modifier.padding(top = 11.dp).fillMaxWidth().height(1.dp).background(Color(0x33FF3155)))
+                        Box(Modifier.padding(top = 11.dp).fillMaxWidth().height(1.dp).background(Color(0x3355E7F5)))
                         Text(heardText, color = ink, fontSize = 14.sp, lineHeight = 21.sp, modifier = Modifier.padding(top = 10.dp))
                         Row(Modifier.fillMaxWidth().padding(top = 5.dp), horizontalArrangement = Arrangement.End) {
                             TextButton(onClick = onSpeakAnswer) { Text("Speak", color = Color(0xFF9666FF)) }
@@ -5367,7 +5367,7 @@ private fun MyraHome(
                 Text("Chat", color = muted, fontSize = 10.sp)
             }
             Column(Modifier.weight(1.15f).clip(CircleShape).background(
-                Brush.radialGradient(listOf(Color(0xFF05070D), Color(0xFF16060B), Color(0xFF40101D), Color(0xFF05070D)))
+                Brush.radialGradient(listOf(Color(0xFF050B16), Color(0xFF101A35), Color(0xFF203B60), Color(0xFF050B16)))
             ).border(1.5.dp, Color(0xFF9666FF), CircleShape).clickable { onStartVoice() }
                 .padding(vertical = 6.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(if (busy) "•••" else "≋", color = Color(0xFFB9F7FF), fontSize = 22.sp, fontWeight = FontWeight.Bold)
