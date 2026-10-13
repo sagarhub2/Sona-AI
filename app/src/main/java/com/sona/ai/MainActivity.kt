@@ -5028,7 +5028,7 @@ private fun MyraHome(
                 }
                 Surface(
                     onClick = onCamera,
-                    modifier = Modifier.weight(1f).height(104.dp),
+                    modifier = Modifier.weight(1f).height(148.dp),
                     shape = RoundedCornerShape(18.dp),
                     color = Color(0xFF0D192B),
                     shadowElevation = 3.dp,
