@@ -932,19 +932,7 @@ class MainActivity : ComponentActivity() {
                                     Box(Modifier.size(188.dp).rotate(-orbRotation * 1.15f).border(2.dp, Color(0xFFB46CFF).copy(alpha = .9f), CircleShape))
                                     Box(Modifier.size(174.dp).rotate(orbRotation * .7f).border(1.dp, Color(0xFF55E7F5).copy(alpha = .8f), CircleShape))
                                     Box(Modifier.size(166.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF0B1740), Color(0xFF101A35), Color(0xFF35145F), Color(0xFF020712)))).border(2.dp, Color(0xFFB46CFF).copy(alpha = .9f), CircleShape))
-                                    Canvas(Modifier.size(150.dp)) {
-                                        val centerX = size.width / 2f
-                                        val centerY = size.height / 2f
-                                        val radiusX = size.width * .39f
-                                        val radiusY = size.height * .24f
-                                        val wave = androidx.compose.ui.graphics.Path().apply {
-                                            moveTo(size.width * .08f, centerY)
-                                            cubicTo(size.width * .25f, centerY - radiusY, size.width * .31f, centerY + radiusY, size.width * .50f, centerY)
-                                            cubicTo(size.width * .68f, centerY - radiusY, size.width * .75f, centerY + radiusY, size.width * .92f, centerY)
-                                        }
-                                        drawPath(wave, Color(0xFF55E7F5).copy(alpha = .9f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2.dp.toPx(), cap = androidx.compose.ui.graphics.StrokeCap.Round))
-                                        drawOval(Color(0xFFB46CFF).copy(alpha = .6f), topLeft = androidx.compose.ui.geometry.Offset(centerX - radiusX, centerY - radiusY * .7f), size = androidx.compose.ui.geometry.Size(radiusX * 2, radiusY * 1.4f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 1.6.dp.toPx()))
-                                    }
+                                    // Layered holographic rings form the animated MYRA voice core.
                                     Box(Modifier.size(60.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF0B1028), Color(0xFF050712)))).border(1.dp, Color(0xFF55E7F5).copy(alpha = .9f), CircleShape))
                                 }
                                 // Compact waveform gives the voice state a visible, reference-style cue.
