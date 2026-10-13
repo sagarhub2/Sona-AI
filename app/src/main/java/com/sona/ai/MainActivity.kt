@@ -2115,8 +2115,8 @@ class MainActivity : ComponentActivity() {
                                 }
                                 Spacer(Modifier.width(11.dp))
                                 Column {
-                                    Text("MYRA AI • PROFILE", color = Color(0xFFFF7A91), fontWeight = FontWeight.Black, fontSize = 10.sp, letterSpacing = 2.sp)
-                                    Text("Your command center", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                                    Text("MYRA AI • PROFILE & SETTINGS", color = Color(0xFFFF7A91), fontWeight = FontWeight.Black, fontSize = 10.sp, letterSpacing = 2.sp)
+                                    Text("Profile, voice and app controls", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp)
                                 }
                             }
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(7.dp)) {
