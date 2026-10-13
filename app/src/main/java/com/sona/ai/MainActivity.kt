@@ -4847,8 +4847,10 @@ private fun MyraHome(
                             Text("Neural Lens", color = Color(0xFFF5F7FF), fontSize = 17.sp, fontWeight = FontWeight.Bold)
                             Text("Object Scan", color = Color(0xFF9EABC2), fontSize = 10.sp)
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                                Box(Modifier.size(6.dp).clip(CircleShape).background(Color(0xFFFF3155)))
-                                Text("Scan  •  Live  •  Detect", color = Color(0xFF9EABC2), fontSize = 9.sp)
+                                Box(Modifier.size(6.dp).clip(CircleShape)
+                                    .background(Color(0xFFFF3155))
+                                    .border(1.dp, Color(0xFFFFB36B), CircleShape))
+                                Text("SCAN  •  LIVE  •  DETECT", color = Color(0xFFB8C5DA), fontSize = 9.sp, letterSpacing = .55.sp)
                             }
                             TextButton(
                                 onClick = {
