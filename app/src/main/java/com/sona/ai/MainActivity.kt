@@ -1047,15 +1047,27 @@ class MainActivity : ComponentActivity() {
                             }
                             Column(Modifier.weight(1f).fillMaxWidth().padding(vertical = 12.dp).verticalScroll(androidx.compose.foundation.rememberScrollState()), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                                    Text("✦", color = Color(0xFFFF3155), fontSize = 17.sp)
-                                    Spacer(Modifier.width(7.dp))
-                                    Text("CONVERSATION", color = Color(0xFFFF3155), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
-                                    Spacer(Modifier.weight(1f))
+                                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(7.dp)) {
+                                            Text("✦", color = Color(0xFFFF3155), fontSize = 17.sp)
+                                            Text("CONVERSATION", color = Color(0xFFFF3155), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                                        }
+                                        Text(
+                                            if (savedChat.isBlank()) "Start a fresh conversation with MYRA"
+                                            else "Your saved conversation is ready",
+                                            color = Color(0xFF9CB4D0), fontSize = 10.sp, maxLines = 1,
+                                            overflow = TextOverflow.Ellipsis
+                                        )
+                                    }
                                     Surface(shape = RoundedCornerShape(50), color = Color(0xFF13243B),
                                         border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))) {
-                                        Text(if (savedChat.isBlank()) "NEW CHAT" else "HISTORY LOADED",
-                                            color = Color(0xFFFF3155), fontSize = 8.sp, fontWeight = FontWeight.Bold,
-                                            letterSpacing = .5.sp, modifier = Modifier.padding(horizontal = 9.dp, vertical = 5.dp))
+                                        Row(Modifier.padding(horizontal = 9.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically,
+                                            horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+                                            Box(Modifier.size(5.dp).clip(CircleShape).background(if (savedChat.isBlank()) Color(0xFFFF3155) else Color(0xFF66F0BC)))
+                                            Text(if (savedChat.isBlank()) "NEW CHAT" else "SAVED",
+                                                color = Color(0xFFFF3155), fontSize = 8.sp, fontWeight = FontWeight.Bold,
+                                                letterSpacing = .5.sp)
+                                        }
                                     }
                                 }
                                 Surface(
