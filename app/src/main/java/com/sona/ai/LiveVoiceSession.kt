@@ -89,6 +89,8 @@ class LiveVoiceSession(
         val url = "wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key=" + URLEncoder.encode(apiKey, "UTF-8")
         socket = client.newWebSocket(Request.Builder().url(url).build(), object : WebSocketListener() {
             override fun onOpen(ws: WebSocket, response: Response) {
+                // Ignore callbacks from a superseded socket after a fast stop/reconnect.
+                if (socket !== ws || !running.get()) { ws.cancel(); return }
                 // Configure Gemini Live audio output, voice, and transcription settings.
                 val setup = JSONObject().put("setup", JSONObject()
                     .put("model", "models/$model")
@@ -120,9 +122,11 @@ class LiveVoiceSession(
             }
             override fun onMessage(ws: WebSocket, bytes: okio.ByteString) {
                 // Gemini may send JSON control messages in binary frames too.
+                if (socket !== ws || !running.get()) return
                 onMessage(ws, bytes.utf8())
             }
             override fun onMessage(ws: WebSocket, text: String) {
+                if (socket !== ws || !running.get()) return
                 try {
                     val root = JSONObject(text)
                     if (root.has("error")) {
@@ -173,12 +177,16 @@ class LiveVoiceSession(
                 } catch (e: Exception) { onStatus("LIVE RESPONSE ERROR • " + (e.message ?: "INVALID SERVER MESSAGE").take(100)) }
             }
             override fun onFailure(ws: WebSocket, t: Throwable, response: Response?) {
+                if (socket !== ws) return
                 stopAudio()
+                socket = null
                 onStatus("LIVE CONNECTION FAILED • " + ((response?.code?.let { "HTTP $it • " } ?: "") + (t.message ?: "CHECK KEY / NETWORK")).take(110))
             }
             override fun onClosed(ws: WebSocket, code: Int, reason: String) {
+                if (socket !== ws) return
                 val hadSetup = setupCompleted.get()
                 stopAudio()
+                socket = null
                 if (hadSetup) {
                     onStatus("LIVE SESSION CLOSED")
                 } else {
@@ -267,7 +275,7 @@ class LiveVoiceSession(
         setupCompleted.set(false)
         audioStarted.set(false)
         try { micThread?.interrupt() } catch (_: Exception) {}
-        try { micThread?.interrupt() } catch (_: Exception) {}
+        micThread = null
         try { recorder?.stop() } catch (_: Exception) {}
         try { recorder?.release() } catch (_: Exception) {}
         recorder = null
