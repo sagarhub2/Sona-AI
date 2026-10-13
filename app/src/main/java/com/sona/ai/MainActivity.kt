@@ -1415,7 +1415,10 @@ class MainActivity : ComponentActivity() {
                                             Text("SAVED CONVERSATIONS  •  ${chatSessions.size}", color = Color(0xFF9666FF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
                                         }
                                         if (chatSessions.isEmpty()) {
-                                            Text("Your chats will appear here after your first message.", color = Color(0xFF9CB4D0), fontSize = 12.sp)
+                                            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                                                Text("NO SAVED CHATS YET", color = Color(0xFFBBA0FF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = .7.sp)
+                                                Text("Start a new chat or send your first message. MYRA conversations will appear here.", color = Color(0xFF9CB4D0), fontSize = 12.sp)
+                                            }
                                         } else {
                                             chatSessions.forEach { (sessionId, transcript) ->
                                                 val firstUserLine = transcript.lines().firstOrNull { it.contains("User:") }
@@ -1461,7 +1464,7 @@ class MainActivity : ComponentActivity() {
                                 ) {
                                     Row(Modifier.padding(horizontal = 11.dp, vertical = 7.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                         Text("☷", color = Color(0xFFBBA0FF), fontSize = 14.sp)
-                                        Text(if (showSessionList) "HIDE CHATS" else "SAVED CHATS", color = Color(0xFFBBA0FF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = .5.sp)
+                                        Text(if (showSessionList) "HIDE CHATS" else "SAVED CHATS · ${chatSessions.size}", color = Color(0xFFBBA0FF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = .35.sp)
                                     }
                                 }
                                 Spacer(Modifier.weight(1f))
