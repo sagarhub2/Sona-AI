@@ -1031,6 +1031,7 @@ class MainActivity : ComponentActivity() {
                                     Text(if (bossMode) "BOSS MODE ACTIVE" else "READY WHEN YOU ARE", color = if (bossMode) Color(0xFFFFB547) else Color(0xFF536A89), fontSize = 8.sp, letterSpacing = .35.sp)
                                 }
                                 androidx.compose.material3.FilledTonalButton(
+                                    modifier = Modifier.fillMaxWidth().height(44.dp),
                                     onClick = {
                                         val activeSession = liveVoiceSession
                                         if (activeSession == null) {
@@ -1088,9 +1089,13 @@ class MainActivity : ComponentActivity() {
                                 Spacer(Modifier.height(10.dp))
                                 Surface(modifier = Modifier.fillMaxWidth(), color = Color(0xFF0D192B).copy(alpha = .96f), shape = RoundedCornerShape(18.dp), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))) {
                                     Column(Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 10.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                                         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                               Box(Modifier.size(5.dp).clip(CircleShape).background(Color(0xFF55E7F5)))
                                               Text("LIVE TRANSCRIPT", color = Color(0xFFB46CFF), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                                              Spacer(Modifier.weight(1f))
+                                              Surface(color = if (voiceMuted) Color(0xFF1B2940) else Color(0xFF10303B), shape = RoundedCornerShape(20.dp), border = androidx.compose.foundation.BorderStroke(1.dp, if (voiceMuted) Color(0xFF536A89) else Color(0xFF55E7F5).copy(alpha = .45f))) {
+                                                  Text(if (voiceMuted) "PAUSED" else "LIVE", modifier = Modifier.padding(horizontal = 7.dp, vertical = 3.dp), color = if (voiceMuted) Color(0xFF9CB4D0) else Color(0xFF55E7F5), fontSize = 7.sp, fontWeight = FontWeight.Bold, letterSpacing = .6.sp)
+                                              }
                                           }
                                           Text("YOUR CONVERSATION WITH MYRA", color = Color(0xFF55E7F5), fontSize = 7.sp, fontWeight = FontWeight.SemiBold, letterSpacing = .9.sp)
                                          Text(heardText.ifBlank { "I’m listening. Start speaking whenever you’re ready." }, color = Color(0xFFF5F7FF), fontSize = 13.sp, lineHeight = 19.sp, textAlign = TextAlign.Center, maxLines = 3, overflow = TextOverflow.Ellipsis)
