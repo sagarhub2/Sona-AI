@@ -69,6 +69,7 @@ class MainActivity : ComponentActivity() {
     private var showMemory by mutableStateOf(false)
     private var showTasks by mutableStateOf(false)
     private var showFocusMode by mutableStateOf(false)
+    private var showDailyPlanner by mutableStateOf(false)
     private var showHistory by mutableStateOf(false)
     private var showChat by mutableStateOf(false)
     private var showVoiceScreen by mutableStateOf(false)
@@ -558,6 +559,7 @@ class MainActivity : ComponentActivity() {
                     onMemory = { showFeaturesMenu = false; showMemory = true },
                     onTasks = { showFeaturesMenu = false; showTasks = true },
                     onFocus = { showFeaturesMenu = false; showFocusMode = true },
+                    onPlanner = { showFeaturesMenu = false; showDailyPlanner = true },
                     onHistory = { showFeaturesMenu = false; showHistory = true },
                     onFiles = { showFeaturesMenu = false; showFiles = true },
                     onCamera = {
@@ -1820,6 +1822,9 @@ class MainActivity : ComponentActivity() {
             }
             if (showFocusMode) {
                 FocusModeDialog(onClose = { showFocusMode = false })
+            }
+            if (showDailyPlanner) {
+                DailyPlannerDialog(onClose = { showDailyPlanner = false })
             }
             if (showTasks) {
                 val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
@@ -5489,9 +5494,166 @@ private fun FocusModeDialog(onClose: () -> Unit) {
     )
 }
 
+
+@Composable
+private fun DailyPlannerDialog(onClose: () -> Unit) {
+    val context = LocalContext.current
+    val prefs = remember { context.getSharedPreferences("myra_private", android.content.Context.MODE_PRIVATE) }
+    val savedTasks = remember { prefs.getString("sona_tasks", "").orEmpty() }
+    var startHour by remember { mutableIntStateOf(9) }
+    var blockMinutes by remember { mutableIntStateOf(45) }
+    var generatedPlan by remember { mutableStateOf(prefs.getString("myra_daily_plan", "").orEmpty()) }
+    val tasks = savedTasks.lines()
+        .map { it.trim() }
+        .filter { it.isNotBlank() && !it.startsWith("[x]", ignoreCase = true) }
+        .sortedBy { line ->
+            when {
+                line.startsWith("[HIGH]", ignoreCase = true) -> 0
+                line.startsWith("[MED]", ignoreCase = true) -> 1
+                line.startsWith("[LOW]", ignoreCase = true) -> 2
+                else -> 1
+            }
+        }
+    fun formatTime(totalMinutes: Int): String {
+        val hour24 = (totalMinutes / 60) % 24
+        val minute = totalMinutes % 60
+        val suffix = if (hour24 < 12) "AM" else "PM"
+        val hour12 = when (val h = hour24 % 12) { 0 -> 12; else -> h }
+        return "$" + "hour12:$" + "{minute.toString().padStart(2, '0')} $" + "suffix"
+    }
+    fun makePlan(): String {
+        if (tasks.isEmpty()) return "No unfinished tasks found. Add tasks in Tasks & Reminders, and optionally mark them [HIGH], [MED], or [LOW]."
+        var cursor = startHour * 60
+        return buildString {
+            append("MYRA DAILY PLAN\n")
+            append("Start: ").append(formatTime(cursor)).append("\n\n")
+            tasks.forEachIndexed { index, raw ->
+                val priority = when {
+                    raw.startsWith("[HIGH]", ignoreCase = true) -> "HIGH"
+                    raw.startsWith("[LOW]", ignoreCase = true) -> "LOW"
+                    else -> "MED"
+                }
+                val cleanTask = raw.replace(Regex("^\\[(HIGH|MED|LOW)]\\s*", RegexOption.IGNORE_CASE), "")
+                    .replace(Regex("^\\[\\s*x\\s*]\\s*", RegexOption.IGNORE_CASE), "")
+                append(index + 1).append(". ").append(formatTime(cursor)).append(" – ")
+                    .append(formatTime(cursor + blockMinutes)).append("  •  ")
+                    .append(priority).append("\n")
+                append("   ").append(cleanTask).append("\n")
+                cursor += blockMinutes + 10
+            }
+            append("\nKeep a 10-minute buffer between tasks.")
+        }
+    }
+    AlertDialog(
+        onDismissRequest = onClose,
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(26.dp),
+        containerColor = Color(0xFF091326),
+        titleContentColor = Color(0xFFF5F7FF),
+        textContentColor = Color(0xFFB7C8E4),
+        title = {
+            Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                Text("MYRA PRODUCTIVITY", color = Cyan, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.6.sp)
+                Text("Smart Daily Planner", fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                Text("Build a practical schedule from your saved tasks.", color = Color(0xFF9CB4D0), fontSize = 12.sp)
+            }
+        },
+        text = {
+            Column(
+                modifier = Modifier.fillMaxWidth().heightIn(max = 440.dp).verticalScroll(androidx.compose.foundation.rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    listOf(8, 9, 10).forEach { hour ->
+                        val selected = startHour == hour
+                        Surface(
+                            onClick = { startHour = hour },
+                            shape = RoundedCornerShape(12.dp),
+                            color = if (selected) Color(0xFF173047) else Color(0xFF101B2D),
+                            border = androidx.compose.foundation.BorderStroke(1.dp, if (selected) Cyan else Color(0xFF283952))
+                        ) {
+                            Text(
+                                "${if (hour > 12) hour - 12 else hour}:00 AM",
+                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 9.dp),
+                                color = if (selected) Cyan else Color(0xFFB7C8E4),
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        }
+                    }
+                }
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    listOf(25, 45, 60).forEach { duration ->
+                        val selected = blockMinutes == duration
+                        Surface(
+                            onClick = { blockMinutes = duration },
+                            shape = RoundedCornerShape(12.dp),
+                            color = if (selected) Color(0xFF282044) else Color(0xFF101B2D),
+                            border = androidx.compose.foundation.BorderStroke(1.dp, if (selected) Violet else Color(0xFF283952))
+                        ) {
+                            Text(
+                                "$" + "duration min",
+                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 9.dp),
+                                color = if (selected) Color(0xFFD8C8FF) else Color(0xFFB7C8E4),
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        }
+                    }
+                }
+                Row(
+                    Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp)).background(Color(0xFF101B2D)).padding(12.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(Modifier.weight(1f)) {
+                        Text("${tasks.size} unfinished tasks", color = Color(0xFFF5F7FF), fontWeight = FontWeight.SemiBold)
+                        Text("Add [HIGH], [MED], or [LOW] before task names to prioritize them.", color = Color(0xFF9CB4D0), fontSize = 11.sp)
+                    }
+                    Text("▦", color = Cyan, fontSize = 24.sp)
+                }
+                Button(
+                    onClick = { generatedPlan = makePlan() },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(14.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Violet, contentColor = Color.White)
+                ) { Text("Generate today's plan", fontWeight = FontWeight.Bold) }
+                if (generatedPlan.isNotBlank()) {
+                    Text("YOUR PLAN", color = Cyan, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                    Surface(
+                        color = Color(0xFF07101F),
+                        shape = RoundedCornerShape(14.dp),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF283952))
+                    ) {
+                        Text(
+                            generatedPlan,
+                            modifier = Modifier.fillMaxWidth().padding(12.dp),
+                            color = Color(0xFFE5EDF9),
+                            fontSize = 12.sp,
+                            lineHeight = 19.sp
+                        )
+                    }
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(
+                onClick = {
+                    if (generatedPlan.isNotBlank()) {
+                        prefs.edit().putString("myra_daily_plan", generatedPlan).apply()
+                    }
+                    onClose()
+                }
+            ) { Text("Save & close", color = Cyan, fontWeight = FontWeight.Bold) }
+        },
+        dismissButton = {
+            TextButton(onClick = onClose) { Text("Close", color = Color(0xFF9CB4D0)) }
+        }
+    )
+}
+
 private fun MyraFeaturesMenu(
     onClose: () -> Unit, onVoice: () -> Unit, onSettings: () -> Unit,
-    onMemory: () -> Unit, onTasks: () -> Unit, onFocus: () -> Unit, onHistory: () -> Unit,
+    onMemory: () -> Unit, onTasks: () -> Unit, onFocus: () -> Unit, onPlanner: () -> Unit, onHistory: () -> Unit,
     onFiles: () -> Unit, onCamera: () -> Unit, onContacts: () -> Unit,
     onMedia: () -> Unit, onReminder: () -> Unit, onWeb: () -> Unit, onDevice: () -> Unit
 ) {
@@ -5504,6 +5666,7 @@ private fun MyraFeaturesMenu(
         Triple("Notes & Voice Notes", "Open your saved notes", "✎") to onMemory,
         Triple("Tasks & Reminders", "Stay organized", "☑") to onTasks,
         Triple("Focus Session", "Pomodoro timer for study or deep work", "◷") to onFocus,
+        Triple("Smart Daily Planner", "Turn saved tasks into a time-blocked plan", "▦") to onPlanner,
         Triple("Reminders & Alarms", "Create an alarm", "⏰") to onReminder,
         Triple("Device Settings", "Open Android settings", "⚙") to onDevice,
         Triple("Web Search", "Search the internet", "⌕") to onWeb,
