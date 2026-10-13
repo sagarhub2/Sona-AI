@@ -934,7 +934,9 @@ class MainActivity : ComponentActivity() {
                                     Box(Modifier.size(174.dp).rotate(orbRotation * .7f).border(1.dp, Color(0xFF55E7F5).copy(alpha = .8f), CircleShape))
                                     Box(Modifier.size(166.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF0B1740), Color(0xFF101A35), Color(0xFF35145F), Color(0xFF020712)))).border(2.dp, Color(0xFFB46CFF).copy(alpha = .9f), CircleShape))
                                     // Layered holographic rings form the animated MYRA voice core.
-                                    Box(Modifier.size(60.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF0B1028), Color(0xFF050712)))).border(1.dp, Color(0xFF55E7F5).copy(alpha = .9f), CircleShape))
+                                    Box(Modifier.size(60.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF172C65), Color(0xFF0B1028), Color(0xFF050712)))).border(1.dp, Color(0xFF55E7F5).copy(alpha = .9f), CircleShape))
+                                    Box(Modifier.size(36.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFB8F8FF), Color(0xFF55E7F5).copy(alpha = .78f), Color(0xFF9666FF).copy(alpha = .32f), Color.Transparent))).border(1.dp, Color(0xFFD8F9FF).copy(alpha = .9f), CircleShape))
+                                    Box(Modifier.size(12.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color.White, Color(0xFF55E7F5)))))
                                 }
                                 // Compact waveform gives the voice state a visible, reference-style cue.
                                 Row(
@@ -1285,7 +1287,7 @@ class MainActivity : ComponentActivity() {
                                         horizontalArrangement = Arrangement.spacedBy(6.dp)
                                     ) {
                                         Box(Modifier.size(5.dp).clip(CircleShape).background(if (apiKey.isBlank()) Color(0xFFFFB36B) else if (busy) Color(0xFFFFC857) else Color(0xFF66F0BC)))
-                                        Text(if (apiKey.isBlank()) "API KEY REQUIRED" else if (busy) "MYRA IS THINKING" else "AI SYSTEM READY", color = if (apiKey.isBlank()) Color(0xFF55E7F5) else if (busy) Color(0xFFFFC857) else Color(0xFF9666FF), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                                        Text(if (apiKey.isBlank()) "API KEY REQUIRED" else if (busy) "MYRA IS THINKING" else "AI SYSTEM READY", color = if (apiKey.isBlank()) Color(0xFFFFB36B) else if (busy) Color(0xFFFFC857) else Color(0xFF9666FF), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
                                     }
                                 }
                                 Surface(
@@ -1541,8 +1543,8 @@ class MainActivity : ComponentActivity() {
                                         modifier = Modifier.fillMaxWidth(),
                                         shape = RoundedCornerShape(22.dp),
                                         color = Color(0xFF0A1728),
-                                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF9666FF).copy(alpha = .35f)),
-                                        tonalElevation = 0.dp
+                                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF9666FF).copy(alpha = .52f)),
+                                        tonalElevation = 2.dp
                                     ) {
                                         Row(
                                             Modifier.fillMaxWidth().background(Brush.horizontalGradient(listOf(Color(0xFF10243A), Color(0xFF0B1424), Color(0xFF0D192B))))
@@ -1556,8 +1558,9 @@ class MainActivity : ComponentActivity() {
                                                     .border(1.dp, Color(0xFF9666FF).copy(alpha = .85f), CircleShape),
                                                 contentAlignment = Alignment.Center
                                             ) {
-                                                Box(Modifier.size(39.dp).border(1.dp, Color(0xFF55E7F5).copy(alpha = .9f), CircleShape))
-                                                Box(Modifier.size(17.dp).clip(CircleShape).background(Color(0xFFF5F7FF)))
+                                                Box(Modifier.size(43.dp).border(1.dp, Color(0xFF55E7F5).copy(alpha = .9f), CircleShape))
+                                                Box(Modifier.size(29.dp).border(1.dp, Color(0xFFBBA0FF).copy(alpha = .8f), CircleShape))
+                                                Box(Modifier.size(15.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color.White, Color(0xFF55E7F5), Color(0xFF9666FF)))))
                                             }
                                             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
                                                 Text("HELLO, I'M MYRA", color = Color(0xFF9666FF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.4.sp)
