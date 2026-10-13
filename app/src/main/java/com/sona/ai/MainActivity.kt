@@ -1151,11 +1151,17 @@ class MainActivity : ComponentActivity() {
                                 }
                                 Spacer(Modifier.width(10.dp))
                                 Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                                    Text("MYRA", color = Color(0xFFF5F7FF), fontSize = 24.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.1.sp)
-                                     Text("AI CONVERSATION SPACE", color = Color(0xFF9CB4D0), fontSize = 9.sp, fontWeight = FontWeight.SemiBold, letterSpacing = 1.45.sp)
-                                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                                        Box(Modifier.size(6.dp).clip(CircleShape).background(Color(0xFF73DFFF)))
-                                        Text("ONLINE  •  READY TO HELP", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.15.sp)
+                                    Text("MYRA", color = Color(0xFFF5F7FF), fontSize = 23.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 2.2.sp)
+                                    Text("YOUR PERSONAL AI COMPANION", color = Color(0xFF9CB4D0), fontSize = 8.sp, fontWeight = FontWeight.SemiBold, letterSpacing = 1.25.sp)
+                                    Row(
+                                        Modifier.padding(top = 2.dp).clip(RoundedCornerShape(20.dp))
+                                            .background(Color(0xFF10283A)).border(1.dp, Color(0xFF73DFFF).copy(alpha = .28f), RoundedCornerShape(20.dp))
+                                            .padding(horizontal = 8.dp, vertical = 4.dp),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                                    ) {
+                                        Box(Modifier.size(5.dp).clip(CircleShape).background(Color(0xFF66F0BC)))
+                                        Text("AI SYSTEM READY", color = Color(0xFF73DFFF), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
                                     }
                                 }
                                 Surface(
@@ -1343,12 +1349,43 @@ class MainActivity : ComponentActivity() {
                                     }
                                 )
                             }
-                            Column(Modifier.weight(1f).fillMaxWidth().padding(vertical = 12.dp).verticalScroll(androidx.compose.foundation.rememberScrollState()), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                            Column(Modifier.weight(1f).fillMaxWidth().padding(vertical = 12.dp).verticalScroll(androidx.compose.foundation.rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                                if (isFreshChat || savedChat.isBlank()) {
+                                    Surface(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        shape = RoundedCornerShape(22.dp),
+                                        color = Color(0xFF0A1728),
+                                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF73DFFF).copy(alpha = .35f)),
+                                        tonalElevation = 0.dp
+                                    ) {
+                                        Row(
+                                            Modifier.fillMaxWidth().background(Brush.horizontalGradient(listOf(Color(0xFF10243A), Color(0xFF101326), Color(0xFF1C0D19))))
+                                                .padding(15.dp),
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            horizontalArrangement = Arrangement.spacedBy(12.dp)
+                                        ) {
+                                            Box(
+                                                Modifier.size(54.dp).clip(CircleShape)
+                                                    .background(Brush.radialGradient(listOf(Color(0xFFB8F4FF), Color(0xFF73DFFF), Color(0xFF40101D), Color(0xFF050B16))))
+                                                    .border(1.dp, Color(0xFF73DFFF).copy(alpha = .85f), CircleShape),
+                                                contentAlignment = Alignment.Center
+                                            ) {
+                                                Box(Modifier.size(39.dp).border(1.dp, Color(0xFFFF3155).copy(alpha = .9f), CircleShape))
+                                                Box(Modifier.size(17.dp).clip(CircleShape).background(Color(0xFFF5F7FF)))
+                                            }
+                                            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                                                Text("HELLO, I'M MYRA", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.4.sp)
+                                                Text("What can I help you with today?", color = Color(0xFFF5F7FF), fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+                                                Text("Ask anything. Let's figure it out together.", color = Color(0xFF9CB4D0), fontSize = 10.sp)
+                                            }
+                                        }
+                                    }
+                                }
                                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(7.dp)) {
-                                            Text("✦", color = Color(0xFFFF3155), fontSize = 17.sp)
-                                            Text("CONVERSATION", color = Color(0xFFFF3155), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                                            Text("✦", color = Color(0xFF73DFFF), fontSize = 17.sp)
+                                            Text("CONVERSATION", color = Color(0xFF73DFFF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
                                         }
                                         Text(
                                             if (isFreshChat || savedChat.isBlank()) "Start a fresh conversation with MYRA"
