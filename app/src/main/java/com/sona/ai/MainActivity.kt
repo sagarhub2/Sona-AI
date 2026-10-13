@@ -1779,6 +1779,18 @@ class MainActivity : ComponentActivity() {
                                     if (busy) "MYRA IS THINKING…" else if (chatDraft.isNotBlank()) "${chatDraft.length}/4000 CHARACTERS  •  DRAFT NOT SENT" else "YOUR SPACE TO THINK, ASK & CREATE",
                                     color = Color(0xFF314B6A), fontSize = 9.sp, letterSpacing = .25.sp, modifier = Modifier.weight(1f)
                                 )
+                                if (!busy && chatDraft.isNotBlank()) {
+                                    TextButton(
+                                        onClick = {
+                                            val clipboard = getSystemService(android.content.ClipboardManager::class.java)
+                                            clipboard?.setPrimaryClip(android.content.ClipData.newPlainText("MYRA chat draft", chatDraft))
+                                            android.widget.Toast.makeText(this@MainActivity, "Draft copied", android.widget.Toast.LENGTH_SHORT).show()
+                                        },
+                                        contentPadding = PaddingValues(horizontal = 4.dp, vertical = 0.dp)
+                                    ) {
+                                        Text("COPY", color = Color(0xFFB8A2FF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = .4.sp)
+                                    }
+                                }
                                 if (!busy) {
                                     TextButton(
                                         onClick = {
