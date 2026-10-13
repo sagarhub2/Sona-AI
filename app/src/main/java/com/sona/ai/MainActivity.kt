@@ -123,6 +123,11 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Remove only MYRA's temporary camera previews left behind by an interrupted analysis.
+        try {
+            cacheDir.listFiles()?.filter { it.isFile && it.name.startsWith("myra_camera_") && it.name.endsWith(".jpg") }
+                ?.forEach { it.delete() }
+        } catch (_: Exception) { }
         cameraCaptureLauncher = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) { bitmap ->
             if (bitmap == null) {
                 status = "CAMERA CAPTURE CANCELLED"
@@ -4806,6 +4811,10 @@ For privacy, I do not silently send messages or place calls. Android may ask you
     }
 
     private fun askGeminiAboutImage(uri: android.net.Uri) {
+        if (busy) {
+            status = "MYRA IS BUSY • WAIT FOR THE CURRENT REQUEST"
+            return
+        }
         val key = apiKey
         if (key.isBlank()) {
             status = "ADD GEMINI KEY IN SETTINGS"
@@ -4819,8 +4828,20 @@ For privacy, I do not silently send messages or place calls. Android may ask you
             var connection: HttpURLConnection? = null
             try {
                 val imageBytes = try {
-                    contentResolver.openInputStream(uri)?.use { it.readBytes() }
-                        ?: throw IllegalStateException("Could not read selected image")
+                    contentResolver.openInputStream(uri)?.use { stream ->
+                        // Read at most 12 MiB + 1 byte so an oversized image cannot exhaust memory.
+                        val output = java.io.ByteArrayOutputStream()
+                        val buffer = ByteArray(8192)
+                        var total = 0
+                        while (true) {
+                            val count = stream.read(buffer)
+                            if (count < 0) break
+                            total += count
+                            if (total > 12 * 1024 * 1024) throw IllegalArgumentException("Image is too large")
+                            output.write(buffer, 0, count)
+                        }
+                        output.toByteArray()
+                    } ?: throw IllegalStateException("Could not read selected image")
                 } finally {
                     // Camera previews are written to the app cache only long enough to analyze them.
                     if (uri.scheme == "file") {
@@ -4843,8 +4864,13 @@ For privacy, I do not silently send messages or place calls. Android may ask you
                 val bitmap = android.graphics.BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size, decodeOptions)
                     ?: throw IllegalArgumentException("Unsupported image format")
                 val output = java.io.ByteArrayOutputStream()
-                bitmap.compress(android.graphics.Bitmap.CompressFormat.JPEG, 82, output)
-                bitmap.recycle()
+                try {
+                    if (!bitmap.compress(android.graphics.Bitmap.CompressFormat.JPEG, 82, output)) {
+                        throw IllegalArgumentException("Could not encode image")
+                    }
+                } finally {
+                    bitmap.recycle()
+                }
                 val encodedImage = android.util.Base64.encodeToString(output.toByteArray(), android.util.Base64.NO_WRAP)
                 val encodedKey = URLEncoder.encode(key, "UTF-8")
                 connection = (URL("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=$encodedKey").openConnection() as HttpURLConnection).apply {
