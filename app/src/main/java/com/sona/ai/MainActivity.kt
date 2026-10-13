@@ -826,7 +826,7 @@ class MainActivity : ComponentActivity() {
                                     Spacer(Modifier.width(9.dp))
                                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                         Text("Voice Assistant", color = Color(0xFFF5F7FF), fontSize = 21.sp, fontWeight = FontWeight.Bold, letterSpacing = .1.sp)
-                                        Text("Tap to start or say “Hey Myra”", color = Color(0xFFB6C5DE), fontSize = 11.sp, fontWeight = FontWeight.Medium, letterSpacing = .1.sp)
+                                        Text("Tap to start or say “Hey Myra”", color = Color(0xFFB6C5DE), fontSize = 14.sp, fontWeight = FontWeight.Medium, letterSpacing = .1.sp)
                                     }
                                     Surface(
                                         onClick = { showSettings = true },
@@ -839,7 +839,7 @@ class MainActivity : ComponentActivity() {
                                         }
                                     }
                                 }
-                                Spacer(Modifier.height(12.dp))
+                                Spacer(Modifier.height(18.dp))
                                 Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                     Text(
                                         when {
@@ -905,7 +905,7 @@ class MainActivity : ComponentActivity() {
                                 Spacer(Modifier.height(8.dp))
                                 Box(
                                     contentAlignment = Alignment.Center,
-                                    modifier = Modifier.size(232.dp).clickable {
+                                    modifier = Modifier.size(250.dp).clickable {
                                         val canRetryVoice = liveVoiceSession == null ||
                                             status.contains("FAILED", true) ||
                                             status.contains("ERROR", true) ||
