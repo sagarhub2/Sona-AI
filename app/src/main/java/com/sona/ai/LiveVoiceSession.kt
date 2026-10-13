@@ -42,6 +42,7 @@ class LiveVoiceSession(
     @Volatile private var recorder: AudioRecord? = null
     @Volatile private var player: AudioTrack? = null
     @Volatile private var micThread: Thread? = null
+    @Volatile private var setupWatchdog: Thread? = null
 
     /** Stop sending captured microphone audio to Gemini while muted. */
     fun setMuted(mute: Boolean) {
@@ -111,14 +112,16 @@ class LiveVoiceSession(
                     return
                 }
                 onStatus("CONNECTED • WAITING FOR GEMINI SETUP…")
-                Thread({
+                setupWatchdog?.interrupt()
+                setupWatchdog = Thread({
                     try { Thread.sleep(12000) } catch (_: InterruptedException) { return@Thread }
-                    if (running.get() && !setupCompleted.get()) {
+                    // A watchdog from an old connection must never tear down a newer session.
+                    if (socket === ws && running.get() && !setupCompleted.get()) {
                         onStatus("VOICE SETUP TIMEOUT • NO GEMINI SETUP REPLY")
                         stopAudio()
-                        socket?.cancel()
+                        ws.cancel()
                     }
-                }, "Sona-Setup-Watchdog").apply { isDaemon = true; start() }
+                }, "Myra-Setup-Watchdog").apply { isDaemon = true; start() }
             }
             override fun onMessage(ws: WebSocket, bytes: okio.ByteString) {
                 // Gemini may send JSON control messages in binary frames too.
@@ -137,6 +140,8 @@ class LiveVoiceSession(
                         return
                     }
                     if (root.has("setupComplete")) {
+                        setupWatchdog?.interrupt()
+                        setupWatchdog = null
                         setupCompleted.set(true)
                         startAudio()
                     }
@@ -229,20 +234,31 @@ class LiveVoiceSession(
             onStatus("LIVE • SPEAK TO MYRA")
             micThread = Thread({
                 val buffer = ByteArray(3200)
-                while (running.get()) {
-                    val n = input.read(buffer, 0, buffer.size, AudioRecord.READ_BLOCKING)
-                    if (n > 0 && running.get()) {
+                try {
+                    while (running.get() && socket != null) {
+                        val n = input.read(buffer, 0, buffer.size, AudioRecord.READ_BLOCKING)
+                        if (n < 0) {
+                            if (running.get()) onStatus("MICROPHONE READ FAILED • RESTART VOICE")
+                            break
+                        }
+                        if (n > 0 && running.get()) {
                         // When muted, send silence frames instead of the captured microphone samples.
                         val audioFrame = if (muted.get()) ByteArray(n) else buffer.copyOf(n)
                         val chunk = Base64.encodeToString(audioFrame, Base64.NO_WRAP)
                         val message = JSONObject().put("realtimeInput", JSONObject().put("audio",
                             JSONObject().put("mimeType", "audio/pcm;rate=16000").put("data", chunk)))
-                        if (socket?.send(message.toString()) != true) {
-                            onStatus("LIVE AUDIO SEND FAILED • RECONNECT")
-                            stopAudio()
-                            break
+                            if (socket?.send(message.toString()) != true) {
+                                onStatus("LIVE AUDIO SEND FAILED • RECONNECT")
+                                stopAudio()
+                                break
+                            }
                         }
                     }
+                } catch (_: IllegalStateException) {
+                    if (running.get()) onStatus("MICROPHONE STOPPED • RESTART VOICE")
+                    stopAudio()
+                } finally {
+                    if (micThread === Thread.currentThread()) micThread = null
                 }
             }, "Myra-Live-Mic").also { it.start() }
         } catch (_: SecurityException) {
@@ -259,7 +275,10 @@ class LiveVoiceSession(
         audioStarted.set(false)
         turnReceivedAudio = false
         pendingOutputTranscript = ""
+        try { setupWatchdog?.interrupt() } catch (_: Exception) {}
+        setupWatchdog = null
         try { micThread?.interrupt() } catch (_: Exception) {}
+        micThread = null
         try { recorder?.stop() } catch (_: Exception) {}
         try { recorder?.release() } catch (_: Exception) {}
         recorder = null
