@@ -5629,23 +5629,27 @@ private fun MyraHome(
             }
         }
             Row(Modifier.fillMaxWidth().padding(top = 14.dp, bottom = 9.dp), verticalAlignment = Alignment.CenterVertically) {
-                Column(Modifier.weight(1f)) {
-                    Text("QUICK ACCESS", color = Color(0xFFF5F7FF), fontSize = 14.sp, fontWeight = FontWeight.Bold, letterSpacing = .8.sp)
-                    Text("CHAT  •  VOICE  •  TRIGGERS  •  SETTINGS", color = Color(0xFF7F95B5), fontSize = 8.sp, letterSpacing = 1.1.sp, modifier = Modifier.padding(top = 2.dp))
-                }
-                Text("04 SHORTCUTS", color = Color(0xFF55E7F5), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .8.sp)
+                Text("Quick Actions", color = Color(0xFFF5F7FF), fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                Spacer(Modifier.weight(1f))
+                Text("MYRA TOOLS", color = Color(0xFF55E7F5), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .8.sp)
             }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(9.dp)) {
-                HomeGlassCard("Chat", "Ask anything", "▣", Color(0xFF9666FF), Modifier.weight(1f)) { onChat() }
-                HomeGlassCard("Voice", "Speak naturally", "♫", Color(0xFF55E7F5), Modifier.weight(1f)) { onStartVoice() }
+                HomeGlassCard("Chat", "Ask anything", "▣", Color(0xFF456CFF), Modifier.weight(1f)) { onChat() }
+                HomeGlassCard("Voice", "Speak & listen", "♫", Color(0xFF9666FF), Modifier.weight(1f)) { onStartVoice() }
             }
             Spacer(Modifier.height(9.dp))
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(9.dp)) {
-                HomeGlassCard("Trigger", "Phone actions", "⌘", Color(0xFF28D9B0), Modifier.weight(1f)) { onFeatures() }
-                HomeGlassCard("Settings", "Personalize MYRA", "⚙", Color(0xFF9D7BFF), Modifier.weight(1f)) { onSettings() }
+                HomeGlassCard("Camera", "See & analyze", "▣", Color(0xFF18C995), Modifier.weight(1f)) { onCamera() }
+                HomeGlassCard("Memory", "Remember", "⬡", Color(0xFF9A48FF), Modifier.weight(1f)) { onMemory() }
             }
-            // Camera, memory and productivity tools remain accessible from the feature workspace,
-            // keeping the Home dashboard aligned with the five primary destinations.
+            Spacer(Modifier.height(14.dp))
+            Text("Quick Actions", color = Color(0xFFF5F7FF), fontSize = 14.sp, fontWeight = FontWeight.Bold)
+            Row(Modifier.fillMaxWidth().padding(top = 10.dp, bottom = 4.dp), horizontalArrangement = Arrangement.SpaceAround, verticalAlignment = Alignment.CenterVertically) {
+                HomeQuickAction("Open Apps", "▦", Color(0xFF55E7F5)) { onFeatures() }
+                HomeQuickAction("YouTube", "▶", Color(0xFFFF4968)) { onMedia() }
+                HomeQuickAction("Music", "♫", Color(0xFF8A9BFF)) { onMedia() }
+                HomeQuickAction("Settings", "⚙", Color(0xFFB46CFF)) { onSettings() }
+            }
         // Floating HUD-style navigation: separated from the screen edge with a soft holographic rim.
         Row(
             Modifier.fillMaxWidth().padding(horizontal = 10.dp, vertical = 7.dp)
@@ -5688,6 +5692,23 @@ private fun MyraHome(
 
 
 @Composable
+@Composable
+private fun HomeQuickAction(title: String, symbol: String, tint: Color, onClick: () -> Unit) {
+    Column(
+        Modifier.width(72.dp).clip(RoundedCornerShape(16.dp)).clickable(onClick = onClick).padding(vertical = 3.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(6.dp)
+    ) {
+        Box(
+            Modifier.size(48.dp).clip(CircleShape)
+                .background(Brush.radialGradient(listOf(tint.copy(alpha = .24f), Color(0xFF0D192B))))
+                .border(1.dp, tint.copy(alpha = .45f), CircleShape),
+            contentAlignment = Alignment.Center
+        ) { Text(symbol, color = tint, fontSize = 22.sp, fontWeight = FontWeight.Bold) }
+        Text(title, color = Color(0xFFDCE6F8), fontSize = 9.sp, maxLines = 1)
+    }
+}
+
 private fun HomeGlassCard(title: String, subtitle: String, symbol: String, tint: Color, modifier: Modifier = Modifier, onClick: () -> Unit) {
     Surface(modifier = modifier.height(76.dp), onClick = onClick, shape = RoundedCornerShape(18.dp),
         color = Color(0xCC111A32), shadowElevation = 4.dp,
