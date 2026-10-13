@@ -4993,6 +4993,16 @@ private fun MyraHome(
                                 }
                             }
                             Text(if (busy) "Connecting to your assistant…" else "Tap to open voice chat and talk naturally with MYRA.", color = Color(0xFF9EABC2), fontSize = 10.sp, maxLines = 2, lineHeight = 14.sp)
+                            Row(
+                                Modifier.fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(6.dp)
+                            ) {
+                                Box(Modifier.weight(1f).height(2.dp).clip(CircleShape).background(Color(0xFF314B6A)))
+                                Box(Modifier.weight(1f).height(2.dp).clip(CircleShape).background(Color(0xFFFF3155)))
+                                Box(Modifier.weight(1f).height(2.dp).clip(CircleShape).background(Color(0xFF314B6A)))
+                                Text(if (busy) "LIVE" else "READY", color = Color(0xFFFF3155), fontSize = 8.sp, fontWeight = FontWeight.Black, letterSpacing = .8.sp)
+                            }
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                                 Box(Modifier.size(6.dp).clip(CircleShape).background(if (busy) Color(0xFFFF3155) else Color(0xFF37D8E8)))
                                 Text(if (busy) "Live session in progress" else "VOICE  •  TAP TO START", color = Color(0xFF9EABC2), fontSize = 8.sp, letterSpacing = .55.sp)
