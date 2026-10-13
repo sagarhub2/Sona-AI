@@ -842,17 +842,37 @@ class MainActivity : ComponentActivity() {
                                     Text(if (bossMode) "♛  BOSS MODE ON" else "♛  Boss Mode", fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
                                 }
                                 Spacer(Modifier.height(10.dp))
-                                Text(if (voiceMuted) "MICROPHONE MUTED" else if (status.contains("LIVE", true) || status.contains("LISTEN", true)) "MYRA IS LISTENING" else status.uppercase(), color = Color(0xFFFF3155), fontSize = 11.sp, fontWeight = FontWeight.SemiBold, letterSpacing = 1.2.sp, textAlign = TextAlign.Center, maxLines = 2)
-                                 Text(
-                                    when {
-                                        voiceMuted -> "Microphone paused • unmute when you’re ready"
-                                        status.contains("LISTEN", true) || status.contains("LIVE", true) -> "Listening now • speak naturally"
-                                        status.contains("THINK", true) || status.contains("ASKING", true) -> "Processing your voice request…"
-                                        else -> "Tap the orb to begin • speak naturally"
-                                    },
-                                    color = Color(0xFFB8C5DA), fontSize = 10.sp,
-                                    textAlign = TextAlign.Center, maxLines = 2, lineHeight = 15.sp
-                                )
+                                Surface(
+                                    color = Color(0xFF0D192B),
+                                    shape = RoundedCornerShape(18.dp),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, if (voiceMuted) Color(0xFF536A89) else Color(0xFF314B6A))
+                                ) {
+                                    Row(
+                                        Modifier.fillMaxWidth().padding(horizontal = 13.dp, vertical = 11.dp),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                                    ) {
+                                        Box(Modifier.size(7.dp).clip(CircleShape).background(if (voiceMuted) Color(0xFF536A89) else if (status.contains("THINK", true) || status.contains("ASKING", true)) Color(0xFFFFB547) else Color(0xFFFF3155)))
+                                        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                                            Text(
+                                                if (voiceMuted) "MICROPHONE MUTED" else if (status.contains("THINK", true) || status.contains("ASKING", true)) "MYRA IS PROCESSING" else if (status.contains("LIVE", true) || status.contains("LISTEN", true)) "MYRA IS LISTENING" else status.uppercase(),
+                                                color = if (voiceMuted) Color(0xFF9CB4D0) else Color(0xFFFF3155),
+                                                fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = .9.sp, maxLines = 2
+                                            )
+                                            Text(
+                                                when {
+                                                    voiceMuted -> "Microphone paused • unmute when you’re ready"
+                                                    status.contains("THINK", true) || status.contains("ASKING", true) -> "Processing your voice request…"
+                                                    status.contains("LISTEN", true) || status.contains("LIVE", true) -> "Listening now • speak naturally"
+                                                    else -> "Tap the orb to begin • speak naturally"
+                                                },
+                                                color = Color(0xFFB8C5DA), fontSize = 10.sp,
+                                                maxLines = 2, lineHeight = 15.sp
+                                            )
+                                        }
+                                        Text(if (voiceMuted) "MUTED" else "LIVE", color = if (voiceMuted) Color(0xFF536A89) else Color(0xFFFF3155), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .5.sp)
+                                    }
+                                }
                                 Spacer(Modifier.height(10.dp))
                                 Surface(modifier = Modifier.fillMaxWidth(), color = Color(0xFF0D192B).copy(alpha = .96f), shape = RoundedCornerShape(22.dp), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))) {
                                     Column(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(5.dp)) {
