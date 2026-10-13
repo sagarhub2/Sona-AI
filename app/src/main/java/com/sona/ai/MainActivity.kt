@@ -50,6 +50,7 @@ import java.net.URL
 import java.net.URLEncoder
 import java.util.Locale
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
 
 private var activeThemeName by mutableStateOf("Holographic")
 private val Night: Color get() = Color(0xFF050B16)
@@ -67,6 +68,7 @@ class MainActivity : ComponentActivity() {
     private var showSettings by mutableStateOf(false)
     private var showMemory by mutableStateOf(false)
     private var showTasks by mutableStateOf(false)
+    private var showFocusMode by mutableStateOf(false)
     private var showHistory by mutableStateOf(false)
     private var showChat by mutableStateOf(false)
     private var showVoiceScreen by mutableStateOf(false)
@@ -555,6 +557,7 @@ class MainActivity : ComponentActivity() {
                     onSettings = { showFeaturesMenu = false; showSettings = true },
                     onMemory = { showFeaturesMenu = false; showMemory = true },
                     onTasks = { showFeaturesMenu = false; showTasks = true },
+                    onFocus = { showFeaturesMenu = false; showFocusMode = true },
                     onHistory = { showFeaturesMenu = false; showHistory = true },
                     onFiles = { showFeaturesMenu = false; showFiles = true },
                     onCamera = {
@@ -1814,6 +1817,9 @@ class MainActivity : ComponentActivity() {
                         }) { Text("Clear history", color = Color(0xFFFF3155), fontWeight = FontWeight.SemiBold) }
                     }
                 )
+            }
+            if (showFocusMode) {
+                FocusModeDialog(onClose = { showFocusMode = false })
             }
             if (showTasks) {
                 val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
@@ -5367,9 +5373,125 @@ private fun MyraHome(
 }
 
 @Composable
+
+@Composable
+private fun FocusModeDialog(onClose: () -> Unit) {
+    var selectedMinutes by remember { mutableIntStateOf(25) }
+    var secondsLeft by remember { mutableIntStateOf(25 * 60) }
+    var running by remember { mutableStateOf(false) }
+    var completed by remember { mutableStateOf(false) }
+    LaunchedEffect(running, secondsLeft) {
+        if (running && secondsLeft > 0) {
+            delay(1000)
+            secondsLeft = (secondsLeft - 1).coerceAtLeast(0)
+            if (secondsLeft == 0) {
+                running = false
+                completed = true
+            }
+        }
+    }
+    val totalSeconds = selectedMinutes * 60
+    val progress = if (totalSeconds > 0) 1f - secondsLeft.toFloat() / totalSeconds else 0f
+    val minutesText = (secondsLeft / 60).toString().padStart(2, '0')
+    val secondsText = (secondsLeft % 60).toString().padStart(2, '0')
+    AlertDialog(
+        onDismissRequest = onClose,
+        containerColor = Color(0xFF091326),
+        titleContentColor = Color(0xFFF5F7FF),
+        textContentColor = Color(0xFFB7C8E4),
+        shape = RoundedCornerShape(28.dp),
+        title = {
+            Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                Text("FOCUS SESSION", color = Cyan, fontSize = 11.sp, letterSpacing = 2.sp, fontWeight = FontWeight.Bold)
+                Text(if (completed) "Session complete ✦" else "Make space to focus", fontSize = 22.sp, fontWeight = FontWeight.Bold)
+            }
+        },
+        text = {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(18.dp)
+            ) {
+                Text(
+                    "Choose a duration, then keep MYRA open while you work.",
+                    color = Color(0xFF9CB4D0),
+                    fontSize = 13.sp,
+                    textAlign = TextAlign.Center
+                )
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    listOf(15, 25, 45).forEach { duration ->
+                        val active = selectedMinutes == duration
+                        Surface(
+                            onClick = {
+                                if (!running) {
+                                    selectedMinutes = duration
+                                    secondsLeft = duration * 60
+                                    completed = false
+                                }
+                            },
+                            shape = RoundedCornerShape(14.dp),
+                            color = if (active) Color(0xFF19324B) else Color(0xFF101B2D),
+                            border = androidx.compose.foundation.BorderStroke(1.dp, if (active) Cyan else Color(0xFF283952))
+                        ) {
+                            Text(
+                                "$duration min",
+                                modifier = Modifier.padding(horizontal = 13.dp, vertical = 10.dp),
+                                color = if (active) Cyan else Color(0xFFB7C8E4),
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        }
+                    }
+                }
+                Box(contentAlignment = Alignment.Center, modifier = Modifier.size(164.dp)) {
+                    CircularProgressIndicator(
+                        progress = { progress },
+                        modifier = Modifier.fillMaxSize(),
+                        color = Violet,
+                        trackColor = Color(0xFF1B2940),
+                        strokeWidth = 6.dp
+                    )
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text("$minutesText:$secondsText", color = Color(0xFFF4F7FF), fontSize = 34.sp, fontWeight = FontWeight.Bold)
+                        Text(if (completed) "DONE" else if (running) "FOCUSING" else "READY", color = Cyan, fontSize = 10.sp, letterSpacing = 2.sp)
+                    }
+                }
+                Row(horizontalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.fillMaxWidth()) {
+                    OutlinedButton(
+                        onClick = {
+                            running = false
+                            secondsLeft = selectedMinutes * 60
+                            completed = false
+                        },
+                        modifier = Modifier.weight(1f),
+                        shape = RoundedCornerShape(14.dp)
+                    ) { Text("Reset") }
+                    Button(
+                        onClick = {
+                            if (completed) {
+                                secondsLeft = selectedMinutes * 60
+                                completed = false
+                                running = true
+                            } else {
+                                running = !running
+                            }
+                        },
+                        modifier = Modifier.weight(1f),
+                        shape = RoundedCornerShape(14.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = Violet, contentColor = Color.White)
+                    ) { Text(if (completed) "Start again" else if (running) "Pause" else "Start focus") }
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onClose) { Text("Done", color = Cyan, fontWeight = FontWeight.Bold) }
+        }
+    )
+}
+
 private fun MyraFeaturesMenu(
     onClose: () -> Unit, onVoice: () -> Unit, onSettings: () -> Unit,
-    onMemory: () -> Unit, onTasks: () -> Unit, onHistory: () -> Unit,
+    onMemory: () -> Unit, onTasks: () -> Unit, onFocus: () -> Unit, onHistory: () -> Unit,
     onFiles: () -> Unit, onCamera: () -> Unit, onContacts: () -> Unit,
     onMedia: () -> Unit, onReminder: () -> Unit, onWeb: () -> Unit, onDevice: () -> Unit
 ) {
@@ -5381,6 +5503,7 @@ private fun MyraFeaturesMenu(
         Triple("Files & Documents", "Browse PDFs, images and files", "▤") to onFiles,
         Triple("Notes & Voice Notes", "Open your saved notes", "✎") to onMemory,
         Triple("Tasks & Reminders", "Stay organized", "☑") to onTasks,
+        Triple("Focus Session", "Pomodoro timer for study or deep work", "◷") to onFocus,
         Triple("Reminders & Alarms", "Create an alarm", "⏰") to onReminder,
         Triple("Device Settings", "Open Android settings", "⚙") to onDevice,
         Triple("Web Search", "Search the internet", "⌕") to onWeb,
