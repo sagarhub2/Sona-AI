@@ -825,8 +825,8 @@ class MainActivity : ComponentActivity() {
                                     }
                                     Spacer(Modifier.width(9.dp))
                                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                                        Text("MYRA VOICE", color = Color(0xFFF5F7FF), fontSize = 22.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 1.1.sp)
-                                        Text("SPEAK NATURALLY  •  INTERRUPT ANYTIME", color = Color(0xFF53E5F5), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.05.sp)
+                                        Text("Voice Assistant", color = Color(0xFFF5F7FF), fontSize = 21.sp, fontWeight = FontWeight.Bold, letterSpacing = .1.sp)
+                                        Text("Tap to start or say “Hey Myra”", color = Color(0xFFB6C5DE), fontSize = 11.sp, fontWeight = FontWeight.Medium, letterSpacing = .1.sp)
                                     }
                                     val voiceStatusAccent = when {
                                         voiceMuted -> Color(0xFF8298B8)
@@ -918,7 +918,7 @@ class MainActivity : ComponentActivity() {
                                 Spacer(Modifier.height(8.dp))
                                 Box(
                                     contentAlignment = Alignment.Center,
-                                    modifier = Modifier.size(204.dp).clickable {
+                                    modifier = Modifier.size(232.dp).clickable {
                                         val canRetryVoice = liveVoiceSession == null ||
                                             status.contains("FAILED", true) ||
                                             status.contains("ERROR", true) ||
@@ -1321,9 +1321,9 @@ class MainActivity : ComponentActivity() {
                                 }
                                 Spacer(Modifier.width(10.dp))
                                 Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                                    Text("MYRA", color = Color(0xFFF5F7FF), fontSize = 21.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 2.sp)
-                                    Text("NEURAL CHAT  •  CONTEXT AWARE", color = Color(0xFF9CB4D0), fontSize = 8.sp, fontWeight = FontWeight.SemiBold, letterSpacing = 1.1.sp)
-                                    Text("YOUR SPACE TO ASK, LEARN & CREATE", color = Color(0xFF55E7F5), fontSize = 7.sp, fontWeight = FontWeight.Bold, letterSpacing = .7.sp)
+                                    Text("Chat", color = Color(0xFFF5F7FF), fontSize = 24.sp, fontWeight = FontWeight.Bold, letterSpacing = .2.sp)
+                                    Text("Your AI conversations", color = Color(0xFFB6C5DE), fontSize = 11.sp, fontWeight = FontWeight.Medium, letterSpacing = .1.sp)
+                                    Text("ASK  •  LEARN  •  CREATE", color = Color(0xFF55E7F5), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .8.sp)
                                     Row(
                                         Modifier.padding(top = 2.dp).clip(RoundedCornerShape(20.dp))
                                             .background(Color(0xFF172B42)).border(1.dp, Color(0xFF9666FF).copy(alpha = .28f), RoundedCornerShape(20.dp))
