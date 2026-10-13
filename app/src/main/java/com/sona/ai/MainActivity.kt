@@ -4993,6 +4993,14 @@ private fun MyraHome(
                 }
             }
         }
+            Row(Modifier.fillMaxWidth().padding(top = 10.dp, bottom = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+                Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                    Text("Your workspace", color = ink, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                    Text("Files, conversations and device tools", color = muted, fontSize = 10.sp)
+                }
+                Spacer(Modifier.weight(1f))
+                Box(Modifier.width(28.dp).height(1.dp).background(Color(0xFF314B6A)))
+            }
             Row(Modifier.fillMaxWidth().padding(top = 2.dp, bottom = 14.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 Surface(
                     onClick = onFiles,
