@@ -1740,7 +1740,7 @@ class MainActivity : ComponentActivity() {
                             }
                             OutlinedTextField(
                                     value = chatDraft,
-                                    onValueChange = { chatDraft = it },
+                                    onValueChange = { chatDraft = it.take(4000) },
                                     modifier = Modifier.fillMaxWidth(),
                                     placeholder = { Text(if (busy) "MYRA IS REPLYING…" else "Ask anything…", color = Color(0xFF8298B8), fontSize = 13.sp) },
                                     leadingIcon = { Text("✦", color = Color(0xFF9666FF), fontSize = 18.sp) },
@@ -1766,7 +1766,7 @@ class MainActivity : ComponentActivity() {
                             Spacer(Modifier.height(8.dp))
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
                                 Text(
-                                    if (busy) "MYRA IS THINKING…" else if (chatDraft.isNotBlank()) "${chatDraft.length} CHARACTERS  •  DRAFT NOT SENT" else "YOUR SPACE TO THINK, ASK & CREATE",
+                                    if (busy) "MYRA IS THINKING…" else if (chatDraft.isNotBlank()) "${chatDraft.length}/4000 CHARACTERS  •  DRAFT NOT SENT" else "YOUR SPACE TO THINK, ASK & CREATE",
                                     color = Color(0xFF314B6A), fontSize = 9.sp, letterSpacing = .25.sp, modifier = Modifier.weight(1f)
                                 )
                                 if (!busy) {
@@ -1778,7 +1778,7 @@ class MainActivity : ComponentActivity() {
                                                 clip.getItemAt(0).coerceToText(this@MainActivity)?.toString().orEmpty()
                                             } else ""
                                             if (copiedText.isNotBlank()) {
-                                                chatDraft = if (chatDraft.isBlank()) copiedText else chatDraft + copiedText
+                                                chatDraft = (if (chatDraft.isBlank()) copiedText else chatDraft + copiedText).take(4000)
                                             } else {
                                                 android.widget.Toast.makeText(this@MainActivity, "Clipboard has no text", android.widget.Toast.LENGTH_SHORT).show()
                                             }
