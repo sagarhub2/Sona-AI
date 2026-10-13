@@ -1035,7 +1035,7 @@ class MainActivity : ComponentActivity() {
                             Row(Modifier.fillMaxWidth().padding(top = 8.dp, bottom = 6.dp), verticalAlignment = Alignment.CenterVertically) {
                                 Text("QUICK PROMPTS", color = Color(0xFF9EABC2), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
                                 Spacer(Modifier.weight(1f))
-                                Text("TAP TO START", color = Color(0xFFFF4D9D), fontSize = 8.sp, letterSpacing = .6.sp)
+                                Text("MODE: ${selectedChatCategory.uppercase()}", color = Color(0xFFFF4D9D), fontSize = 8.sp, letterSpacing = .35.sp, maxLines = 1)
                             }
                             Row(
                                 modifier = Modifier.fillMaxWidth().horizontalScroll(androidx.compose.foundation.rememberScrollState()),
