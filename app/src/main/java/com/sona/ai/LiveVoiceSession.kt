@@ -119,6 +119,7 @@ class LiveVoiceSession(
                     if (socket === ws && running.get() && !setupCompleted.get()) {
                         onStatus("VOICE SETUP TIMEOUT • NO GEMINI SETUP REPLY")
                         stopAudio()
+                        if (socket === ws) socket = null
                         ws.cancel()
                     }
                 }, "Myra-Setup-Watchdog").apply { isDaemon = true; start() }
@@ -250,6 +251,9 @@ class LiveVoiceSession(
                             if (socket?.send(message.toString()) != true) {
                                 onStatus("LIVE AUDIO SEND FAILED • RECONNECT")
                                 stopAudio()
+                                val failedSocket = socket
+                                if (socket === failedSocket) socket = null
+                                failedSocket?.cancel()
                                 break
                             }
                         }
