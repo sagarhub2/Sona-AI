@@ -4685,6 +4685,25 @@ For privacy, I do not silently send messages or place calls. Android may ask you
         }.start()
     }
 
+    /**
+     * Save the general activity log and the active chat's own transcript.
+     * This lets a newly-created chat start empty without deleting older history.
+     */
+    private fun appendChatHistoryEntry(prompt: String, reply: String) {
+        val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
+        val timestamp = java.text.SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault()).format(java.util.Date())
+        val entry = "\n[$timestamp] User: $prompt\nMyra: $reply"
+        val previousHistory = prefs.getString("conversation_history", "").orEmpty()
+        val editor = prefs.edit().putString("conversation_history", (previousHistory + entry).takeLast(12000))
+        val sessionId = prefs.getString("active_chat_session_id", "").orEmpty()
+        if (sessionId.isNotBlank()) {
+            val sessionKey = "chat_session_$sessionId"
+            val sessionHistory = prefs.getString(sessionKey, "").orEmpty()
+            editor.putString(sessionKey, (sessionHistory + entry).takeLast(12000))
+        }
+        editor.apply()
+    }
+
     private fun askGemini(prompt: String) {
         if (handleLocalCommand(prompt)) {
             // Local device actions do not call Gemini, but still finish the pending
