@@ -1243,6 +1243,16 @@ class MainActivity : ComponentActivity() {
                                     )
                                 }
                             }
+                            Row(
+                                modifier = Modifier.fillMaxWidth().padding(top = 3.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Box(Modifier.width(3.dp).height(16.dp).clip(CircleShape).background(Color(0xFFFF3155)))
+                                Text("MESSAGE COMPOSER", color = Color(0xFF9CB4D0), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.1.sp)
+                                Spacer(Modifier.weight(1f))
+                                Text("SECURE SESSION", color = Color(0xFF536A89), fontSize = 8.sp, letterSpacing = .5.sp)
+                            }
                             OutlinedTextField(
                                     value = chatDraft,
                                     onValueChange = { chatDraft = it },
