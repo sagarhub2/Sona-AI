@@ -1030,6 +1030,7 @@ class MainActivity : ComponentActivity() {
                 var showClearHistoryConfirm by remember { mutableStateOf(false) }
                 val chatPrefs = getSharedPreferences("myra_private", MODE_PRIVATE)
                 var savedChat by remember { mutableStateOf(chatPrefs.getString("conversation_history", "").orEmpty()) }
+                var isFreshChat by remember { mutableStateOf(false) }
                 var selectedChatCategory by remember { mutableStateOf("General Chat") }
                 var selectedChatTab by remember { mutableStateOf("Conversations") }
                 var showChatSearch by remember { mutableStateOf(false) }
@@ -1069,6 +1070,9 @@ class MainActivity : ComponentActivity() {
                                     onClick = {
                                         chatDraft = ""
                                         pendingMessage = ""
+                                        isFreshChat = true
+                                        showChatSearch = false
+                                        chatSearchQuery = ""
                                         selectedChatCategory = "General Chat"
                                         selectedChatTab = "Conversations"
                                         status = "NEW CHAT DRAFT READY"
@@ -1214,7 +1218,7 @@ class MainActivity : ComponentActivity() {
                                         ) {
                                             Box(Modifier.size(5.dp).clip(CircleShape).background(Color(0xFFFF3155)))
                                             Text(
-                                                if (savedChat.isBlank()) "MYRA IS READY" else "LAST CONVERSATION",
+                                                if (isFreshChat || savedChat.isBlank()) "MYRA IS READY" else "LAST CONVERSATION",
                                                 color = Color(0xFF9CB4D0), fontSize = 8.sp,
                                                 fontWeight = FontWeight.Bold, letterSpacing = 1.sp
                                             )
@@ -1222,7 +1226,7 @@ class MainActivity : ComponentActivity() {
                                             Text("AI COMPANION", color = Color(0xFFFF3155), fontSize = 8.sp, letterSpacing = .5.sp)
                                         }
                                         Text(
-                                            if (savedChat.isBlank()) "Hey, I’m Myra ✦\nYour personal AI companion. Ask a question, explore an idea, or tell me what you need help with."
+                                            if (isFreshChat || savedChat.isBlank()) "Hey, I’m Myra ✦\nYour personal AI companion. Ask a question, explore an idea, or tell me what you need help with."
                                             else if (chatSearchQuery.isBlank()) savedChat.replace("\\\\n", "\\n")
                                             else chatSearchResult.replace("\\\\n", "\\n").ifBlank { "No matching conversation text found." },
                                             color = Color(0xFFF5F7FF), fontSize = 14.sp, lineHeight = 22.sp
