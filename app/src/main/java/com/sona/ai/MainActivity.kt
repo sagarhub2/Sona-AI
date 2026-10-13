@@ -1052,7 +1052,10 @@ class MainActivity : ComponentActivity() {
                         border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A)),
                         tonalElevation = 0.dp
                     ) {
-                        Column(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0xFF071426), Color(0xFF050B16), Color(0xFF0B1020)))).padding(16.dp)) {
+                        Column(Modifier.fillMaxSize()
+                            .background(Brush.verticalGradient(listOf(Color(0xFF071426), Color(0xFF050B16), Color(0xFF0B1020))))
+                            .padding(16.dp)
+                            .imePadding()) {
                             Row(
                                 Modifier.fillMaxWidth().padding(top = 2.dp, bottom = 8.dp),
                                 verticalAlignment = Alignment.CenterVertically
@@ -1186,8 +1189,8 @@ class MainActivity : ComponentActivity() {
                                         border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))) {
                                         Row(Modifier.padding(horizontal = 9.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically,
                                             horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                                            Box(Modifier.size(5.dp).clip(CircleShape).background(if (savedChat.isBlank()) Color(0xFFFF3155) else Color(0xFF66F0BC)))
-                                            Text(if (savedChat.isBlank()) "NEW CHAT" else "SAVED",
+                                            Box(Modifier.size(5.dp).clip(CircleShape).background(if (isFreshChat || savedChat.isBlank()) Color(0xFFFF3155) else Color(0xFF66F0BC)))
+                                            Text(if (isFreshChat || savedChat.isBlank()) "NEW CHAT" else "SAVED",
                                                 color = Color(0xFFFF3155), fontSize = 8.sp, fontWeight = FontWeight.Bold,
                                                 letterSpacing = .5.sp)
                                         }
