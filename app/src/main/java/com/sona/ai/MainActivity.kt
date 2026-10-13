@@ -5058,6 +5058,14 @@ private fun MyraHome(
                 Text("›", color = Color(0xFFFF3155), fontSize = 27.sp, fontWeight = FontWeight.Bold)
             }
         }
+        Row(Modifier.fillMaxWidth().padding(top = 2.dp, bottom = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+            Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                Text("Controls & settings", color = ink, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                Text("Personalize MYRA and manage device actions", color = muted, fontSize = 10.sp)
+            }
+            Spacer(Modifier.weight(1f))
+            Box(Modifier.width(28.dp).height(1.dp).background(Color(0xFF314B6A)))
+        }
         Row(Modifier.fillMaxWidth().padding(bottom = 14.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             Surface(
                 onClick = onSettings,
