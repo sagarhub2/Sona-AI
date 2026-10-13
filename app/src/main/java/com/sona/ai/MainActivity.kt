@@ -1553,6 +1553,20 @@ class MainActivity : ComponentActivity() {
                                                         messageText,
                                                         color = Color(0xFFF5F7FF), fontSize = 14.sp, lineHeight = 22.sp
                                                     )
+                                                    if (!isUserMessage) {
+                                                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                                                            TextButton(
+                                                                onClick = {
+                                                                    val clipboard = getSystemService(android.content.ClipboardManager::class.java)
+                                                                    clipboard?.setPrimaryClip(android.content.ClipData.newPlainText("Myra AI reply", messageText))
+                                                                    android.widget.Toast.makeText(this@MainActivity, "MYRA reply copied", android.widget.Toast.LENGTH_SHORT).show()
+                                                                },
+                                                                contentPadding = PaddingValues(horizontal = 4.dp, vertical = 0.dp)
+                                                            ) {
+                                                                Text("⧉ Copy reply", color = Color(0xFF55E7F5), fontSize = 10.sp)
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
