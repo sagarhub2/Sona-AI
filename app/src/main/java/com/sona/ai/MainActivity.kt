@@ -1952,6 +1952,21 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                             }
+                            if (visibleHistory.isNotBlank()) {
+                                OutlinedButton(
+                                    onClick = {
+                                        val clipboard = getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+                                        clipboard.setPrimaryClip(android.content.ClipData.newPlainText("MYRA conversation history", visibleHistory.replace("\\\\n", "\\n")))
+                                        android.widget.Toast.makeText(this@MainActivity, if (historyQuery.isBlank()) "Conversation history copied" else "Filtered history copied", android.widget.Toast.LENGTH_SHORT).show()
+                                    },
+                                    modifier = Modifier.fillMaxWidth(),
+                                    shape = RoundedCornerShape(13.dp),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF9666FF)),
+                                    colors = ButtonDefaults.outlinedButtonColors(contentColor = Color(0xFFBBA0FF))
+                                ) {
+                                    Text(if (historyQuery.isBlank()) "COPY CONVERSATION HISTORY" else "COPY FILTERED RESULTS", fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 0.5.sp)
+                                }
+                            }
                             Surface(
                                 modifier = Modifier.fillMaxWidth(),
                                 shape = RoundedCornerShape(15.dp),
