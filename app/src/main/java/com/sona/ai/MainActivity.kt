@@ -1090,7 +1090,7 @@ class MainActivity : ComponentActivity() {
                 val chatSearchResult = if (chatSearchQuery.isBlank()) savedChat else savedChat.lines()
                     .filter { it.contains(chatSearchQuery, ignoreCase = true) }
                     .joinToString("\n")
-                val chatCategories = listOf("General Chat", "Study Help", "Image Generation", "Code Assistant", "Travel Plans", "Health & Fitness", "Creative Ideas")
+                val chatCategories = listOf("General Chat", "Study Help", "Image Prompt", "Code Assistant", "Travel Plans", "Health & Fitness", "Creative Ideas")
                 Dialog(
                     onDismissRequest = { showChat = false },
                     properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false)
