@@ -1213,7 +1213,7 @@ class MainActivity : ComponentActivity() {
                     shape = RoundedCornerShape(26.dp),
                     containerColor = Color(0xFF071426),
                     titleContentColor = Color(0xFFFF3155),
-                    textContentColor = Color(0xFF9EABC2),
+                    textContentColor = Color(0xFF9CB4D0),
                     tonalElevation = 0.dp,
                     onDismissRequest = { showHistory = false },
                     title = {
@@ -1226,7 +1226,7 @@ class MainActivity : ComponentActivity() {
                         ) {
                             Text("◈  MYRA AI • HISTORY VAULT", color = Color(0xFFFF3155), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.4.sp)
                             Text("Conversation history", color = Color(0xFFF5F7FF), fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                            Text("Search through conversations saved on this device.", color = Color(0xFF9EABC2), fontSize = 12.sp)
+                            Text("Search through conversations saved on this device.", color = Color(0xFF9CB4D0), fontSize = 12.sp)
                         }
                     },
                     text = {
@@ -1245,7 +1245,7 @@ class MainActivity : ComponentActivity() {
                                 Spacer(Modifier.width(10.dp))
                                 Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                     Text(if (savedHistory.isBlank()) "No saved conversations" else "Your saved conversations", color = Color(0xFFF5F7FF), fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
-                                    Text(if (savedHistory.isBlank()) "Ask Myra a question to start your history." else "${savedHistory.lines().count { it.isNotBlank() }} saved history lines", color = Color(0xFF9EABC2), fontSize = 11.sp)
+                                    Text(if (savedHistory.isBlank()) "Ask Myra a question to start your history." else "${savedHistory.lines().count { it.isNotBlank() }} saved history lines", color = Color(0xFF9CB4D0), fontSize = 11.sp)
                                 }
                             }
                             OutlinedTextField(
@@ -1275,7 +1275,7 @@ class MainActivity : ComponentActivity() {
                                     val matchCount = visibleHistory.lines().count { it.isNotBlank() }
                                     Text(
                                         if (matchCount == 0) "No matches" else "$matchCount matching lines",
-                                        color = Color(0xFF9EABC2), fontSize = 11.sp, fontWeight = FontWeight.SemiBold
+                                        color = Color(0xFF9CB4D0), fontSize = 11.sp, fontWeight = FontWeight.SemiBold
                                     )
                                     TextButton(onClick = { historyQuery = "" }) {
                                         Text("Clear search", color = Color(0xFFFF3155), fontSize = 12.sp)
@@ -1328,7 +1328,7 @@ class MainActivity : ComponentActivity() {
                     shape = RoundedCornerShape(26.dp),
                     containerColor = Color(0xFF071426),
                     titleContentColor = Color(0xFFF5F7FF),
-                    textContentColor = Color(0xFF9EABC2),
+                    textContentColor = Color(0xFF9CB4D0),
                     tonalElevation = 0.dp,
                     onDismissRequest = { showTasks = false },
                     title = {
@@ -1341,7 +1341,7 @@ class MainActivity : ComponentActivity() {
                         ) {
                             Text("TASKS & REMINDERS", color = Color(0xFFFF3155), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
                             Text("Tasks & reminders", color = Color(0xFFF5F7FF), fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                            Text("Plan your day, one task at a time.", color = Color(0xFF9EABC2), fontSize = 12.sp)
+                            Text("Plan your day, one task at a time.", color = Color(0xFF9CB4D0), fontSize = 12.sp)
                         }
                     },
                     text = {
@@ -1357,7 +1357,7 @@ class MainActivity : ComponentActivity() {
                                 Spacer(Modifier.width(10.dp))
                                 Column {
                                     Text("${taskLines.size} tasks in your list", color = Color(0xFFF5F7FF), fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
-                                    Text(if (taskLines.isEmpty()) "Add one task per line to get started." else "$completedTasks marked complete • add [x] before a finished task", color = Color(0xFF9EABC2), fontSize = 11.sp)
+                                    Text(if (taskLines.isEmpty()) "Add one task per line to get started." else "$completedTasks marked complete • add [x] before a finished task", color = Color(0xFF9CB4D0), fontSize = 11.sp)
                                 }
                             }
                             OutlinedTextField(
@@ -1395,7 +1395,7 @@ class MainActivity : ComponentActivity() {
                                     onClick = { taskDraft = "" },
                                     enabled = taskDraft.isNotEmpty()
                                 ) {
-                                    Text("Clear draft", color = if (taskDraft.isNotEmpty()) Color(0xFFFF3155) else Color(0xFF78658F), fontSize = 12.sp)
+                                    Text("Clear draft", color = if (taskDraft.isNotEmpty()) Color(0xFFFF3155) else Color(0xFF314B6A), fontSize = 12.sp)
                                 }
                             }
                             Text("TIP  •  Add [x] before a finished task.", color = Color(0xFFFF3155), fontSize = 11.sp, letterSpacing = .3.sp)
@@ -1441,7 +1441,7 @@ class MainActivity : ComponentActivity() {
                     shape = RoundedCornerShape(26.dp),
                     containerColor = Color(0xFF071426),
                     titleContentColor = Color(0xFFFF3155),
-                    textContentColor = Color(0xFF9EABC2),
+                    textContentColor = Color(0xFF9CB4D0),
                     tonalElevation = 0.dp,
                     onDismissRequest = { showMemory = false },
                     title = {
@@ -1454,7 +1454,7 @@ class MainActivity : ComponentActivity() {
                         ) {
                             Text("◈  MYRA AI • SMART MEMORY", color = Color(0xFFFF3155), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
                             Text("Your memory vault", color = Color(0xFFF5F7FF), fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                            Text("Notes are saved locally on this phone.", color = Color(0xFF9EABC2), fontSize = 12.sp)
+                            Text("Notes are saved locally on this phone.", color = Color(0xFF9CB4D0), fontSize = 12.sp)
                         }
                     },
                     text = {
@@ -1478,7 +1478,7 @@ class MainActivity : ComponentActivity() {
                                     Text(
                                         if (memoryDraft.isBlank()) "Save preferences, goals and helpful details here."
                                         else "${savedMemoryLines.size} saved note ${if (savedMemoryLines.size == 1) "entry" else "entries"} • ${memoryDraft.length} characters",
-                                        color = Color(0xFF9EABC2), fontSize = 11.sp
+                                        color = Color(0xFF9CB4D0), fontSize = 11.sp
                                     )
                                 }
                             }
@@ -1494,7 +1494,7 @@ class MainActivity : ComponentActivity() {
                                     Spacer(Modifier.width(9.dp))
                                     Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                         Text("Nothing saved yet", color = Color(0xFFF5F7FF), fontWeight = FontWeight.SemiBold, fontSize = 13.sp)
-                                        Text("Add your first note below. It stays on this device.", color = Color(0xFF9EABC2), fontSize = 11.sp)
+                                        Text("Add your first note below. It stays on this device.", color = Color(0xFF9CB4D0), fontSize = 11.sp)
                                     }
                                 }
                             } else {
@@ -1510,7 +1510,7 @@ class MainActivity : ComponentActivity() {
                                         ) {
                                             Text("•", color = Color(0xFFFF3155), fontSize = 15.sp)
                                             Spacer(Modifier.width(7.dp))
-                                            Text(note, color = Color(0xFF6D555C), fontSize = 12.sp, maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
+                                            Text(note, color = Color(0xFF40152A), fontSize = 12.sp, maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
                                         }
                                     }
                                 }
@@ -1549,7 +1549,7 @@ class MainActivity : ComponentActivity() {
                                     onClick = { memoryDraft = "" },
                                     enabled = memoryDraft.isNotEmpty()
                                 ) {
-                                    Text("Clear draft", color = if (memoryDraft.isNotEmpty()) Color(0xFFFF3155) else Color(0xFF78658F), fontSize = 12.sp)
+                                    Text("Clear draft", color = if (memoryDraft.isNotEmpty()) Color(0xFFFF3155) else Color(0xFF314B6A), fontSize = 12.sp)
                                 }
                             }
                         }
@@ -1563,7 +1563,7 @@ class MainActivity : ComponentActivity() {
                         }) { Text("✦  Save memory", color = Color(0xFFFF3155)) }
                     },
                     dismissButton = {
-                        TextButton(onClick = { showMemory = false }) { Text("Cancel", color = Color(0xFF9EABC2)) }
+                        TextButton(onClick = { showMemory = false }) { Text("Cancel", color = Color(0xFF9CB4D0)) }
                     }
                 )
             }
