@@ -747,20 +747,20 @@ class MainActivity : ComponentActivity() {
                     properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false)
                 ) {
                     var bossMode by remember { mutableStateOf(false) }
-                    val voiceTransition = androidx.compose.animation.core.rememberInfiniteTransition(label = "lia-voice-orb")
+                    val voiceTransition = androidx.compose.animation.core.rememberInfiniteTransition(label = "myra-voice-orb")
                     val orbScale by voiceTransition.animateFloat(
                         initialValue = 0.94f, targetValue = 1.06f,
                         animationSpec = androidx.compose.animation.core.infiniteRepeatable(
                             animation = androidx.compose.animation.core.tween(1500, easing = androidx.compose.animation.core.FastOutSlowInEasing),
                             repeatMode = androidx.compose.animation.core.RepeatMode.Reverse
-                        ), label = "lia-orb-pulse"
+                        ), label = "myra-orb-pulse"
                     )
                     val orbRotation by voiceTransition.animateFloat(
                         initialValue = 0f, targetValue = 360f,
                         animationSpec = androidx.compose.animation.core.infiniteRepeatable(
                             animation = androidx.compose.animation.core.tween(9000, easing = androidx.compose.animation.core.LinearEasing),
                             repeatMode = androidx.compose.animation.core.RepeatMode.Restart
-                        ), label = "lia-orb-rotation"
+                        ), label = "myra-orb-rotation"
                     )
                     Surface(
                         modifier = Modifier.fillMaxSize(),
@@ -906,7 +906,7 @@ class MainActivity : ComponentActivity() {
                                     Box(Modifier.size(200.dp).rotate(orbRotation).border(1.dp, Color(0xFFB46CFF).copy(alpha = .62f), CircleShape))
                                     Box(Modifier.size(184.dp).rotate(-orbRotation).border(1.dp, Color(0xFFFF6FB5).copy(alpha = .78f), CircleShape))
                                     Box(Modifier.size(170.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF071426), Color(0xFF160A12), Color(0xFFFF6FB5), Color(0xFF020202)))).border(2.dp, Color(0xFFB46CFF).copy(alpha = .78f), CircleShape))
-                                    // Dual-tone cyan and crimson rings give the voice core its holographic LIA-style look.
+                                    // Dual-tone cyan and violet rings give the MYRA voice core its holographic look.
                                     Box(Modifier.size(134.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF020202), Color(0xFF071426), Color(0xFFB46CFF).copy(alpha = .38f), Color(0xFFFF6FB5).copy(alpha = .76f), Color.Transparent))))
                                     Box(Modifier.size(72.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF020202), Color(0xFF050505), Color(0xFF40101D)))).border(1.dp, Color(0xFFFF6FB5).copy(alpha = .9f), CircleShape))
                                 }
@@ -936,7 +936,7 @@ class MainActivity : ComponentActivity() {
                                                 ),
                                                 repeatMode = androidx.compose.animation.core.RepeatMode.Reverse
                                             ),
-                                            label = "lia-wave-bar-$index"
+                                            label = "myra-wave-bar-$index"
                                         )
                                         Box(
                                             Modifier.padding(horizontal = 2.dp)
