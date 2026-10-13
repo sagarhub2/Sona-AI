@@ -1117,6 +1117,13 @@ class MainActivity : ComponentActivity() {
                                     onClick = {
                                         chatDraft = ""
                                         pendingMessage = ""
+                                        val newSessionId = System.currentTimeMillis().toString()
+                                        activeChatSessionId = newSessionId
+                                        chatPrefs.edit()
+                                            .putString("active_chat_session_id", newSessionId)
+                                            .putString("chat_session_$newSessionId", "")
+                                            .apply()
+                                        savedChat = ""
                                         isFreshChat = true
                                         showChatSearch = false
                                         chatSearchQuery = ""
