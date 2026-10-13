@@ -1546,7 +1546,7 @@ class MainActivity : ComponentActivity() {
                                                 chatDraft = ""
                                                 val categoryInstruction = when (selectedChatCategory) {
                                                 "Study Help" -> "Act as a patient study tutor. Explain clearly, step by step, and support learning. "
-                                                "Image Generation" -> "Help create a detailed, safe image-generation prompt. Ask for missing visual details if needed. "
+                                                "Image Prompt" -> "Help create a detailed, safe image-generation prompt. Ask for missing visual details if needed. "
                                                 "Code Assistant" -> "Act as a coding assistant. Give correct code, explain changes, and mention important assumptions. "
                                                 "Travel Plans" -> "Act as a travel planner. Consider budget, timing, safety, and practical logistics. "
                                                 "Health & Fitness" -> "Give general, age-appropriate wellness information and encourage a qualified professional for medical concerns. "
