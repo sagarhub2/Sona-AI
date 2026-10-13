@@ -4835,8 +4835,12 @@ private fun MyraHome(
                 }
             }
             Row(Modifier.fillMaxWidth().padding(top = 24.dp, bottom = 12.dp), verticalAlignment = Alignment.CenterVertically) {
-                Text("Quick Access", color = ink, fontSize = 19.sp, fontWeight = FontWeight.Bold, letterSpacing = (-.2).sp)
+                Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                    Text("Quick Access", color = ink, fontSize = 19.sp, fontWeight = FontWeight.Bold, letterSpacing = (-.2).sp)
+                    Text("Your MYRA tools, one tap away", color = muted, fontSize = 10.sp, letterSpacing = .15.sp)
+                }
                 Spacer(Modifier.weight(1f))
+                Text("EXPLORE", color = red, fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
             }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(14.dp)) {
                 Surface(
