@@ -544,7 +544,14 @@ class MainActivity : ComponentActivity() {
                                 try { startActivity(Intent(AlarmClock.ACTION_SHOW_ALARMS)) }
                                 catch (_: Exception) { status = "CLOCK APP UNAVAILABLE" }
                             }
-                            Text("Note: alarms and timers are managed by Android's Clock app.", color = Color(0xFF9CB4D0), fontSize = 11.sp)
+                            Spacer(Modifier.height(2.dp))
+                            Text("SYSTEM SHORTCUTS", color = Color(0xFF53E5F5), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                            TriggerActionCard("⚙", "Open phone settings", "Jump to Android system settings") {
+                                showTriggers = false
+                                try { startActivity(Intent(android.provider.Settings.ACTION_SETTINGS)) }
+                                catch (_: Exception) { status = "PHONE SETTINGS UNAVAILABLE" }
+                            }
+                            Text("Alarms and timers are managed by Android Clock. System settings open in Android.", color = Color(0xFF9CB4D0), fontSize = 11.sp)
                         }
                     },
                     confirmButton = {
