@@ -1050,6 +1050,7 @@ class MainActivity : ComponentActivity() {
                                 Surface(modifier = Modifier.fillMaxWidth(), color = Color(0xFF0D192B).copy(alpha = .96f), shape = RoundedCornerShape(22.dp), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))) {
                                     Column(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(5.dp)) {
                                          Text("LIVE TRANSCRIPT", color = Color(0xFFB46CFF), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                                          Text("YOUR CONVERSATION WITH MYRA", color = Color(0xFF55E7F5), fontSize = 7.sp, fontWeight = FontWeight.SemiBold, letterSpacing = .9.sp)
                                          Text(heardText.ifBlank { "I’m listening. Start speaking whenever you’re ready." }, color = Color(0xFFF5F7FF), fontSize = 13.sp, lineHeight = 20.sp, textAlign = TextAlign.Center, maxLines = 3, overflow = TextOverflow.Ellipsis)
                                          Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End, verticalAlignment = Alignment.CenterVertically) {
                                              if (heardText.isNotBlank()) {
@@ -1275,6 +1276,7 @@ class MainActivity : ComponentActivity() {
                                 Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                     Text("MYRA", color = Color(0xFFF5F7FF), fontSize = 23.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 2.2.sp)
                                     Text("NEURAL CHAT  •  CONTEXT AWARE", color = Color(0xFF9CB4D0), fontSize = 8.sp, fontWeight = FontWeight.SemiBold, letterSpacing = 1.1.sp)
+                                    Text("YOUR SPACE TO ASK, LEARN & CREATE", color = Color(0xFF55E7F5), fontSize = 7.sp, fontWeight = FontWeight.Bold, letterSpacing = .7.sp)
                                     Row(
                                         Modifier.padding(top = 2.dp).clip(RoundedCornerShape(20.dp))
                                             .background(Color(0xFF172B42)).border(1.dp, Color(0xFF9666FF).copy(alpha = .28f), RoundedCornerShape(20.dp))
@@ -5415,7 +5417,8 @@ private fun MyraHome(
                     Text(savedUserName.ifBlank { "there" }.take(24), color = Color(0xFFB8A0FF), fontSize = 22.sp, fontWeight = FontWeight.Bold, maxLines = 1)
                     Text("☀", fontSize = 17.sp)
                 }
-                Text("Ready when you are…", color = muted, fontSize = 12.sp, modifier = Modifier.padding(top = 3.dp, bottom = 4.dp))
+                Text("Ready when you are…", color = muted, fontSize = 12.sp, modifier = Modifier.padding(top = 3.dp, bottom = 2.dp))
+                Text("VOICE  •  CHAT  •  PHONE SHORTCUTS", color = Color(0xFF53E5F5), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.15.sp, modifier = Modifier.padding(top = 3.dp, bottom = 4.dp))
             }
             Box(Modifier.fillMaxWidth().height(205.dp), contentAlignment = Alignment.Center) {
                 androidx.compose.foundation.Canvas(Modifier.fillMaxSize()) {
