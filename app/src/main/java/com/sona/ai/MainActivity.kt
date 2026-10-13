@@ -889,10 +889,30 @@ class MainActivity : ComponentActivity() {
                                 ) {
                                     val waveformHeights = listOf(7, 12, 18, 10, 22, 14, 26, 16, 11, 23, 14, 19, 9, 15, 7)
                                     waveformHeights.forEachIndexed { index, height ->
+                                        val voiceIsActive = !voiceMuted && (
+                                            status.contains("LISTEN", true) ||
+                                            status.contains("LIVE", true) ||
+                                            status.contains("THINK", true) ||
+                                            status.contains("PROCESS", true) ||
+                                            status.contains("REPLY", true)
+                                        )
+                                        val barHeight by voiceTransition.animateFloat(
+                                            initialValue = 5f,
+                                            targetValue = if (voiceIsActive) height.toFloat() else 5f,
+                                            animationSpec = androidx.compose.animation.core.infiniteRepeatable(
+                                                animation = androidx.compose.animation.core.tween(
+                                                    durationMillis = 320 + (index % 4) * 90,
+                                                    delayMillis = index * 35,
+                                                    easing = androidx.compose.animation.core.FastOutSlowInEasing
+                                                ),
+                                                repeatMode = androidx.compose.animation.core.RepeatMode.Reverse
+                                            ),
+                                            label = "lia-wave-bar-$index"
+                                        )
                                         Box(
                                             Modifier.padding(horizontal = 2.dp)
                                                 .width(3.dp)
-                                                .height((if (status.contains("LISTEN", true) || status.contains("LIVE", true)) height else 5).dp)
+                                                .height(barHeight.dp)
                                                 .clip(RoundedCornerShape(4.dp))
                                                 .background(
                                                     when {
