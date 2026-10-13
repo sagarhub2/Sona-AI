@@ -1,11 +1,11 @@
 # MYRA AI — Locked Design Reference
 
-This file records the user's uploaded MYRA AI multi-screen concept image (2026-10-12), including the 4-column collage showing the blush-white/pink/red theme and 15 reference panels. The latest user-uploaded collage in this conversation is also canonical; keep using it without asking the user to re-upload it. The reference image itself is represented in the project by this written screen-by-screen specification and the original conversation attachment.  Treat it as the canonical visual and feature reference for future implementation. The requirement is to match the uploaded reference image as closely and faithfully as possible screen-by-screen—not merely use it as inspiration. Do not redesign, substitute a different theme, rearrange navigation, or invent alternate icons when the reference shows a specific treatment. Do not ask the user to upload or describe it again in this project thread.
+This file records the user's uploaded MYRA AI multi-screen concept image (2026-10-12), including the dark navy/black neon-red theme and 15 reference panels. The latest user-uploaded collage in this conversation is also canonical; keep using it without asking the user to re-upload it. The reference image itself is represented in the project by this written screen-by-screen specification and the original conversation attachment.  Treat it as the canonical visual and feature reference for future implementation. The requirement is to match the uploaded reference image as closely and faithfully as possible screen-by-screen—not merely use it as inspiration. Do not redesign, substitute a different theme, rearrange navigation, or invent alternate icons when the reference shows a specific treatment. Do not ask the user to upload or describe it again in this project thread.
 
-## Visual direction
-- Premium native Android UI; clean white/light blush surfaces, soft pink/red holographic waves, red accent buttons, subtle gold/yellow outer highlights from the reference.
-- Central black circular MYRA emblem/orb with red neon glow; refined micro-animations and voice waveform.
-- Rounded cards, thin blush borders, restrained shadows, compact typography, consistent spacing and status bars.
+## Visual direction (corrected against the actual canonical collage)
+- Premium native Android UI on a deep navy/near-black background, with electric red/pink neon accents, subtle cyan-blue edge outlines, and restrained gold highlights where visible in the collage. Do NOT use a blush-white page background as the app-wide theme.
+- Central black circular MYRA emblem/orb with a vivid red neon halo, radial holographic waves and matching proportions; refined micro-animations and voice waveform.
+- Rounded dark navy cards with thin blue/cyan outlines, red active states and compact white typography; consistent spacing, status bars and high contrast.
 - Bottom navigation: Home, Chat, central Voice orb, Triggers, Settings. Keep it consistent across primary screens.
 - Do not use generic starter UI. Maintain accessibility, legible contrast, system back behavior, and loading/empty/error states.
 
