@@ -1310,7 +1310,6 @@ class MainActivity : ComponentActivity() {
                                 Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                     Text("Chat", color = Color(0xFFF5F7FF), fontSize = 24.sp, fontWeight = FontWeight.Bold, letterSpacing = .2.sp)
                                     Text("Your AI conversations", color = Color(0xFFB6C5DE), fontSize = 11.sp, fontWeight = FontWeight.Medium, letterSpacing = .1.sp)
-                                    Text("ASK  •  LEARN  •  CREATE", color = Color(0xFF55E7F5), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .8.sp)
                                     Row(
                                         Modifier.padding(top = 2.dp).clip(RoundedCornerShape(20.dp))
                                             .background(Color(0xFF172B42)).border(1.dp, Color(0xFF9666FF).copy(alpha = .28f), RoundedCornerShape(20.dp))
@@ -1392,6 +1391,57 @@ class MainActivity : ComponentActivity() {
                                         cursorColor = Color(0xFF55E7F5)
                                     )
                                 )
+                            }
+                            Row(
+                                Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(top = 10.dp, bottom = 6.dp),
+                                horizontalArrangement = Arrangement.spacedBy(7.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                listOf("All", "Study", "Writing", "General", "Images").forEach { category ->
+                                    val active = selectedChatCategory == category || (category == "All" && selectedChatCategory == "General Chat")
+                                    Surface(
+                                        onClick = { selectedChatCategory = if (category == "All") "General Chat" else category },
+                                        shape = RoundedCornerShape(18.dp),
+                                        color = if (active) Color(0xFF526EFF) else Color(0xFF0D192B),
+                                        border = androidx.compose.foundation.BorderStroke(1.dp, if (active) Color(0xFF8C9CFF) else Color(0xFF233854))
+                                    ) {
+                                        Text(category, modifier = Modifier.padding(horizontal = 13.dp, vertical = 8.dp),
+                                            color = Color(0xFFF5F7FF), fontSize = 11.sp,
+                                            fontWeight = if (active) FontWeight.Bold else FontWeight.Medium)
+                                    }
+                                }
+                            }
+                            Surface(
+                                onClick = {
+                                    chatDraft = ""
+                                    pendingMessage = ""
+                                    val newSessionId = System.currentTimeMillis().toString()
+                                    activeChatSessionId = newSessionId
+                                    chatPrefs.edit().putString("active_chat_session_id", newSessionId)
+                                        .putString("chat_session_$newSessionId", "").apply()
+                                    savedChat = ""
+                                    isFreshChat = true
+                                    selectedChatCategory = "General Chat"
+                                    selectedChatTab = "Conversations"
+                                    status = "NEW CHAT DRAFT READY"
+                                },
+                                shape = RoundedCornerShape(17.dp),
+                                color = Color(0xFF151D43),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF6654C8))
+                            ) {
+                                Row(Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 12.dp),
+                                    verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                                    Box(Modifier.size(42.dp).clip(RoundedCornerShape(12.dp))
+                                        .background(Brush.linearGradient(listOf(Color(0xFF8D35FF), Color(0xFF3E5BFF)))),
+                                        contentAlignment = Alignment.Center) {
+                                        Text("✧", color = Color.White, fontSize = 23.sp, fontWeight = FontWeight.Bold)
+                                    }
+                                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                                        Text("New Chat", color = Color.White, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                                        Text("Start a fresh conversation", color = Color(0xFFB6C5DE), fontSize = 10.sp)
+                                    }
+                                    Text("›", color = Color.White, fontSize = 24.sp)
+                                }
                             }
                             Row(
                                 Modifier.fillMaxWidth().padding(top = 8.dp, bottom = 4.dp),
