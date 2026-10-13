@@ -844,23 +844,27 @@ class MainActivity : ComponentActivity() {
                                     Modifier.fillMaxWidth().padding(horizontal = 8.dp),
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                                        Text("MYRA CORE", color = Color(0xFF9CB4D0), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.7.sp)
+                                    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                                            Box(Modifier.size(5.dp).clip(CircleShape).background(Color(0xFF73DFFF)))
+                                            Text("MYRA NEURAL CORE", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.45.sp)
+                                        }
                                         Text(
                                             when {
-                                                voiceMuted -> "Audio input paused"
-                                                status.contains("THINK", true) || status.contains("PROCESS", true) || status.contains("REPLY", true) -> "Preparing your response"
-                                                status.contains("CONNECT", true) || status.contains("LISTEN", true) || status.contains("LIVE", true) -> "Ready for your voice"
-                                                else -> "Voice assistant on standby"
+                                                voiceMuted -> "Microphone input is paused"
+                                                voiceFailed -> "Check setup to reconnect"
+                                                status.contains("THINK", true) || status.contains("PROCESS", true) || status.contains("REPLY", true) -> "Preparing your response…"
+                                                status.contains("CONNECT", true) || status.contains("LISTEN", true) || status.contains("LIVE", true) -> "Listening for your voice"
+                                                else -> "Ready when you are"
                                             },
-                                            color = Color(0xFF536A89), fontSize = 10.sp
+                                            color = Color(0xFF9CB4D0), fontSize = 10.sp
                                         )
                                     }
                                     Spacer(Modifier.weight(1f))
                                     Surface(
                                         shape = RoundedCornerShape(10.dp),
-                                        color = Color(0xFF0D192B),
-                                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))
+                                        color = Color(0xFF102238),
+                                        border = androidx.compose.foundation.BorderStroke(1.dp, if (voiceMuted || voiceFailed) Color(0xFFFF3155).copy(alpha = .65f) else Color(0xFF73DFFF).copy(alpha = .55f))
                                     ) {
                                         Text(
                                             if (voiceMuted) "MUTED" else if (status.contains("THINK", true) || status.contains("PROCESS", true) || status.contains("REPLY", true)) "WORKING" else if (status.contains("LISTEN", true) || status.contains("LIVE", true) || status.contains("CONNECT", true)) "LIVE" else "READY",
