@@ -857,6 +857,7 @@ class MainActivity : ComponentActivity() {
                 val chatPrefs = getSharedPreferences("myra_private", MODE_PRIVATE)
                 var savedChat by remember { mutableStateOf(chatPrefs.getString("conversation_history", "").orEmpty()) }
                 var selectedChatCategory by remember { mutableStateOf("General Chat") }
+                var selectedChatTab by remember { mutableStateOf("Conversations") }
                 val chatCategories = listOf("General Chat", "Study Help", "Image Generation", "Code Assistant", "Travel Plans", "Health & Fitness", "Creative Ideas")
                 Dialog(
                     onDismissRequest = { showChat = false },
@@ -878,6 +879,43 @@ class MainActivity : ComponentActivity() {
                                 TextButton(onClick = { showChat = false }) { Text("✕  Close", color = Color(0xFFE83E5B)) }
                             }
                             HorizontalDivider(color = Color(0x66E83E5B))
+                            Row(
+                                Modifier.fillMaxWidth().padding(top = 10.dp, bottom = 4.dp),
+                                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                listOf("Conversations", "Recent").forEach { tab ->
+                                    val active = selectedChatTab == tab
+                                    Surface(
+                                        onClick = {
+                                            selectedChatTab = tab
+                                            if (tab == "Recent") {
+                                                showChat = false
+                                                showHistory = true
+                                            }
+                                        },
+                                        shape = RoundedCornerShape(18.dp),
+                                        color = if (active) Color(0xFFE83E5B) else Color(0xFFFFFBFC),
+                                        border = androidx.compose.foundation.BorderStroke(1.dp, if (active) Color(0xFFE83E5B) else Color(0x66E83E5B))
+                                    ) {
+                                        Text(
+                                            tab,
+                                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                                            color = if (active) Color.White else Color(0xFF7D626B),
+                                            fontSize = 12.sp,
+                                            fontWeight = if (active) FontWeight.Bold else FontWeight.Medium
+                                        )
+                                    }
+                                }
+                                Spacer(Modifier.weight(1f))
+                                Surface(
+                                    shape = CircleShape,
+                                    color = Color(0xFFFFEFF2),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x66E83E5B))
+                                ) {
+                                    Text("＋", modifier = Modifier.padding(horizontal = 12.dp, vertical = 5.dp), color = Color(0xFFE83E5B), fontSize = 18.sp)
+                                }
+                            }
                             if (savedChat.isNotBlank()) {
                                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                                     TextButton(onClick = { showClearHistoryConfirm = true }) {
