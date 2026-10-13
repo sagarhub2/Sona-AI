@@ -1017,6 +1017,33 @@ class MainActivity : ComponentActivity() {
                                     Spacer(Modifier.weight(1f))
                                     Text(if (bossMode) "BOSS MODE ACTIVE" else "READY WHEN YOU ARE", color = if (bossMode) Color(0xFFFFB547) else Color(0xFF536A89), fontSize = 8.sp, letterSpacing = .35.sp)
                                 }
+                                Row(
+                                    Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.spacedBy(9.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    androidx.compose.material3.FilledTonalButton(
+                                        modifier = Modifier.weight(1f).height(48.dp),
+                                        onClick = { voiceMuted = !voiceMuted; if (voiceMuted) stopVoiceRecognition() else startVoiceRecognition() },
+                                        colors = androidx.compose.material3.ButtonDefaults.filledTonalButtonColors(
+                                            containerColor = if (voiceMuted) Color(0xFF17243A) else Color(0xFF132B43),
+                                            contentColor = Color(0xFF55E7F5)
+                                        ),
+                                        shape = RoundedCornerShape(15.dp),
+                                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF55E7F5).copy(alpha = .55f))
+                                    ) { Text(if (voiceMuted) "🎙  Unmute" else "🎙  Mute", fontSize = 11.sp, fontWeight = FontWeight.Bold) }
+                                    androidx.compose.material3.FilledTonalButton(
+                                        modifier = Modifier.weight(1f).height(48.dp),
+                                        onClick = { stopVoiceRecognition(); status = "VOICE SESSION STOPPED" },
+                                        colors = androidx.compose.material3.ButtonDefaults.filledTonalButtonColors(
+                                            containerColor = Color(0xFF29162D),
+                                            contentColor = Color(0xFFFF8AA7)
+                                        ),
+                                        shape = RoundedCornerShape(15.dp),
+                                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFF6B91).copy(alpha = .55f))
+                                    ) { Text("■  Stop", fontSize = 11.sp, fontWeight = FontWeight.Bold) }
+                                }
+                                Spacer(Modifier.height(9.dp))
                                 androidx.compose.material3.FilledTonalButton(
                                     modifier = Modifier.fillMaxWidth().height(44.dp),
                                     onClick = {
