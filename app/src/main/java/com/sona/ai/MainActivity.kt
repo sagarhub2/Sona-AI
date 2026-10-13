@@ -1130,17 +1130,27 @@ class MainActivity : ComponentActivity() {
                                 Modifier.fillMaxWidth().padding(top = 2.dp, bottom = 8.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                                Box(
+                                    Modifier.size(42.dp).clip(CircleShape)
+                                        .background(Brush.radialGradient(listOf(Color(0xFF73DFFF).copy(alpha = .45f), Color(0xFF10233A), Color(0xFF080D18))))
+                                        .border(1.dp, Color(0xFF73DFFF).copy(alpha = .85f), CircleShape),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Box(Modifier.size(31.dp).border(1.dp, Color(0xFFFF3155).copy(alpha = .9f), CircleShape))
+                                    Box(Modifier.size(18.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFB8F4FF), Color(0xFF73DFFF), Color(0xFFFF3155)))))
+                                }
+                                Spacer(Modifier.width(10.dp))
+                                Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                     Text("Chat", color = Color(0xFFF5F7FF), fontSize = 24.sp, fontWeight = FontWeight.SemiBold, letterSpacing = (-.35).sp)
                                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                         Box(Modifier.size(6.dp).clip(CircleShape).background(Color(0xFF73DFFF)))
-                                        Text("YOUR SPACE WITH MYRA", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.35.sp)
+                                        Text("YOUR SPACE WITH MYRA", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.15.sp)
                                     }
                                 }
                                 Surface(
                                     onClick = { showChatSearch = !showChatSearch; if (!showChatSearch) chatSearchQuery = "" },
                                     shape = CircleShape, color = Color(0xFF0D192B),
-                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, if (showChatSearch) Color(0xFFFF3155) else Color(0xFF73DFFF).copy(alpha = .55f))
                                 ) {
                                     Box(Modifier.size(38.dp), contentAlignment = Alignment.Center) {
                                         Text("⌕", color = if (showChatSearch) Color(0xFFFF3155) else Color(0xFFF5F7FF), fontSize = 23.sp)
@@ -1177,7 +1187,10 @@ class MainActivity : ComponentActivity() {
                                     Text("×", color = Color(0xFFFF3155), fontSize = 23.sp)
                                 }
                             }
-                            HorizontalDivider(color = Color(0xFF314B6A))
+                            Box(
+                                Modifier.fillMaxWidth().height(1.dp)
+                                    .background(Brush.horizontalGradient(listOf(Color.Transparent, Color(0xFF73DFFF).copy(alpha = .8f), Color(0xFFFF3155).copy(alpha = .8f), Color.Transparent)))
+                            )
                             if (showChatSearch) {
                                 OutlinedTextField(
                                     value = chatSearchQuery,
