@@ -1063,6 +1063,56 @@ class MainActivity : ComponentActivity() {
                                      }
                                 }
                                 Spacer(Modifier.height(12.dp))
+                                Row(
+                                    Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Surface(
+                                        modifier = Modifier.weight(1f).clickable {
+                                            val transcript = heardText.trim()
+                                            if (transcript.isNotBlank()) {
+                                                val intent = Intent(Intent.ACTION_SEND).apply {
+                                                    type = "text/plain"
+                                                    putExtra(Intent.EXTRA_SUBJECT, "MYRA AI voice transcript")
+                                                    putExtra(Intent.EXTRA_TEXT, transcript)
+                                                }
+                                                startActivity(Intent.createChooser(intent, "Share voice transcript"))
+                                            } else {
+                                                android.widget.Toast.makeText(this@MainActivity, "No transcript to share yet", android.widget.Toast.LENGTH_SHORT).show()
+                                            }
+                                        },
+                                        shape = RoundedCornerShape(14.dp),
+                                        color = Color(0xFF0D192B),
+                                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFB46CFF).copy(alpha = .65f))
+                                    ) {
+                                        Row(Modifier.fillMaxWidth().padding(vertical = 13.dp), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+                                            Text("↗  SHARE TRANSCRIPT", color = Color(0xFFD8C5FF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = .35.sp)
+                                        }
+                                    }
+                                    Surface(
+                                        modifier = Modifier.weight(1f).clickable {
+                                            if (voiceMuted) {
+                                                voiceMuted = false
+                                                liveVoiceSession?.setMuted(false)
+                                                status = "LIVE • SPEAK TO MYRA"
+                                            }
+                                            if (liveVoiceSession == null || status.contains("FAILED", true) || status.contains("ERROR", true) || status.contains("DENIED", true) || status.contains("NEEDS", true) || status.contains("TIMEOUT", true)) {
+                                                startVoiceRecognition()
+                                            } else {
+                                                status = "VOICE SESSION ALREADY ACTIVE"
+                                            }
+                                        },
+                                        shape = RoundedCornerShape(14.dp),
+                                        color = Color(0xFF0D192B),
+                                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF55E7F5).copy(alpha = .65f))
+                                    ) {
+                                        Row(Modifier.fillMaxWidth().padding(vertical = 13.dp), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+                                            Text("↻  RECONNECT VOICE", color = Color(0xFF55E7F5), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = .35.sp)
+                                        }
+                                    }
+                                }
+                                Spacer(Modifier.height(12.dp))
                                 Surface(
                                     shape = RoundedCornerShape(24.dp),
                                     color = Color(0xFF151027),
