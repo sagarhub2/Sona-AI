@@ -1449,7 +1449,7 @@ class MainActivity : ComponentActivity() {
                                                 fontWeight = FontWeight.Bold, letterSpacing = 1.sp
                                             )
                                             Spacer(Modifier.weight(1f))
-                                            Text("GEMINI-POWERED", color = Color(0xFF73DFFF), fontSize = 8.sp, letterSpacing = .7.sp)
+                                            Text("GEMINI NEURAL ENGINE", color = Color(0xFF73DFFF), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .85.sp)
                                         }
                                         Text(
                                             if (isFreshChat || savedChat.isBlank()) "Hey, I’m Myra ✦\nYour personal AI companion. Ask a question, explore an idea, or tell me what you need help with."
@@ -1496,7 +1496,7 @@ class MainActivity : ComponentActivity() {
                                             border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF73DFFF).copy(alpha = .55f))
                                         ) {
                                             Column(Modifier.widthIn(max = 280.dp).padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                                                Text("YOU", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.4.sp)
+                                                Text("YOU  /  OUTGOING MESSAGE", color = Color(0xFF73DFFF), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.0.sp)
                                                 Text(pendingMessage, color = Color(0xFFF5F7FF), fontSize = 14.sp, lineHeight = 21.sp)
                                                 if (!busy && status == "AI CONNECTION FAILED") {
                                                     TextButton(onClick = {
@@ -1597,7 +1597,7 @@ class MainActivity : ComponentActivity() {
                                 horizontalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
                                 Box(Modifier.width(3.dp).height(16.dp).clip(CircleShape).background(Brush.verticalGradient(listOf(Color(0xFF73DFFF), Color(0xFFFF3155)))))
-                                Text("MESSAGE COMPOSER", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.8.sp)
+                                Text("MESSAGE COMPOSER", color = Color(0xFFB8F4FF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.8.sp)
                                 Spacer(Modifier.weight(1f))
                                 Text("✦ SECURE SESSION", color = Color(0xFFFF3155), fontSize = 8.sp, letterSpacing = .7.sp)
                             }
