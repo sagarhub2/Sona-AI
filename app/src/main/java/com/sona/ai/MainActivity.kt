@@ -443,16 +443,16 @@ class MainActivity : ComponentActivity() {
                 AlertDialog(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(26.dp),
-                    containerColor = Color(0xFF071426),
+                    containerColor = Color(0xFF080D18),
                     titleContentColor = Color(0xFFF5F7FF),
-                    textContentColor = Color(0xFF9EABC2),
+                    textContentColor = Color(0xFF9CB4D0),
                     tonalElevation = 0.dp,
                     onDismissRequest = { showTriggers = false },
                     title = {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
-                                .background(Brush.horizontalGradient(listOf(Color(0xFF101D31), Color(0xFF071426), Color(0xFF24152B))))
-                                .border(1.dp, Violet.copy(alpha = .8f), RoundedCornerShape(18.dp))
+                                .background(Brush.horizontalGradient(listOf(Color(0xFF111A2B), Color(0xFF080D18), Color(0xFF201321))))
+                                .border(1.dp, Color(0xFFFF3155).copy(alpha = .85f), RoundedCornerShape(18.dp))
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
@@ -479,14 +479,14 @@ class MainActivity : ComponentActivity() {
                                     ) {
                                         Box(
                                             Modifier.size(44.dp).clip(RoundedCornerShape(13.dp))
-                                                .background(Color(0xFF101D31))
+                                                .background(Color(0xFF111A2B))
                                                 .border(1.dp, Color(0xFFFF72D2), RoundedCornerShape(13.dp)),
                                             contentAlignment = Alignment.Center
                                         ) { Text(icon, color = Color(0xFFFF72D2), fontSize = 23.sp) }
                                         Spacer(Modifier.width(12.dp))
                                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                             Text(heading, color = Color(0xFFF5F7FF), fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
-                                            Text(detail, color = Color(0xFF9EABC2), fontSize = 11.sp)
+                                            Text(detail, color = Color(0xFF9CB4D0), fontSize = 11.sp)
                                         }
                                         Text("›", color = Color(0xFFFF72D2), fontSize = 25.sp)
                                     }
@@ -507,7 +507,7 @@ class MainActivity : ComponentActivity() {
                                 try { startActivity(Intent(AlarmClock.ACTION_SHOW_ALARMS)) }
                                 catch (_: Exception) { status = "CLOCK APP UNAVAILABLE" }
                             }
-                            Text("Note: alarms and timers are managed by Android's Clock app.", color = Color(0xFF9EABC2), fontSize = 11.sp)
+                            Text("Note: alarms and timers are managed by Android's Clock app.", color = Color(0xFF9CB4D0), fontSize = 11.sp)
                         }
                     },
                     confirmButton = {
