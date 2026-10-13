@@ -5124,44 +5124,6 @@ private fun MyraHome(
                 }
             }
             Surface(
-                onClick = onHistory,
-                modifier = Modifier.weight(1f),
-                shape = RoundedCornerShape(18.dp),
-                color = Color(0xFF0D192B),
-                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A)),
-                shadowElevation = 3.dp
-            ) {
-                Row(Modifier.padding(horizontal = 13.dp, vertical = 13.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Box(Modifier.size(38.dp).clip(RoundedCornerShape(12.dp)).background(Color(0xFF13243B)), contentAlignment = Alignment.Center) {
-                        Text("◷", color = Color(0xFFFF3155), fontSize = 23.sp, fontWeight = FontWeight.Bold)
-                    }
-                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                        Text("HISTORY", color = Color(0xFFF5F7FF), fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1)
-                        Text("Chats & activity", color = Color(0xFF9EABC2), fontSize = 9.sp, maxLines = 1)
-                    }
-                }
-            }
-        }
-        Row(Modifier.fillMaxWidth().padding(bottom = 14.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            Surface(
-                onClick = onHistory,
-                modifier = Modifier.weight(1f),
-                shape = RoundedCornerShape(18.dp),
-                color = Color(0xFF0D192B),
-                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A)),
-                shadowElevation = 3.dp
-            ) {
-                Row(Modifier.padding(horizontal = 13.dp, vertical = 13.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Box(Modifier.size(38.dp).clip(RoundedCornerShape(12.dp)).background(Color(0xFF13243B)), contentAlignment = Alignment.Center) {
-                        Text("◷", color = Color(0xFFFF3155), fontSize = 23.sp, fontWeight = FontWeight.Bold)
-                    }
-                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                        Text("HISTORY", color = Color(0xFFF5F7FF), fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1)
-                        Text("Chats & activity", color = Color(0xFF9EABC2), fontSize = 9.sp, maxLines = 1)
-                    }
-                }
-            }
-            Surface(
                 onClick = onDeviceSettings,
                 modifier = Modifier.weight(1f),
                 shape = RoundedCornerShape(18.dp),
