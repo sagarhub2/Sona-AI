@@ -4976,17 +4976,17 @@ private fun MyraHome(
                                 Row(Modifier.padding(horizontal = 9.dp, vertical = 5.dp), verticalAlignment = Alignment.CenterVertically,
                                         horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                                         Box(Modifier.size(5.dp).clip(CircleShape).background(if (busy) Color(0xFFFF3155) else Color(0xFFFF3155)))
-                                        Text(if (busy) "SESSION ACTIVE" else "MIC READY",
-                                            color = Color(0xFFFF3155), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .5.sp)
+                                        Text(if (busy) "SESSION ACTIVE" else "VOICE STANDBY",
+                                            color = Color(0xFFFF3155), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .7.sp)
                                     }
                             }
                         }
                         Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
                             Text("Voice Mode", color = Color(0xFFF5F7FF), fontSize = 18.sp, fontWeight = FontWeight.Bold)
-                            Text(if (busy) "Connecting to your assistant…" else "Your voice-first AI companion", color = Color(0xFF9EABC2), fontSize = 10.sp, maxLines = 2, lineHeight = 14.sp)
+                            Text(if (busy) "Connecting to your assistant…" else "Talk naturally. MYRA is ready when you are.", color = Color(0xFF9EABC2), fontSize = 10.sp, maxLines = 2, lineHeight = 14.sp)
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                                 Box(Modifier.size(6.dp).clip(CircleShape).background(if (busy) Color(0xFFFF3155) else Color(0xFF37D8E8)))
-                                Text(if (busy) "Live session in progress" else "VOICE  •  TAP TO CONNECT", color = Color(0xFF9EABC2), fontSize = 8.sp, letterSpacing = .35.sp)
+                                Text(if (busy) "Live session in progress" else "VOICE  •  TAP TO START", color = Color(0xFF9EABC2), fontSize = 8.sp, letterSpacing = .55.sp)
                             }
                         }
                     }
