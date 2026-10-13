@@ -1503,23 +1503,23 @@ class MainActivity : ComponentActivity() {
                                                     bottomStart = if (isUserMessage) 18.dp else 5.dp,
                                                     bottomEnd = if (isUserMessage) 5.dp else 18.dp
                                                 ),
-                                                color = if (isUserMessage) Color(0xFF292044) else Color(0xFF101321),
+                                                color = if (isUserMessage) Color(0xFF10263D) else Color(0xFF0D192B),
                                                 border = androidx.compose.foundation.BorderStroke(
                                                     1.dp,
-                                                    if (isUserMessage) Color(0xFF9B72E8).copy(alpha = .65f)
-                                                    else Color(0xFF40345F).copy(alpha = .7f)
+                                                    if (isUserMessage) Color(0xFF55E7F5).copy(alpha = .72f)
+                                                    else Color(0xFF9666FF).copy(alpha = .62f)
                                                 ),
                                                 tonalElevation = 0.dp
                                             ) {
                                                 Column(Modifier.padding(horizontal = 14.dp, vertical = 11.dp), verticalArrangement = Arrangement.spacedBy(5.dp)) {
                                                     Text(
                                                         if (isUserMessage) "YOU" else "MYRA",
-                                                        color = if (isUserMessage) Color(0xFFC9A7FF) else Color(0xFFD8B4FE),
+                                                        color = if (isUserMessage) Color(0xFF55E7F5) else Color(0xFFB46CFF),
                                                         fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.1.sp
                                                     )
                                                     Text(
                                                         messageText,
-                                                        color = Color(0xFFF6F1FF), fontSize = 14.sp, lineHeight = 21.sp
+                                                        color = Color(0xFFF5F7FF), fontSize = 14.sp, lineHeight = 22.sp
                                                     )
                                                 }
                                             }
@@ -1556,10 +1556,10 @@ class MainActivity : ComponentActivity() {
                                         Surface(
                                             shape = RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp, bottomStart = 18.dp, bottomEnd = 5.dp),
                                             color = Color(0xFF10263D),
-                                            border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF9666FF).copy(alpha = .55f))
+                                            border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF55E7F5).copy(alpha = .68f))
                                         ) {
                                             Column(Modifier.widthIn(max = 280.dp).padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                                                Text("YOU  /  OUTGOING MESSAGE", color = Color(0xFF9666FF), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.0.sp)
+                                                Text("YOU  /  OUTGOING MESSAGE", color = Color(0xFF55E7F5), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.0.sp)
                                                 Text(pendingMessage, color = Color(0xFFF5F7FF), fontSize = 14.sp, lineHeight = 21.sp)
                                                 if (!busy && status == "AI CONNECTION FAILED") {
                                                     TextButton(onClick = {
