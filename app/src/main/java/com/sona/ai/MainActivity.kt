@@ -773,9 +773,19 @@ class MainActivity : ComponentActivity() {
                                         contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 4.dp, vertical = 6.dp)
                                     ) { Text("‹", color = Color(0xFFF5F7FF), fontSize = 34.sp) }
                                     Spacer(Modifier.width(7.dp))
-                                    Column(Modifier.weight(1f)) {
+                                    Box(
+                                        Modifier.size(34.dp).clip(CircleShape)
+                                            .background(Brush.radialGradient(listOf(Color(0xFF73DFFF).copy(alpha = .45f), Color(0xFF10233A), Color(0xFF080D18))))
+                                            .border(1.dp, Color(0xFF73DFFF).copy(alpha = .75f), CircleShape),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Box(Modifier.size(23.dp).border(1.dp, Color(0xFFFF3155).copy(alpha = .9f), CircleShape))
+                                        Box(Modifier.size(10.dp).clip(CircleShape).background(Color(0xFFB8F4FF)))
+                                    }
+                                    Spacer(Modifier.width(9.dp))
+                                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                         Text("Voice Mode", color = Color(0xFFF5F7FF), fontSize = 20.sp, fontWeight = FontWeight.SemiBold, letterSpacing = .1.sp)
-                                        Text("LIVE VOICE ASSISTANT", color = Color(0xFFFF3155), fontSize = 8.sp, letterSpacing = 1.25.sp)
+                                        Text("LIVE VOICE ASSISTANT", color = Color(0xFF73DFFF), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.1.sp)
                                     }
                                     val voiceReady = status.contains("CONNECTED", true) || status.contains("LISTEN", true) || status.contains("LIVE", true)
                                     val voiceFailed = status.contains("FAILED", true) || status.contains("ERROR", true) || status.contains("DENIED", true) || status.contains("NEEDS", true) || status.contains("TIMEOUT", true)
