@@ -5378,8 +5378,6 @@ private fun MyraHome(
 }
 
 @Composable
-
-@Composable
 private fun FocusModeDialog(onClose: () -> Unit) {
     var selectedMinutes by remember { mutableIntStateOf(25) }
     var secondsLeft by remember { mutableIntStateOf(25 * 60) }
