@@ -832,7 +832,7 @@ class MainActivity : ComponentActivity() {
                                         voiceFailed -> Color(0xFFFF72D2)
                                         status.contains("THINK", true) || status.contains("PROCESS", true) || status.contains("REPLY", true) -> Color(0xFFB46CFF)
                                         voiceReady -> Color(0xFF66F0BC)
-                                        else -> Color(0xFFFF72D2)
+                                        else -> Color(0xFF53E5F5)
                                     }
                                     Surface(shape = RoundedCornerShape(30.dp), color = Color(0xFF0D192B), border = androidx.compose.foundation.BorderStroke(1.dp, voiceStatusAccent.copy(alpha = .8f))) {
                                         Row(Modifier.padding(horizontal = 10.dp, vertical = 7.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -864,7 +864,7 @@ class MainActivity : ComponentActivity() {
                                         color = when {
                                             voiceMuted -> Color(0xFF8298B8)
                                             status.contains("THINK", true) || status.contains("PROCESS", true) || status.contains("REPLY", true) -> Color(0xFFB46CFF)
-                                            else -> Color(0xFFFF72D2)
+                                            else -> Color(0xFFB46CFF)
                                         },
                                         fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 2.sp
                                     )
@@ -887,7 +887,7 @@ class MainActivity : ComponentActivity() {
                                     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                             Box(Modifier.size(5.dp).clip(CircleShape).background(Color(0xFFB46CFF)))
-                                            Text("MYRA NEURAL CORE  /  LIVE LINK", color = Color(0xFFB46CFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.55.sp)
+                                            Text("MYRA NEURAL CORE  /  LIVE LINK", color = Color(0xFF53E5F5), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.55.sp)
                                         }
                                         Text(
                                             when {
