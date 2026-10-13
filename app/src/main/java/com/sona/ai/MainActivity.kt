@@ -1280,7 +1280,7 @@ class MainActivity : ComponentActivity() {
                                         }
                                     }
                                 }
-                                if (busy && pendingMessage.isNotBlank()) {
+                                if (pendingMessage.isNotBlank()) {
                                     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                                         Surface(
                                             shape = RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp, bottomStart = 18.dp, bottomEnd = 5.dp),
@@ -1290,18 +1290,28 @@ class MainActivity : ComponentActivity() {
                                             Column(Modifier.widthIn(max = 280.dp).padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                                 Text("YOU", color = Color(0xFFFF3155), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
                                                 Text(pendingMessage, color = Color(0xFFF5F7FF), fontSize = 14.sp, lineHeight = 21.sp)
+                                                if (!busy && status == "AI CONNECTION FAILED") {
+                                                    TextButton(onClick = {
+                                                        chatDraft = pendingMessage
+                                                        pendingMessage = ""
+                                                    }, contentPadding = PaddingValues(0.dp)) {
+                                                        Text("Retry message ↻", color = Color(0xFFFF3155), fontSize = 11.sp)
+                                                    }
+                                                }
                                             }
                                         }
                                     }
-                                    Surface(
-                                        shape = RoundedCornerShape(16.dp),
-                                        color = Color(0xFF0D192B),
-                                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))
-                                    ) {
-                                        Row(Modifier.padding(horizontal = 12.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
-                                            Text("✦", color = Color(0xFFFF3155), fontSize = 18.sp)
-                                            Spacer(Modifier.width(8.dp))
-                                            Text("Myra is preparing a response…", color = Color(0xFFFF3155), fontSize = 12.sp)
+                                    if (busy) {
+                                        Surface(
+                                            shape = RoundedCornerShape(16.dp),
+                                            color = Color(0xFF0D192B),
+                                            border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))
+                                        ) {
+                                            Row(Modifier.padding(horizontal = 12.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+                                                Text("✦", color = Color(0xFFFF3155), fontSize = 18.sp)
+                                                Spacer(Modifier.width(8.dp))
+                                                Text("Myra is preparing a response…", color = Color(0xFFFF3155), fontSize = 12.sp)
+                                            }
                                         }
                                     }
                                 }
