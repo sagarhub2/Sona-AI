@@ -1448,8 +1448,24 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                             }
-                            if (!isFreshChat && savedChat.isNotBlank()) {
-                                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                            Row(
+                                Modifier.fillMaxWidth().padding(top = 2.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Surface(
+                                    onClick = { showSessionList = !showSessionList },
+                                    shape = RoundedCornerShape(12.dp),
+                                    color = if (showSessionList) Color(0xFF18213B) else Color(0xFF0B1729),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF9666FF).copy(alpha = .55f))
+                                ) {
+                                    Row(Modifier.padding(horizontal = 11.dp, vertical = 7.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                                        Text("☷", color = Color(0xFFBBA0FF), fontSize = 14.sp)
+                                        Text(if (showSessionList) "HIDE CHATS" else "SAVED CHATS", color = Color(0xFFBBA0FF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = .5.sp)
+                                    }
+                                }
+                                Spacer(Modifier.weight(1f))
+                                if (!isFreshChat && savedChat.isNotBlank()) {
                                     TextButton(onClick = { showClearHistoryConfirm = true }) {
                                         Text("⌫  Clear history", color = Color(0xFF55E7F5), fontSize = 11.sp)
                                     }
