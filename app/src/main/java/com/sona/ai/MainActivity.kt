@@ -1363,7 +1363,7 @@ class MainActivity : ComponentActivity() {
                                         tonalElevation = 0.dp
                                     ) {
                                         Row(
-                                            Modifier.fillMaxWidth().background(Brush.horizontalGradient(listOf(Color(0xFF10243A), Color(0xFF0B1424), Color(0xFF1C0D19))))
+                                            Modifier.fillMaxWidth().background(Brush.horizontalGradient(listOf(Color(0xFF10243A), Color(0xFF0B1424), Color(0xFF0D192B))))
                                                 .padding(15.dp),
                                             verticalAlignment = Alignment.CenterVertically,
                                             horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -1424,8 +1424,8 @@ class MainActivity : ComponentActivity() {
                                                 .border(1.dp, Color(0xFF73DFFF).copy(alpha = .85f), CircleShape),
                                                 contentAlignment = Alignment.Center) {
                                                 Box(Modifier.size(21.dp).clip(CircleShape)
-                                                    .background(Brush.radialGradient(listOf(Color(0xFFFFB5C2), Color(0xFFFF3155), Color(0xFF080B14))))
-                                                    .border(1.dp, Color(0xFFFFB5C2).copy(alpha = .9f), CircleShape))
+                                                    .background(Brush.radialGradient(listOf(Color(0xFFFF3155), Color(0xFFFF3155), Color(0xFF080B14))))
+                                                    .border(1.dp, Color(0xFFFF3155).copy(alpha = .9f), CircleShape))
                                                 Box(Modifier.size(8.dp).clip(CircleShape)
                                                     .background(Color(0xFF050B16))
                                                     .border(1.dp, Color(0xFF73DFFF), CircleShape))
