@@ -919,11 +919,6 @@ class MainActivity : ComponentActivity() {
                                 androidx.compose.material3.FilledTonalButton(
                                     onClick = {
                                         bossMode = !bossMode
-                                        val modeInstruction = if (bossMode) {
-                                            "Boss Mode is ON. For the rest of this voice conversation, be proactive, concise, confident and action-oriented. Offer clear next steps, but always ask before sensitive actions or actions that change the device."
-                                        } else {
-                                            "Boss Mode is OFF. Return to your normal warm, friendly, conversational Myra voice style."
-                                        }
                                         liveVoiceSession?.setBossMode(bossMode)
                                         heardText = if (bossMode) "Boss Mode enabled for this voice session." else "Boss Mode disabled; normal voice style restored."
                                         status = if (bossMode) "BOSS MODE ACTIVE" else "LIVE • SPEAK TO MYRA"
