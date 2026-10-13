@@ -772,9 +772,8 @@ class MainActivity : ComponentActivity() {
                                     ) { Text("‹", color = Color(0xFFF5F7FF), fontSize = 34.sp) }
                                     Spacer(Modifier.width(7.dp))
                                     Column(Modifier.weight(1f)) {
-                                        Text("Voice Mode", color = Color(0xFFF5F7FF), fontSize = 20.sp, fontWeight = FontWeight.Bold, letterSpacing = .2.sp)
-                                        Text("LIVE VOICE ASSISTANT", color = Color(0xFFFF3155), fontSize = 9.sp, letterSpacing = 1.6.sp)
-                                         Text("NATURAL CONVERSATION  •  HANDS-FREE", color = Color(0xFFB8C5DA), fontSize = 8.sp, letterSpacing = .35.sp)
+                                        Text("Voice Mode", color = Color(0xFFF5F7FF), fontSize = 20.sp, fontWeight = FontWeight.SemiBold, letterSpacing = .1.sp)
+                                        Text("LIVE VOICE ASSISTANT", color = Color(0xFFFF3155), fontSize = 8.sp, letterSpacing = 1.25.sp)
                                     }
                                     val voiceReady = status.contains("CONNECTED", true) || status.contains("LISTEN", true) || status.contains("LIVE", true)
                                     val voiceFailed = status.contains("FAILED", true) || status.contains("ERROR", true) || status.contains("DENIED", true) || status.contains("NEEDS", true) || status.contains("TIMEOUT", true)
@@ -1040,29 +1039,39 @@ class MainActivity : ComponentActivity() {
                         tonalElevation = 0.dp
                     ) {
                         Column(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0xFF071426), Color(0xFF050B16), Color(0xFF0B1020)))).padding(16.dp)) {
-                            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(11.dp)) {
-                                    Box(
-                                        Modifier.size(44.dp).clip(CircleShape)
-                                            .background(Brush.radialGradient(listOf(Color(0xFF240711), Color(0xFF080B13))))
-                                            .border(1.5.dp, Color(0xFFFF3155), CircleShape),
-                                        contentAlignment = Alignment.Center
-                                    ) {
-                                        Text("M", color = Color(0xFFFF3155), fontSize = 23.sp, fontWeight = FontWeight.Black)
-                                    }
-                                    Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                                        Text("Chat", color = Color(0xFFF5F7FF), fontSize = 20.sp, fontWeight = FontWeight.Bold, letterSpacing = .2.sp)
-                                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                                            Box(Modifier.size(6.dp).clip(CircleShape).background(if (apiKey.isBlank()) Color(0xFFFFB36B) else if (busy) Color(0xFFFF3155) else Color(0xFF66F0BC)))
-                                            Text(if (busy) "THINKING…" else if (apiKey.isBlank()) "SETUP REQUIRED" else "ONLINE • READY", color = Color(0xFF9CB4D0), fontSize = 9.sp, letterSpacing = .6.sp)
-                                        }
+                            Row(
+                                Modifier.fillMaxWidth().padding(top = 2.dp, bottom = 8.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text("Chat", modifier = Modifier.weight(1f), color = Color(0xFFF5F7FF), fontSize = 24.sp, fontWeight = FontWeight.SemiBold, letterSpacing = (-.35).sp)
+                                Surface(
+                                    onClick = { showChatSearch = !showChatSearch; if (!showChatSearch) chatSearchQuery = "" },
+                                    shape = CircleShape, color = Color(0xFF0D192B),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))
+                                ) {
+                                    Box(Modifier.size(38.dp), contentAlignment = Alignment.Center) {
+                                        Text("⌕", color = if (showChatSearch) Color(0xFFFF3155) else Color(0xFFF5F7FF), fontSize = 23.sp)
                                     }
                                 }
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                    TextButton(onClick = { showChatSearch = !showChatSearch; if (!showChatSearch) chatSearchQuery = "" }) {
-                                        Text("⌕", color = if (showChatSearch) Color(0xFFFF3155) else Color(0xFFF5F7FF), fontSize = 25.sp)
+                                Spacer(Modifier.width(7.dp))
+                                Surface(
+                                    onClick = {
+                                        chatDraft = ""
+                                        pendingMessage = ""
+                                        selectedChatCategory = "General Chat"
+                                        selectedChatTab = "Conversations"
+                                        status = "NEW CHAT DRAFT READY"
+                                    },
+                                    shape = CircleShape, color = Color(0xFF0D192B),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))
+                                ) {
+                                    Box(Modifier.size(38.dp), contentAlignment = Alignment.Center) {
+                                        Text("＋", color = Color(0xFFF5F7FF), fontSize = 23.sp)
                                     }
-                                    TextButton(onClick = { showChat = false }) { Text("✕", color = Color(0xFFFF3155), fontSize = 20.sp) }
+                                }
+                                Spacer(Modifier.width(3.dp))
+                                TextButton(onClick = { showChat = false }, contentPadding = PaddingValues(4.dp)) {
+                                    Text("×", color = Color(0xFFFF3155), fontSize = 23.sp)
                                 }
                             }
                             HorizontalDivider(color = Color(0xFF314B6A))
@@ -1112,21 +1121,6 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                                 Spacer(Modifier.weight(1f))
-                                Surface(
-                                    onClick = {
-                                        chatDraft = ""
-                                        pendingMessage = ""
-                                        selectedChatCategory = "General Chat"
-                                        selectedChatTab = "Conversations"
-                                        status = "NEW CHAT DRAFT READY"
-                                        android.widget.Toast.makeText(this@MainActivity, "New chat draft ready", android.widget.Toast.LENGTH_SHORT).show()
-                                    },
-                                    shape = CircleShape,
-                                    color = Color(0xFF13243B),
-                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))
-                                ) {
-                                    Text("＋", modifier = Modifier.padding(horizontal = 12.dp, vertical = 5.dp), color = Color(0xFFFF3155), fontSize = 18.sp)
-                                }
                             }
                             if (savedChat.isNotBlank()) {
                                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
