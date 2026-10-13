@@ -1555,7 +1555,7 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                             Row(Modifier.fillMaxWidth().padding(top = 8.dp, bottom = 6.dp), verticalAlignment = Alignment.CenterVertically) {
-                                Text("QUICK PROMPTS", color = Color(0xFFB8C5DA), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                                Text("QUICK PROMPTS", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.4.sp)
                                 Spacer(Modifier.weight(1f))
                                 Text("MODE: ${selectedChatCategory.uppercase()}", color = Color(0xFFFF3155), fontSize = 8.sp, letterSpacing = .35.sp, maxLines = 1)
                             }
@@ -1597,9 +1597,9 @@ class MainActivity : ComponentActivity() {
                                 horizontalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
                                 Box(Modifier.width(3.dp).height(16.dp).clip(CircleShape).background(Brush.verticalGradient(listOf(Color(0xFF73DFFF), Color(0xFFFF3155)))))
-                                Text("MESSAGE COMPOSER", color = Color(0xFFB8C5DA), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                                Text("MESSAGE COMPOSER", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
                                 Spacer(Modifier.weight(1f))
-                                Text("SECURE SESSION", color = Color(0xFF536A89), fontSize = 8.sp, letterSpacing = .5.sp)
+                                Text("✦ SECURE SESSION", color = Color(0xFFFF3155), fontSize = 8.sp, letterSpacing = .7.sp)
                             }
                             OutlinedTextField(
                                     value = chatDraft,
