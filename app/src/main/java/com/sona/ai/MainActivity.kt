@@ -938,6 +938,43 @@ class MainActivity : ComponentActivity() {
                                     Box(Modifier.size(36.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFB8F8FF), Color(0xFF55E7F5).copy(alpha = .78f), Color(0xFF9666FF).copy(alpha = .32f), Color.Transparent))).border(1.dp, Color(0xFFD8F9FF).copy(alpha = .9f), CircleShape))
                                     Box(Modifier.size(12.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color.White, Color(0xFF55E7F5)))))
                                 }
+                                Surface(
+                                    shape = RoundedCornerShape(20.dp),
+                                    color = Color(0xFF0B1728).copy(alpha = .92f),
+                                    border = androidx.compose.foundation.BorderStroke(
+                                        1.dp,
+                                        if (status.contains("LISTEN", true) || status.contains("LIVE", true))
+                                            Color(0xFF55E7F5).copy(alpha = .72f)
+                                        else Color(0xFF9666FF).copy(alpha = .58f)
+                                    )
+                                ) {
+                                    Row(
+                                        Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(7.dp)
+                                    ) {
+                                        Box(
+                                            Modifier.size(5.dp).clip(CircleShape).background(
+                                                if (voiceMuted) Color(0xFF536A89)
+                                                else if (status.contains("THINK", true) || status.contains("PROCESS", true)) Color(0xFFFFC857)
+                                                else Color(0xFF55E7F5)
+                                            )
+                                        )
+                                        Text(
+                                            when {
+                                                voiceMuted -> "MICROPHONE PAUSED"
+                                                status.contains("THINK", true) || status.contains("PROCESS", true) -> "PROCESSING YOUR VOICE"
+                                                status.contains("LISTEN", true) || status.contains("LIVE", true) -> "LISTENING • SPEAK NATURALLY"
+                                                else -> "TAP THE ORB TO CONNECT"
+                                            },
+                                            color = Color(0xFFB8C5DA),
+                                            fontSize = 8.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            letterSpacing = .8.sp
+                                        )
+                                    }
+                                }
+                                Spacer(Modifier.height(7.dp))
                                 // Compact waveform gives the voice state a visible, reference-style cue.
                                 Row(
                                     Modifier.fillMaxWidth().height(30.dp),
