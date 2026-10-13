@@ -4835,7 +4835,7 @@ private fun MyraHome(
                 }
             }
             Row(Modifier.fillMaxWidth().padding(top = 24.dp, bottom = 12.dp), verticalAlignment = Alignment.CenterVertically) {
-                Text("More", color = ink, fontSize = 19.sp, fontWeight = FontWeight.Bold)
+                Text("Quick Access", color = ink, fontSize = 19.sp, fontWeight = FontWeight.Bold, letterSpacing = (-.2).sp)
                 Spacer(Modifier.weight(1f))
             }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(14.dp)) {
