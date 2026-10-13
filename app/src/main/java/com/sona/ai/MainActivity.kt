@@ -5519,7 +5519,7 @@ private fun DailyPlannerDialog(onClose: () -> Unit) {
         val minute = totalMinutes % 60
         val suffix = if (hour24 < 12) "AM" else "PM"
         val hour12 = when (val h = hour24 % 12) { 0 -> 12; else -> h }
-        return "$" + "hour12:$" + "{minute.toString().padStart(2, '0')} $" + "suffix"
+        return hour12.toString() + ":" + minute.toString().padStart(2, '0') + " " + suffix
     }
     fun makePlan(): String {
         if (tasks.isEmpty()) return "No unfinished tasks found. Add tasks in Tasks & Reminders, and optionally mark them [HIGH], [MED], or [LOW]."
@@ -5573,7 +5573,7 @@ private fun DailyPlannerDialog(onClose: () -> Unit) {
                             border = androidx.compose.foundation.BorderStroke(1.dp, if (selected) Cyan else Color(0xFF283952))
                         ) {
                             Text(
-                                "${if (hour > 12) hour - 12 else hour}:00 AM",
+                                (if (hour > 12) hour - 12 else hour).toString() + ":00 AM",
                                 modifier = Modifier.padding(horizontal = 10.dp, vertical = 9.dp),
                                 color = if (selected) Cyan else Color(0xFFB7C8E4),
                                 fontSize = 11.sp,
@@ -5592,7 +5592,7 @@ private fun DailyPlannerDialog(onClose: () -> Unit) {
                             border = androidx.compose.foundation.BorderStroke(1.dp, if (selected) Violet else Color(0xFF283952))
                         ) {
                             Text(
-                                "$" + "duration min",
+                                duration.toString() + " min",
                                 modifier = Modifier.padding(horizontal = 12.dp, vertical = 9.dp),
                                 color = if (selected) Color(0xFFD8C8FF) else Color(0xFFB7C8E4),
                                 fontSize = 11.sp,
@@ -5606,7 +5606,7 @@ private fun DailyPlannerDialog(onClose: () -> Unit) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column(Modifier.weight(1f)) {
-                        Text("${tasks.size} unfinished tasks", color = Color(0xFFF5F7FF), fontWeight = FontWeight.SemiBold)
+                        Text(tasks.size.toString() + " unfinished tasks", color = Color(0xFFF5F7FF), fontWeight = FontWeight.SemiBold)
                         Text("Add [HIGH], [MED], or [LOW] before task names to prioritize them.", color = Color(0xFF9CB4D0), fontSize = 11.sp)
                     }
                     Text("▦", color = Cyan, fontSize = 24.sp)
