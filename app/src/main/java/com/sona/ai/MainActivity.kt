@@ -756,7 +756,9 @@ class MainActivity : ComponentActivity() {
                     ) {
                         Box(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0xFF030711), Color(0xFF071426), Color(0xFF0A1020))))) {
                             Column(
-                                Modifier.fillMaxSize().padding(horizontal = 20.dp, vertical = 18.dp),
+                                Modifier.fillMaxSize()
+                                    .verticalScroll(androidx.compose.foundation.rememberScrollState())
+                                    .padding(horizontal = 20.dp, vertical = 18.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
