@@ -1302,21 +1302,21 @@ class MainActivity : ComponentActivity() {
                             .padding(16.dp)
                             .imePadding()) {
                             Row(
-                                Modifier.fillMaxWidth().padding(top = 2.dp, bottom = 8.dp),
+                                Modifier.fillMaxWidth().padding(top = 0.dp, bottom = 6.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Box(
-                                    Modifier.size(42.dp).clip(CircleShape)
-                                        .background(Brush.radialGradient(listOf(Color(0xFF22D3EE).copy(alpha = .38f), Color(0xFF172344), Color(0xFF080D18))))
+                                    Modifier.size(38.dp).clip(CircleShape)
+                                        .background(Brush.radialGradient(listOf(Color(0xFF22D3EE).copy(alpha = .42f), Color(0xFF172344), Color(0xFF080D18))))
                                         .border(1.dp, Color(0xFF9666FF).copy(alpha = .85f), CircleShape),
                                     contentAlignment = Alignment.Center
                                 ) {
-                                    Box(Modifier.size(31.dp).border(1.dp, Color(0xFF55E7F5).copy(alpha = .9f), CircleShape))
-                                    Box(Modifier.size(18.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFE8D7FF), Color(0xFF9666FF), Color(0xFF55E7F5)))))
+                                    Box(Modifier.size(28.dp).border(1.dp, Color(0xFF55E7F5).copy(alpha = .9f), CircleShape))
+                                    Box(Modifier.size(16.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFE8D7FF), Color(0xFF9666FF), Color(0xFF55E7F5)))))
                                 }
                                 Spacer(Modifier.width(10.dp))
                                 Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                                    Text("MYRA", color = Color(0xFFF5F7FF), fontSize = 23.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 2.2.sp)
+                                    Text("MYRA", color = Color(0xFFF5F7FF), fontSize = 21.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 2.sp)
                                     Text("NEURAL CHAT  •  CONTEXT AWARE", color = Color(0xFF9CB4D0), fontSize = 8.sp, fontWeight = FontWeight.SemiBold, letterSpacing = 1.1.sp)
                                     Text("YOUR SPACE TO ASK, LEARN & CREATE", color = Color(0xFF55E7F5), fontSize = 7.sp, fontWeight = FontWeight.Bold, letterSpacing = .7.sp)
                                     Row(
@@ -1335,7 +1335,7 @@ class MainActivity : ComponentActivity() {
                                     shape = CircleShape, color = Color(0xFF0B1424),
                                     border = androidx.compose.foundation.BorderStroke(1.dp, if (showChatSearch) Color(0xFF55E7F5) else Color(0xFF55E7F5).copy(alpha = .65f))
                                 ) {
-                                    Box(Modifier.size(38.dp), contentAlignment = Alignment.Center) {
+                                    Box(Modifier.size(34.dp), contentAlignment = Alignment.Center) {
                                         Text("⌕", color = if (showChatSearch) Color(0xFF55E7F5) else Color(0xFF9666FF), fontSize = 23.sp)
                                     }
                                 }
@@ -1361,7 +1361,7 @@ class MainActivity : ComponentActivity() {
                                     shape = CircleShape, color = Color(0xFF0B1424),
                                     border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF34345F))
                                 ) {
-                                    Box(Modifier.size(38.dp), contentAlignment = Alignment.Center) {
+                                    Box(Modifier.size(34.dp), contentAlignment = Alignment.Center) {
                                         Text("＋", color = Color(0xFF9666FF), fontSize = 23.sp)
                                     }
                                 }
@@ -1402,8 +1402,8 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                             Row(
-                                Modifier.fillMaxWidth().padding(top = 10.dp, bottom = 4.dp),
-                                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                                Modifier.fillMaxWidth().padding(top = 8.dp, bottom = 4.dp),
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 listOf("Conversations", "Recent").forEach { tab ->
