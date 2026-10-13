@@ -493,8 +493,8 @@ class MainActivity : ComponentActivity() {
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
                             Text("◈  MYRA AI • TRIGGER CENTER", color = Color(0xFF53E5F5), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
-                            Text("Triggers & clock", color = Color.White, fontSize = 21.sp, fontWeight = FontWeight.Bold)
-                            Text("Choose an action to open your phone's Clock app.", color = Color.White.copy(alpha = .88f), fontSize = 12.sp)
+                            Text("Phone Actions & Triggers", color = Color.White, fontSize = 21.sp, fontWeight = FontWeight.Bold)
+                            Text("Quickly launch useful phone actions, alarms and reminders.", color = Color.White.copy(alpha = .88f), fontSize = 12.sp)
                         }
                     },
                     text = {
@@ -825,7 +825,7 @@ class MainActivity : ComponentActivity() {
                                     Spacer(Modifier.width(9.dp))
                                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                         Text("MYRA VOICE", color = Color(0xFFF5F7FF), fontSize = 22.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 1.1.sp)
-                                        Text("LIVE VOICE  •  HANDS-FREE AI COMPANION", color = Color(0xFF53E5F5), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.05.sp)
+                                        Text("SPEAK NATURALLY  •  MYRA IS HERE", color = Color(0xFF53E5F5), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.05.sp)
                                     }
                                     val voiceStatusAccent = when {
                                         voiceMuted -> Color(0xFF8298B8)
@@ -6062,7 +6062,7 @@ private fun MyraPremiumIntro() {
                 Text("AI", color = Color(0xFF67E8F9), fontSize = 36.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
             }
             Spacer(Modifier.height(7.dp))
-            Text("YOUR SMART COMPANION", color = Color(0xFFC4B5FD), fontSize = 11.sp, letterSpacing = 2.2.sp)
+            Text("YOUR VOICE-FIRST AI COMPANION", color = Color(0xFFC4B5FD), fontSize = 11.sp, letterSpacing = 2.2.sp)
             Spacer(Modifier.height(28.dp))
             Box(Modifier.width(190.dp).height(5.dp).clip(RoundedCornerShape(8.dp))
                 .background(Color(0xFF18233B))) {
