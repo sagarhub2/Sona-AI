@@ -1874,10 +1874,15 @@ class MainActivity : ComponentActivity() {
                                 Spacer(Modifier.weight(1f))
                                 Text(if (busy) "MYRA IS THINKING" else "ASK MYRA ANYTHING", color = Color(0xFF8F82B8), fontSize = 8.sp, letterSpacing = .45.sp)
                             }
+                            Box(
+                                Modifier.fillMaxWidth().height(2.dp).clip(RoundedCornerShape(4.dp))
+                                    .background(Brush.horizontalGradient(listOf(Color(0xFF9666FF).copy(alpha = .85f), Color(0xFF55E7F5), Color(0xFF9666FF).copy(alpha = .25f))))
+                            )
+                            Spacer(Modifier.height(5.dp))
                             OutlinedTextField(
                                     value = chatDraft,
                                     onValueChange = { chatDraft = it.take(4000) },
-                                    modifier = Modifier.fillMaxWidth(),
+                                    modifier = Modifier.fillMaxWidth().padding(top = 1.dp),
                                     placeholder = { Text(if (busy) "MYRA IS REPLYING…" else "Ask anything…", color = Color(0xFF8298B8), fontSize = 13.sp) },
                                     leadingIcon = { Text("✦", color = Color(0xFF9666FF), fontSize = 18.sp) },
                                     label = { Text("ASK MYRA", color = Color(0xFF55E7F5), letterSpacing = .8.sp) },
