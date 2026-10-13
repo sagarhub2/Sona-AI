@@ -776,8 +776,8 @@ class MainActivity : ComponentActivity() {
                                     ) { Text("‹", color = Color(0xFFF5F7FF), fontSize = 34.sp) }
                                     Spacer(Modifier.width(7.dp))
                                     Box(
-                                        Modifier.size(34.dp).clip(CircleShape)
-                                            .background(Brush.radialGradient(listOf(Color(0xFF73DFFF).copy(alpha = .45f), Color(0xFF10233A), Color(0xFF080D18))))
+                                        Modifier.size(38.dp).clip(CircleShape)
+                                            .background(Brush.radialGradient(listOf(Color(0xFF73DFFF).copy(alpha = .55f), Color(0xFF10233A), Color(0xFF080D18))))
                                             .border(1.dp, Color(0xFF73DFFF).copy(alpha = .75f), CircleShape),
                                         contentAlignment = Alignment.Center
                                     ) {
@@ -787,7 +787,7 @@ class MainActivity : ComponentActivity() {
                                     Spacer(Modifier.width(9.dp))
                                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                         Text("Voice Mode", color = Color(0xFFF5F7FF), fontSize = 22.sp, fontWeight = FontWeight.Bold, letterSpacing = .2.sp)
-                                        Text("MYRA LIVE  •  VOICE INTELLIGENCE", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.45.sp)
+                                        Text("LIVE AI  •  NATURAL VOICE", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.65.sp)
                                     }
                                     val voiceStatusAccent = when {
                                         voiceMuted -> Color(0xFF8298B8)
@@ -847,7 +847,7 @@ class MainActivity : ComponentActivity() {
                                     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                             Box(Modifier.size(5.dp).clip(CircleShape).background(Color(0xFF73DFFF)))
-                                            Text("MYRA NEURAL CORE", color = Color(0xFF73DFFF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.9.sp)
+                                            Text("MYRA NEURAL CORE", color = Color(0xFF73DFFF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 2.1.sp)
                                         }
                                         Text(
                                             when {
