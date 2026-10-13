@@ -761,6 +761,8 @@ class MainActivity : ComponentActivity() {
                                     .padding(horizontal = 20.dp, vertical = 18.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
+                                val voiceReady = status.contains("CONNECTED", true) || status.contains("LISTEN", true) || status.contains("LIVE", true)
+                                val voiceFailed = status.contains("FAILED", true) || status.contains("ERROR", true) || status.contains("DENIED", true) || status.contains("NEEDS", true) || status.contains("TIMEOUT", true)
                                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                                     TextButton(
                                         onClick = {
@@ -787,8 +789,6 @@ class MainActivity : ComponentActivity() {
                                         Text("Voice Mode", color = Color(0xFFF5F7FF), fontSize = 20.sp, fontWeight = FontWeight.SemiBold, letterSpacing = .1.sp)
                                         Text("LIVE VOICE ASSISTANT", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.35.sp)
                                     }
-                                    val voiceReady = status.contains("CONNECTED", true) || status.contains("LISTEN", true) || status.contains("LIVE", true)
-                                    val voiceFailed = status.contains("FAILED", true) || status.contains("ERROR", true) || status.contains("DENIED", true) || status.contains("NEEDS", true) || status.contains("TIMEOUT", true)
                                     val voiceStatusAccent = when {
                                         voiceMuted -> Color(0xFF8298B8)
                                         voiceFailed -> Color(0xFFFF3155)
