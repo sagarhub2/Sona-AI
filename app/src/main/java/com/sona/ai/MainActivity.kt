@@ -1875,9 +1875,15 @@ class MainActivity : ComponentActivity() {
                                 Text(if (busy) "MYRA IS THINKING" else "ASK MYRA ANYTHING", color = Color(0xFF8F82B8), fontSize = 8.sp, letterSpacing = .45.sp)
                             }
                             Box(
-                                Modifier.fillMaxWidth().height(2.dp).clip(RoundedCornerShape(4.dp))
-                                    .background(Brush.horizontalGradient(listOf(Color(0xFF9666FF).copy(alpha = .85f), Color(0xFF55E7F5), Color(0xFF9666FF).copy(alpha = .25f))))
-                            )
+                                Modifier.fillMaxWidth().height(3.dp).clip(RoundedCornerShape(4.dp))
+                                    .background(Color(0xFF172B42))
+                            ) {
+                                Box(
+                                    Modifier.fillMaxWidth((chatDraft.length / 4000f).coerceIn(0.02f, 1f))
+                                        .height(3.dp).clip(RoundedCornerShape(4.dp))
+                                        .background(Brush.horizontalGradient(listOf(Color(0xFF9666FF), Color(0xFF55E7F5), Color(0xFF55E7F5))))
+                                )
+                            }
                             Spacer(Modifier.height(5.dp))
                             OutlinedTextField(
                                     value = chatDraft,
