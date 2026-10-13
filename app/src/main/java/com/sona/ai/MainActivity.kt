@@ -1077,8 +1077,16 @@ class MainActivity : ComponentActivity() {
                 }
                 var selectedChatCategory by remember { mutableStateOf("General Chat") }
                 var selectedChatTab by remember { mutableStateOf("Conversations") }
+                var showSessionList by remember { mutableStateOf(false) }
                 var showChatSearch by remember { mutableStateOf(false) }
                 var chatSearchQuery by remember { mutableStateOf("") }
+                val chatSessions = chatPrefs.all.keys
+                    .filter { it.startsWith("chat_session_") && !it.startsWith("chat_session_title_") }
+                    .map { it.removePrefix("chat_session_") }
+                    .distinct()
+                    .map { id -> id to chatPrefs.getString("chat_session_$id", "").orEmpty() }
+                    .filter { it.second.isNotBlank() }
+                    .sortedByDescending { it.first.toLongOrNull() ?: 0L }
                 val chatSearchResult = if (chatSearchQuery.isBlank()) savedChat else savedChat.lines()
                     .filter { it.contains(chatSearchQuery, ignoreCase = true) }
                     .joinToString("\n")
@@ -1189,7 +1197,66 @@ class MainActivity : ComponentActivity() {
                                         )
                                     }
                                 }
+                                Surface(
+                                    onClick = { showSessionList = !showSessionList },
+                                    shape = RoundedCornerShape(18.dp),
+                                    color = if (showSessionList) Color(0xFFFF3155) else Color(0xFF0D192B),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, if (showSessionList) Color(0xFFFF3155) else Color(0xFF314B6A))
+                                ) {
+                                    Text(
+                                        "My chats ${chatSessions.size}",
+                                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+                                        color = Color(0xFFF5F7FF), fontSize = 12.sp, fontWeight = FontWeight.Medium
+                                    )
+                                }
                                 Spacer(Modifier.weight(1f))
+                            }
+                            if (showSessionList) {
+                                Surface(
+                                    modifier = Modifier.fillMaxWidth().padding(top = 6.dp, bottom = 4.dp),
+                                    shape = RoundedCornerShape(16.dp),
+                                    color = Color(0xFF0A1728),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))
+                                ) {
+                                    Column(
+                                        Modifier.fillMaxWidth().padding(10.dp).heightIn(max = 180.dp)
+                                            .verticalScroll(androidx.compose.foundation.rememberScrollState()),
+                                        verticalArrangement = Arrangement.spacedBy(6.dp)
+                                    ) {
+                                        Text("SAVED CONVERSATIONS", color = Color(0xFFFF3155), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                                        if (chatSessions.isEmpty()) {
+                                            Text("Your chats will appear here after your first message.", color = Color(0xFF9CB4D0), fontSize = 12.sp)
+                                        } else {
+                                            chatSessions.forEach { (sessionId, transcript) ->
+                                                val firstUserLine = transcript.lines().firstOrNull { it.contains("User:") }
+                                                    ?.substringAfter("User:")?.trim().orEmpty()
+                                                Surface(
+                                                    onClick = {
+                                                        activeChatSessionId = sessionId
+                                                        chatPrefs.edit().putString("active_chat_session_id", sessionId).apply()
+                                                        savedChat = transcript
+                                                        chatDraft = ""
+                                                        pendingMessage = ""
+                                                        isFreshChat = false
+                                                        showSessionList = false
+                                                        status = "CONVERSATION OPENED"
+                                                    },
+                                                    shape = RoundedCornerShape(12.dp),
+                                                    color = if (sessionId == activeChatSessionId) Color(0xFF182C45) else Color(0xFF0D192B),
+                                                    border = androidx.compose.foundation.BorderStroke(1.dp, if (sessionId == activeChatSessionId) Color(0xFFFF3155) else Color(0xFF243A55))
+                                                ) {
+                                                    Row(Modifier.fillMaxWidth().padding(horizontal = 10.dp, vertical = 9.dp), verticalAlignment = Alignment.CenterVertically) {
+                                                        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                                                            Text(firstUserLine.ifBlank { "Conversation" }.take(52), color = Color(0xFFF5F7FF), fontSize = 12.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                                                            Text(if (sessionId == activeChatSessionId) "CURRENT CHAT" else "SAVED CHAT", color = Color(0xFF9CB4D0), fontSize = 9.sp, letterSpacing = .7.sp)
+                                                        }
+                                                        Text("›", color = Color(0xFFFF3155), fontSize = 20.sp)
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                             if (!isFreshChat && savedChat.isNotBlank()) {
                                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
