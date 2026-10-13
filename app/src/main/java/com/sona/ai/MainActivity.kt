@@ -4671,11 +4671,7 @@ For privacy, I do not silently send messages or place calls. Android may ask you
                 if (responseText != null) {
                     heardText = responseText!!
                     status = "NEURAL LENS • IMAGE ANALYSIS COMPLETE"
-                    val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
-                    val previousHistory = prefs.getString("conversation_history", "").orEmpty()
-                    val historyTimestamp = java.text.SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault()).format(java.util.Date())
-                    val historyEntry = "\n[$historyTimestamp] User: Analyze selected image\nMyra: " + responseText
-                    prefs.edit().putString("conversation_history", (previousHistory + historyEntry).takeLast(12000)).apply()
+                    appendChatHistoryEntry("Analyze selected image", responseText!!)
                     if (ttsReady && prefs.getBoolean("speak_replies", true)) textToSpeech?.speak(responseText, TextToSpeech.QUEUE_FLUSH, null, "myra-image-analysis")
                 } else {
                     status = "NEURAL LENS • ANALYSIS FAILED"
@@ -4709,11 +4705,7 @@ For privacy, I do not silently send messages or place calls. Android may ask you
             // Local device actions do not call Gemini, but still finish the pending
             // Chat bubble and persist the outcome so the UI does not look stuck.
             val localReply = heardText.trim().ifBlank { status }
-            val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
-            val previousHistory = prefs.getString("conversation_history", "").orEmpty()
-            val historyTimestamp = java.text.SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault()).format(java.util.Date())
-            val historyEntry = "\n[" + historyTimestamp + "] User: " + prompt + "\nMyra: " + localReply
-            prefs.edit().putString("conversation_history", (previousHistory + historyEntry).takeLast(12000)).apply()
+            appendChatHistoryEntry(prompt, localReply)
             return
         }
         val key = apiKey
@@ -4782,11 +4774,7 @@ For privacy, I do not silently send messages or place calls. Android may ask you
                 busy = false
                 if (responseText != null) {
                     heardText = responseText!!
-                    val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
-                    val previousHistory = prefs.getString("conversation_history", "").orEmpty()
-                    val historyTimestamp = java.text.SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault()).format(java.util.Date())
-                    val updatedHistory = (previousHistory + "\n[" + historyTimestamp + "] User: " + prompt + "\nMyra: " + responseText).takeLast(12000)
-                    prefs.edit().putString("conversation_history", updatedHistory).apply()
+                    appendChatHistoryEntry(prompt, responseText!!)
                     status = "GEMINI CONNECTED • RESPONSE RECEIVED"
                     if (ttsReady && getSharedPreferences("myra_private", MODE_PRIVATE).getBoolean("speak_replies", true)) textToSpeech?.speak(responseText, TextToSpeech.QUEUE_FLUSH, null, "sona-gemini-reply")
                 } else {
