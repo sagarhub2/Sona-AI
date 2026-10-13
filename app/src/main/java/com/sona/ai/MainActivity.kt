@@ -1406,13 +1406,13 @@ class MainActivity : ComponentActivity() {
                                     border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))
                                 ) {
                                     Column(
-                                        Modifier.fillMaxWidth().padding(10.dp).heightIn(max = 180.dp)
+                                        Modifier.fillMaxWidth().padding(10.dp).heightIn(max = 220.dp)
                                             .verticalScroll(androidx.compose.foundation.rememberScrollState()),
                                         verticalArrangement = Arrangement.spacedBy(6.dp)
                                     ) {
                                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(7.dp)) {
                                             Box(Modifier.size(6.dp).clip(CircleShape).background(Color(0xFF9666FF)))
-                                            Text("SAVED CONVERSATIONS", color = Color(0xFF9666FF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                                            Text("SAVED CONVERSATIONS  •  ${chatSessions.size}", color = Color(0xFF9666FF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
                                         }
                                         if (chatSessions.isEmpty()) {
                                             Text("Your chats will appear here after your first message.", color = Color(0xFF9CB4D0), fontSize = 12.sp)
@@ -5530,7 +5530,7 @@ private fun MyraHome(
             Row(Modifier.fillMaxWidth().padding(top = 14.dp, bottom = 9.dp), verticalAlignment = Alignment.CenterVertically) {
                 Column(Modifier.weight(1f)) {
                     Text("Quick Access", color = Color(0xFFF5F7FF), fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
-                    Text("YOUR DAILY SHORTCUTS", color = Color(0xFF7F95B5), fontSize = 8.sp, letterSpacing = 1.1.sp, modifier = Modifier.padding(top = 2.dp))
+                    Text("CHAT  •  VOICE  •  VISION  •  MEMORY", color = Color(0xFF7F95B5), fontSize = 8.sp, letterSpacing = 1.1.sp, modifier = Modifier.padding(top = 2.dp))
                 }
                 Text("04 TOOLS", color = Color(0xFF55E7F5), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .8.sp)
             }
@@ -5590,8 +5590,8 @@ private fun MyraHome(
 
 @Composable
 private fun HomeGlassCard(title: String, subtitle: String, symbol: String, tint: Color, modifier: Modifier = Modifier, onClick: () -> Unit) {
-    Surface(modifier = modifier.height(76.dp), onClick = onClick, shape = RoundedCornerShape(19.dp),
-        color = Color(0xAA111A32), border = androidx.compose.foundation.BorderStroke(1.dp, tint.copy(alpha = .55f))) {
+    Surface(modifier = modifier.height(80.dp), onClick = onClick, shape = RoundedCornerShape(20.dp),
+        color = Color(0xCC111A32), border = androidx.compose.foundation.BorderStroke(1.dp, tint.copy(alpha = .68f))) {
         Row(Modifier.fillMaxSize().padding(horizontal = 10.dp), verticalAlignment = Alignment.CenterVertically) {
             Box(Modifier.size(36.dp).clip(RoundedCornerShape(11.dp)).background(Brush.linearGradient(listOf(tint, tint.copy(alpha = .35f)))),
                 contentAlignment = Alignment.Center) { Text(symbol, color = Color.White, fontSize = 19.sp) }
