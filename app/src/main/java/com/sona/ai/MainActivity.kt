@@ -4671,7 +4671,17 @@ For privacy, I do not silently send messages or place calls. Android may ask you
     }
 
     private fun askGemini(prompt: String) {
-        if (handleLocalCommand(prompt)) return
+        if (handleLocalCommand(prompt)) {
+            // Local device actions do not call Gemini, but still finish the pending
+            // Chat bubble and persist the outcome so the UI does not look stuck.
+            val localReply = heardText.trim().ifBlank { status }
+            val prefs = getSharedPreferences("myra_private", MODE_PRIVATE)
+            val previousHistory = prefs.getString("conversation_history", "").orEmpty()
+            val historyTimestamp = java.text.SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault()).format(java.util.Date())
+            val historyEntry = "\n[" + historyTimestamp + "] User: " + prompt + "\nMyra: " + localReply
+            prefs.edit().putString("conversation_history", (previousHistory + historyEntry).takeLast(12000)).apply()
+            return
+        }
         val key = apiKey
         if (key.isBlank()) {
             status = "ADD GEMINI KEY IN SETTINGS"
