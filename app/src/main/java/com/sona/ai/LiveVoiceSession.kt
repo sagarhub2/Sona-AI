@@ -229,7 +229,11 @@ class LiveVoiceSession(
                         val chunk = Base64.encodeToString(audioFrame, Base64.NO_WRAP)
                         val message = JSONObject().put("realtimeInput", JSONObject().put("audio",
                             JSONObject().put("mimeType", "audio/pcm;rate=16000").put("data", chunk)))
-                        if (socket?.send(message.toString()) != true) break
+                        if (socket?.send(message.toString()) != true) {
+                            onStatus("LIVE AUDIO SEND FAILED • RECONNECT")
+                            stopAudio()
+                            break
+                        }
                     }
                 }
             }, "Myra-Live-Mic").also { it.start() }
@@ -244,6 +248,9 @@ class LiveVoiceSession(
         running.set(false)
         muted.set(false)
         setupCompleted.set(false)
+        audioStarted.set(false)
+        turnReceivedAudio = false
+        pendingOutputTranscript = ""
         try { micThread?.interrupt() } catch (_: Exception) {}
         try { recorder?.stop() } catch (_: Exception) {}
         try { recorder?.release() } catch (_: Exception) {}
@@ -256,7 +263,10 @@ class LiveVoiceSession(
 
     private fun stopAudio() {
         running.set(false)
+        muted.set(false)
+        setupCompleted.set(false)
         audioStarted.set(false)
+        try { micThread?.interrupt() } catch (_: Exception) {}
         try { micThread?.interrupt() } catch (_: Exception) {}
         try { recorder?.stop() } catch (_: Exception) {}
         try { recorder?.release() } catch (_: Exception) {}
