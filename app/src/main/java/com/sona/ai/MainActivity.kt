@@ -1137,7 +1137,7 @@ class MainActivity : ComponentActivity() {
                                     value = chatDraft,
                                     onValueChange = { chatDraft = it },
                                     modifier = Modifier.fillMaxWidth(),
-                                    placeholder = { Text(if (busy) "Myra is replying…" else "Type a message…", color = Color(0xFF876C74)) },
+                                    placeholder = { Text(if (busy) "Myra is replying…" else "Type a message…", color = Color(0xFF314B6A)) },
                                     leadingIcon = { Text("＋", color = Color(0xFFFF3155), fontSize = 21.sp) },
                                     label = { Text("Message", color = Color(0xFFFF3155)) },
                                     minLines = 1,
@@ -1154,7 +1154,7 @@ class MainActivity : ComponentActivity() {
                                         focusedContainerColor = Color(0xFF0D192B),
                                         unfocusedContainerColor = Color(0xFF0D192B),
                                         cursorColor = Color(0xFFFF3155),
-                                        disabledTextColor = Color(0xFF876C74),
+                                        disabledTextColor = Color(0xFF314B6A),
                                         disabledBorderColor = Color(0xFF314B6A)
                                     )
                                 )
@@ -1162,7 +1162,7 @@ class MainActivity : ComponentActivity() {
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
                                 Text(
                                     if (busy) "MYRA IS THINKING…" else if (chatDraft.isNotBlank()) "${chatDraft.length} characters • Draft not sent" else "PRIVATE CHAT  •  REPLIES APPEAR HERE",
-                                    color = Color(0xFF876C74), fontSize = 9.sp, letterSpacing = .25.sp, modifier = Modifier.weight(1f)
+                                    color = Color(0xFF314B6A), fontSize = 9.sp, letterSpacing = .25.sp, modifier = Modifier.weight(1f)
                                 )
                                 if (chatDraft.isNotBlank() && !busy) {
                                     TextButton(onClick = { chatDraft = "" }) {
