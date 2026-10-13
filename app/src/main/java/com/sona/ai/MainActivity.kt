@@ -5257,15 +5257,19 @@ private fun MyraHome(
         }
             // Secondary tools and workspace shortcuts are intentionally kept off Home.
         // They remain available from the Settings / Profile and feature menus.
+        // Floating HUD-style navigation: separated from the screen edge with a soft holographic rim.
         Row(
-            Modifier.fillMaxWidth().background(Color(0xFF0D192B)).border(1.dp, Color(0x33FF3155))
-                .padding(horizontal = 12.dp, vertical = 7.dp),
+            Modifier.fillMaxWidth().padding(horizontal = 10.dp, vertical = 7.dp)
+                .clip(RoundedCornerShape(28.dp))
+                .background(Brush.horizontalGradient(listOf(Color(0xFF11152B), Color(0xFF101D32), Color(0xFF1A1030))))
+                .border(1.dp, Color(0x66B46CFF), RoundedCornerShape(28.dp))
+                .padding(horizontal = 8.dp, vertical = 6.dp),
             horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically
         ) {
             Column(Modifier.weight(1f).clip(RoundedCornerShape(16.dp)).clickable { }.padding(vertical = 4.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("⌂", color = red, fontSize = 22.sp, fontWeight = FontWeight.Bold)
-                Text("Home", color = red, fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                Text("⌂", color = Color(0xFFB46CFF), fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                Text("Home", color = Color(0xFFB46CFF), fontSize = 10.sp, fontWeight = FontWeight.Bold)
             }
             Column(Modifier.weight(1f).clip(RoundedCornerShape(16.dp)).clickable { onChat() }.padding(vertical = 4.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
@@ -5276,8 +5280,8 @@ private fun MyraHome(
                 Brush.radialGradient(listOf(Color(0xFF05070D), Color(0xFF16060B), Color(0xFF40101D), Color(0xFF05070D)))
             ).border(1.5.dp, Color(0xFFFF3155), CircleShape).clickable { onStartVoice() }
                 .padding(vertical = 6.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(if (busy) "•••" else "≋", color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.Bold)
-                Text("Voice", color = Color.White, fontSize = 9.sp, fontWeight = FontWeight.Bold)
+                Text(if (busy) "•••" else "≋", color = Color(0xFFE8D7FF), fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                Text("Voice", color = Color(0xFFE8D7FF), fontSize = 9.sp, fontWeight = FontWeight.Bold)
             }
             Column(Modifier.weight(1f).clip(RoundedCornerShape(16.dp)).clickable { onReminder() }.padding(vertical = 4.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
@@ -5287,7 +5291,7 @@ private fun MyraHome(
             Column(Modifier.weight(1f).clip(RoundedCornerShape(16.dp)).clickable { onSettings() }.padding(vertical = 4.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("⚙", color = muted, fontSize = 20.sp)
-                Text("Settings", color = muted, fontSize = 10.sp)
+                Text("Setting", color = muted, fontSize = 10.sp)
             }
         }
     }
