@@ -53,8 +53,8 @@ import kotlinx.coroutines.launch
 
 private var activeThemeName by mutableStateOf("Holographic")
 private val Night: Color get() = Color(0xFF050B16)
-private val Violet: Color get() = Color(0xFF8D5CFF)
-private val Cyan: Color get() = Color(0xFFFF4D9D)
+private val Violet: Color get() = Color(0xFFE83E5B)
+private val Cyan: Color get() = Color(0xFFFF3155)
 private const val AUDIO_PERMISSION_REQUEST = 410
 private const val CAMERA_PERMISSION_REQUEST = 411
 
@@ -4562,7 +4562,7 @@ private fun MyraHome(
     val ink = Color(0xFFF5F7FF)
     // Darker muted text keeps dashboard labels readable on the pale rose background.
     val muted = Color(0xFF9EABC2)
-    val red = Color(0xFFFF72D2)
+    val red = Color(0xFFFF3155)
     Column(
         Modifier.fillMaxSize()
             .background(Brush.verticalGradient(listOf(Color(0xFF050B16), Color(0xFF071426), Color(0xFF0B1020))))
@@ -4575,7 +4575,7 @@ private fun MyraHome(
             Column(Modifier.weight(1f)) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(2.dp)) {
                     Text("MYR", color = Color(0xFFF5F7FF), fontSize = 27.sp, fontWeight = FontWeight.Black, letterSpacing = (-1).sp)
-                    Text("A", color = Color(0xFFFF72D2), fontSize = 27.sp, fontWeight = FontWeight.Black, letterSpacing = (-1).sp)
+                    Text("A", color = Color(0xFFFF3155), fontSize = 27.sp, fontWeight = FontWeight.Black, letterSpacing = (-1).sp)
                     Box(Modifier.padding(start = 5.dp).size(6.dp).clip(CircleShape).background(if (hasKey) Color(0xFFFF72D2) else Color(0xFFFFB36B)))
                 }
                 Text("—  A I   A S S I S T A N T  —", color = muted, fontSize = 7.sp, letterSpacing = 1.2.sp)
@@ -4644,7 +4644,7 @@ private fun MyraHome(
                                 lineTo(size.width * 0.75f, size.height * 0.12f)
                                 lineTo(size.width * 0.92f, size.height * 0.88f)
                             }
-                            drawPath(logo, Color(0xFFFFFEFE), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 4.dp.toPx(), cap = androidx.compose.ui.graphics.StrokeCap.Round, join = androidx.compose.ui.graphics.StrokeJoin.Round))
+                            drawPath(logo, Color(0xFFFF3155), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 4.dp.toPx(), cap = androidx.compose.ui.graphics.StrokeCap.Round, join = androidx.compose.ui.graphics.StrokeJoin.Round))
                             drawLine(Color(0xFFFF465F), androidx.compose.ui.geometry.Offset(size.width * 0.34f, size.height * 0.46f), androidx.compose.ui.geometry.Offset(size.width * 0.66f, size.height * 0.46f), strokeWidth = 2.dp.toPx())
                         }
                         Row(verticalAlignment = Alignment.CenterVertically) {
