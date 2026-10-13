@@ -2503,7 +2503,7 @@ class MainActivity : ComponentActivity() {
                                     }
                                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                         Text(userNameDraft.trim().ifBlank { "Your profile" }, color = Color(0xFFF7EEFF), fontWeight = FontWeight.Bold, fontSize = 15.sp)
-                                        Text("PERSONAL PROFILE PREVIEW", color = Color(0xFF9DB2CC), fontSize = 9.sp, letterSpacing = .8.sp)
+                                        Text("PERSONAL PROFILE PREVIEW  •  ${assistantNameDraft.trim().ifBlank { "MYRA AI" }}", color = Color(0xFF9DB2CC), fontSize = 9.sp, letterSpacing = .8.sp, maxLines = 1)
                                         Text(profileBioDraft.trim().ifBlank { "Add a short bio to personalize Myra" }, color = Color(0xFFB7C7DA), fontSize = 11.sp, maxLines = 2)
                                         if (profileInterestsDraft.isNotBlank()) Text("Interests: ${profileInterestsDraft.trim()}", color = Color(0xFF55E7F5), fontSize = 10.sp, maxLines = 2)
                                     }
