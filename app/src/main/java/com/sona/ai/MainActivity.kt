@@ -1174,7 +1174,7 @@ class MainActivity : ComponentActivity() {
                                     border = androidx.compose.foundation.BorderStroke(1.dp, if (showChatSearch) Color(0xFFFF3155) else Color(0xFF73DFFF).copy(alpha = .55f))
                                 ) {
                                     Box(Modifier.size(38.dp), contentAlignment = Alignment.Center) {
-                                        Text("⌕", color = if (showChatSearch) Color(0xFFFF3155) else Color(0xFFF5F7FF), fontSize = 23.sp)
+                                        Text("⌕", color = if (showChatSearch) Color(0xFFFF3155) else Color(0xFF73DFFF), fontSize = 23.sp)
                                     }
                                 }
                                 Spacer(Modifier.width(7.dp))
@@ -1200,7 +1200,7 @@ class MainActivity : ComponentActivity() {
                                     border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))
                                 ) {
                                     Box(Modifier.size(38.dp), contentAlignment = Alignment.Center) {
-                                        Text("＋", color = Color(0xFFF5F7FF), fontSize = 23.sp)
+                                        Text("＋", color = Color(0xFF73DFFF), fontSize = 23.sp)
                                     }
                                 }
                                 Spacer(Modifier.width(3.dp))
@@ -1392,8 +1392,8 @@ class MainActivity : ComponentActivity() {
                                             Text("CONVERSATION", color = Color(0xFF73DFFF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
                                         }
                                         Text(
-                                            if (isFreshChat || savedChat.isBlank()) "Start a fresh conversation with MYRA"
-                                            else "Your saved conversation is ready",
+                                            if (isFreshChat || savedChat.isBlank()) "Your personal AI space • ask anything"
+                                            else "Your saved conversation is ready • context restored",
                                             color = Color(0xFF9CB4D0), fontSize = 10.sp, maxLines = 1,
                                             overflow = TextOverflow.Ellipsis
                                         )
