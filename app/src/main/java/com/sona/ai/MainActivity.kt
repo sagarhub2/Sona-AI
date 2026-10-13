@@ -878,7 +878,7 @@ class MainActivity : ComponentActivity() {
                                                     voiceMuted -> "Microphone paused • unmute when you’re ready"
                                                     status.contains("THINK", true) || status.contains("ASKING", true) -> "Processing your voice request…"
                                                     status.contains("LISTEN", true) || status.contains("LIVE", true) -> "Listening now • speak naturally"
-                                                    else -> "Tap the orb to begin • speak naturally"
+                                                    else -> "Tap the orb to connect • then speak naturally"
                                                 },
                                                 color = Color(0xFFB8C5DA), fontSize = 10.sp,
                                                 maxLines = 2, lineHeight = 15.sp
