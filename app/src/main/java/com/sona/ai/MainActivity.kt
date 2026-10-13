@@ -777,13 +777,13 @@ class MainActivity : ComponentActivity() {
                                 }
                                 Spacer(Modifier.weight(1f))
                                 Box(contentAlignment = Alignment.Center, modifier = Modifier.size(244.dp)) {
-                                    Box(Modifier.size(236.dp).scale(orbScale).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFF3155).copy(alpha = .26f), Color(0xFF30164D).copy(alpha = .12f), Color.Transparent))))
+                                    Box(Modifier.size(236.dp).scale(orbScale).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFF3155).copy(alpha = .26f), Color(0xFF40152A).copy(alpha = .12f), Color.Transparent))))
                                     Box(Modifier.size(216.dp).rotate(orbRotation).border(1.dp, Color(0xFFFF3155).copy(alpha = .48f), CircleShape))
                                     Box(Modifier.size(198.dp).rotate(-orbRotation).border(1.dp, Color(0xFFF2C66D).copy(alpha = .72f), CircleShape))
-                                    Box(Modifier.size(184.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF080508), Color(0xFF19060D), Color(0xFFFF3155), Color(0xFF020202)))).border(2.dp, Color(0xFFFFE3A5).copy(alpha = .8f), CircleShape))
+                                    Box(Modifier.size(184.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF070B14), Color(0xFF160A12), Color(0xFFFF3155), Color(0xFF020202)))).border(2.dp, Color(0xFFFFE3A5).copy(alpha = .8f), CircleShape))
                                     // Keep the emblem visibly black at its core; the red light stays on the rim.
-                                    Box(Modifier.size(146.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF020202), Color(0xFF080508), Color(0xFFFF3155).copy(alpha = .78f), Color.Transparent))))
-                                    Box(Modifier.size(72.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF020202), Color(0xFF050505), Color(0xFF2A080E)))).border(1.dp, Color(0xFFFF3155).copy(alpha = .8f), CircleShape))
+                                    Box(Modifier.size(146.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF020202), Color(0xFF070B14), Color(0xFFFF3155).copy(alpha = .78f), Color.Transparent))))
+                                    Box(Modifier.size(72.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF020202), Color(0xFF050505), Color(0xFF40101D)))).border(1.dp, Color(0xFFFF3155).copy(alpha = .8f), CircleShape))
                                 }
                                 // Compact waveform gives the voice state a visible, reference-style cue.
                                 Row(
