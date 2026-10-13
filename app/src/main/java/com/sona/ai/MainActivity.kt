@@ -53,8 +53,8 @@ import kotlinx.coroutines.launch
 
 private var activeThemeName by mutableStateOf("Holographic")
 private val Night: Color get() = Color(0xFF050B16)
-private val Violet: Color get() = Color(0xFFE83E5B)
-private val Cyan: Color get() = Color(0xFFFF3155)
+private val Violet: Color get() = Color(0xFF8B5CF6)
+private val Cyan: Color get() = Color(0xFF22D3EE)
 private const val AUDIO_PERMISSION_REQUEST = 410
 private const val CAMERA_PERMISSION_REQUEST = 411
 
