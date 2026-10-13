@@ -5293,7 +5293,7 @@ private fun MyraHome(
             Column(Modifier.weight(1f).clip(RoundedCornerShape(16.dp)).clickable { onReminder() }.padding(vertical = 4.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("ϟ", color = muted, fontSize = 21.sp, fontWeight = FontWeight.Bold)
-                Text("Triggers", color = muted, fontSize = 10.sp)
+                Text("Trigger", color = muted, fontSize = 10.sp)
             }
             Column(Modifier.weight(1f).clip(RoundedCornerShape(16.dp)).clickable { onSettings() }.padding(vertical = 4.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
