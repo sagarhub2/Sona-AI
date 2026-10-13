@@ -2354,10 +2354,10 @@ class MainActivity : ComponentActivity() {
                 AlertDialog(
                     onDismissRequest = { showSecurityDashboard = false },
                     shape = RoundedCornerShape(24.dp),
-                    containerColor = Color(0xFF071426),
+                    containerColor = Color(0xFF080D18),
                     title = {
                         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                            Text("MYRA AI • SECURITY", color = Color(0xFFFF4D9D), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.4.sp)
+                            Text("MYRA AI • SECURITY", color = Color(0xFFFF3155), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.4.sp)
                             Text("Phone security dashboard", color = Color(0xFFF5F7FF), fontSize = 20.sp, fontWeight = FontWeight.Bold)
                         }
                     },
@@ -2368,15 +2368,15 @@ class MainActivity : ComponentActivity() {
                         ) {
                             Row(
                                 Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp))
-                                    .background(if (securityArmed) Color(0xFF102A2B) else Color(0xFF24152B))
+                                    .background(if (securityArmed) Color(0xFF182A32) else Color(0xFF2A1423))
                                     .padding(14.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(10.dp)
                             ) {
-                                Text(if (securityArmed) "●" else "○", color = if (securityArmed) Color(0xFF8CF5D5) else Color(0xFFFF4D9D), fontSize = 22.sp)
+                                Text(if (securityArmed) "●" else "○", color = if (securityArmed) Color(0xFFFF7A91) else Color(0xFFFF3155), fontSize = 22.sp)
                                 Column {
                                     Text(if (securityArmed) "Security marked ON" else "Security OFF", color = Color(0xFFF5F7FF), fontWeight = FontWeight.Bold)
-                                    Text(if (securityArmed) "Visible movement monitoring was enabled." else "Say “arm security” to start monitoring.", color = Color(0xFFB8A9D8), fontSize = 11.sp)
+                                    Text(if (securityArmed) "Visible movement monitoring was enabled." else "Say “arm security” to start monitoring.", color = Color(0xFF9CB4D0), fontSize = 11.sp)
                                 }
                             }
                             Row(
@@ -2393,7 +2393,7 @@ class MainActivity : ComponentActivity() {
                                     modifier = Modifier.weight(1f),
                                     shape = RoundedCornerShape(12.dp)
                                 ) {
-                                    Text("Disarm", color = Color(0xFFFF4D9D), fontSize = 12.sp)
+                                    Text("Disarm", color = Color(0xFFFF3155), fontSize = 12.sp)
                                 }
                                 OutlinedButton(
                                     onClick = {
@@ -2404,7 +2404,7 @@ class MainActivity : ComponentActivity() {
                                     modifier = Modifier.weight(1f),
                                     shape = RoundedCornerShape(12.dp)
                                 ) {
-                                    Text("Clear log", color = Color(0xFFFF4D9D), fontSize = 12.sp)
+                                    Text("Clear log", color = Color(0xFFFF3155), fontSize = 12.sp)
                                 }
                             }
                             OutlinedButton(
@@ -2421,7 +2421,7 @@ class MainActivity : ComponentActivity() {
                                 modifier = Modifier.fillMaxWidth(),
                                 shape = RoundedCornerShape(12.dp)
                             ) {
-                                Text("Share security report", color = Color(0xFFFF4D9D), fontWeight = FontWeight.Bold)
+                                Text("Share security report", color = Color(0xFFFF3155), fontWeight = FontWeight.Bold)
                             }
                             var movementSensitivity by remember {
                                 mutableFloatStateOf(securityPrefs.getFloat("sensitivity", MyraMotionSecurityService.DEFAULT_SENSITIVITY))
@@ -2429,15 +2429,15 @@ class MainActivity : ComponentActivity() {
                             var alertCooldownSeconds by remember {
                                 mutableFloatStateOf(securityPrefs.getLong("cooldown_ms", MyraMotionSecurityService.DEFAULT_COOLDOWN_MS).toFloat() / 1000f)
                             }
-                            Text("MOVEMENT SENSITIVITY", color = Color(0xFFFF4D9D), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.1.sp)
+                            Text("MOVEMENT SENSITIVITY", color = Color(0xFFFF3155), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.1.sp)
                             Text(
                                 if (movementSensitivity < 2.5f) "High sensitivity • more alerts" else if (movementSensitivity > 4.0f) "Low sensitivity • fewer alerts" else "Balanced • ${"%.1f".format(java.util.Locale.US, movementSensitivity)} m/s²",
                                 color = Color(0xFFE5DDF0), fontSize = 12.sp
                             )
-                            Slider(value = movementSensitivity, onValueChange = { movementSensitivity = it }, valueRange = 1.5f..5.5f, steps = 7, colors = SliderDefaults.colors(thumbColor = Color(0xFFFF4D9D), activeTrackColor = Color(0xFFFF4D9D)))
-                            Text("ALERT COOLDOWN • ${alertCooldownSeconds.toInt()} SECONDS", color = Color(0xFFFF4D9D), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.1.sp)
-                            Slider(value = alertCooldownSeconds, onValueChange = { alertCooldownSeconds = it }, valueRange = 5f..60f, steps = 10, colors = SliderDefaults.colors(thumbColor = Color(0xFFFF4D9D), activeTrackColor = Color(0xFFFF4D9D)))
-                            Text("Lower sensitivity means fewer alerts; a longer cooldown limits repeat alerts. These settings cannot tell who moved the phone.", color = Color(0xFFB8A9D8), fontSize = 10.sp)
+                            Slider(value = movementSensitivity, onValueChange = { movementSensitivity = it }, valueRange = 1.5f..5.5f, steps = 7, colors = SliderDefaults.colors(thumbColor = Color(0xFFFF3155), activeTrackColor = Color(0xFFFF3155)))
+                            Text("ALERT COOLDOWN • ${alertCooldownSeconds.toInt()} SECONDS", color = Color(0xFFFF3155), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.1.sp)
+                            Slider(value = alertCooldownSeconds, onValueChange = { alertCooldownSeconds = it }, valueRange = 5f..60f, steps = 10, colors = SliderDefaults.colors(thumbColor = Color(0xFFFF3155), activeTrackColor = Color(0xFFFF3155)))
+                            Text("Lower sensitivity means fewer alerts; a longer cooldown limits repeat alerts. These settings cannot tell who moved the phone.", color = Color(0xFF9CB4D0), fontSize = 10.sp)
                             OutlinedButton(
                                 onClick = {
                                     securityPrefs.edit().putFloat("sensitivity", movementSensitivity).putLong("cooldown_ms", alertCooldownSeconds.toLong() * 1000L).apply()
@@ -2446,11 +2446,11 @@ class MainActivity : ComponentActivity() {
                                 },
                                 modifier = Modifier.fillMaxWidth(),
                                 shape = RoundedCornerShape(12.dp)
-                            ) { Text("Save security settings", color = Color(0xFFFF4D9D), fontWeight = FontWeight.Bold) }
+                            ) { Text("Save security settings", color = Color(0xFFFF3155), fontWeight = FontWeight.Bold) }
                             var eventFilter by remember { mutableStateOf("All") }
                             val todayPrefix = java.text.SimpleDateFormat("dd MMM yyyy", java.util.Locale.getDefault()).format(java.util.Date())
                             val securityEvents = if (eventFilter == "Today") allSecurityEvents.filter { it.startsWith(todayPrefix) } else allSecurityEvents
-                            Text("SECURITY EVENT HISTORY • ${allSecurityEvents.size}", color = Color(0xFFFF4D9D), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.1.sp)
+                            Text("SECURITY EVENT HISTORY • ${allSecurityEvents.size}", color = Color(0xFFFF3155), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.1.sp)
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                 listOf("All", "Today").forEach { filter ->
                                     FilterChip(
@@ -2465,13 +2465,13 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                             if (securityEvents.isEmpty()) {
-                                Text("No saved security events yet.", color = Color(0xFFB8A9D8), fontSize = 12.sp)
+                                Text("No saved security events yet.", color = Color(0xFF9CB4D0), fontSize = 12.sp)
                             } else {
                                 securityEvents.forEach { event ->
                                     Text("•  $event", color = Color(0xFFE5DDF0), fontSize = 12.sp, modifier = Modifier.fillMaxWidth().background(Color(0xFF151B2E), RoundedCornerShape(10.dp)).padding(10.dp))
                                 }
                             }
-                            Text("Movement can be caused by vibration or transport and does not identify a person. No covert photo capture is performed.", color = Color(0xFFB8A9D8), fontSize = 10.sp)
+                            Text("Movement can be caused by vibration or transport and does not identify a person. No covert photo capture is performed.", color = Color(0xFF9CB4D0), fontSize = 10.sp)
                         }
                     },
                     confirmButton = {
