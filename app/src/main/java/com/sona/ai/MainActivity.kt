@@ -1151,10 +1151,11 @@ class MainActivity : ComponentActivity() {
                                 }
                                 Spacer(Modifier.width(10.dp))
                                 Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                                    Text("Chat", color = Color(0xFFF5F7FF), fontSize = 24.sp, fontWeight = FontWeight.SemiBold, letterSpacing = (-.35).sp)
+                                    Text("MYRA", color = Color(0xFFF5F7FF), fontSize = 24.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.1.sp)
+                                     Text("AI CONVERSATION SPACE", color = Color(0xFF8298B8), fontSize = 8.sp, fontWeight = FontWeight.Medium, letterSpacing = 1.3.sp)
                                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                         Box(Modifier.size(6.dp).clip(CircleShape).background(Color(0xFF73DFFF)))
-                                        Text("YOUR SPACE WITH MYRA", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.15.sp)
+                                        Text("ONLINE  •  READY TO HELP", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.05.sp)
                                     }
                                 }
                                 Surface(
@@ -5158,7 +5159,7 @@ private fun MyraHome(
                         singleLine = true, textStyle = androidx.compose.ui.text.TextStyle(color = ink, fontSize = 15.sp),
                         cursorBrush = androidx.compose.ui.graphics.SolidColor(Color(0xFFFF3155)),
                         decorationBox = { inner ->
-                            if (prompt.isEmpty()) Text("Type a message…", color = muted, fontSize = 14.sp)
+                            if (prompt.isEmpty()) Text("Message MYRA…", color = Color(0xFF8298B8), fontSize = 14.sp)
                             inner()
                         }
                     )
