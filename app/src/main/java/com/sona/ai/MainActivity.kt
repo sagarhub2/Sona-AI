@@ -5165,7 +5165,7 @@ private fun MyraHome(
                     Text(if (busy) "●  PROCESSING" else if (hasKey) "●  READY TO ASSIST" else "●  AWAITING SETUP",
                         modifier = Modifier.padding(horizontal = 11.dp, vertical = 6.dp),
                         color = if (busy) Color(0xFFFF3155) else if (hasKey) Color(0xFF73DFFF) else Color(0xFFFFB36B),
-                        fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .8.sp)
+                        fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
                 }
             }
             Column(Modifier.fillMaxWidth().padding(bottom = 4.dp), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -5179,14 +5179,14 @@ private fun MyraHome(
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                     Box(Modifier.width(24.dp).height(1.dp).background(Color(0xFF314B6A)))
                     Text(if (busy) "THINKING WITH YOU" else "READY WHEN YOU ARE",
-                        color = if (busy) Color(0xFFFF3155) else Color(0xFFFF3155), fontSize = 8.sp, letterSpacing = 1.1.sp, fontWeight = FontWeight.Bold)
+                        color = if (busy) Color(0xFFFF3155) else Color(0xFF73DFFF), fontSize = 9.sp, letterSpacing = 1.3.sp, fontWeight = FontWeight.Bold)
                     Box(Modifier.width(24.dp).height(1.dp).background(Color(0xFF314B6A)))
                 }
             }
             Surface(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(28.dp), color = Color(0xFF0D192B), shadowElevation = 4.dp,
-                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))
+                shape = RoundedCornerShape(28.dp), color = Color(0xFF0B192B), shadowElevation = 5.dp,
+                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF73DFFF).copy(alpha = .52f))
             ) {
                 Row(Modifier.padding(horizontal = 12.dp, vertical = 9.dp), verticalAlignment = Alignment.CenterVertically) {
                     Surface(onClick = onFiles, shape = CircleShape, color = Color(0xFF13243B),
@@ -5201,7 +5201,7 @@ private fun MyraHome(
                         singleLine = true, textStyle = androidx.compose.ui.text.TextStyle(color = ink, fontSize = 15.sp),
                         cursorBrush = androidx.compose.ui.graphics.SolidColor(Color(0xFFFF3155)),
                         decorationBox = { inner ->
-                            if (prompt.isEmpty()) Text("Message MYRA…", color = Color(0xFF8298B8), fontSize = 14.sp)
+                            if (prompt.isEmpty()) Text("Message MYRA…", color = Color(0xFF9CB4D0), fontSize = 14.sp)
                             inner()
                         }
                     )
