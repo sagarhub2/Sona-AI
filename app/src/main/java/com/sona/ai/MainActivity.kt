@@ -5108,8 +5108,8 @@ private fun MyraHome(
                 Text("Chat", color = muted, fontSize = 10.sp)
             }
             Column(Modifier.weight(1.15f).clip(CircleShape).background(
-                Brush.radialGradient(listOf(Color(0xFFFFD4DB), Color(0xFFFF3155), Color(0xFF250713)))
-            ).border(1.dp, Color(0xFFFFD980), CircleShape).clickable { onStartVoice() }
+                Brush.radialGradient(listOf(Color(0xFF05070D), Color(0xFF16060B), Color(0xFF40101D), Color(0xFF05070D)))
+            ).border(1.5.dp, Color(0xFFFF3155), CircleShape).clickable { onStartVoice() }
                 .padding(vertical = 6.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(if (busy) "•••" else "≋", color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.Bold)
                 Text("Voice", color = Color.White, fontSize = 9.sp, fontWeight = FontWeight.Bold)
