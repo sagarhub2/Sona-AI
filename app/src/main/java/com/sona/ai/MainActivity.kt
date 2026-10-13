@@ -4763,7 +4763,7 @@ For privacy, I do not silently send messages or place calls. Android may ask you
                     heardText = responseText!!
                     status = "NEURAL LENS • IMAGE ANALYSIS COMPLETE"
                     appendChatHistoryEntry("Analyze selected image", responseText!!)
-                    if (ttsReady && prefs.getBoolean("speak_replies", true)) textToSpeech?.speak(responseText, TextToSpeech.QUEUE_FLUSH, null, "myra-image-analysis")
+                    if (ttsReady && getSharedPreferences("myra_private", MODE_PRIVATE).getBoolean("speak_replies", true)) textToSpeech?.speak(responseText, TextToSpeech.QUEUE_FLUSH, null, "myra-image-analysis")
                 } else {
                     status = "NEURAL LENS • ANALYSIS FAILED"
                     heardText = errorText
