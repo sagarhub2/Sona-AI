@@ -5046,10 +5046,10 @@ private fun MyraHome(
                                         Text(
                                             when {
                                                 busy -> "SESSION ACTIVE"
-                                                apiKey.isBlank() -> "SETUP NEEDED"
+                                                !hasKey -> "SETUP NEEDED"
                                                 else -> "VOICE STANDBY"
                                             },
-                                            color = if (!busy && apiKey.isBlank()) Color(0xFFFFC56B) else Color(0xFFFF3155),
+                                            color = if (!busy && !hasKey) Color(0xFFFFC56B) else Color(0xFFFF3155),
                                             fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .7.sp
                                         )
                                     }
@@ -5069,7 +5069,7 @@ private fun MyraHome(
                             Text(
                                 when {
                                     busy -> "MYRA is connecting and preparing your voice session…"
-                                    apiKey.isBlank() -> "Add your Gemini API key in Settings to enable voice conversations."
+                                    !hasKey -> "Add your Gemini API key in Settings to enable voice conversations."
                                     else -> "Tap to start a hands-free conversation with MYRA."
                                 },
                                 color = Color(0xFF9EABC2), fontSize = 10.sp, maxLines = 2, lineHeight = 14.sp
@@ -5089,10 +5089,10 @@ private fun MyraHome(
                                 Text(
                                     when {
                                         busy -> "LIVE SESSION IN PROGRESS"
-                                        apiKey.isBlank() -> "SET UP API KEY TO BEGIN"
+                                        !hasKey -> "SET UP API KEY TO BEGIN"
                                         else -> "VOICE  •  TAP TO START"
                                     },
-                                    color = if (!busy && apiKey.isBlank()) Color(0xFFFFC56B) else Color(0xFF9EABC2),
+                                    color = if (!busy && !hasKey) Color(0xFFFFC56B) else Color(0xFF9EABC2),
                                     fontSize = 8.sp, letterSpacing = .45.sp
                                 )
                             }
