@@ -1132,12 +1132,12 @@ class MainActivity : ComponentActivity() {
                     Surface(
                         modifier = Modifier.fillMaxSize(),
                         shape = RoundedCornerShape(0.dp),
-                        color = Color(0xFF070711),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF50305F)),
+                        color = Color(0xFF030711),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF24435D)),
                         tonalElevation = 0.dp
                     ) {
                         Column(Modifier.fillMaxSize()
-                            .background(Brush.verticalGradient(listOf(Color(0xFF130B25), Color(0xFF050711), Color(0xFF100A20))))
+                            .background(Brush.verticalGradient(listOf(Color(0xFF071426), Color(0xFF030711), Color(0xFF0A1020))))
                             .padding(16.dp)
                             .imePadding()) {
                             Row(
@@ -1170,8 +1170,8 @@ class MainActivity : ComponentActivity() {
                                 }
                                 Surface(
                                     onClick = { showChatSearch = !showChatSearch; if (!showChatSearch) chatSearchQuery = "" },
-                                    shape = CircleShape, color = Color(0xFF171025),
-                                    border = androidx.compose.foundation.BorderStroke(1.dp, if (showChatSearch) Color(0xFFFF3155) else Color(0xFFB66BFF).copy(alpha = .65f))
+                                    shape = CircleShape, color = Color(0xFF0B1424),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, if (showChatSearch) Color(0xFFFF3155) else Color(0xFFFF3155).copy(alpha = .65f))
                                 ) {
                                     Box(Modifier.size(38.dp), contentAlignment = Alignment.Center) {
                                         Text("⌕", color = if (showChatSearch) Color(0xFFFF3155) else Color(0xFF73DFFF), fontSize = 23.sp)
@@ -1196,8 +1196,8 @@ class MainActivity : ComponentActivity() {
                                         selectedChatTab = "Conversations"
                                         status = "NEW CHAT DRAFT READY"
                                     },
-                                    shape = CircleShape, color = Color(0xFF171025),
-                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF50305F))
+                                    shape = CircleShape, color = Color(0xFF0B1424),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF24435D))
                                 ) {
                                     Box(Modifier.size(38.dp), contentAlignment = Alignment.Center) {
                                         Text("＋", color = Color(0xFF73DFFF), fontSize = 23.sp)
@@ -1363,7 +1363,7 @@ class MainActivity : ComponentActivity() {
                                         tonalElevation = 0.dp
                                     ) {
                                         Row(
-                                            Modifier.fillMaxWidth().background(Brush.horizontalGradient(listOf(Color(0xFF10243A), Color(0xFF101326), Color(0xFF1C0D19))))
+                                            Modifier.fillMaxWidth().background(Brush.horizontalGradient(listOf(Color(0xFF10243A), Color(0xFF0B1424), Color(0xFF1C0D19))))
                                                 .padding(15.dp),
                                             verticalAlignment = Alignment.CenterVertically,
                                             horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -1420,7 +1420,7 @@ class MainActivity : ComponentActivity() {
                                     Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                                         Row(verticalAlignment = Alignment.CenterVertically) {
                                             Box(Modifier.size(32.dp).clip(CircleShape)
-                                                .background(Brush.radialGradient(listOf(Color(0xFF73DFFF).copy(alpha = .38f), Color(0xFF40152A), Color(0xFF071426))))
+                                                .background(Brush.radialGradient(listOf(Color(0xFF73DFFF).copy(alpha = .38f), Color(0xFF40101D), Color(0xFF071426))))
                                                 .border(1.dp, Color(0xFF73DFFF).copy(alpha = .85f), CircleShape),
                                                 contentAlignment = Alignment.Center) {
                                                 Box(Modifier.size(21.dp).clip(CircleShape)
