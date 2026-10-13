@@ -1277,10 +1277,10 @@ class MainActivity : ComponentActivity() {
                                     confirmButton = {
                                         TextButton(onClick = {
                                             chatPrefs.edit()
-                                                .remove("conversation_history")
                                                 .remove("chat_session_$activeChatSessionId")
                                                 .apply()
                                             savedChat = ""
+                                            isFreshChat = true
                                             showClearHistoryConfirm = false
                                             android.widget.Toast.makeText(this@MainActivity, "Conversation history cleared", android.widget.Toast.LENGTH_SHORT).show()
                                         }) { Text("Clear", color = Color(0xFFFF3155)) }
