@@ -1347,9 +1347,13 @@ class MainActivity : ComponentActivity() {
                                 ) {
                                     Column(Modifier.padding(15.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                                         Row(verticalAlignment = Alignment.CenterVertically) {
-                                            Box(Modifier.size(27.dp).clip(CircleShape).background(Color(0xFF13243B))
-                                                .border(1.dp, Color(0xFF314B6A), CircleShape), contentAlignment = Alignment.Center) {
-                                                Text("✦", color = Color(0xFFFF3155), fontSize = 15.sp)
+                                            Box(Modifier.size(32.dp).clip(CircleShape)
+                                                .background(Brush.radialGradient(listOf(Color(0xFF40152A), Color(0xFF13243B), Color(0xFF071426))))
+                                                .border(1.dp, Color(0xFFFF3155).copy(alpha = .75f), CircleShape),
+                                                contentAlignment = Alignment.Center) {
+                                                Box(Modifier.size(17.dp).clip(CircleShape)
+                                                    .background(Brush.radialGradient(listOf(Color(0xFFFF7890), Color(0xFFFF3155), Color(0xFF080B14))))
+                                                    .border(1.dp, Color(0xFFFFB5C2).copy(alpha = .8f), CircleShape))
                                             }
                                             Spacer(Modifier.width(8.dp))
                                             Column {
