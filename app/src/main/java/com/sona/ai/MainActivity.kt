@@ -550,7 +550,7 @@ class MainActivity : ComponentActivity() {
                     shape = RoundedCornerShape(26.dp),
                     containerColor = Color(0xFF071426),
                     titleContentColor = Color(0xFFF5F7FF),
-                    textContentColor = Color(0xFF9EABC2),
+                    textContentColor = Color(0xFF9CB4D0),
                     tonalElevation = 0.dp,
                     onDismissRequest = { showFiles = false },
                     title = {
@@ -563,7 +563,7 @@ class MainActivity : ComponentActivity() {
                         ) {
                             Text("◈  MYRA AI • DOCUMENT HUB", color = Color(0xFFFF3155), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.4.sp)
                             Text("Files & documents", color = Color(0xFFF5F7FF), fontSize = 21.sp, fontWeight = FontWeight.Bold)
-                            Text("Choose what you want to open from your phone.", color = Color(0xFF9EABC2), fontSize = 12.sp)
+                            Text("Choose what you want to open from your phone.", color = Color(0xFF9CB4D0), fontSize = 12.sp)
                         }
                     },
                     text = {
@@ -605,7 +605,7 @@ class MainActivity : ComponentActivity() {
                                         Spacer(Modifier.width(12.dp))
                                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                             Text(heading, color = Color(0xFFF5F7FF), fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
-                                            Text(detail, color = Color(0xFF9EABC2), fontSize = 11.sp)
+                                            Text(detail, color = Color(0xFF9CB4D0), fontSize = 11.sp)
                                         }
                                         Text("›", color = Color(0xFFFF3155), fontSize = 24.sp)
                                     }
@@ -622,7 +622,7 @@ class MainActivity : ComponentActivity() {
                                 Spacer(Modifier.width(8.dp))
                                 Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                                     Text("Private file access", color = Color(0xFFF5F7FF), fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
-                                    Text("Choose files explicitly; Android controls access.", color = Color(0xFF9EABC2), fontSize = 10.sp)
+                                    Text("Choose files explicitly; Android controls access.", color = Color(0xFF9CB4D0), fontSize = 10.sp)
                                 }
                             }
                             Text("CHOOSE A FILE TYPE", color = Color(0xFFFF3155), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
@@ -630,7 +630,7 @@ class MainActivity : ComponentActivity() {
                             FileTypeCard("PDF", "PDF documents", "Choose a PDF file", "application/pdf")
                             FileTypeCard("▧", "Photos & images", "Choose an image from storage", "image/*")
                             FileTypeCard("≡", "Text documents", "Choose text or document files", "*/*", arrayOf("text/*", "application/rtf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"))
-                            Text("Tip: select a file in Android's picker to grant access to that item.", color = Color(0xFF9EABC2), fontSize = 10.sp)
+                            Text("Tip: select a file in Android's picker to grant access to that item.", color = Color(0xFF9CB4D0), fontSize = 10.sp)
                         }
                     },
                     confirmButton = {
