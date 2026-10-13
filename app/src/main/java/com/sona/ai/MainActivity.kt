@@ -5649,6 +5649,7 @@ private fun DailyPlannerDialog(onClose: () -> Unit) {
     )
 }
 
+@Composable
 private fun MyraFeaturesMenu(
     onClose: () -> Unit, onVoice: () -> Unit, onSettings: () -> Unit,
     onMemory: () -> Unit, onTasks: () -> Unit, onFocus: () -> Unit, onPlanner: () -> Unit, onHistory: () -> Unit,
