@@ -5167,7 +5167,7 @@ private fun MyraHome(
             Modifier.weight(1f).verticalScroll(androidx.compose.foundation.rememberScrollState())
                 .padding(horizontal = 20.dp)
         ) {
-            Box(Modifier.fillMaxWidth().height(258.dp), contentAlignment = Alignment.Center) {
+            Box(Modifier.fillMaxWidth().height(238.dp), contentAlignment = Alignment.Center) {
                 androidx.compose.foundation.Canvas(Modifier.fillMaxSize()) {
                     val wave = androidx.compose.ui.graphics.Path().apply {
                         moveTo(0f, size.height * 0.30f)
@@ -5244,7 +5244,7 @@ private fun MyraHome(
                     fontWeight = FontWeight.Bold, letterSpacing = (-.4).sp, maxLines = 1
                 )
                 Text("Your AI companion is ready to help", color = muted, fontSize = 13.sp,
-                    modifier = Modifier.padding(top = 3.dp, bottom = 16.dp))
+                    modifier = Modifier.padding(top = 3.dp, bottom = 12.dp))
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                     Box(Modifier.width(24.dp).height(1.dp).background(Color(0xFF314B6A)))
                     Text(if (busy) "THINKING WITH YOU" else "READY WHEN YOU ARE",
@@ -5335,7 +5335,13 @@ private fun MyraHome(
                 }
             }
         }
-            Text("Quick Access", color = Color(0xFFF5F7FF), fontSize = 15.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 16.dp, bottom = 9.dp))
+            Row(Modifier.fillMaxWidth().padding(top = 14.dp, bottom = 9.dp), verticalAlignment = Alignment.CenterVertically) {
+                Column(Modifier.weight(1f)) {
+                    Text("Quick Access", color = Color(0xFFF5F7FF), fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
+                    Text("YOUR DAILY SHORTCUTS", color = Color(0xFF7F95B5), fontSize = 8.sp, letterSpacing = 1.1.sp, modifier = Modifier.padding(top = 2.dp))
+                }
+                Text("04 TOOLS", color = Color(0xFF55E7F5), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .8.sp)
+            }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(9.dp)) {
                 HomeGlassCard("Chat", "Ask anything", "▣", Color(0xFF9666FF), Modifier.weight(1f)) { onChat() }
                 HomeGlassCard("Voice", "Speak & listen", "♫", Color(0xFF55E7F5), Modifier.weight(1f)) { onStartVoice() }
