@@ -819,7 +819,7 @@ class MainActivity : ComponentActivity() {
                                             .border(1.dp, Color(0xFFB46CFF).copy(alpha = .75f), CircleShape),
                                         contentAlignment = Alignment.Center
                                     ) {
-                                        Box(Modifier.size(23.dp).border(1.dp, Color(0xFFFF72D2).copy(alpha = .9f), CircleShape))
+                                        Box(Modifier.size(23.dp).border(1.dp, Color(0xFF55E7F5).copy(alpha = .9f), CircleShape))
                                         Box(Modifier.size(10.dp).clip(CircleShape).background(Color(0xFFE9D5FF)))
                                     }
                                     Spacer(Modifier.width(9.dp))
@@ -829,7 +829,7 @@ class MainActivity : ComponentActivity() {
                                     }
                                     val voiceStatusAccent = when {
                                         voiceMuted -> Color(0xFF8298B8)
-                                        voiceFailed -> Color(0xFFFF72D2)
+                                        voiceFailed -> Color(0xFF55E7F5)
                                         status.contains("THINK", true) || status.contains("PROCESS", true) || status.contains("REPLY", true) -> Color(0xFFB46CFF)
                                         voiceReady -> Color(0xFF66F0BC)
                                         else -> Color(0xFF53E5F5)
@@ -904,12 +904,12 @@ class MainActivity : ComponentActivity() {
                                     Surface(
                                         shape = RoundedCornerShape(10.dp),
                                         color = Color(0xFF102238),
-                                        border = androidx.compose.foundation.BorderStroke(1.dp, if (voiceMuted || status.contains("FAILED", true) || status.contains("ERROR", true) || status.contains("DENIED", true) || status.contains("NEEDS", true) || status.contains("TIMEOUT", true)) Color(0xFFFF72D2).copy(alpha = .65f) else Color(0xFFB46CFF).copy(alpha = .55f))
+                                        border = androidx.compose.foundation.BorderStroke(1.dp, if (voiceMuted || status.contains("FAILED", true) || status.contains("ERROR", true) || status.contains("DENIED", true) || status.contains("NEEDS", true) || status.contains("TIMEOUT", true)) Color(0xFF55E7F5).copy(alpha = .65f) else Color(0xFFB46CFF).copy(alpha = .55f))
                                     ) {
                                         Text(
                                             if (voiceMuted) "MUTED" else if (status.contains("THINK", true) || status.contains("PROCESS", true) || status.contains("REPLY", true)) "WORKING" else if (status.contains("LISTEN", true) || status.contains("LIVE", true) || status.contains("CONNECT", true)) "LIVE" else "READY",
                                             modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
-                                            color = if (voiceMuted) Color(0xFF8298B8) else if (status.contains("THINK", true) || status.contains("PROCESS", true) || status.contains("REPLY", true)) Color(0xFFFFC857) else if (status.contains("LISTEN", true) || status.contains("LIVE", true) || status.contains("CONNECT", true)) Color(0xFF66F0BC) else Color(0xFFFF72D2),
+                                            color = if (voiceMuted) Color(0xFF8298B8) else if (status.contains("THINK", true) || status.contains("PROCESS", true) || status.contains("REPLY", true)) Color(0xFFFFC857) else if (status.contains("LISTEN", true) || status.contains("LIVE", true) || status.contains("CONNECT", true)) Color(0xFF66F0BC) else Color(0xFF55E7F5),
                                             fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp
                                         )
                                     }
@@ -927,13 +927,13 @@ class MainActivity : ComponentActivity() {
                                         if (canRetryVoice) startVoiceRecognition()
                                     }
                                 ) {
-                                    Box(Modifier.size(218.dp).scale(orbScale).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFF72D2).copy(alpha = .26f), Color(0xFF21183D).copy(alpha = .12f), Color.Transparent))))
+                                    Box(Modifier.size(218.dp).scale(orbScale).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF55E7F5).copy(alpha = .26f), Color(0xFF21183D).copy(alpha = .12f), Color.Transparent))))
                                     Box(Modifier.size(200.dp).rotate(orbRotation).border(1.dp, Color(0xFFB46CFF).copy(alpha = .62f), CircleShape))
-                                    Box(Modifier.size(184.dp).rotate(-orbRotation).border(1.dp, Color(0xFFFF72D2).copy(alpha = .78f), CircleShape))
-                                    Box(Modifier.size(170.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF071426), Color(0xFF160A12), Color(0xFFFF72D2), Color(0xFF020202)))).border(2.dp, Color(0xFFB46CFF).copy(alpha = .78f), CircleShape))
+                                    Box(Modifier.size(184.dp).rotate(-orbRotation).border(1.dp, Color(0xFF55E7F5).copy(alpha = .78f), CircleShape))
+                                    Box(Modifier.size(170.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF071426), Color(0xFF160A12), Color(0xFF55E7F5), Color(0xFF020202)))).border(2.dp, Color(0xFFB46CFF).copy(alpha = .78f), CircleShape))
                                     // Dual-tone cyan and violet rings give the MYRA voice core its holographic look.
-                                    Box(Modifier.size(134.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF020202), Color(0xFF071426), Color(0xFFB46CFF).copy(alpha = .38f), Color(0xFFFF72D2).copy(alpha = .76f), Color.Transparent))))
-                                    Box(Modifier.size(72.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF020202), Color(0xFF050505), Color(0xFF40101D)))).border(1.dp, Color(0xFFFF72D2).copy(alpha = .9f), CircleShape))
+                                    Box(Modifier.size(134.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF020202), Color(0xFF071426), Color(0xFFB46CFF).copy(alpha = .38f), Color(0xFF55E7F5).copy(alpha = .76f), Color.Transparent))))
+                                    Box(Modifier.size(72.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF020202), Color(0xFF050505), Color(0xFF40101D)))).border(1.dp, Color(0xFF55E7F5).copy(alpha = .9f), CircleShape))
                                 }
                                 // Compact waveform gives the voice state a visible, reference-style cue.
                                 Row(
@@ -973,7 +973,7 @@ class MainActivity : ComponentActivity() {
                                                         voiceMuted -> Color(0xFF314B6A)
                                                         index % 5 == 0 -> Color(0xFFB46CFF)
                                                         index % 3 == 0 -> Color(0xFFFF7890)
-                                                        else -> Color(0xFFFF72D2)
+                                                        else -> Color(0xFF55E7F5)
                                                     }
                                                 )
                                         )
@@ -985,7 +985,7 @@ class MainActivity : ComponentActivity() {
                                     verticalAlignment = Alignment.CenterVertically,
                                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                                 ) {
-                                    Box(Modifier.width(3.dp).height(14.dp).clip(CircleShape).background(Brush.verticalGradient(listOf(Color(0xFFB46CFF), Color(0xFFFF72D2)))))
+                                    Box(Modifier.width(3.dp).height(14.dp).clip(CircleShape).background(Brush.verticalGradient(listOf(Color(0xFFB46CFF), Color(0xFF55E7F5)))))
                                     Text("VOICE CONTROLS", color = Color(0xFFB46CFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
                                     Spacer(Modifier.weight(1f))
                                     Text(if (bossMode) "BOSS MODE ACTIVE" else "READY WHEN YOU ARE", color = if (bossMode) Color(0xFFFFB547) else Color(0xFF536A89), fontSize = 8.sp, letterSpacing = .35.sp)
@@ -1007,8 +1007,8 @@ class MainActivity : ComponentActivity() {
                                             }
                                         }
                                     },
-                                    colors = androidx.compose.material3.ButtonDefaults.filledTonalButtonColors(containerColor = if (bossMode) Color(0xFFFF72D2) else Color(0xFF0D192B), contentColor = if (bossMode) Color.White else Color(0xFFFF72D2)),
-                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFF72D2)),
+                                    colors = androidx.compose.material3.ButtonDefaults.filledTonalButtonColors(containerColor = if (bossMode) Color(0xFF55E7F5) else Color(0xFF0D192B), contentColor = if (bossMode) Color.White else Color(0xFF55E7F5)),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF55E7F5)),
                                     shape = RoundedCornerShape(24.dp)
                                 ) {
                                     Text(if (bossMode) "♛  BOSS MODE ON" else "♛  Boss Mode", fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
@@ -1024,11 +1024,11 @@ class MainActivity : ComponentActivity() {
                                         verticalAlignment = Alignment.CenterVertically,
                                         horizontalArrangement = Arrangement.spacedBy(10.dp)
                                     ) {
-                                        Box(Modifier.size(7.dp).clip(CircleShape).background(if (voiceMuted) Color(0xFF536A89) else if (status.contains("THINK", true) || status.contains("ASKING", true)) Color(0xFFFFB547) else Color(0xFFFF72D2)))
+                                        Box(Modifier.size(7.dp).clip(CircleShape).background(if (voiceMuted) Color(0xFF536A89) else if (status.contains("THINK", true) || status.contains("ASKING", true)) Color(0xFFFFB547) else Color(0xFF55E7F5)))
                                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                             Text(
                                                 if (voiceMuted) "MICROPHONE MUTED" else if (status.contains("THINK", true) || status.contains("ASKING", true)) "MYRA IS PROCESSING" else if (status.contains("LIVE", true) || status.contains("LISTEN", true)) "MYRA IS LISTENING" else status.uppercase(),
-                                                color = if (voiceMuted) Color(0xFF9CB4D0) else Color(0xFFFF72D2),
+                                                color = if (voiceMuted) Color(0xFF9CB4D0) else Color(0xFF55E7F5),
                                                 fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = .9.sp, maxLines = 2
                                             )
                                             Text(
@@ -1042,7 +1042,7 @@ class MainActivity : ComponentActivity() {
                                                 maxLines = 2, lineHeight = 15.sp
                                             )
                                         }
-                                        Text(if (voiceMuted) "MUTED" else "LIVE", color = if (voiceMuted) Color(0xFF536A89) else Color(0xFFFF72D2), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .5.sp)
+                                        Text(if (voiceMuted) "MUTED" else "LIVE", color = if (voiceMuted) Color(0xFF536A89) else Color(0xFF55E7F5), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .5.sp)
                                     }
                                 }
                                 Spacer(Modifier.height(10.dp))
@@ -1063,7 +1063,7 @@ class MainActivity : ComponentActivity() {
                                         verticalAlignment = Alignment.CenterVertically,
                                         horizontalArrangement = Arrangement.Center
                                     ) {
-                                        Box(Modifier.size(6.dp).clip(CircleShape).background(if (voiceMuted) Color(0xFF8298B8) else Color(0xFFFF72D2)))
+                                        Box(Modifier.size(6.dp).clip(CircleShape).background(if (voiceMuted) Color(0xFF8298B8) else Color(0xFF55E7F5)))
                                         Spacer(Modifier.width(8.dp))
                                         Text(
                                             if (voiceMuted) "Microphone paused" else "Natural voice conversation",
@@ -1082,7 +1082,7 @@ class MainActivity : ComponentActivity() {
                                             },
                                             modifier = Modifier.size(58.dp),
                                             colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFF0D192B), contentColor = Color(0xFFF5F7FF))
-                                        ) { Text(if (voiceMuted) "×" else "♫", fontSize = 24.sp, color = Color(0xFFFF72D2)) }
+                                        ) { Text(if (voiceMuted) "×" else "♫", fontSize = 24.sp, color = Color(0xFF55E7F5)) }
                                         Spacer(Modifier.height(7.dp))
                                         Text(if (voiceMuted) "Unmute" else "Mute", color = Color(0xFFB8C5DA), fontSize = 11.sp)
                                     }
@@ -1096,7 +1096,7 @@ class MainActivity : ComponentActivity() {
                                                 status = "VOICE SESSION ENDED"
                                             },
                                             modifier = Modifier.size(68.dp),
-                                            colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFFFF72D2), contentColor = Color.White)
+                                            colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(containerColor = Color(0xFF55E7F5), contentColor = Color.White)
                                         ) { Text("×", fontSize = 34.sp, color = Color.White) }
                                         Spacer(Modifier.height(7.dp))
                                         Text("End", color = Color(0xFFB8C5DA), fontSize = 11.sp)
@@ -1112,7 +1112,7 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                                 Spacer(Modifier.height(16.dp))
-                                Text("✦  MYRA AI  •  POWERED BY GEMINI LIVE  ✦", color = Color(0xFFFF72D2), fontSize = 9.sp, letterSpacing = .7.sp, textAlign = TextAlign.Center)
+                                Text("✦  MYRA AI  •  POWERED BY GEMINI LIVE  ✦", color = Color(0xFF55E7F5), fontSize = 9.sp, letterSpacing = .7.sp, textAlign = TextAlign.Center)
                             }
                         }
                     }
