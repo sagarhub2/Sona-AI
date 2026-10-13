@@ -1389,7 +1389,7 @@ class MainActivity : ComponentActivity() {
                                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(7.dp)) {
                                             Text("✦", color = Color(0xFF73DFFF), fontSize = 17.sp)
-                                            Text("CONVERSATION", color = Color(0xFF73DFFF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                                            Text("CONVERSATION", color = Color(0xFF73DFFF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.8.sp)
                                         }
                                         Text(
                                             if (isFreshChat || savedChat.isBlank()) "Your personal AI space • ask anything"
@@ -1413,11 +1413,11 @@ class MainActivity : ComponentActivity() {
                                 Surface(
                                     modifier = Modifier.fillMaxWidth(),
                                     shape = RoundedCornerShape(22.dp),
-                                    color = Color(0xFF0A1728),
-                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF73DFFF).copy(alpha = .38f)),
+                                    color = Color(0xFF0B192B),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF73DFFF).copy(alpha = .62f)),
                                     tonalElevation = 0.dp
                                 ) {
-                                    Column(Modifier.padding(15.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                                    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                                         Row(verticalAlignment = Alignment.CenterVertically) {
                                             Box(Modifier.size(32.dp).clip(CircleShape)
                                                 .background(Brush.radialGradient(listOf(Color(0xFF73DFFF).copy(alpha = .38f), Color(0xFF40152A), Color(0xFF071426))))
@@ -1433,7 +1433,7 @@ class MainActivity : ComponentActivity() {
                                             Spacer(Modifier.width(8.dp))
                                             Column {
                                                 Text("MYRA AI", color = Color(0xFFF5F7FF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = .8.sp)
-                                                Text("YOUR PERSONAL AI COMPANION", color = Color(0xFFFF3155), fontSize = 8.sp, letterSpacing = .7.sp)
+                                                Text("YOUR PERSONAL AI COMPANION", color = Color(0xFF73DFFF), fontSize = 8.sp, letterSpacing = 1.1.sp)
                                             }
                                         }
                                         Box(Modifier.fillMaxWidth().height(1.dp).background(Color(0xFF314B6A)))
