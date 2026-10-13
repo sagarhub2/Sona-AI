@@ -4831,7 +4831,7 @@ For privacy, I do not silently send messages or place calls. Android may ask you
                 val languagePreference = prefs.getString("language", "Auto (match me)").orEmpty().trim().ifBlank { "Auto (match me)" }
                 val voicePreference = prefs.getString("voice_style", "Warm & natural").orEmpty().trim().ifBlank { "Warm & natural" }
                 val personalityPreference = prefs.getString("personality", "Friendly, helpful, concise").orEmpty().trim().ifBlank { "Friendly, helpful, concise" }
-                val activeSessionId = prefs.getString("active_chat_session_id", "").orEmpty()
+                val activeSessionId = targetSessionId ?: prefs.getString("active_chat_session_id", "").orEmpty()
                 val conversationHistory = if (activeSessionId.isNotBlank()) {
                     prefs.getString("chat_session_$activeSessionId", "").orEmpty().takeLast(6000)
                 } else {
