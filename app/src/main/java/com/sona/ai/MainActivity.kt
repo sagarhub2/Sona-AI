@@ -874,12 +874,12 @@ class MainActivity : ComponentActivity() {
                                     }
                                 ) {
                                     Box(Modifier.size(236.dp).scale(orbScale).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFF3155).copy(alpha = .26f), Color(0xFF40152A).copy(alpha = .12f), Color.Transparent))))
-                                    Box(Modifier.size(216.dp).rotate(orbRotation).border(1.dp, Color(0xFFFF3155).copy(alpha = .48f), CircleShape))
-                                    Box(Modifier.size(198.dp).rotate(-orbRotation).border(1.dp, Color(0xFFFF3155).copy(alpha = .72f), CircleShape))
-                                    Box(Modifier.size(184.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF070B14), Color(0xFF160A12), Color(0xFFFF3155), Color(0xFF020202)))).border(2.dp, Color(0xFFFF3155).copy(alpha = .8f), CircleShape))
-                                    // Keep the emblem visibly black at its core; the red light stays on the rim.
-                                    Box(Modifier.size(146.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF020202), Color(0xFF070B14), Color(0xFFFF3155).copy(alpha = .78f), Color.Transparent))))
-                                    Box(Modifier.size(72.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF020202), Color(0xFF050505), Color(0xFF40101D)))).border(1.dp, Color(0xFFFF3155).copy(alpha = .8f), CircleShape))
+                                    Box(Modifier.size(216.dp).rotate(orbRotation).border(1.dp, Color(0xFF73DFFF).copy(alpha = .62f), CircleShape))
+                                    Box(Modifier.size(198.dp).rotate(-orbRotation).border(1.dp, Color(0xFFFF3155).copy(alpha = .78f), CircleShape))
+                                    Box(Modifier.size(184.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF071426), Color(0xFF160A12), Color(0xFFFF3155), Color(0xFF020202)))).border(2.dp, Color(0xFF73DFFF).copy(alpha = .78f), CircleShape))
+                                    // Dual-tone cyan and crimson rings give the voice core its holographic LIA-style look.
+                                    Box(Modifier.size(146.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF020202), Color(0xFF071426), Color(0xFF73DFFF).copy(alpha = .38f), Color(0xFFFF3155).copy(alpha = .76f), Color.Transparent))))
+                                    Box(Modifier.size(72.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF020202), Color(0xFF050505), Color(0xFF40101D)))).border(1.dp, Color(0xFFFF3155).copy(alpha = .9f), CircleShape))
                                 }
                                 // Compact waveform gives the voice state a visible, reference-style cue.
                                 Row(
