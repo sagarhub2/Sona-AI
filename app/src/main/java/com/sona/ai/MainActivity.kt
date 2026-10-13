@@ -5265,6 +5265,7 @@ private fun MyraHome(
                     }
                 }
             }
+        }
             // Secondary tools and workspace shortcuts are intentionally kept off Home.
         // They remain available from the Settings / Profile and feature menus.
         Row(
