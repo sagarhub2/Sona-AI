@@ -4818,8 +4818,15 @@ For privacy, I do not silently send messages or place calls. Android may ask you
             var errorText = "Could not analyze this image. Try another image or check your connection."
             var connection: HttpURLConnection? = null
             try {
-                val imageBytes = contentResolver.openInputStream(uri)?.use { it.readBytes() }
-                    ?: throw IllegalStateException("Could not read selected image")
+                val imageBytes = try {
+                    contentResolver.openInputStream(uri)?.use { it.readBytes() }
+                        ?: throw IllegalStateException("Could not read selected image")
+                } finally {
+                    // Camera previews are written to the app cache only long enough to analyze them.
+                    if (uri.scheme == "file") {
+                        try { uri.path?.let { java.io.File(it).delete() } } catch (_: Exception) { }
+                    }
+                }
                 if (imageBytes.size > 12 * 1024 * 1024) throw IllegalArgumentException("Image is too large")
                 val bounds = android.graphics.BitmapFactory.Options().apply { inJustDecodeBounds = true }
                 android.graphics.BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size, bounds)
