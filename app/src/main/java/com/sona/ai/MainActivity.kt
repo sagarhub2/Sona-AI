@@ -873,7 +873,7 @@ class MainActivity : ComponentActivity() {
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                                 Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                     Text("MYRA AI", color = Color(0xFFFF4D9D), fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                                    Text(if (busy) "● THINKING…" else if (apiKey.isBlank()) "● SETUP REQUIRED" else "● CHAT • READY", color = if (apiKey.isBlank()) Color(0xFFFF4D9D) else Color(0xFFFF4D9D), fontSize = 10.sp, letterSpacing = .6.sp)
+                                    Text(if (busy) "● THINKING…" else if (apiKey.isBlank()) "● SETUP REQUIRED" else "● CHAT • READY", color = if (apiKey.isBlank()) Color(0xFFFFB7E2) else if (busy) Color(0xFFFF72D2) else Color(0xFF66F0BC), fontSize = 10.sp, letterSpacing = .6.sp)
                                 }
                                 TextButton(onClick = { showChat = false }) { Text("✕  Close", color = Color(0xFFFF4D9D)) }
                             }
