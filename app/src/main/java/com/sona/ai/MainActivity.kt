@@ -4950,13 +4950,13 @@ private fun MyraHome(
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(14.dp)) {
                 Surface(
                     onClick = onStartVoice,
-                    modifier = Modifier.weight(1f).height(104.dp),
-                    shape = RoundedCornerShape(18.dp),
+                    modifier = Modifier.weight(1f).height(132.dp),
+                    shape = RoundedCornerShape(20.dp),
                     color = Color(0xFF0D192B),
                     shadowElevation = if (busy) 8.dp else 3.dp,
                     border = androidx.compose.foundation.BorderStroke(1.dp, if (busy) Color(0xFFFF3155) else Color(0xFF314B6A))
                 ) {
-                    Column(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0xFF13243B), Color(0xFF0D192B), Color(0xFF0A1526)))).padding(15.dp), verticalArrangement = Arrangement.SpaceBetween) {
+                    Column(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0xFF162942), Color(0xFF0D192B), Color(0xFF081322)))).padding(14.dp), verticalArrangement = Arrangement.SpaceBetween) {
                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                             Box(contentAlignment = Alignment.Center) {
                                 Box(Modifier.size(if (busy) 62.dp else 58.dp).clip(CircleShape)
