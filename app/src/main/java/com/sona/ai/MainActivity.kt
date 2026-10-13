@@ -226,6 +226,19 @@ class MainActivity : ComponentActivity() {
                 busy = busy,
                 animatedOrb = getSharedPreferences("myra_private", MODE_PRIVATE).getBoolean("animated_orb", true),
                 onStartVoice = { requestOrStartVoice() },
+                onFloatingAssistant = {
+                    if (android.provider.Settings.canDrawOverlays(this@MainActivity)) {
+                        try {
+                            startService(Intent(this@MainActivity, MyraFloatingAssistantService::class.java))
+                            status = "FLOATING MYRA ORB STARTED"
+                        } catch (_: Exception) { status = "FLOATING ORB COULD NOT START" }
+                    } else {
+                        status = "ALLOW DISPLAY OVER OTHER APPS TO ENABLE FLOATING MYRA"
+                        try {
+                            startActivity(Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + packageName)))
+                        } catch (_: Exception) { status = "OVERLAY PERMISSION SETTINGS UNAVAILABLE" }
+                    }
+                },
                 onChat = { showChat = true },
                 onSettings = { showSettings = true },
                 onFeatures = { showFeaturesMenu = true },
@@ -5002,6 +5015,7 @@ private fun MyraHome(
     busy: Boolean,
     animatedOrb: Boolean,
     onStartVoice: () -> Unit,
+    onFloatingAssistant: () -> Unit,
     onChat: () -> Unit,
     onSettings: () -> Unit,
     onFeatures: () -> Unit,
@@ -5076,10 +5090,17 @@ private fun MyraHome(
                     )
                 }
             }
+            Surface(onClick = onFloatingAssistant, shape = CircleShape, color = Color(0xFF15122A), shadowElevation = 3.dp,
+                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFB46CFF))) {
+                Box(Modifier.size(42.dp), contentAlignment = Alignment.Center) {
+                    Text("◎", color = Color(0xFFE8D7FF), fontSize = 23.sp)
+                }
+            }
+            Spacer(Modifier.width(8.dp))
             Surface(onClick = onSettings, shape = CircleShape, color = Color(0xFF0D192B), shadowElevation = 2.dp,
                 border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))) {
-                Box(Modifier.size(46.dp), contentAlignment = Alignment.Center) {
-                    Text("⚙", color = Color(0xFFFF3155), fontSize = 24.sp)
+                Box(Modifier.size(42.dp), contentAlignment = Alignment.Center) {
+                    Text("⚙", color = Color(0xFFFF6FB5), fontSize = 22.sp)
                 }
             }
         }
