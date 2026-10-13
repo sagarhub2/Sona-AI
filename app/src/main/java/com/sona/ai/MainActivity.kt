@@ -1132,7 +1132,10 @@ class MainActivity : ComponentActivity() {
                             ) {
                                 Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                                     Text("Chat", color = Color(0xFFF5F7FF), fontSize = 24.sp, fontWeight = FontWeight.SemiBold, letterSpacing = (-.35).sp)
-                                    Text("YOUR SPACE WITH MYRA", color = Color(0xFFFF3155), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.35.sp)
+                                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                                        Box(Modifier.size(6.dp).clip(CircleShape).background(Color(0xFF73DFFF)))
+                                        Text("YOUR SPACE WITH MYRA", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.35.sp)
+                                    }
                                 }
                                 Surface(
                                     onClick = { showChatSearch = !showChatSearch; if (!showChatSearch) chatSearchQuery = "" },
