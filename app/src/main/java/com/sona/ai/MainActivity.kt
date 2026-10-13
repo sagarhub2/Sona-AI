@@ -5079,10 +5079,10 @@ private fun MyraHome(
                 }
                 Text("—  A I   A S S I S T A N T  —", color = muted, fontSize = 7.sp, letterSpacing = 1.2.sp)
                 Row(Modifier.padding(top = 6.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                    Box(Modifier.size(5.dp).clip(CircleShape).background(if (busy) Color(0xFFFF3155) else Color(0xFFFF3155)))
+                    Box(Modifier.size(5.dp).clip(CircleShape).background(if (busy) Color(0xFFFF3155) else if (hasKey) Color(0xFF73DFFF) else Color(0xFFFFB36B)))
                     Text(
                         when { busy -> "ASSISTANT BUSY"; !hasKey -> "SETUP REQUIRED"; else -> "SYSTEM READY" },
-                        color = if (busy) Color(0xFFFF3155) else if (hasKey) Color(0xFFFF3155) else Color(0xFFB87525),
+                        color = if (busy) Color(0xFFFF3155) else if (hasKey) Color(0xFF73DFFF) else Color(0xFFFFB36B),
                         fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .8.sp
                     )
                 }
@@ -5164,7 +5164,7 @@ private fun MyraHome(
                 ) {
                     Text(if (busy) "●  PROCESSING" else if (hasKey) "●  READY TO ASSIST" else "●  AWAITING SETUP",
                         modifier = Modifier.padding(horizontal = 11.dp, vertical = 6.dp),
-                        color = if (busy) Color(0xFFFF3155) else if (hasKey) Color(0xFFFF3155) else Color(0xFFB87525),
+                        color = if (busy) Color(0xFFFF3155) else if (hasKey) Color(0xFF73DFFF) else Color(0xFFFFB36B),
                         fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .8.sp)
                 }
             }
