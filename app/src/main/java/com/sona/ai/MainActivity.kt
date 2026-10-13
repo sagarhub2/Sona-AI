@@ -1623,7 +1623,11 @@ class MainActivity : ComponentActivity() {
                                     TextButton(onClick = { showChat = false; showSettings = true }) { Text("Open Settings", color = Color(0xFF55E7F5)) }
                                 }
                             }
-                            Row(Modifier.fillMaxWidth().padding(top = 10.dp, bottom = 2.dp), verticalAlignment = Alignment.CenterVertically) {\n                                Text("CHOOSE YOUR MODE", color = Color(0xFF55E7F5), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)\n                                Spacer(Modifier.weight(1f))\n                                Text("7 MODES", color = Color(0xFF7E91B0), fontSize = 8.sp, fontWeight = FontWeight.SemiBold, letterSpacing = .8.sp)\n                            }
+                            Row(Modifier.fillMaxWidth().padding(top = 10.dp, bottom = 2.dp), verticalAlignment = Alignment.CenterVertically) {
+                                Text("CHOOSE YOUR MODE", color = Color(0xFF55E7F5), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                                Spacer(Modifier.weight(1f))
+                                Text("7 MODES", color = Color(0xFF7E91B0), fontSize = 8.sp, fontWeight = FontWeight.SemiBold, letterSpacing = .8.sp)
+                            }
                             Row(
                                 modifier = Modifier.fillMaxWidth().horizontalScroll(androidx.compose.foundation.rememberScrollState()),
                                 horizontalArrangement = Arrangement.spacedBy(7.dp),
