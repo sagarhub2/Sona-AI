@@ -5301,6 +5301,12 @@ private fun MyraHome(
         context.getSharedPreferences("myra_private", android.content.Context.MODE_PRIVATE)
             .getString("user_name", "").orEmpty().trim()
     }
+    val greeting = when (java.util.Calendar.getInstance().get(java.util.Calendar.HOUR_OF_DAY)) {
+        in 5..11 -> "Good Morning,"
+        in 12..16 -> "Good Afternoon,"
+        in 17..20 -> "Good Evening,"
+        else -> "Hello,"
+    }
     var prompt by remember { mutableStateOf("") }
     val imagePicker = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         if (uri != null) onAnalyzeImage(uri)
@@ -5368,7 +5374,7 @@ private fun MyraHome(
         ) {
             Column(Modifier.fillMaxWidth().padding(top = 5.dp, bottom = 2.dp), horizontalAlignment = Alignment.Start) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                    Text("Good Morning,", color = Color(0xFFF5F7FF), fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                    Text(greeting, color = Color(0xFFF5F7FF), fontSize = 22.sp, fontWeight = FontWeight.Bold)
                     Text(savedUserName.ifBlank { "there" }.take(24), color = Color(0xFFB8A0FF), fontSize = 22.sp, fontWeight = FontWeight.Bold, maxLines = 1)
                     Text("☀", fontSize = 17.sp)
                 }
