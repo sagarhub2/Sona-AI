@@ -1209,7 +1209,10 @@ class MainActivity : ComponentActivity() {
                                     text = { Text("This removes the saved chat from this device. This action cannot be undone.") },
                                     confirmButton = {
                                         TextButton(onClick = {
-                                            chatPrefs.edit().remove("conversation_history").apply()
+                                            chatPrefs.edit()
+                                                .remove("conversation_history")
+                                                .remove("chat_session_$activeChatSessionId")
+                                                .apply()
                                             savedChat = ""
                                             showClearHistoryConfirm = false
                                             android.widget.Toast.makeText(this@MainActivity, "Conversation history cleared", android.widget.Toast.LENGTH_SHORT).show()
@@ -4759,7 +4762,12 @@ For privacy, I do not silently send messages or place calls. Android may ask you
                 val languagePreference = prefs.getString("language", "Auto (match me)").orEmpty().trim().ifBlank { "Auto (match me)" }
                 val voicePreference = prefs.getString("voice_style", "Warm & natural").orEmpty().trim().ifBlank { "Warm & natural" }
                 val personalityPreference = prefs.getString("personality", "Friendly, helpful, concise").orEmpty().trim().ifBlank { "Friendly, helpful, concise" }
-                val conversationHistory = prefs.getString("conversation_history", "").orEmpty().takeLast(6000)
+                val activeSessionId = prefs.getString("active_chat_session_id", "").orEmpty()
+                val conversationHistory = if (activeSessionId.isNotBlank()) {
+                    prefs.getString("chat_session_$activeSessionId", "").orEmpty().takeLast(6000)
+                } else {
+                    prefs.getString("conversation_history", "").orEmpty().takeLast(6000)
+                }
                 val userName = prefs.getString("user_name", "").orEmpty().trim()
                 val assistantName = prefs.getString("assistant_name", "Myra").orEmpty().ifBlank { "Myra" }
                 val profileBio = prefs.getString("profile_bio", "").orEmpty().trim()
