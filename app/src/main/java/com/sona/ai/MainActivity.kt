@@ -1142,7 +1142,7 @@ class MainActivity : ComponentActivity() {
                                 }
                                 Spacer(Modifier.weight(1f))
                             }
-                            if (savedChat.isNotBlank()) {
+                            if (!isFreshChat && savedChat.isNotBlank()) {
                                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                                     TextButton(onClick = { showClearHistoryConfirm = true }) {
                                         Text("⌫  Clear history", color = Color(0xFFFF3155), fontSize = 11.sp)
