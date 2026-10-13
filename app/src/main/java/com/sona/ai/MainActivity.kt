@@ -1267,7 +1267,7 @@ class MainActivity : ComponentActivity() {
                                 )
                                 if (chatDraft.isNotBlank() && !busy) {
                                     TextButton(onClick = { chatDraft = "" }) {
-                                        Text("Clear", color = Color(0xFFFF3155), fontSize = 11.sp)
+                                        Text("CLEAR DRAFT", color = Color(0xFFFF3155), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = .4.sp)
                                     }
                                 }
                                 Button(
@@ -1294,8 +1294,15 @@ class MainActivity : ComponentActivity() {
                                     },
                                     enabled = chatDraft.isNotBlank() && !busy && apiKey.isNotBlank(),
                                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF3155), contentColor = Color.White, disabledContainerColor = Color(0xFF314B6A), disabledContentColor = Color(0xFFB8C5DA)),
-                                    shape = RoundedCornerShape(14.dp)
-                                ) { Text(if (busy) "Wait…" else "Send  ➤") }
+                                    modifier = Modifier.height(48.dp),
+                                    shape = RoundedCornerShape(16.dp),
+                                    contentPadding = PaddingValues(horizontal = 18.dp, vertical = 0.dp)
+                                ) {
+                                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(7.dp)) {
+                                        Text(if (busy) "WAIT…" else "SEND", fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                                        if (!busy) Text("➤", fontSize = 13.sp)
+                                    }
+                                }
                             }
                         }
                     }
