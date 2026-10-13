@@ -4649,9 +4649,9 @@ private fun MyraHome(
                         }
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text("MYR", color = Color(0xFFFFFEFE), fontSize = 23.sp, fontWeight = FontWeight.Black, letterSpacing = 1.sp)
-                            Text("A", color = Color(0xFFFFD980), fontSize = 23.sp, fontWeight = FontWeight.Black)
+                            Text("A", color = Color(0xFFFF3155), fontSize = 23.sp, fontWeight = FontWeight.Black)
                         }
-                        Text("—  A I   A S S I S T A N T  —", color = Color(0xFFFFD980), fontSize = 6.sp, letterSpacing = 1.sp)
+                        Text("—  A I   A S S I S T A N T  —", color = Color(0xFFFF3155), fontSize = 6.sp, letterSpacing = 1.sp)
                     }
                 }
                 listOf(Alignment.TopStart, Alignment.TopEnd, Alignment.BottomStart, Alignment.BottomEnd).forEachIndexed { index, alignment ->
@@ -4735,7 +4735,7 @@ private fun MyraHome(
                             }
                             Text("AI", color = Color(0xFFFF3155), fontSize = 10.sp, fontWeight = FontWeight.Black)
                         }
-                        Box(Modifier.padding(top = 11.dp).fillMaxWidth().height(1.dp).background(Color(0x33D9A04A)))
+                        Box(Modifier.padding(top = 11.dp).fillMaxWidth().height(1.dp).background(Color(0x33FF3155)))
                         Text(heardText, color = ink, fontSize = 14.sp, lineHeight = 21.sp, modifier = Modifier.padding(top = 10.dp))
                         Row(Modifier.fillMaxWidth().padding(top = 5.dp), horizontalArrangement = Arrangement.End) {
                             TextButton(onClick = onSpeakAnswer) { Text("Speak", color = Color(0xFFFF3155)) }
@@ -5093,7 +5093,7 @@ private fun MyraHome(
             }
         }
         Row(
-            Modifier.fillMaxWidth().background(Color(0xFF0D192B)).border(1.dp, Color(0x33D9A04A))
+            Modifier.fillMaxWidth().background(Color(0xFF0D192B)).border(1.dp, Color(0x33FF3155))
                 .padding(horizontal = 12.dp, vertical = 7.dp),
             horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically
         ) {
