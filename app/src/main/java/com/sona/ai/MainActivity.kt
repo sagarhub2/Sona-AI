@@ -1363,16 +1363,17 @@ class MainActivity : ComponentActivity() {
                                             horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                                             Box(Modifier.size(5.dp).clip(CircleShape).background(if (isFreshChat || savedChat.isBlank()) Color(0xFFFF3155) else Color(0xFF66F0BC)))
                                             Text(if (isFreshChat || savedChat.isBlank()) "NEW CHAT" else "SAVED",
-                                                color = Color(0xFFFF3155), fontSize = 8.sp, fontWeight = FontWeight.Bold,
-                                                letterSpacing = .5.sp)
+                                                color = if (isFreshChat || savedChat.isBlank()) Color(0xFF73DFFF) else Color(0xFF66F0BC),
+                                                fontSize = 8.sp, fontWeight = FontWeight.Bold,
+                                                letterSpacing = .8.sp)
                                         }
                                     }
                                 }
                                 Surface(
                                     modifier = Modifier.fillMaxWidth(),
                                     shape = RoundedCornerShape(22.dp),
-                                    color = Color(0xFF0D192B),
-                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A)),
+                                    color = Color(0xFF0A1728),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF73DFFF).copy(alpha = .38f)),
                                     tonalElevation = 0.dp
                                 ) {
                                     Column(Modifier.padding(15.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
