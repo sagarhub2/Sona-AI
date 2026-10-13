@@ -1051,7 +1051,10 @@ class MainActivity : ComponentActivity() {
                                 Spacer(Modifier.height(10.dp))
                                 Surface(modifier = Modifier.fillMaxWidth(), color = Color(0xFF0D192B).copy(alpha = .96f), shape = RoundedCornerShape(22.dp), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))) {
                                     Column(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(5.dp)) {
-                                         Text("LIVE TRANSCRIPT", color = Color(0xFFB46CFF), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                                              Box(Modifier.size(5.dp).clip(CircleShape).background(Color(0xFF55E7F5)))
+                                              Text("LIVE TRANSCRIPT", color = Color(0xFFB46CFF), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                                          }
                                           Text("YOUR CONVERSATION WITH MYRA", color = Color(0xFF55E7F5), fontSize = 7.sp, fontWeight = FontWeight.SemiBold, letterSpacing = .9.sp)
                                          Text(heardText.ifBlank { "I’m listening. Start speaking whenever you’re ready." }, color = Color(0xFFF5F7FF), fontSize = 13.sp, lineHeight = 20.sp, textAlign = TextAlign.Center, maxLines = 3, overflow = TextOverflow.Ellipsis)
                                          Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End, verticalAlignment = Alignment.CenterVertically) {
@@ -1680,12 +1683,21 @@ class MainActivity : ComponentActivity() {
                                                 color = if (isUserMessage) Color(0xFF102C43) else Color(0xFF0B1729),
                                                 border = androidx.compose.foundation.BorderStroke(
                                                     1.dp,
-                                                    if (isUserMessage) Color(0xFF55E7F5).copy(alpha = .78f)
-                                                    else Color(0xFF8B7CFF).copy(alpha = .68f)
+                                                    if (isUserMessage) Color(0xFF55E7F5).copy(alpha = .88f)
+                                                    else Color(0xFF8B7CFF).copy(alpha = .78f)
                                                 ),
+                                                shadowElevation = if (isUserMessage) 3.dp else 2.dp,
                                                 tonalElevation = 0.dp
                                             ) {
-                                                Column(Modifier.padding(horizontal = 15.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                                                Column(
+                                                    Modifier.background(
+                                                        Brush.horizontalGradient(
+                                                            if (isUserMessage) listOf(Color(0xFF102C43), Color(0xFF102034))
+                                                            else listOf(Color(0xFF101A30), Color(0xFF0B1729))
+                                                        )
+                                                    ).padding(horizontal = 15.dp, vertical = 12.dp),
+                                                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                                                ) {
                                                     Text(
                                                         if (isUserMessage) "YOU" else "MYRA",
                                                         color = if (isUserMessage) Color(0xFF70F0FF) else Color(0xFFB6A2FF),
