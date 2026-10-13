@@ -5350,7 +5350,15 @@ private fun MyraHome(
             Modifier.weight(1f).verticalScroll(androidx.compose.foundation.rememberScrollState())
                 .padding(horizontal = 20.dp)
         ) {
-            Box(Modifier.fillMaxWidth().height(238.dp), contentAlignment = Alignment.Center) {
+            Column(Modifier.fillMaxWidth().padding(top = 5.dp, bottom = 2.dp), horizontalAlignment = Alignment.Start) {
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+                    Text("Good Morning,", color = Color(0xFFF5F7FF), fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                    Text(savedUserName.ifBlank { "there" }.take(24), color = Color(0xFFB8A0FF), fontSize = 22.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+                    Text("☀", fontSize = 17.sp)
+                }
+                Text("Ready when you are…", color = muted, fontSize = 12.sp, modifier = Modifier.padding(top = 3.dp, bottom = 4.dp))
+            }
+            Box(Modifier.fillMaxWidth().height(205.dp), contentAlignment = Alignment.Center) {
                 androidx.compose.foundation.Canvas(Modifier.fillMaxSize()) {
                     val wave = androidx.compose.ui.graphics.Path().apply {
                         moveTo(0f, size.height * 0.30f)
@@ -5418,21 +5426,6 @@ private fun MyraHome(
                         modifier = Modifier.padding(horizontal = 11.dp, vertical = 6.dp),
                         color = if (busy) Color(0xFF9666FF) else if (hasKey) Color(0xFF53E5F5) else Color(0xFFFFB36B),
                         fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
-                }
-            }
-            Column(Modifier.fillMaxWidth().padding(bottom = 4.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    if (savedUserName.isNotBlank()) "Hello $savedUserName" else "Hello!",
-                    color = Color(0xFFF5F7FF), fontSize = 30.sp,
-                    fontWeight = FontWeight.Bold, letterSpacing = (-.4).sp, maxLines = 1
-                )
-                Text("Your AI companion is ready to help", color = muted, fontSize = 13.sp,
-                    modifier = Modifier.padding(top = 3.dp, bottom = 12.dp))
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    Box(Modifier.width(24.dp).height(1.dp).background(Color(0xFF314B6A)))
-                    Text(if (busy) "THINKING WITH YOU" else "READY WHEN YOU ARE",
-                        color = if (busy) Color(0xFF9666FF) else Color(0xFF53E5F5), fontSize = 9.sp, letterSpacing = 1.3.sp, fontWeight = FontWeight.Bold)
-                    Box(Modifier.width(24.dp).height(1.dp).background(Color(0xFF314B6A)))
                 }
             }
             Surface(
