@@ -5124,7 +5124,7 @@ private fun MyraHome(
                 }
             }
             Surface(
-                onClick = onPermissions,
+                onClick = onHistory,
                 modifier = Modifier.weight(1f),
                 shape = RoundedCornerShape(18.dp),
                 color = Color(0xFF0D192B),
@@ -5133,11 +5133,11 @@ private fun MyraHome(
             ) {
                 Row(Modifier.padding(horizontal = 13.dp, vertical = 13.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                     Box(Modifier.size(38.dp).clip(RoundedCornerShape(12.dp)).background(Color(0xFF13243B)), contentAlignment = Alignment.Center) {
-                        Text("✓", color = Color(0xFFFF3155), fontSize = 21.sp, fontWeight = FontWeight.Bold)
+                        Text("◷", color = Color(0xFFFF3155), fontSize = 23.sp, fontWeight = FontWeight.Bold)
                     }
                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                        Text("PERMISSIONS", color = Color(0xFFF5F7FF), fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1)
-                        Text("Device access", color = Color(0xFF9EABC2), fontSize = 9.sp, maxLines = 1)
+                        Text("HISTORY", color = Color(0xFFF5F7FF), fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+                        Text("Chats & activity", color = Color(0xFF9EABC2), fontSize = 9.sp, maxLines = 1)
                     }
                 }
             }
