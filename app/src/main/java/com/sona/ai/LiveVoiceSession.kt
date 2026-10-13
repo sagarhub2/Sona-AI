@@ -32,6 +32,7 @@ class LiveVoiceSession(
     private val running = AtomicBoolean(false)
     private val muted = AtomicBoolean(false)
     private val setupCompleted = AtomicBoolean(false)
+    private val audioStarted = AtomicBoolean(false)
     private val client = OkHttpClient.Builder()
         .connectTimeout(20, TimeUnit.SECONDS)
         .readTimeout(0, TimeUnit.MILLISECONDS)
@@ -80,6 +81,8 @@ class LiveVoiceSession(
         if (!running.compareAndSet(false, true)) { onStatus("LIVE VOICE IS ALREADY RUNNING"); return }
         // Reset per-session state so a reconnect cannot inherit a previous setup/turn.
         setupCompleted.set(false)
+        audioStarted.set(false)
+        muted.set(false)
         turnReceivedAudio = false
         pendingOutputTranscript = ""
         onStatus("CONNECTING TO GEMINI LIVE…")
@@ -136,14 +139,19 @@ class LiveVoiceSession(
                     val server = root.optJSONObject("serverContent")
                     server?.optJSONObject("inputTranscription")?.optString("text")?.takeIf { it.isNotBlank() && it != "null" }?.let { onTranscript("You: $it") }
                     server?.optJSONObject("outputTranscription")?.optString("text")?.takeIf { it.isNotBlank() && it != "null" }?.let { text ->
-                        pendingOutputTranscript = if (pendingOutputTranscript.isBlank()) text else if (text.startsWith(pendingOutputTranscript)) text else pendingOutputTranscript + text
-                        // Keep the live transcript cumulative; the API may deliver it in chunks.
+                        pendingOutputTranscript = (if (pendingOutputTranscript.isBlank()) text else if (text.startsWith(pendingOutputTranscript)) text else pendingOutputTranscript + text).takeLast(4000)
+                        // Keep a bounded cumulative transcript; the API may deliver it in chunks.
                         onTranscript(pendingOutputTranscript)
                     }
                     val parts = server?.optJSONObject("modelTurn")?.optJSONArray("parts")
                     if (parts != null) for (i in 0 until parts.length()) {
                         val data = parts.optJSONObject(i)?.optJSONObject("inlineData")?.optString("data")
                         if (!data.isNullOrBlank()) {
+                            // A normal PCM chunk is small; reject oversized payloads before decoding.
+                            if (data.length > 180_000) {
+                                onStatus("LIVE AUDIO CHUNK TOO LARGE • IGNORED")
+                                continue
+                            }
                             val bytes = Base64.decode(data, Base64.DEFAULT)
                             turnReceivedAudio = true
                             player?.write(bytes, 0, bytes.size, AudioTrack.WRITE_BLOCKING)
@@ -181,6 +189,8 @@ class LiveVoiceSession(
     }
 
     private fun startAudio() {
+        if (!running.get() || !setupCompleted.get()) return
+        if (!audioStarted.compareAndSet(false, true)) return
         try {
             val minIn = AudioRecord.getMinBufferSize(16000, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT)
             val minOut = AudioTrack.getMinBufferSize(24000, AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT)
@@ -246,6 +256,7 @@ class LiveVoiceSession(
 
     private fun stopAudio() {
         running.set(false)
+        audioStarted.set(false)
         try { micThread?.interrupt() } catch (_: Exception) {}
         try { recorder?.stop() } catch (_: Exception) {}
         try { recorder?.release() } catch (_: Exception) {}
