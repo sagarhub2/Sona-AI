@@ -797,7 +797,7 @@ class MainActivity : ComponentActivity() {
                             Column(
                                 Modifier.fillMaxSize()
                                     .verticalScroll(androidx.compose.foundation.rememberScrollState())
-                                    .padding(horizontal = 20.dp, vertical = 18.dp),
+                                    .padding(horizontal = 18.dp, vertical = 14.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 val voiceReady = status.contains("CONNECTED", true) || status.contains("LISTEN", true) || status.contains("LIVE", true)
@@ -852,8 +852,8 @@ class MainActivity : ComponentActivity() {
                                         }
                                     }
                                 }
-                                Spacer(Modifier.height(15.dp))
-                                Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                                Spacer(Modifier.height(12.dp))
+                                Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                     Text(
                                         when {
                                             voiceMuted -> "MICROPHONE MUTED"
@@ -880,7 +880,7 @@ class MainActivity : ComponentActivity() {
                                         color = Color(0xFF8298B8), fontSize = 11.sp
                                     )
                                 }
-                                Spacer(Modifier.height(12.dp))
+                                Spacer(Modifier.height(9.dp))
                                 Row(
                                     Modifier.fillMaxWidth().padding(horizontal = 8.dp),
                                     verticalAlignment = Alignment.CenterVertically
@@ -1021,9 +1021,9 @@ class MainActivity : ComponentActivity() {
                                 }
                                 Spacer(Modifier.height(5.dp))
                                 Row(
-                                    Modifier.fillMaxWidth().padding(vertical = 3.dp),
+                                    Modifier.fillMaxWidth().padding(vertical = 2.dp),
                                     verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                    horizontalArrangement = Arrangement.spacedBy(7.dp)
                                 ) {
                                     Box(Modifier.width(3.dp).height(14.dp).clip(CircleShape).background(Brush.verticalGradient(listOf(Color(0xFFB46CFF), Color(0xFF55E7F5)))))
                                     Text("VOICE CONTROLS", color = Color(0xFFB46CFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
@@ -1086,14 +1086,14 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                                 Spacer(Modifier.height(10.dp))
-                                Surface(modifier = Modifier.fillMaxWidth(), color = Color(0xFF0D192B).copy(alpha = .96f), shape = RoundedCornerShape(22.dp), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))) {
-                                    Column(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                                Surface(modifier = Modifier.fillMaxWidth(), color = Color(0xFF0D192B).copy(alpha = .96f), shape = RoundedCornerShape(18.dp), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))) {
+                                    Column(Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 10.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                          Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                               Box(Modifier.size(5.dp).clip(CircleShape).background(Color(0xFF55E7F5)))
                                               Text("LIVE TRANSCRIPT", color = Color(0xFFB46CFF), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
                                           }
                                           Text("YOUR CONVERSATION WITH MYRA", color = Color(0xFF55E7F5), fontSize = 7.sp, fontWeight = FontWeight.SemiBold, letterSpacing = .9.sp)
-                                         Text(heardText.ifBlank { "I’m listening. Start speaking whenever you’re ready." }, color = Color(0xFFF5F7FF), fontSize = 13.sp, lineHeight = 20.sp, textAlign = TextAlign.Center, maxLines = 3, overflow = TextOverflow.Ellipsis)
+                                         Text(heardText.ifBlank { "I’m listening. Start speaking whenever you’re ready." }, color = Color(0xFFF5F7FF), fontSize = 13.sp, lineHeight = 19.sp, textAlign = TextAlign.Center, maxLines = 3, overflow = TextOverflow.Ellipsis)
                                          Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End, verticalAlignment = Alignment.CenterVertically) {
                                              if (heardText.isNotBlank()) {
                                                  TextButton(
