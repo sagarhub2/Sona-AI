@@ -5167,12 +5167,12 @@ private fun MyraHome(
                         }
                         Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
                             Text("Neural Lens", color = Color(0xFFF5F7FF), fontSize = 17.sp, fontWeight = FontWeight.Bold)
-                            Text("Object Scan", color = Color(0xFF9EABC2), fontSize = 10.sp)
+                            Text("Gemini Vision • Photo analysis", color = Color(0xFF9EABC2), fontSize = 10.sp)
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                                 Box(Modifier.size(6.dp).clip(CircleShape)
                                     .background(Color(0xFFFF3155))
                                     .border(1.dp, Color(0xFFFFB36B), CircleShape))
-                                Text("SCAN  •  LIVE  •  DETECT", color = Color(0xFF9CB4D0), fontSize = 9.sp, letterSpacing = .55.sp)
+                                Text("CAMERA  •  GALLERY  •  AI", color = Color(0xFF9CB4D0), fontSize = 9.sp, letterSpacing = .45.sp)
                             }
                             TextButton(
                                 onClick = {
@@ -5183,7 +5183,7 @@ private fun MyraHome(
                                     }
                                 },
                                 contentPadding = PaddingValues(horizontal = 0.dp, vertical = 0.dp)
-                            ) { Text("▧  Open Gallery", color = Color(0xFFFF3155), fontSize = 10.sp, fontWeight = FontWeight.SemiBold) }
+                            ) { Text("▧  Analyze an image ↗", color = Color(0xFFFF3155), fontSize = 10.sp, fontWeight = FontWeight.SemiBold) }
                         }
                     }
                 }
