@@ -786,8 +786,8 @@ class MainActivity : ComponentActivity() {
                                     }
                                     Spacer(Modifier.width(9.dp))
                                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                                        Text("Voice Mode", color = Color(0xFFF5F7FF), fontSize = 22.sp, fontWeight = FontWeight.Bold, letterSpacing = .2.sp)
-                                        Text("LIVE AI  •  NATURAL VOICE", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.65.sp)
+                                        Text("MYRA VOICE", color = Color(0xFFF5F7FF), fontSize = 22.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 1.1.sp)
+                                        Text("NEURAL AUDIO INTERFACE  •  LIVE", color = Color(0xFF73DFFF), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.25.sp)
                                     }
                                     val voiceStatusAccent = when {
                                         voiceMuted -> Color(0xFF8298B8)
@@ -847,7 +847,7 @@ class MainActivity : ComponentActivity() {
                                     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                             Box(Modifier.size(5.dp).clip(CircleShape).background(Color(0xFF73DFFF)))
-                                            Text("MYRA NEURAL CORE", color = Color(0xFF73DFFF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 2.1.sp)
+                                            Text("MYRA NEURAL CORE  /  LIVE LINK", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.55.sp)
                                         }
                                         Text(
                                             when {
