@@ -487,7 +487,7 @@ class MainActivity : ComponentActivity() {
                     title = {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
-                                .background(Brush.horizontalGradient(listOf(Color(0xFF111A2B), Color(0xFF080D18), Color(0xFF201321))))
+                                .background(Brush.horizontalGradient(listOf(Color(0xFF17152E), Color(0xFF080D18), Color(0xFF10212F))))
                                 .border(1.dp, Color(0xFF9666FF).copy(alpha = .85f), RoundedCornerShape(18.dp))
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
@@ -506,7 +506,7 @@ class MainActivity : ComponentActivity() {
                                     modifier = Modifier.fillMaxWidth(),
                                     shape = RoundedCornerShape(16.dp),
                                     color = Color(0xFF0B1424),
-                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFF72D2)),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF22D3EE)),
                                     shadowElevation = 0.dp
                                 ) {
                                     Row(
@@ -1176,7 +1176,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize(),
                         shape = RoundedCornerShape(0.dp),
                         color = Color(0xFF030711),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF24435D)),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF9666FF).copy(alpha = 0.48f)),
                         tonalElevation = 0.dp
                     ) {
                         Column(Modifier.fillMaxSize()
@@ -1189,7 +1189,7 @@ class MainActivity : ComponentActivity() {
                             ) {
                                 Box(
                                     Modifier.size(42.dp).clip(CircleShape)
-                                        .background(Brush.radialGradient(listOf(Color(0xFFB46CFF).copy(alpha = .45f), Color(0xFF10233A), Color(0xFF080D18))))
+                                        .background(Brush.radialGradient(listOf(Color(0xFF22D3EE).copy(alpha = .38f), Color(0xFF172344), Color(0xFF080D18))))
                                         .border(1.dp, Color(0xFFB46CFF).copy(alpha = .85f), CircleShape),
                                     contentAlignment = Alignment.Center
                                 ) {
