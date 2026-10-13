@@ -337,32 +337,32 @@ class MainActivity : ComponentActivity() {
                 AlertDialog(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(28.dp),
-                    containerColor = Color(0xFF071426),
+                    containerColor = Color(0xFF080D18),
                     titleContentColor = Color(0xFFF5F7FF),
-                    textContentColor = Color(0xFF9EABC2),
+                    textContentColor = Color(0xFF9CB4D0),
                     tonalElevation = 8.dp,
                     onDismissRequest = { showWebSearch = false },
                     title = {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(21.dp))
-                                .background(Brush.linearGradient(listOf(Color(0xFF101D31), Color(0xFF071426), Color(0xFF101D31))))
-                                .border(1.dp, Color(0xFF8D5CFF), RoundedCornerShape(21.dp))
+                                .background(Brush.linearGradient(listOf(Color(0xFF111A2B), Color(0xFF080D18), Color(0xFF111A2B))))
+                                .border(1.dp, Color(0xFFFF3155), RoundedCornerShape(21.dp))
                                 .padding(16.dp),
                             verticalArrangement = Arrangement.spacedBy(7.dp)
                         ) {
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                                 Box(
                                     Modifier.size(46.dp).clip(RoundedCornerShape(15.dp))
-                                        .background(Brush.linearGradient(listOf(Color(0xFF8D5CFF), Color(0xFFFF4D9D))))
-                                        .border(1.dp, Color(0xFF8D5CFF), RoundedCornerShape(15.dp)),
+                                        .background(Brush.linearGradient(listOf(Color(0xFFFF3155), Color(0xFFFF3155))))
+                                        .border(1.dp, Color(0xFFFF3155), RoundedCornerShape(15.dp)),
                                     contentAlignment = Alignment.Center
                                 ) { Text("⌕", color = Color.White, fontSize = 30.sp, fontWeight = FontWeight.Bold) }
                                 Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                                    Text("MYRA AI • DISCOVERY", color = Color(0xFFFF4D9D), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                                    Text("MYRA AI • DISCOVERY", color = Color(0xFFFF3155), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
                                     Text("Web Search", color = Color(0xFFF5F7FF), fontSize = 23.sp, fontWeight = FontWeight.Bold)
                                 }
                             }
-                            Text("Find answers, news and ideas across the web.", color = Color(0xFFB8A9D8), fontSize = 12.sp)
+                            Text("Find answers, news and ideas across the web.", color = Color(0xFF9CB4D0), fontSize = 12.sp)
                         }
                     },
                     text = {
@@ -375,13 +375,13 @@ class MainActivity : ComponentActivity() {
                                 shape = RoundedCornerShape(17.dp),
                                 label = { Text("What do you want to find?") },
                                 placeholder = { Text("Try: latest AI news") },
-                                leadingIcon = { Text("⌕", color = Color(0xFFFF4D9D), fontSize = 23.sp) },
+                                leadingIcon = { Text("⌕", color = Color(0xFFFF3155), fontSize = 23.sp) },
                                 colors = OutlinedTextFieldDefaults.colors(
-                                    focusedBorderColor = Color(0xFFFF4D9D),
-                                    unfocusedBorderColor = Color(0xFF8D5CFF),
-                                    focusedLabelColor = Color(0xFFFF4D9D),
-                                    unfocusedLabelColor = Color(0xFFB8A9D8),
-                                    cursorColor = Color(0xFFFF4D9D),
+                                    focusedBorderColor = Color(0xFFFF3155),
+                                    unfocusedBorderColor = Color(0xFFFF3155),
+                                    focusedLabelColor = Color(0xFFFF3155),
+                                    unfocusedLabelColor = Color(0xFF9CB4D0),
+                                    cursorColor = Color(0xFFFF3155),
                                     focusedTextColor = Color(0xFFF5F7FF),
                                     unfocusedTextColor = Color(0xFFF5F7FF),
                                     focusedContainerColor = Color(0xFF0B1424),
@@ -398,10 +398,10 @@ class MainActivity : ComponentActivity() {
                                     verticalAlignment = Alignment.CenterVertically,
                                     horizontalArrangement = Arrangement.spacedBy(9.dp)
                                 ) {
-                                    Text("↗", color = Color(0xFFFF4D9D), fontSize = 19.sp, fontWeight = FontWeight.Bold)
+                                    Text("↗", color = Color(0xFFFF3155), fontSize = 19.sp, fontWeight = FontWeight.Bold)
                                     Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                                        Text("Opens your browser", color = Color(0xFF9EABC2), fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
-                                        Text("Your search runs on Google. Internet access is required.", color = Color(0xFFB8A9D8), fontSize = 10.sp)
+                                        Text("Opens your browser", color = Color(0xFF9CB4D0), fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                                        Text("Your search runs on Google. Internet access is required.", color = Color(0xFF9CB4D0), fontSize = 10.sp)
                                     }
                                 }
                             }
@@ -423,10 +423,10 @@ class MainActivity : ComponentActivity() {
                             enabled = webQuery.isNotBlank(),
                             shape = RoundedCornerShape(14.dp),
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = Color(0xFFFF4D9D),
+                                containerColor = Color(0xFFFF3155),
                                 disabledContainerColor = Color(0xFF342044),
                                 contentColor = Color.White,
-                                disabledContentColor = Color(0xFFB8A9D8)
+                                disabledContentColor = Color(0xFF9CB4D0)
                             )
                         ) {
                             Text("SEARCH WEB  ↗", fontWeight = FontWeight.Bold, fontSize = 12.sp)
@@ -434,7 +434,7 @@ class MainActivity : ComponentActivity() {
                     },
                     dismissButton = {
                         TextButton(onClick = { showWebSearch = false }) {
-                            Text("CANCEL", color = Color(0xFFB8A9D8), fontWeight = FontWeight.SemiBold)
+                            Text("CANCEL", color = Color(0xFF9CB4D0), fontWeight = FontWeight.SemiBold)
                         }
                     }
                 )
