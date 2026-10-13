@@ -785,7 +785,7 @@ class MainActivity : ComponentActivity() {
                                     Spacer(Modifier.width(9.dp))
                                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                         Text("Voice Mode", color = Color(0xFFF5F7FF), fontSize = 20.sp, fontWeight = FontWeight.SemiBold, letterSpacing = .1.sp)
-                                        Text("LIVE VOICE ASSISTANT", color = Color(0xFF73DFFF), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.1.sp)
+                                        Text("LIVE VOICE ASSISTANT", color = Color(0xFF73DFFF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.35.sp)
                                     }
                                     val voiceReady = status.contains("CONNECTED", true) || status.contains("LISTEN", true) || status.contains("LIVE", true)
                                     val voiceFailed = status.contains("FAILED", true) || status.contains("ERROR", true) || status.contains("DENIED", true) || status.contains("NEEDS", true) || status.contains("TIMEOUT", true)
@@ -941,8 +941,8 @@ class MainActivity : ComponentActivity() {
                                     verticalAlignment = Alignment.CenterVertically,
                                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                                 ) {
-                                    Box(Modifier.width(3.dp).height(14.dp).clip(CircleShape).background(Color(0xFFFF3155)))
-                                    Text("VOICE CONTROLS", color = Color(0xFF9CB4D0), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.1.sp)
+                                    Box(Modifier.width(3.dp).height(14.dp).clip(CircleShape).background(Brush.verticalGradient(listOf(Color(0xFF73DFFF), Color(0xFFFF3155)))))
+                                    Text("VOICE CONTROLS", color = Color(0xFFB8C5DA), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
                                     Spacer(Modifier.weight(1f))
                                     Text(if (bossMode) "BOSS MODE ACTIVE" else "READY WHEN YOU ARE", color = if (bossMode) Color(0xFFFFB547) else Color(0xFF536A89), fontSize = 8.sp, letterSpacing = .35.sp)
                                 }
