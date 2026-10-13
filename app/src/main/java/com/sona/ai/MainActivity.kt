@@ -852,9 +852,9 @@ class MainActivity : ComponentActivity() {
                                         border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))
                                     ) {
                                         Text(
-                                            if (voiceMuted) "MUTED" else if (voiceReady && !voiceFailed) "LIVE" else "READY",
+                                            if (voiceMuted) "MUTED" else if (status.contains("THINK", true) || status.contains("PROCESS", true) || status.contains("REPLY", true)) "WORKING" else if (status.contains("LISTEN", true) || status.contains("LIVE", true) || status.contains("CONNECT", true)) "LIVE" else "READY",
                                             modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
-                                            color = if (voiceMuted) Color(0xFF8298B8) else if (voiceReady && !voiceFailed) Color(0xFF66F0BC) else Color(0xFFFF3155),
+                                            color = if (voiceMuted) Color(0xFF8298B8) else if (status.contains("THINK", true) || status.contains("PROCESS", true) || status.contains("REPLY", true)) Color(0xFFFFC857) else if (status.contains("LISTEN", true) || status.contains("LIVE", true) || status.contains("CONNECT", true)) Color(0xFF66F0BC) else Color(0xFFFF3155),
                                             fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp
                                         )
                                     }
