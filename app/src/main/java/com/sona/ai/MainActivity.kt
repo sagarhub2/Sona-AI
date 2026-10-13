@@ -4963,6 +4963,16 @@ private fun MyraHome(
                 Spacer(Modifier.weight(1f))
                 Text("EXPLORE", color = red, fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
             }
+            Row(
+                Modifier.fillMaxWidth().padding(bottom = 10.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Box(Modifier.width(3.dp).height(15.dp).clip(CircleShape).background(red))
+                Text("START HERE", color = muted, fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                Spacer(Modifier.weight(1f))
+                Text("VOICE  /  VISION", color = red, fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .8.sp)
+            }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(14.dp)) {
                 Surface(
                     onClick = onStartVoice,
