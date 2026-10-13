@@ -5150,16 +5150,16 @@ private fun MyraHome(
                 }
             }
             Surface(onClick = onFloatingAssistant, shape = CircleShape, color = Color(0xFF15122A), shadowElevation = 3.dp,
-                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFB46CFF))) {
+                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF9666FF))) {
                 Box(Modifier.size(42.dp), contentAlignment = Alignment.Center) {
-                    Text("◎", color = Color(0xFFE8D7FF), fontSize = 23.sp)
+                    Text("◎", color = Color(0xFFB9F7FF), fontSize = 23.sp)
                 }
             }
             Spacer(Modifier.width(8.dp))
             Surface(onClick = onSettings, shape = CircleShape, color = Color(0xFF0D192B), shadowElevation = 2.dp,
                 border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))) {
                 Box(Modifier.size(42.dp), contentAlignment = Alignment.Center) {
-                    Text("⚙", color = Color(0xFFFF69C8), fontSize = 22.sp)
+                    Text("⚙", color = Color(0xFF55E7F5), fontSize = 22.sp)
                 }
             }
         }
@@ -5338,7 +5338,7 @@ private fun MyraHome(
             Text("Quick Access", color = Color(0xFFF5F7FF), fontSize = 15.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 16.dp, bottom = 9.dp))
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(9.dp)) {
                 HomeGlassCard("Chat", "Ask anything", "▣", Color(0xFF9666FF), Modifier.weight(1f)) { onChat() }
-                HomeGlassCard("Voice", "Speak & listen", "♫", Color(0xFFFF69C8), Modifier.weight(1f)) { onStartVoice() }
+                HomeGlassCard("Voice", "Speak & listen", "♫", Color(0xFF55E7F5), Modifier.weight(1f)) { onStartVoice() }
             }
             Spacer(Modifier.height(9.dp))
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(9.dp)) {
@@ -5358,8 +5358,8 @@ private fun MyraHome(
         ) {
             Column(Modifier.weight(1f).clip(RoundedCornerShape(16.dp)).clickable { }.padding(vertical = 4.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("⌂", color = Color(0xFFB46CFF), fontSize = 22.sp, fontWeight = FontWeight.Bold)
-                Text("Home", color = Color(0xFFB46CFF), fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                Text("⌂", color = Color(0xFF9666FF), fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                Text("Home", color = Color(0xFF9666FF), fontSize = 10.sp, fontWeight = FontWeight.Bold)
             }
             Column(Modifier.weight(1f).clip(RoundedCornerShape(16.dp)).clickable { onChat() }.padding(vertical = 4.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
@@ -5370,8 +5370,8 @@ private fun MyraHome(
                 Brush.radialGradient(listOf(Color(0xFF05070D), Color(0xFF16060B), Color(0xFF40101D), Color(0xFF05070D)))
             ).border(1.5.dp, Color(0xFF9666FF), CircleShape).clickable { onStartVoice() }
                 .padding(vertical = 6.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(if (busy) "•••" else "≋", color = Color(0xFFE8D7FF), fontSize = 22.sp, fontWeight = FontWeight.Bold)
-                Text("Voice", color = Color(0xFFE8D7FF), fontSize = 9.sp, fontWeight = FontWeight.Bold)
+                Text(if (busy) "•••" else "≋", color = Color(0xFFB9F7FF), fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                Text("Voice", color = Color(0xFFB9F7FF), fontSize = 9.sp, fontWeight = FontWeight.Bold)
             }
             Column(Modifier.weight(1f).clip(RoundedCornerShape(16.dp)).clickable { onReminder() }.padding(vertical = 4.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
