@@ -1591,7 +1591,7 @@ class MainActivity : ComponentActivity() {
                                     TextButton(onClick = { showChat = false; showSettings = true }) { Text("Open Settings", color = Color(0xFF55E7F5)) }
                                 }
                             }
-                            Text("CHAT TYPE", color = Color(0xFF9666FF), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp, modifier = Modifier.padding(top = 10.dp))
+                            Text("CHOOSE YOUR MODE", color = Color(0xFF55E7F5), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp, modifier = Modifier.padding(top = 10.dp))
                             Row(
                                 modifier = Modifier.fillMaxWidth().horizontalScroll(androidx.compose.foundation.rememberScrollState()),
                                 horizontalArrangement = Arrangement.spacedBy(7.dp),
@@ -1603,8 +1603,8 @@ class MainActivity : ComponentActivity() {
                                         onClick = { selectedChatCategory = category },
                                         label = { Text(category, fontSize = 10.sp, maxLines = 1) },
                                         colors = androidx.compose.material3.FilterChipDefaults.filterChipColors(
-                                            selectedContainerColor = Color(0xFF20234A),
-                                            selectedLabelColor = Color(0xFFE8D7FF),
+                                            selectedContainerColor = Color(0xFF123044),
+                                            selectedLabelColor = Color(0xFF55E7F5),
                                             containerColor = Color(0xFF0D192B),
                                             labelColor = Color(0xFF9CB4D0)
                                         ),
@@ -1612,7 +1612,7 @@ class MainActivity : ComponentActivity() {
                                             enabled = true,
                                             selected = selectedChatCategory == category,
                                             borderColor = Color(0xFF314B6A),
-                                            selectedBorderColor = Color(0xFF9666FF)
+                                            selectedBorderColor = Color(0xFF55E7F5)
                                         )
                                     )
                                 }
@@ -1624,7 +1624,7 @@ class MainActivity : ComponentActivity() {
                                 horizontalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
                                 Box(Modifier.width(3.dp).height(16.dp).clip(CircleShape).background(Brush.verticalGradient(listOf(Color(0xFF9666FF), Color(0xFF55E7F5)))))
-                                Text("MESSAGE", color = Color(0xFFC9A7FF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                                Text("MESSAGE", color = Color(0xFF55E7F5), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
                                 Spacer(Modifier.weight(1f))
                                 Text(if (busy) "MYRA IS THINKING" else "ASK MYRA ANYTHING", color = Color(0xFF8F82B8), fontSize = 8.sp, letterSpacing = .45.sp)
                             }
@@ -1634,7 +1634,7 @@ class MainActivity : ComponentActivity() {
                                     modifier = Modifier.fillMaxWidth(),
                                     placeholder = { Text(if (busy) "MYRA IS REPLYING…" else "Ask anything…", color = Color(0xFF8298B8), fontSize = 13.sp) },
                                     leadingIcon = { Text("✦", color = Color(0xFF9666FF), fontSize = 18.sp) },
-                                    label = { Text("ASK MYRA", color = Color(0xFF9666FF), letterSpacing = .8.sp) },
+                                    label = { Text("ASK MYRA", color = Color(0xFF55E7F5), letterSpacing = .8.sp) },
                                     minLines = 1,
                                     maxLines = 4,
                                     enabled = !busy,
@@ -1642,9 +1642,9 @@ class MainActivity : ComponentActivity() {
                                     colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
                                         focusedTextColor = Color(0xFFF5F7FF),
                                         unfocusedTextColor = Color(0xFFF5F7FF),
-                                        focusedBorderColor = Color(0xFF9666FF),
+                                        focusedBorderColor = Color(0xFF55E7F5),
                                         unfocusedBorderColor = Color(0xFF314B6A),
-                                        focusedLabelColor = Color(0xFF9666FF),
+                                        focusedLabelColor = Color(0xFF55E7F5),
                                         unfocusedLabelColor = Color(0xFFB8C5DA),
                                         focusedContainerColor = Color(0xFF0D192B),
                                         unfocusedContainerColor = Color(0xFF0D192B),
