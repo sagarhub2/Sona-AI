@@ -1465,9 +1465,23 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                                 Spacer(Modifier.weight(1f))
+                                TextButton(
+                                    onClick = {
+                                        activeChatSessionId = "chat_" + System.currentTimeMillis().toString()
+                                        chatPrefs.edit().putString("active_chat_session_id", activeChatSessionId).apply()
+                                        savedChat = ""
+                                        pendingMessage = ""
+                                        chatDraft = ""
+                                        isFreshChat = true
+                                        showSessionList = false
+                                        status = "NEW CONVERSATION READY"
+                                    }
+                                ) {
+                                    Text("＋ NEW CHAT", color = Color(0xFF55E7F5), fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                                }
                                 if (!isFreshChat && savedChat.isNotBlank()) {
                                     TextButton(onClick = { showClearHistoryConfirm = true }) {
-                                        Text("⌫  Clear history", color = Color(0xFF55E7F5), fontSize = 11.sp)
+                                        Text("⌫ Clear", color = Color(0xFFB8C5DA), fontSize = 10.sp)
                                     }
                                 }
                             }
