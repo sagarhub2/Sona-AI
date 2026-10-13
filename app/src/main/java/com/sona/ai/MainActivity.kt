@@ -1174,7 +1174,7 @@ class MainActivity : ComponentActivity() {
                                             Text("CONVERSATION", color = Color(0xFFFF3155), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
                                         }
                                         Text(
-                                            if (savedChat.isBlank()) "Start a fresh conversation with MYRA"
+                                            if (isFreshChat || savedChat.isBlank()) "Start a fresh conversation with MYRA"
                                             else "Your saved conversation is ready",
                                             color = Color(0xFF9CB4D0), fontSize = 10.sp, maxLines = 1,
                                             overflow = TextOverflow.Ellipsis
@@ -1231,7 +1231,7 @@ class MainActivity : ComponentActivity() {
                                             else chatSearchResult.replace("\\\\n", "\\n").ifBlank { "No matching conversation text found." },
                                             color = Color(0xFFF5F7FF), fontSize = 14.sp, lineHeight = 22.sp
                                         )
-                                        if (savedChat.isNotBlank()) {
+                                        if (!isFreshChat && savedChat.isNotBlank()) {
                                             Row(
                                                 modifier = Modifier.fillMaxWidth(),
                                                 horizontalArrangement = Arrangement.End,
