@@ -756,7 +756,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         Box(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0xFF050B16), Color(0xFF071426), Color(0xFF0B1020))))) {
                             Column(
-                                Modifier.fillMaxSize().padding(horizontal = 24.dp, vertical = 28.dp),
+                                Modifier.fillMaxSize().padding(horizontal = 20.dp, vertical = 18.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
@@ -776,13 +776,13 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                                 Spacer(Modifier.weight(1f))
-                                Box(contentAlignment = Alignment.Center, modifier = Modifier.size(280.dp)) {
-                                    Box(Modifier.size(270.dp).scale(orbScale).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFF4D9D).copy(alpha = .26f), Color(0xFF30164D).copy(alpha = .12f), Color.Transparent))))
-                                    Box(Modifier.size(242.dp).rotate(orbRotation).border(1.dp, Color(0xFFFF4D9D).copy(alpha = .48f), CircleShape))
-                                    Box(Modifier.size(224.dp).rotate(-orbRotation).border(1.dp, Color(0xFF8D5CFF).copy(alpha = .72f), CircleShape))
-                                    Box(Modifier.size(210.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF080508), Color(0xFF8D174B), Color(0xFFFF4D9D), Color(0xFF020202)))).border(2.dp, Color(0xFFFFE3A5).copy(alpha = .8f), CircleShape))
-                                    Box(Modifier.size(166.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFF5F7FF).copy(alpha = .95f), Color(0xFFFF4D9D), Color(0xFFFF4D9D), Color.Transparent))))
-                                    Box(Modifier.size(82.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFFE3A5), Color(0xFFFF4D9D), Color(0xFF30164D)))))
+                                Box(contentAlignment = Alignment.Center, modifier = Modifier.size(244.dp)) {
+                                    Box(Modifier.size(236.dp).scale(orbScale).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFF4D9D).copy(alpha = .26f), Color(0xFF30164D).copy(alpha = .12f), Color.Transparent))))
+                                    Box(Modifier.size(216.dp).rotate(orbRotation).border(1.dp, Color(0xFFFF4D9D).copy(alpha = .48f), CircleShape))
+                                    Box(Modifier.size(198.dp).rotate(-orbRotation).border(1.dp, Color(0xFF8D5CFF).copy(alpha = .72f), CircleShape))
+                                    Box(Modifier.size(184.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFF080508), Color(0xFF8D174B), Color(0xFFFF4D9D), Color(0xFF020202)))).border(2.dp, Color(0xFFFFE3A5).copy(alpha = .8f), CircleShape))
+                                    Box(Modifier.size(146.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFF5F7FF).copy(alpha = .95f), Color(0xFFFF4D9D), Color(0xFFFF4D9D), Color.Transparent))))
+                                    Box(Modifier.size(72.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFFE3A5), Color(0xFFFF4D9D), Color(0xFF30164D)))))
                                 }
                                 Spacer(Modifier.height(12.dp))
                                 androidx.compose.material3.FilledTonalButton(
