@@ -829,6 +829,37 @@ class MainActivity : ComponentActivity() {
                                     )
                                 }
                                 Spacer(Modifier.height(12.dp))
+                                Row(
+                                    Modifier.fillMaxWidth().padding(horizontal = 8.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                                        Text("MYRA CORE", color = Color(0xFF9CB4D0), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.7.sp)
+                                        Text(
+                                            when {
+                                                voiceMuted -> "Audio input paused"
+                                                status.contains("THINK", true) || status.contains("PROCESS", true) || status.contains("REPLY", true) -> "Preparing your response"
+                                                status.contains("CONNECT", true) || status.contains("LISTEN", true) || status.contains("LIVE", true) -> "Ready for your voice"
+                                                else -> "Voice assistant on standby"
+                                            },
+                                            color = Color(0xFF536A89), fontSize = 10.sp
+                                        )
+                                    }
+                                    Spacer(Modifier.weight(1f))
+                                    Surface(
+                                        shape = RoundedCornerShape(10.dp),
+                                        color = Color(0xFF0D192B),
+                                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))
+                                    ) {
+                                        Text(
+                                            if (voiceMuted) "MUTED" else if (voiceReady && !voiceFailed) "LIVE" else "READY",
+                                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+                                            color = if (voiceMuted) Color(0xFF8298B8) else if (voiceReady && !voiceFailed) Color(0xFF66F0BC) else Color(0xFFFF3155),
+                                            fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp
+                                        )
+                                    }
+                                }
+                                Spacer(Modifier.height(12.dp))
                                 Box(contentAlignment = Alignment.Center, modifier = Modifier.size(244.dp)) {
                                     Box(Modifier.size(236.dp).scale(orbScale).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFF3155).copy(alpha = .26f), Color(0xFF40152A).copy(alpha = .12f), Color.Transparent))))
                                     Box(Modifier.size(216.dp).rotate(orbRotation).border(1.dp, Color(0xFFFF3155).copy(alpha = .48f), CircleShape))
