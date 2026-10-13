@@ -4950,7 +4950,7 @@ private fun MyraHome(
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(14.dp)) {
                 Surface(
                     onClick = onStartVoice,
-                    modifier = Modifier.weight(1f).height(132.dp),
+                    modifier = Modifier.weight(1f).height(148.dp),
                     shape = RoundedCornerShape(20.dp),
                     color = Color(0xFF0D192B),
                     shadowElevation = if (busy) 8.dp else 3.dp,
@@ -4992,7 +4992,7 @@ private fun MyraHome(
                                     Text("AI AUDIO", modifier = Modifier.padding(horizontal = 6.dp, vertical = 3.dp), color = Color(0xFFFF6B89), fontSize = 7.sp, fontWeight = FontWeight.Bold, letterSpacing = .6.sp)
                                 }
                             }
-                            Text(if (busy) "Connecting to your assistant…" else "Tap to open voice chat and talk naturally with MYRA.", color = Color(0xFF9EABC2), fontSize = 10.sp, maxLines = 2, lineHeight = 14.sp)
+                            Text(if (busy) "Connecting to your assistant…" else "Tap to start a hands-free conversation with MYRA.", color = Color(0xFF9EABC2), fontSize = 10.sp, maxLines = 2, lineHeight = 14.sp)
                             Row(
                                 Modifier.fillMaxWidth(),
                                 verticalAlignment = Alignment.CenterVertically,
