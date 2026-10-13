@@ -1323,6 +1323,16 @@ class MainActivity : ComponentActivity() {
                                     singleLine = true,
                                     placeholder = { Text("Search conversations…", color = Color(0xFF8198B5)) },
                                     leadingIcon = { Text("⌕", color = Color(0xFF55E7F5), fontSize = 20.sp) },
+                                    trailingIcon = {
+                                        if (chatSearchQuery.isNotEmpty()) {
+                                            TextButton(
+                                                onClick = { chatSearchQuery = "" },
+                                                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 0.dp)
+                                            ) {
+                                                Text("CLEAR", color = Color(0xFF55E7F5), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = .8.sp)
+                                            }
+                                        }
+                                    },
                                     shape = RoundedCornerShape(16.dp),
                                     colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
                                         focusedTextColor = Color(0xFFF5F7FF), unfocusedTextColor = Color(0xFFF5F7FF),
