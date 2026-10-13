@@ -776,13 +776,29 @@ class MainActivity : ComponentActivity() {
                                         Text("LIVE VOICE ASSISTANT", color = Color(0xFFFF3155), fontSize = 9.sp, letterSpacing = 1.6.sp)
                                          Text("NATURAL CONVERSATION  •  HANDS-FREE", color = Color(0xFFB8C5DA), fontSize = 8.sp, letterSpacing = .35.sp)
                                     }
-                                    Surface(shape = RoundedCornerShape(30.dp), color = Color(0xFF0D192B), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFF3155))) {
+                                    val voiceReady = status.contains("CONNECTED", true) || status.contains("LISTEN", true) || status.contains("LIVE", true)
+                                    val voiceFailed = status.contains("FAILED", true) || status.contains("ERROR", true) || status.contains("DENIED", true) || status.contains("NEEDS", true) || status.contains("TIMEOUT", true)
+                                    val voiceStatusAccent = when {
+                                        voiceMuted -> Color(0xFF8298B8)
+                                        voiceFailed -> Color(0xFFFF3155)
+                                        status.contains("THINK", true) || status.contains("PROCESS", true) || status.contains("REPLY", true) -> Color(0xFF73DFFF)
+                                        voiceReady -> Color(0xFF66F0BC)
+                                        else -> Color(0xFFFF3155)
+                                    }
+                                    Surface(shape = RoundedCornerShape(30.dp), color = Color(0xFF0D192B), border = androidx.compose.foundation.BorderStroke(1.dp, voiceStatusAccent.copy(alpha = .8f))) {
                                         Row(Modifier.padding(horizontal = 10.dp, vertical = 7.dp), verticalAlignment = Alignment.CenterVertically) {
-                                            val voiceReady = status.contains("CONNECTED", true) || status.contains("LISTEN", true) || status.contains("LIVE", true)
-                                            val voiceFailed = status.contains("FAILED", true) || status.contains("ERROR", true) || status.contains("DENIED", true) || status.contains("NEEDS", true) || status.contains("TIMEOUT", true)
-                                            Box(Modifier.size(6.dp).clip(CircleShape).background(if (voiceReady) Color(0xFF66F0BC) else if (voiceFailed) Color(0xFFFF3155) else Color(0xFFFF3155)))
+                                            Box(Modifier.size(6.dp).clip(CircleShape).background(voiceStatusAccent))
                                             Spacer(Modifier.width(7.dp))
-                                            Text(when { voiceReady -> "CONNECTED"; voiceFailed -> "CHECK SETUP"; else -> "CONNECTING" }, color = Color(0xFFB8C5DA), fontSize = 9.sp, fontWeight = FontWeight.Bold)
+                                            Text(
+                                                when {
+                                                    voiceMuted -> "MIC MUTED"
+                                                    voiceFailed -> "CHECK SETUP"
+                                                    status.contains("THINK", true) || status.contains("PROCESS", true) || status.contains("REPLY", true) -> "PROCESSING"
+                                                    voiceReady -> "CONNECTED"
+                                                    else -> "STANDBY"
+                                                },
+                                                color = voiceStatusAccent, fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = .35.sp
+                                            )
                                         }
                                     }
                                 }
