@@ -1295,7 +1295,7 @@ class MainActivity : ComponentActivity() {
                                                         chatDraft = pendingMessage
                                                         pendingMessage = ""
                                                     }, contentPadding = PaddingValues(0.dp)) {
-                                                        Text("Retry message ↻", color = Color(0xFFFF3155), fontSize = 11.sp)
+                                                        Text("Edit & resend ↻", color = Color(0xFFFF3155), fontSize = 11.sp)
                                                     }
                                                 }
                                             }
