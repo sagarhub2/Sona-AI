@@ -499,6 +499,7 @@ class MainActivity : ComponentActivity() {
                     },
                     text = {
                         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                            Text("QUICK ACTIONS  •  DEVICE SHORTCUTS", color = Color(0xFF53E5F5), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
                             @Composable
                             fun TriggerActionCard(icon: String, heading: String, detail: String, action: () -> Unit) {
                                 Surface(
@@ -825,7 +826,7 @@ class MainActivity : ComponentActivity() {
                                     Spacer(Modifier.width(9.dp))
                                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                         Text("MYRA VOICE", color = Color(0xFFF5F7FF), fontSize = 22.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 1.1.sp)
-                                        Text("SPEAK NATURALLY  •  MYRA IS HERE", color = Color(0xFF53E5F5), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.05.sp)
+                                        Text("SPEAK NATURALLY  •  INTERRUPT ANYTIME", color = Color(0xFF53E5F5), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.05.sp)
                                     }
                                     val voiceStatusAccent = when {
                                         voiceMuted -> Color(0xFF8298B8)
@@ -1415,9 +1416,28 @@ class MainActivity : ComponentActivity() {
                                             Text("SAVED CONVERSATIONS  •  ${chatSessions.size}", color = Color(0xFF9666FF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
                                         }
                                         if (chatSessions.isEmpty()) {
-                                            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                                                Text("YOUR CHAT SPACE IS EMPTY", color = Color(0xFFBBA0FF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = .7.sp)
-                                                Text("Start a conversation with MYRA. Your saved chats will appear here for quick access.", color = Color(0xFF9CB4D0), fontSize = 12.sp)
+                                            Surface(
+                                                modifier = Modifier.fillMaxWidth(),
+                                                shape = RoundedCornerShape(14.dp),
+                                                color = Color(0xFF0D192B),
+                                                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF9666FF).copy(alpha = .55f))
+                                            ) {
+                                                Row(
+                                                    Modifier.fillMaxWidth().padding(12.dp),
+                                                    verticalAlignment = Alignment.CenterVertically,
+                                                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                                                ) {
+                                                    Box(
+                                                        Modifier.size(38.dp).clip(RoundedCornerShape(12.dp))
+                                                            .background(Brush.linearGradient(listOf(Color(0xFF28204A), Color(0xFF102B40))))
+                                                            .border(1.dp, Color(0xFF53E5F5).copy(alpha = .65f), RoundedCornerShape(12.dp)),
+                                                        contentAlignment = Alignment.Center
+                                                    ) { Text("✦", color = Color(0xFF53E5F5), fontSize = 20.sp) }
+                                                    Column(verticalArrangement = Arrangement.spacedBy(4.dp), modifier = Modifier.weight(1f)) {
+                                                        Text("YOUR CHAT SPACE IS EMPTY", color = Color(0xFFBBA0FF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = .7.sp)
+                                                        Text("Start a conversation with MYRA. Your saved chats will appear here for quick access.", color = Color(0xFF9CB4D0), fontSize = 12.sp)
+                                                    }
+                                                }
                                             }
                                         } else {
                                             chatSessions.forEach { (sessionId, transcript) ->
