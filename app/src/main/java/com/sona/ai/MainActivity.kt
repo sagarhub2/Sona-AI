@@ -1709,9 +1709,31 @@ class MainActivity : ComponentActivity() {
                                     if (busy) "MYRA IS THINKING…" else if (chatDraft.isNotBlank()) "${chatDraft.length} CHARACTERS  •  DRAFT NOT SENT" else "YOUR SPACE TO THINK, ASK & CREATE",
                                     color = Color(0xFF314B6A), fontSize = 9.sp, letterSpacing = .25.sp, modifier = Modifier.weight(1f)
                                 )
-                                if (chatDraft.isNotBlank() && !busy) {
-                                    TextButton(onClick = { chatDraft = "" }) {
-                                        Text("CLEAR DRAFT", color = Color(0xFF55E7F5), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = .4.sp)
+                                if (!busy) {
+                                    TextButton(
+                                        onClick = {
+                                            val clipboard = getSystemService(android.content.ClipboardManager::class.java)
+                                            val clip = clipboard?.primaryClip
+                                            val copiedText = if (clip != null && clip.itemCount > 0) {
+                                                clip.getItemAt(0).coerceToText(this@MainActivity)?.toString().orEmpty()
+                                            } else ""
+                                            if (copiedText.isNotBlank()) {
+                                                chatDraft = if (chatDraft.isBlank()) copiedText else chatDraft + copiedText
+                                            } else {
+                                                android.widget.Toast.makeText(this@MainActivity, "Clipboard has no text", android.widget.Toast.LENGTH_SHORT).show()
+                                            }
+                                        },
+                                        contentPadding = PaddingValues(horizontal = 4.dp, vertical = 0.dp)
+                                    ) {
+                                        Text("PASTE", color = Color(0xFF55E7F5), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = .4.sp)
+                                    }
+                                    if (chatDraft.isNotBlank()) {
+                                        TextButton(
+                                            onClick = { chatDraft = "" },
+                                            contentPadding = PaddingValues(horizontal = 4.dp, vertical = 0.dp)
+                                        ) {
+                                            Text("CLEAR", color = Color(0xFFB8C5DA), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = .4.sp)
+                                        }
                                     }
                                 }
                                 Button(
