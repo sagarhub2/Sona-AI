@@ -5717,95 +5717,117 @@ private fun MyraFeaturesMenu(
 
 @Composable
 private fun MyraPremiumIntro() {
-    val transition = androidx.compose.animation.core.rememberInfiniteTransition(label = "myra-intro")
-    val pulse by transition.animateFloat(
-        initialValue = 0.94f,
-        targetValue = 1.08f,
+    // MYRA cinematic liquid-glass neural core: all motion uses native Compose drawing
+    // and graphics layers so no extra animation dependency or large assets are needed.
+    val motion = androidx.compose.animation.core.rememberInfiniteTransition(label = "myra-neural-core")
+    val outerRotation by motion.animateFloat(
+        initialValue = 0f, targetValue = 360f,
         animationSpec = androidx.compose.animation.core.infiniteRepeatable(
-            animation = androidx.compose.animation.core.tween(1100, easing = androidx.compose.animation.core.FastOutSlowInEasing),
-            repeatMode = androidx.compose.animation.core.RepeatMode.Reverse
-        ),
-        label = "myra-intro-pulse"
+            animation = androidx.compose.animation.core.tween(11500, easing = androidx.compose.animation.core.LinearEasing)
+        ), label = "outer-ring"
     )
-    val rotation by transition.animateFloat(
-        initialValue = 0f,
-        targetValue = 360f,
+    val innerRotation by motion.animateFloat(
+        initialValue = 360f, targetValue = 0f,
         animationSpec = androidx.compose.animation.core.infiniteRepeatable(
-            animation = androidx.compose.animation.core.tween(7000, easing = androidx.compose.animation.core.LinearEasing)
-        ),
-        label = "myra-intro-rotation"
+            animation = androidx.compose.animation.core.tween(8200, easing = androidx.compose.animation.core.LinearEasing)
+        ), label = "inner-ring"
+    )
+    val pulse by motion.animateFloat(
+        initialValue = 0.94f, targetValue = 1.07f,
+        animationSpec = androidx.compose.animation.core.infiniteRepeatable(
+            animation = androidx.compose.animation.core.tween(1650, easing = androidx.compose.animation.core.FastOutSlowInEasing),
+            repeatMode = androidx.compose.animation.core.RepeatMode.Reverse
+        ), label = "core-pulse"
+    )
+    val glow by motion.animateFloat(
+        initialValue = 0.34f, targetValue = 0.88f,
+        animationSpec = androidx.compose.animation.core.infiniteRepeatable(
+            animation = androidx.compose.animation.core.tween(2100, easing = androidx.compose.animation.core.FastOutSlowInEasing),
+            repeatMode = androidx.compose.animation.core.RepeatMode.Reverse
+        ), label = "core-glow"
     )
     Box(
         modifier = Modifier.fillMaxSize().background(
-            Brush.radialGradient(
-                colors = listOf(Color(0xFF10172A), Color(0xFF0B1020), Color(0xFF070B18))
-            )
+            Brush.radialGradient(listOf(Color(0xFF101B38), Color(0xFF070B18), Color(0xFF03050D)))
         ),
         contentAlignment = Alignment.Center
     ) {
+        // Ambient liquid-glass light pools.
+        Box(Modifier.size(310.dp).background(
+            Brush.radialGradient(listOf(Color(0x3322D3EE), Color.Transparent)), CircleShape
+        ))
+        Box(Modifier.size(270.dp).background(
+            Brush.radialGradient(listOf(Color(0x338B5CF6), Color.Transparent)), CircleShape
+        ))
         Column(
-            modifier = Modifier.fillMaxSize().padding(28.dp),
+            modifier = Modifier.fillMaxSize().padding(horizontal = 26.dp, vertical = 24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Box(
-                modifier = Modifier.size(224.dp),
-                contentAlignment = Alignment.Center
-            ) {
+            Box(Modifier.size(250.dp), contentAlignment = Alignment.Center) {
+                // Three independent glass orbit paths.
+                Box(Modifier.size(238.dp).rotate(outerRotation)
+                    .border(1.4.dp, Color(0xAA22D3EE).copy(alpha = glow), CircleShape))
+                Box(Modifier.size(207.dp).rotate(-outerRotation * 0.63f)
+                    .border(1.2.dp, Color(0xAA8B5CF6).copy(alpha = glow), CircleShape))
+                Box(Modifier.size(178.dp).rotate(innerRotation)
+                    .border(2.dp, Color(0xAAFF4D9D).copy(alpha = glow), RoundedCornerShape(44.dp)))
+                // Core halo.
+                Box(Modifier.size((148 * pulse).dp).background(
+                    Brush.radialGradient(listOf(
+                        Color(0xBB22D3EE).copy(alpha = glow),
+                        Color(0x668B5CF6).copy(alpha = glow),
+                        Color.Transparent
+                    )), CircleShape
+                ))
+                // Liquid-glass central neural nucleus.
                 Box(
-                    modifier = Modifier.size(218.dp).rotate(rotation)
-                        .border(1.dp, Color(0x55FF72D2), CircleShape)
-                )
-                Box(
-                    modifier = Modifier.size(184.dp).rotate(-rotation * 0.7f)
-                        .border(1.dp, Color(0x668B5CF6), CircleShape)
-                )
-                Box(
-                    modifier = Modifier.size((126 * pulse).dp).background(
-                        Brush.radialGradient(
-                            colors = listOf(Color(0xFFFFB7C2), Color(0xFFD91E3D), Color(0xFF64101F))
-                        ),
-                        CircleShape
-                    ).border(1.dp, Color(0xFFFF657E), CircleShape),
+                    Modifier.size((116 * pulse).dp)
+                        .background(
+                            Brush.linearGradient(listOf(
+                                Color(0xFF1E3A68), Color(0xFF21143F), Color(0xFF071629)
+                            )), CircleShape
+                        )
+                        .border(1.6.dp, Brush.linearGradient(listOf(Color(0xFF67E8F9), Color(0xFFC084FC), Color(0xFFFF72D2))), CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("✦", color = Color.White, fontSize = 58.sp, fontWeight = FontWeight.ExtraBold)
+                    Box(Modifier.size(78.dp).background(
+                        Brush.radialGradient(listOf(Color(0xFF8B5CF6), Color(0xFF263A80), Color(0xFF071629))),
+                        CircleShape
+                    ).border(1.dp, Color(0x887BE8F9), CircleShape), contentAlignment = Alignment.Center) {
+                        Text("M", color = Color.White, fontSize = 53.sp, fontWeight = FontWeight.Light)
+                    }
                 }
+                // Orbiting energy points.
+                Box(Modifier.offset(x = 102.dp, y = (-36).dp).size(10.dp)
+                    .background(Color(0xFF67E8F9), CircleShape))
+                Box(Modifier.offset(x = (-91).dp, y = 65.dp).size(7.dp)
+                    .background(Color(0xFFFF72D2), CircleShape))
+                Box(Modifier.offset(x = 24.dp, y = 116.dp).size(6.dp)
+                    .background(Color(0xFFC084FC), CircleShape))
             }
-            Spacer(Modifier.height(24.dp))
+            Spacer(Modifier.height(25.dp))
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
-                Text("Myra", color = Color(0xFFF7EEFF), fontSize = 38.sp, fontWeight = FontWeight.Bold)
-                Text(" AI", color = Color(0xFFFF72D2), fontSize = 38.sp, fontWeight = FontWeight.Bold)
+                Text("MYRA", color = Color(0xFFF7FAFF), fontSize = 36.sp, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
+                Spacer(Modifier.width(8.dp))
+                Text("AI", color = Color(0xFF67E8F9), fontSize = 36.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
             }
-            Spacer(Modifier.height(8.dp))
-            Text(
-                "Your Personal AI Assistant",
-                color = Color(0xFFE6DDF8),
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Medium
-            )
             Spacer(Modifier.height(7.dp))
-            Text("Talk  •  Control  •  Get Things Done", color = Color(0xFFB8A9D8), fontSize = 11.sp)
-            Spacer(Modifier.height(34.dp))
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(16.dp),
-                    color = Color(0xFFFF72D2),
-                    strokeWidth = 2.dp
-                )
-                Spacer(Modifier.width(10.dp))
-                Text("INITIALIZING YOUR AI", color = Color(0xFFFF9DDC), fontSize = 11.sp, letterSpacing = 1.5.sp)
+            Text("YOUR SMART COMPANION", color = Color(0xFFC4B5FD), fontSize = 11.sp, letterSpacing = 2.2.sp)
+            Spacer(Modifier.height(28.dp))
+            Box(Modifier.width(190.dp).height(5.dp).clip(RoundedCornerShape(8.dp))
+                .background(Color(0xFF18233B))) {
+                Box(Modifier.fillMaxWidth(glow).fillMaxHeight().background(
+                    Brush.horizontalGradient(listOf(Color(0xFF22D3EE), Color(0xFF8B5CF6), Color(0xFFFF4D9D))),
+                    RoundedCornerShape(8.dp)
+                ))
             }
-            Spacer(Modifier.height(42.dp))
-            Text(
-                "✦  POWERED BY GEMINI AI  ✦",
-                color = Color(0xFFFF72D2),
-                fontSize = 10.sp,
-                letterSpacing = 1.4.sp
-            )
+            Spacer(Modifier.height(12.dp))
+            Text("INITIALIZING NEURAL CORE", color = Color(0xFFB8C7E5), fontSize = 10.sp, letterSpacing = 1.7.sp)
         }
     }
 }
+
 @Composable
 private fun SettingToggle(label: String, checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
     Row(
