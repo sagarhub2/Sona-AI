@@ -4366,6 +4366,39 @@ class MainActivity : ComponentActivity() {
             } catch (_: Exception) { respond("Default apps settings is phone par available nahi hai.") }
         }
 
+        if (listOf("open camera", "camera kholo", "camera open karo", "कैमरा खोलो").any { command == it }) {
+            return try {
+                val intent = Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE)
+                if (intent.resolveActivity(packageManager) == null) respond("Is phone par camera app available nahi hai.")
+                else { startActivity(intent); respond("Camera khol diya hai.") }
+            } catch (_: Exception) { respond("Camera open nahi ho paaya.") }
+        }
+        if (listOf("open gallery", "gallery kholo", "photos kholo", "open photos", "गैलरी खोलो", "फोटो खोलो").any { command == it }) {
+            return try {
+                val intent = Intent(Intent.ACTION_GET_CONTENT).apply { type = "image/*" }
+                startActivity(Intent.createChooser(intent, "Choose a photo"))
+                respond("Photo gallery picker khol diya hai.")
+            } catch (_: Exception) { respond("Gallery ya photo picker open nahi ho paaya.") }
+        }
+        if (listOf("open contacts", "contacts kholo", "contact list kholo", "मेरे कॉन्टैक्ट खोलो").any { command == it }) {
+            return try {
+                val intent = Intent(Intent.ACTION_VIEW, android.provider.ContactsContract.Contacts.CONTENT_URI)
+                if (intent.resolveActivity(packageManager) == null) respond("Contacts app available nahi hai.")
+                else { startActivity(intent); respond("Contacts list khol di hai.") }
+            } catch (_: Exception) { respond("Contacts list open nahi ho paayi.") }
+        }
+        val webSearchPrefixes = listOf("search web for ", "search internet for ", "google search ", "web par search karo ", "इंटरनेट पर खोजो ")
+        val webSearchPrefix = webSearchPrefixes.firstOrNull { command.startsWith(it) }
+        if (webSearchPrefix != null) {
+            val query = raw.trim().drop(webSearchPrefix.length).trim()
+            if (query.isBlank()) return respond("Web par kya search karna hai?")
+            return try {
+                val encoded = URLEncoder.encode(query, "UTF-8")
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?q=$encoded")))
+                respond("Web search khol di hai: $query")
+            } catch (_: Exception) { respond("Web search open nahi ho paayi.") }
+        }
+
         val openPrefix = listOf("open app ", "launch app ", "open ", "launch ", "खोलो ", "ओपन ")
             .firstOrNull { command.startsWith(it) }
         val suffixAppQuery = listOf(" kholo", " khol do", " खोलो", " खोल दो", " open")
