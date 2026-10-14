@@ -5622,6 +5622,7 @@ private fun MyraHome(
                         .clip(CircleShape).background(if (index % 2 == 0) Color(0xFF9666FF).copy(alpha = .85f) else Color(0xFF9666FF).copy(alpha = .95f)))
                 }
                 Surface(
+                    modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 2.dp),
                     shape = RoundedCornerShape(50),
                     color = Color(0xFF0D192B),
                     border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))
