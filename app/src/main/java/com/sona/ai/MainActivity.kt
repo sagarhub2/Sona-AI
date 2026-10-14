@@ -1313,7 +1313,7 @@ class MainActivity : ComponentActivity() {
                 val chatSearchResult = if (chatSearchQuery.isBlank()) savedChat else savedChat.lines()
                     .filter { it.contains(chatSearchQuery, ignoreCase = true) }
                     .joinToString("\n")
-                val chatCategories = listOf("General Chat", "Study Help", "Image Prompt", "Code Assistant", "Travel Plans", "Health & Fitness", "Creative Ideas")
+                val chatCategories = listOf("General Chat", "Study Help", "Daily Planner", "Creative Writing", "Writing Studio", "Tech & Gadgets", "Travel Planning", "Health & Fitness", "Code Assistant", "Image Prompt", "Creative Ideas", "Focus & Goals")
                 Dialog(
                     onDismissRequest = { showChat = false },
                     properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false)
