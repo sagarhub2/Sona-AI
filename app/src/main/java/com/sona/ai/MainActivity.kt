@@ -1156,7 +1156,7 @@ class MainActivity : ComponentActivity() {
                                     horizontalArrangement = Arrangement.spacedBy(7.dp),
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    listOf("◉  REAL-TIME", "文  MULTI-LANGUAGE", "♛  BOSS MODE").forEachIndexed { index, feature ->
+                                    listOf("◉  REAL-TIME", "文  VOICE OPTIONS", "♛  BOSS MODE").forEachIndexed { index, feature ->
                                         Surface(
                                             modifier = Modifier.weight(1f),
                                             color = Color(0xFF0D192B),
@@ -2041,7 +2041,7 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                             Row(Modifier.fillMaxWidth().padding(top = 10.dp, bottom = 2.dp), verticalAlignment = Alignment.CenterVertically) {
-                                Text("CHOOSE YOUR MODE", color = Color(0xFF55E7F5), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                                Column(verticalArrangement = Arrangement.spacedBy(2.dp)) { Text("CHOOSE YOUR MODE", color = Color(0xFF55E7F5), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp); Text("Your AI conversations, organized your way", color = Color(0xFF8298B8), fontSize = 9.sp, maxLines = 1) }
                                 Spacer(Modifier.weight(1f))
                                 Text("${chatCategories.size} MODES", color = Color(0xFF7E91B0), fontSize = 8.sp, fontWeight = FontWeight.SemiBold, letterSpacing = .8.sp)
                             }
@@ -5925,8 +5925,10 @@ private fun MyraHome(
                 HomeGlassCard("Camera", "See & analyze", "▣", Color(0xFF10B981), Modifier.weight(1f)) { onCamera() }
                 HomeGlassCard("Memory", "Remember", "✦", Color(0xFF9666FF), Modifier.weight(1f)) { onMemory() }
             }
-            Text("Quick Actions", color = Color(0xFFF5F7FF), fontSize = 14.sp, fontWeight = FontWeight.Bold,
-                modifier = Modifier.fillMaxWidth().padding(top = 14.dp, bottom = 8.dp))
+            Column(Modifier.fillMaxWidth().padding(top = 14.dp, bottom = 8.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Text("Quick Actions", color = Color(0xFFF5F7FF), fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                Text("Your everyday tools, one tap away", color = Color(0xFF8298B8), fontSize = 10.sp)
+            }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
                 HomeQuickAction("Open Apps", "▣", Color(0xFF55E7F5)) { onFeatures() }
                 HomeQuickAction("Music", "♫", Color(0xFF8EA8FF)) { onMedia() }
