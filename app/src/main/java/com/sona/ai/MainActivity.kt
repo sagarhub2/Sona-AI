@@ -5715,14 +5715,27 @@ private fun MyraHome(
                 }
             }
         }
-            Row(Modifier.fillMaxWidth().padding(top = 14.dp, bottom = 9.dp), verticalAlignment = Alignment.CenterVertically) {
-                Text("Start a conversation", color = Color(0xFFF5F7FF), fontSize = 15.sp, fontWeight = FontWeight.Bold)
+            Row(Modifier.fillMaxWidth().padding(top = 12.dp, bottom = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                Text("Quick Access", color = Color(0xFFF5F7FF), fontSize = 15.sp, fontWeight = FontWeight.Bold)
                 Spacer(Modifier.weight(1f))
                 Text("MYRA TOOLS", color = Color(0xFF55E7F5), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .8.sp)
             }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(9.dp)) {
                 HomeGlassCard("Chat", "Ask anything", "▣", Color(0xFF456CFF), Modifier.weight(1f)) { onChat() }
                 HomeGlassCard("Voice", "Speak & listen", "♫", Color(0xFF9666FF), Modifier.weight(1f)) { onStartVoice() }
+            }
+            Spacer(Modifier.height(9.dp))
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(9.dp)) {
+                HomeGlassCard("Camera", "See & analyze", "▣", Color(0xFF10B981), Modifier.weight(1f)) { onCamera() }
+                HomeGlassCard("Memory", "Remember", "✦", Color(0xFF9666FF), Modifier.weight(1f)) { onMemory() }
+            }
+            Text("Quick Actions", color = Color(0xFFF5F7FF), fontSize = 14.sp, fontWeight = FontWeight.Bold,
+                modifier = Modifier.fillMaxWidth().padding(top = 14.dp, bottom = 8.dp))
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
+                HomeQuickAction("Open Apps", "▣", Color(0xFF55E7F5)) { onFeatures() }
+                HomeQuickAction("YouTube", "▶", Color(0xFFFF5B6E)) { onMedia() }
+                HomeQuickAction("Music", "♫", Color(0xFF8EA8FF)) { onMedia() }
+                HomeQuickAction("Settings", "⚙", Color(0xFFB46CFF)) { onSettings() }
             }
             Spacer(Modifier.height(14.dp))
         // Floating HUD-style navigation: separated from the screen edge with a soft holographic rim.
