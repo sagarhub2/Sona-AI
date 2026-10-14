@@ -5562,7 +5562,7 @@ private fun MyraHome(
                 Text("Ready when you are…", color = muted, fontSize = 12.sp, modifier = Modifier.padding(top = 3.dp, bottom = 2.dp))
                 Text("VOICE  •  CHAT  •  PHONE SHORTCUTS", color = Color(0xFF53E5F5), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.15.sp, modifier = Modifier.padding(top = 3.dp, bottom = 4.dp))
             }
-            Box(Modifier.fillMaxWidth().height(235.dp), contentAlignment = Alignment.Center) {
+            Box(Modifier.fillMaxWidth().height(248.dp), contentAlignment = Alignment.Center) {
                 androidx.compose.foundation.Canvas(Modifier.fillMaxSize()) {
                     val wave = androidx.compose.ui.graphics.Path().apply {
                         moveTo(0f, size.height * 0.30f)
@@ -5799,7 +5799,7 @@ private fun HomeQuickAction(title: String, symbol: String, tint: Color, onClick:
 
 @Composable
 private fun HomeGlassCard(title: String, subtitle: String, symbol: String, tint: Color, modifier: Modifier = Modifier, onClick: () -> Unit) {
-    Surface(modifier = modifier.height(84.dp), onClick = onClick, shape = RoundedCornerShape(21.dp),
+    Surface(modifier = modifier.height(88.dp), onClick = onClick, shape = RoundedCornerShape(21.dp),
         color = Color(0xCC111A32), shadowElevation = 4.dp,
         border = androidx.compose.foundation.BorderStroke(1.dp, tint.copy(alpha = .78f))) {
         Row(Modifier.fillMaxSize().padding(horizontal = 12.dp), verticalAlignment = Alignment.CenterVertically) {
