@@ -22,6 +22,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.border
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -1031,7 +1032,7 @@ class MainActivity : ComponentActivity() {
                                 ) {
                                     androidx.compose.material3.FilledTonalButton(
                                         modifier = Modifier.weight(1f).height(48.dp),
-                                        onClick = { voiceMuted = !voiceMuted; if (voiceMuted) stopVoiceRecognition() else startVoiceRecognition() },
+                                        onClick = { voiceMuted = !voiceMuted; liveVoiceSession?.setMuted(voiceMuted); if (!voiceMuted && liveVoiceSession == null) startVoiceRecognition() },
                                         colors = androidx.compose.material3.ButtonDefaults.filledTonalButtonColors(
                                             containerColor = if (voiceMuted) Color(0xFF17243A) else Color(0xFF132B43),
                                             contentColor = Color(0xFF55E7F5)
@@ -1041,7 +1042,7 @@ class MainActivity : ComponentActivity() {
                                     ) { Text(if (voiceMuted) "🎙  Unmute" else "🎙  Mute", fontSize = 11.sp, fontWeight = FontWeight.Bold) }
                                     androidx.compose.material3.FilledTonalButton(
                                         modifier = Modifier.weight(1f).height(48.dp),
-                                        onClick = { stopVoiceRecognition(); status = "VOICE SESSION STOPPED" },
+                                        onClick = { liveVoiceSession?.stop(); liveVoiceSession = null; status = "VOICE SESSION STOPPED" },
                                         colors = androidx.compose.material3.ButtonDefaults.filledTonalButtonColors(
                                             containerColor = Color(0xFF29162D),
                                             contentColor = Color(0xFFFF8AA7)
@@ -5775,7 +5776,6 @@ private fun MyraHome(
 }
 
 
-@Composable
 @Composable
 private fun HomeQuickAction(title: String, symbol: String, tint: Color, onClick: () -> Unit) {
     Column(
