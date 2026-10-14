@@ -1912,29 +1912,72 @@ class MainActivity : ComponentActivity() {
                                 Spacer(Modifier.weight(1f))
                                 Text("${chatCategories.size} MODES", color = Color(0xFF7E91B0), fontSize = 8.sp, fontWeight = FontWeight.SemiBold, letterSpacing = .8.sp)
                             }
+                            var showAllChatModes by remember { mutableStateOf(false) }
+                            val visibleChatModes = if (showAllChatModes) chatCategories else chatCategories.take(6)
                             Row(
-                                modifier = Modifier.fillMaxWidth().horizontalScroll(androidx.compose.foundation.rememberScrollState()),
+                                modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.spacedBy(7.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                chatCategories.forEach { category ->
-                                    androidx.compose.material3.FilterChip(
-                                        selected = selectedChatCategory == category,
-                                        onClick = { selectedChatCategory = category },
-                                        label = { Text(category, fontSize = 10.sp, maxLines = 1) },
-                                        colors = androidx.compose.material3.FilterChipDefaults.filterChipColors(
-                                            selectedContainerColor = Color(0xFF123044),
-                                            selectedLabelColor = Color(0xFF55E7F5),
-                                            containerColor = Color(0xFF0D192B),
-                                            labelColor = Color(0xFF9CB4D0)
-                                        ),
-                                        border = androidx.compose.material3.FilterChipDefaults.filterChipBorder(
-                                            enabled = true,
-                                            selected = selectedChatCategory == category,
-                                            borderColor = Color(0xFF314B6A),
-                                            selectedBorderColor = Color(0xFF55E7F5)
-                                        )
+                                androidx.compose.material3.FilterChip(
+                                    selected = showAllChatModes,
+                                    onClick = { showAllChatModes = !showAllChatModes },
+                                    label = { Text(if (showAllChatModes) "LESS" else "ALL MODES", fontSize = 10.sp, maxLines = 1) },
+                                    colors = androidx.compose.material3.FilterChipDefaults.filterChipColors(
+                                        selectedContainerColor = Color(0xFF123044),
+                                        selectedLabelColor = Color(0xFF55E7F5),
+                                        containerColor = Color(0xFF0D192B),
+                                        labelColor = Color(0xFF9CB4D0)
+                                    ),
+                                    border = androidx.compose.material3.FilterChipDefaults.filterChipBorder(
+                                        enabled = true, selected = showAllChatModes,
+                                        borderColor = Color(0xFF314B6A),
+                                        selectedBorderColor = Color(0xFF55E7F5)
                                     )
+                                )
+                                androidx.compose.foundation.layout.BoxWithConstraints(Modifier.weight(1f)) {
+                                    val modeChipWidth = (maxWidth - 14.dp) / 2
+                                    Row(horizontalArrangement = Arrangement.spacedBy(7.dp)) {
+                                        visibleChatModes.filter { it != "General Chat" || selectedChatCategory == "General Chat" }.take(2).forEach { category ->
+                                            androidx.compose.material3.FilterChip(
+                                                modifier = Modifier.weight(1f),
+                                                selected = selectedChatCategory == category,
+                                                onClick = { selectedChatCategory = category },
+                                                label = { Text(category, fontSize = 9.sp, maxLines = 1, softWrap = false) },
+                                                colors = androidx.compose.material3.FilterChipDefaults.filterChipColors(
+                                                    selectedContainerColor = Color(0xFF123044), selectedLabelColor = Color(0xFF55E7F5),
+                                                    containerColor = Color(0xFF0D192B), labelColor = Color(0xFF9CB4D0)
+                                                ),
+                                                border = androidx.compose.material3.FilterChipDefaults.filterChipBorder(
+                                                    enabled = true, selected = selectedChatCategory == category,
+                                                    borderColor = Color(0xFF314B6A), selectedBorderColor = Color(0xFF55E7F5)
+                                                )
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                            if (showAllChatModes) {
+                                androidx.compose.foundation.layout.FlowRow(
+                                    modifier = Modifier.fillMaxWidth().padding(top = 3.dp),
+                                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                                    verticalArrangement = Arrangement.spacedBy(1.dp)
+                                ) {
+                                    chatCategories.forEach { category ->
+                                        androidx.compose.material3.FilterChip(
+                                            selected = selectedChatCategory == category,
+                                            onClick = { selectedChatCategory = category },
+                                            label = { Text(category, fontSize = 9.sp, maxLines = 1) },
+                                            colors = androidx.compose.material3.FilterChipDefaults.filterChipColors(
+                                                selectedContainerColor = Color(0xFF123044), selectedLabelColor = Color(0xFF55E7F5),
+                                                containerColor = Color(0xFF0D192B), labelColor = Color(0xFF9CB4D0)
+                                            ),
+                                            border = androidx.compose.material3.FilterChipDefaults.filterChipBorder(
+                                                enabled = true, selected = selectedChatCategory == category,
+                                                borderColor = Color(0xFF314B6A), selectedBorderColor = Color(0xFF55E7F5)
+                                            )
+                                        )
+                                    }
                                 }
                             }
                             Spacer(Modifier.height(6.dp))
