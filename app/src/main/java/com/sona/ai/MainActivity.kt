@@ -5562,7 +5562,7 @@ private fun MyraHome(
                 Text("Ready when you are…", color = muted, fontSize = 12.sp, modifier = Modifier.padding(top = 3.dp, bottom = 2.dp))
                 Text("VOICE  •  CHAT  •  PHONE SHORTCUTS", color = Color(0xFF53E5F5), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.15.sp, modifier = Modifier.padding(top = 3.dp, bottom = 4.dp))
             }
-            Box(Modifier.fillMaxWidth().height(205.dp), contentAlignment = Alignment.Center) {
+            Box(Modifier.fillMaxWidth().height(235.dp), contentAlignment = Alignment.Center) {
                 androidx.compose.foundation.Canvas(Modifier.fillMaxSize()) {
                     val wave = androidx.compose.ui.graphics.Path().apply {
                         moveTo(0f, size.height * 0.30f)
@@ -5579,19 +5579,19 @@ private fun MyraHome(
                     drawPath(secondWave, Color(0x2255E7F5), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 1.5.dp.toPx()))
                 }
                 // Layered soft rose halos create the reference's atmospheric holographic glow.
-                Box(Modifier.size(270.dp).clip(CircleShape)
+                Box(Modifier.size(300.dp).clip(CircleShape)
                     .background(Brush.radialGradient(listOf(Color(0x4455E7F5), Color(0x229666FF), Color.Transparent))))
-                Box(Modifier.size(248.dp).clip(CircleShape)
+                Box(Modifier.size(278.dp).clip(CircleShape)
                     .background(Brush.radialGradient(listOf(Color(0x339666FF), Color(0x1855E7F5), Color.Transparent))))
-                Box(Modifier.size(244.dp).rotate(rotation).border(1.dp, Color(0x6673DFFF), CircleShape))
-                Box(Modifier.size(226.dp).rotate(-rotation * .7f)
+                Box(Modifier.size(270.dp).rotate(rotation).border(1.dp, Color(0x6673DFFF), CircleShape))
+                Box(Modifier.size(250.dp).rotate(-rotation * .7f)
                     .border(1.dp, Color(0x6655E7F5), CircleShape))
-                Box(Modifier.size(208.dp).rotate(rotation * .45f)
+                Box(Modifier.size(230.dp).rotate(rotation * .45f)
                     .border(2.dp, Color(0x889666FF), CircleShape))
-                Box(Modifier.size(184.dp).clip(CircleShape)
+                Box(Modifier.size(204.dp).clip(CircleShape)
                     .background(Brush.radialGradient(listOf(Color(0x5555E7F5), Color(0x229666FF), Color.Transparent))))
                 Box(
-                    Modifier.size((156f * (if (animatedOrb) pulse else 1f)).dp).clip(CircleShape)
+                    Modifier.size((170f * (if (animatedOrb) pulse else 1f)).dp).clip(CircleShape)
                         .background(Brush.radialGradient(listOf(Color(0xFF050B16), Color(0xFF101A35), Color(0xFF020712))))
                         .border(1.dp, Color(0xFF9666FF).copy(alpha = .95f), CircleShape)
                         .padding(5.dp)
@@ -5782,31 +5782,31 @@ private fun MyraHome(
 @Composable
 private fun HomeQuickAction(title: String, symbol: String, tint: Color, onClick: () -> Unit) {
     Column(
-        Modifier.width(72.dp).clip(RoundedCornerShape(16.dp)).clickable(onClick = onClick).padding(vertical = 3.dp),
+        Modifier.width(76.dp).clip(RoundedCornerShape(16.dp)).clickable(onClick = onClick).padding(vertical = 3.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
         Box(
-            Modifier.size(48.dp).clip(CircleShape)
+            Modifier.size(52.dp).clip(CircleShape)
                 .background(Brush.radialGradient(listOf(tint.copy(alpha = .24f), Color(0xFF0D192B))))
                 .border(1.dp, tint.copy(alpha = .45f), CircleShape),
             contentAlignment = Alignment.Center
         ) { Text(symbol, color = tint, fontSize = 22.sp, fontWeight = FontWeight.Bold) }
-        Text(title, color = Color(0xFFDCE6F8), fontSize = 9.sp, maxLines = 1)
+        Text(title, color = Color(0xFFDCE6F8), fontSize = 10.sp, maxLines = 1)
     }
 }
 
 @Composable
 private fun HomeGlassCard(title: String, subtitle: String, symbol: String, tint: Color, modifier: Modifier = Modifier, onClick: () -> Unit) {
-    Surface(modifier = modifier.height(76.dp), onClick = onClick, shape = RoundedCornerShape(18.dp),
+    Surface(modifier = modifier.height(84.dp), onClick = onClick, shape = RoundedCornerShape(21.dp),
         color = Color(0xCC111A32), shadowElevation = 4.dp,
         border = androidx.compose.foundation.BorderStroke(1.dp, tint.copy(alpha = .78f))) {
-        Row(Modifier.fillMaxSize().padding(horizontal = 10.dp), verticalAlignment = Alignment.CenterVertically) {
-            Box(Modifier.size(34.dp).clip(RoundedCornerShape(11.dp)).background(Brush.linearGradient(listOf(tint, tint.copy(alpha = .35f)))),
+        Row(Modifier.fillMaxSize().padding(horizontal = 12.dp), verticalAlignment = Alignment.CenterVertically) {
+            Box(Modifier.size(42.dp).clip(RoundedCornerShape(12.dp)).background(Brush.linearGradient(listOf(tint, tint.copy(alpha = .35f)))),
                 contentAlignment = Alignment.Center) { Text(symbol, color = Color.White, fontSize = 19.sp) }
             Column(Modifier.weight(1f).padding(start = 8.dp), verticalArrangement = Arrangement.Center) {
-                Text(title, color = Color(0xFFF5F7FF), fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
-                Text(subtitle, color = Color(0xFFA8B4D0), fontSize = 9.sp, maxLines = 1)
+                Text(title, color = Color(0xFFF5F7FF), fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
+                Text(subtitle, color = Color(0xFFA8B4D0), fontSize = 10.sp, maxLines = 1)
             }
         }
     }
