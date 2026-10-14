@@ -4387,8 +4387,8 @@ class MainActivity : ComponentActivity() {
                 else { startActivity(intent); respond("Contacts list khol di hai.") }
             } catch (_: Exception) { respond("Contacts list open nahi ho paayi.") }
         }
-        val webSearchPrefixes = listOf("search web for ", "search internet for ", "google search ", "web par search karo ", "इंटरनेट पर खोजो ")
-        val webSearchPrefix = webSearchPrefixes.firstOrNull { command.startsWith(it) }
+        val voiceWebSearchPrefixes = listOf("search web for ", "search internet for ", "google search ", "web par search karo ", "इंटरनेट पर खोजो ")
+        val webSearchPrefix = voiceWebSearchPrefixes.firstOrNull { command.startsWith(it) }
         if (webSearchPrefix != null) {
             val query = raw.trim().drop(webSearchPrefix.length).trim()
             if (query.isBlank()) return respond("Web par kya search karna hai?")
