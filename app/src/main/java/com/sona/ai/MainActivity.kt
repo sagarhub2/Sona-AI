@@ -860,7 +860,7 @@ class MainActivity : ComponentActivity() {
                                         },
                                         color = when {
                                             voiceMuted -> Color(0xFF8298B8)
-                                            status.contains("THINK", true) || status.contains("PROCESS", true) || status.contains("REPLY", true) -> Color(0xFFB46CFF)
+                                            status.contains("THINK", true) || status.contains("PROCESS", true) || status.contains("REPLY", true) -> Color(0xFF55E7F5)
                                             else -> Color(0xFFB46CFF)
                                         },
                                         fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 2.sp
@@ -941,7 +941,7 @@ class MainActivity : ComponentActivity() {
                                         1.dp,
                                         if (status.contains("LISTEN", true) || status.contains("LIVE", true))
                                             Color(0xFF55E7F5).copy(alpha = .72f)
-                                        else Color(0xFF9666FF).copy(alpha = .58f)
+                                        else Color(0xFF55E7F5).copy(alpha = .58f)
                                     )
                                 ) {
                                     Row(
@@ -1497,7 +1497,7 @@ class MainActivity : ComponentActivity() {
                                         },
                                         shape = RoundedCornerShape(18.dp),
                                         color = if (active) Color(0xFF14283D) else Color(0xFF0D192B),
-                                        border = androidx.compose.foundation.BorderStroke(1.dp, if (active) Color(0xFF9666FF) else Color(0xFF314B6A))
+                                        border = androidx.compose.foundation.BorderStroke(1.dp, if (active) Color(0xFF55E7F5) else Color(0xFF314B6A))
                                     ) {
                                         Text(
                                             tab,
