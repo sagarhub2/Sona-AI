@@ -834,7 +834,7 @@ class MainActivity : ComponentActivity() {
                                     }
                                     Spacer(Modifier.width(9.dp))
                                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                                        Text("Voice Assistant", color = Color(0xFFF5F7FF), fontSize = 21.sp, fontWeight = FontWeight.Bold, letterSpacing = .1.sp)
+                                        Text("Voice Assistant", color = Color(0xFF55E7F5), fontSize = 21.sp, fontWeight = FontWeight.Bold, letterSpacing = .1.sp)
                                         Text("Tap to start or say “Hey Myra”", color = Color(0xFFB6C5DE), fontSize = 14.sp, fontWeight = FontWeight.Medium, letterSpacing = .1.sp)
                                     }
                                     Surface(
@@ -1345,8 +1345,8 @@ class MainActivity : ComponentActivity() {
                                 }
                                 Spacer(Modifier.width(10.dp))
                                 Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                                    Text("MYRA Chat", color = Color(0xFFF5F7FF), fontSize = 24.sp, fontWeight = FontWeight.Bold, letterSpacing = .2.sp)
-                                    Text("Ask anything. Build ideas. Keep the flow going.", color = Color(0xFFB6C5DE), fontSize = 11.sp, fontWeight = FontWeight.Medium, letterSpacing = .1.sp)
+                                    Text("MYRA Chat", color = Color(0xFF55E7F5), fontSize = 24.sp, fontWeight = FontWeight.Bold, letterSpacing = .2.sp)
+                                    Text("Your private space to think, create and ask.", color = Color(0xFFB6C5DE), fontSize = 11.sp, fontWeight = FontWeight.Medium, letterSpacing = .1.sp)
                                     Row(
                                         Modifier.padding(top = 2.dp).clip(RoundedCornerShape(20.dp))
                                             .background(Color(0xFF172B42)).border(1.dp, Color(0xFF9666FF).copy(alpha = .28f), RoundedCornerShape(20.dp))
