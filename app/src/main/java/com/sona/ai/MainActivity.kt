@@ -5714,7 +5714,7 @@ private fun MyraHome(
             }
         }
             Row(Modifier.fillMaxWidth().padding(top = 14.dp, bottom = 9.dp), verticalAlignment = Alignment.CenterVertically) {
-                Text("Quick Actions", color = Color(0xFFF5F7FF), fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                Text("Start a conversation", color = Color(0xFFF5F7FF), fontSize = 15.sp, fontWeight = FontWeight.Bold)
                 Spacer(Modifier.weight(1f))
                 Text("MYRA TOOLS", color = Color(0xFF55E7F5), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = .8.sp)
             }
@@ -5722,19 +5722,7 @@ private fun MyraHome(
                 HomeGlassCard("Chat", "Ask anything", "▣", Color(0xFF456CFF), Modifier.weight(1f)) { onChat() }
                 HomeGlassCard("Voice", "Speak & listen", "♫", Color(0xFF9666FF), Modifier.weight(1f)) { onStartVoice() }
             }
-            Spacer(Modifier.height(9.dp))
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(9.dp)) {
-                HomeGlassCard("Camera", "See & analyze", "▣", Color(0xFF18C995), Modifier.weight(1f)) { onCamera() }
-                HomeGlassCard("Memory", "Remember", "⬡", Color(0xFF9A48FF), Modifier.weight(1f)) { onMemory() }
-            }
             Spacer(Modifier.height(14.dp))
-            Text("Quick Actions", color = Color(0xFFF5F7FF), fontSize = 14.sp, fontWeight = FontWeight.Bold)
-            Row(Modifier.fillMaxWidth().padding(top = 10.dp, bottom = 4.dp), horizontalArrangement = Arrangement.SpaceAround, verticalAlignment = Alignment.CenterVertically) {
-                HomeQuickAction("Open Apps", "▦", Color(0xFF55E7F5)) { onFeatures() }
-                HomeQuickAction("YouTube", "▶", Color(0xFFFF4968)) { onMedia() }
-                HomeQuickAction("Music", "♫", Color(0xFF8A9BFF)) { onMedia() }
-                HomeQuickAction("Settings", "⚙", Color(0xFFB46CFF)) { onSettings() }
-            }
         // Floating HUD-style navigation: separated from the screen edge with a soft holographic rim.
         Row(
             Modifier.fillMaxWidth().padding(horizontal = 10.dp, vertical = 7.dp)
