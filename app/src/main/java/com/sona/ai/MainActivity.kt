@@ -940,7 +940,7 @@ class MainActivity : ComponentActivity() {
                                                     letterSpacing = .2.sp, maxLines = 1
                                                 )
                                                 Text(
-                                                    when (index) { 0 -> if (voiceReady) "CONNECTED" else "LIVE AUDIO"; 1 -> "VOICE OPTIONS"; else -> if (bossMode) "ACTIVE" else "OPTIONAL" },
+                                                    when (index) { 0 -> if (voiceReady) "CONNECTED" else "STANDBY"; 1 -> "LANGUAGE OPTIONS"; else -> if (bossMode) "ACTIVE" else "TAP TO ENABLE" },
                                                     color = if ((index == 2 && bossMode) || (index == 0 && voiceReady)) Color(0xFF66F0BC) else Color(0xFF8298B8),
                                                     fontSize = 7.sp, maxLines = 1
                                                 )
@@ -2046,7 +2046,7 @@ class MainActivity : ComponentActivity() {
                                 Text("${chatCategories.size} MODES", color = Color(0xFF7E91B0), fontSize = 8.sp, fontWeight = FontWeight.SemiBold, letterSpacing = .8.sp)
                             }
                             var showAllChatModes by remember { mutableStateOf(false) }
-                            val visibleChatModes = if (showAllChatModes) chatCategories else chatCategories.take(6)
+                            val visibleChatModes = if (showAllChatModes) chatCategories else (listOf(selectedChatCategory) + chatCategories.filter { it != selectedChatCategory }).distinct().take(6)
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.spacedBy(7.dp),
@@ -5929,8 +5929,8 @@ private fun MyraHome(
                 modifier = Modifier.fillMaxWidth().padding(top = 14.dp, bottom = 8.dp))
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
                 HomeQuickAction("Open Apps", "▣", Color(0xFF55E7F5)) { onFeatures() }
-                HomeQuickAction("YouTube", "▶", Color(0xFFFF5B6E)) { onMedia() }
                 HomeQuickAction("Music", "♫", Color(0xFF8EA8FF)) { onMedia() }
+                HomeQuickAction("Camera", "◉", Color(0xFF10B981)) { onCamera() }
                 HomeQuickAction("Settings", "⚙", Color(0xFFB46CFF)) { onSettings() }
             }
             Spacer(Modifier.height(14.dp))
