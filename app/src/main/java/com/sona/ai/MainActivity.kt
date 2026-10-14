@@ -2047,7 +2047,7 @@ class MainActivity : ComponentActivity() {
                             }
                             var showAllChatModes by remember { mutableStateOf(false) }
                             val visibleChatModes = if (showAllChatModes) chatCategories else (listOf(selectedChatCategory) + chatCategories.filter { it != selectedChatCategory }).distinct().take(6)
-                            val compactChatModes = visibleChatModes.filter { it != "General Chat" || selectedChatCategory == "General Chat" }.take(2)
+                            val compactChatModes = (listOf(selectedChatCategory) + chatCategories.filter { it != selectedChatCategory && (it != "General Chat" || selectedChatCategory == "General Chat") }).distinct().take(2)
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.spacedBy(7.dp),
