@@ -494,13 +494,13 @@ class MainActivity : ComponentActivity() {
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
                             Text("◈  MYRA AI • TRIGGER CENTER", color = Color(0xFF55E7F5), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.7.sp)
-                            Text("Phone Actions & Triggers", color = Color(0xFFF5F7FF), fontSize = 22.sp, fontWeight = FontWeight.Bold, letterSpacing = .1.sp)
-                            Text("Quickly launch useful phone actions, alarms and reminders.", color = Color.White.copy(alpha = .88f), fontSize = 12.sp)
+                            Text("Triggers", color = Color(0xFFF5F7FF), fontSize = 22.sp, fontWeight = FontWeight.Bold, letterSpacing = .1.sp)
+                            Text("Automate your daily tasks with phone actions, alarms and reminders.", color = Color.White.copy(alpha = .88f), fontSize = 12.sp)
                         }
                     },
                     text = {
                         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                            Text("QUICK ACTIONS  •  DEVICE SHORTCUTS", color = Color(0xFF53E5F5), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                            Text("TRIGGERS  •  PHONE AUTOMATION", color = Color(0xFF53E5F5), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
                             @Composable
                             fun TriggerActionCard(icon: String, heading: String, detail: String, action: () -> Unit) {
                                 Surface(
@@ -2053,7 +2053,7 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                             Row(Modifier.fillMaxWidth().padding(top = 10.dp, bottom = 2.dp), verticalAlignment = Alignment.CenterVertically) {
-                                Column(verticalArrangement = Arrangement.spacedBy(2.dp)) { Text("CHOOSE YOUR MODE", color = Color(0xFF55E7F5), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp); Text("Your AI conversations, organized your way", color = Color(0xFF8298B8), fontSize = 9.sp, maxLines = 1) }
+                                Column(verticalArrangement = Arrangement.spacedBy(2.dp)) { Text("YOUR AI CONVERSATIONS", color = Color(0xFF55E7F5), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp); Text("Your AI conversations, organized your way", color = Color(0xFF8298B8), fontSize = 9.sp, maxLines = 1) }
                                 Spacer(Modifier.weight(1f))
                                 Text("${chatCategories.size} MODES", color = Color(0xFF7E91B0), fontSize = 8.sp, fontWeight = FontWeight.SemiBold, letterSpacing = .8.sp)
                             }
