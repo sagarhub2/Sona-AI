@@ -5591,7 +5591,7 @@ private fun MyraHome(
                 Box(Modifier.size(204.dp).clip(CircleShape)
                     .background(Brush.radialGradient(listOf(Color(0x5555E7F5), Color(0x229666FF), Color.Transparent))))
                 Box(
-                    Modifier.size((170f * (if (animatedOrb) pulse else 1f)).dp).clip(CircleShape)
+                    Modifier.size((182f * (if (animatedOrb) pulse else 1f)).dp).clip(CircleShape)
                         .background(Brush.radialGradient(listOf(Color(0xFF050B16), Color(0xFF101A35), Color(0xFF020712))))
                         .border(1.dp, Color(0xFF9666FF).copy(alpha = .95f), CircleShape)
                         .padding(5.dp)
@@ -5599,7 +5599,7 @@ private fun MyraHome(
                     contentAlignment = Alignment.Center
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        androidx.compose.foundation.Canvas(Modifier.size(width = 76.dp, height = 50.dp)) {
+                        androidx.compose.foundation.Canvas(Modifier.size(width = 82.dp, height = 54.dp)) {
                             val logo = androidx.compose.ui.graphics.Path().apply {
                                 moveTo(size.width * 0.08f, size.height * 0.88f)
                                 lineTo(size.width * 0.25f, size.height * 0.12f)
