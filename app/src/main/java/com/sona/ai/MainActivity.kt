@@ -5793,6 +5793,7 @@ private fun HomeQuickAction(title: String, symbol: String, tint: Color, onClick:
     }
 }
 
+@Composable
 private fun HomeGlassCard(title: String, subtitle: String, symbol: String, tint: Color, modifier: Modifier = Modifier, onClick: () -> Unit) {
     Surface(modifier = modifier.height(76.dp), onClick = onClick, shape = RoundedCornerShape(18.dp),
         color = Color(0xCC111A32), shadowElevation = 4.dp,
