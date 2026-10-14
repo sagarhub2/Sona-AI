@@ -911,7 +911,44 @@ class MainActivity : ComponentActivity() {
                                         )
                                     }
                                 }
-                                Spacer(Modifier.height(8.dp))
+                                Row(
+                                    Modifier.fillMaxWidth().padding(horizontal = 6.dp),
+                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                ) {
+                                    listOf("REAL-TIME", "MULTI-LANGUAGE", "BOSS MODE").forEachIndexed { index, feature ->
+                                        Surface(
+                                            modifier = Modifier.weight(1f),
+                                            shape = RoundedCornerShape(12.dp),
+                                            color = Color(0xFF0D192B),
+                                            border = androidx.compose.foundation.BorderStroke(
+                                                1.dp,
+                                                if ((index == 2 && bossMode) || (index == 0 && voiceReady)) Color(0xFF55E7F5).copy(alpha = .72f) else Color(0xFF314B6A)
+                                            )
+                                        ) {
+                                            Column(
+                                                Modifier.padding(horizontal = 5.dp, vertical = 9.dp),
+                                                horizontalAlignment = Alignment.CenterHorizontally,
+                                                verticalArrangement = Arrangement.spacedBy(4.dp)
+                                            ) {
+                                                Text(
+                                                    when (index) { 0 -> "◉"; 1 -> "文"; else -> "♛" },
+                                                    color = Color(0xFF55E7F5), fontSize = 15.sp, fontWeight = FontWeight.Bold
+                                                )
+                                                Text(
+                                                    feature,
+                                                    color = Color(0xFFB6C5DE), fontSize = 8.sp, fontWeight = FontWeight.Bold,
+                                                    letterSpacing = .2.sp, maxLines = 1
+                                                )
+                                                Text(
+                                                    when (index) { 0 -> if (voiceReady) "CONNECTED" else "LIVE AUDIO"; 1 -> "VOICE OPTIONS"; else -> if (bossMode) "ACTIVE" else "OPTIONAL" },
+                                                    color = if ((index == 2 && bossMode) || (index == 0 && voiceReady)) Color(0xFF66F0BC) else Color(0xFF8298B8),
+                                                    fontSize = 7.sp, maxLines = 1
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
+                                Spacer(Modifier.height(10.dp))
                                 Box(
                                     contentAlignment = Alignment.Center,
                                     modifier = Modifier.size(250.dp).clickable {
