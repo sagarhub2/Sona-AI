@@ -5522,7 +5522,7 @@ private fun MyraHome(
             Column(Modifier.weight(1f)) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(2.dp)) {
                     Text("MYRA", color = Color(0xFFF5F7FF), fontSize = 27.sp, fontWeight = FontWeight.Black, letterSpacing = (-1).sp)
-                    Text(" AI", color = Color(0xFF55E7F5), fontSize = 27.sp, fontWeight = FontWeight.Black, letterSpacing = (-1).sp
+                    Text(" AI", color = Color(0xFF55E7F5), fontSize = 27.sp, fontWeight = FontWeight.Black, letterSpacing = (-1).sp)
                     Box(Modifier.padding(start = 5.dp).size(6.dp).clip(CircleShape).background(if (hasKey) Color(0xFF9666FF) else Color(0xFFFFB36B)))
                 }
                 Text("AI COMPANION", color = Color(0xFF9EABC2), fontSize = 9.sp, letterSpacing = 1.1.sp)
