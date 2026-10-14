@@ -1313,7 +1313,7 @@ class MainActivity : ComponentActivity() {
                 val chatSearchResult = if (chatSearchQuery.isBlank()) savedChat else savedChat.lines()
                     .filter { it.contains(chatSearchQuery, ignoreCase = true) }
                     .joinToString("\n")
-                val chatCategories = listOf("General Chat", "Study Help", "Daily Planner", "Creative Writing", "Writing Studio", "Tech & Gadgets", "Travel Planning", "Health & Fitness", "Code Assistant", "Image Prompt", "Creative Ideas", "Focus & Goals", "Interview Prep", "Language Practice", "Business Ideas", "Email & Messages", "Math Solver")
+                val chatCategories = listOf("General Chat", "Study Help", "Daily Planner", "Creative Writing", "Writing Studio", "Tech & Gadgets", "Travel Planning", "Health & Fitness", "Code Assistant", "Image Prompt", "Creative Ideas", "Focus & Goals", "Interview Prep", "Language Practice", "Business Ideas", "Email & Messages", "Math Solver", "Science Explainer", "History & Culture", "Career Guidance", "Presentation Maker", "Resume Builder")
                 Dialog(
                     onDismissRequest = { showChat = false },
                     properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false)
@@ -2054,6 +2054,11 @@ class MainActivity : ComponentActivity() {
                                                 "Business Ideas" -> "Help brainstorm practical business ideas, identify customers and costs, and distinguish assumptions from verified facts. "
                                                 "Email & Messages" -> "Help write clear, respectful emails and messages suited to the audience and requested tone. "
                                                 "Math Solver" -> "Teach math step by step, show the reasoning clearly, and help the user understand rather than only giving the answer. "
+                                                "Science Explainer" -> "Explain science concepts clearly with examples and age-appropriate experiments or demonstrations that prioritize safety. "
+                                                "History & Culture" -> "Explain history and cultures with context, distinguish established facts from debated interpretations, and avoid stereotypes. "
+                                                "Career Guidance" -> "Help explore careers, skills, education paths, and practical next steps without assuming one path fits everyone. "
+                                                "Presentation Maker" -> "Help build a clear presentation outline with slide titles, concise bullets, speaker notes, and a strong flow. "
+                                                "Resume Builder" -> "Help draft an honest, readable resume using the user's real skills and experience; never invent qualifications. "
                                                 else -> ""
                                             }
                                             askGemini(if (categoryInstruction.isBlank()) message else "$categoryInstruction\\nUser request: $message", activeChatSessionId)
