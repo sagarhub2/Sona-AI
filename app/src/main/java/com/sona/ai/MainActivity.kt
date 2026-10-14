@@ -5579,16 +5579,16 @@ private fun MyraHome(
                     drawPath(secondWave, Color(0x2255E7F5), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 1.5.dp.toPx()))
                 }
                 // Layered soft rose halos create the reference's atmospheric holographic glow.
-                Box(Modifier.size(300.dp).clip(CircleShape)
+                Box(Modifier.size(320.dp).clip(CircleShape)
                     .background(Brush.radialGradient(listOf(Color(0x4455E7F5), Color(0x229666FF), Color.Transparent))))
-                Box(Modifier.size(278.dp).clip(CircleShape)
+                Box(Modifier.size(292.dp).clip(CircleShape)
                     .background(Brush.radialGradient(listOf(Color(0x339666FF), Color(0x1855E7F5), Color.Transparent))))
-                Box(Modifier.size(270.dp).rotate(rotation).border(1.dp, Color(0x6673DFFF), CircleShape))
-                Box(Modifier.size(250.dp).rotate(-rotation * .7f)
+                Box(Modifier.size(286.dp).rotate(rotation).border(1.dp, Color(0x6673DFFF), CircleShape))
+                Box(Modifier.size(264.dp).rotate(-rotation * .7f)
                     .border(1.dp, Color(0x6655E7F5), CircleShape))
-                Box(Modifier.size(230.dp).rotate(rotation * .45f)
+                Box(Modifier.size(244.dp).rotate(rotation * .45f)
                     .border(2.dp, Color(0x889666FF), CircleShape))
-                Box(Modifier.size(204.dp).clip(CircleShape)
+                Box(Modifier.size(218.dp).clip(CircleShape)
                     .background(Brush.radialGradient(listOf(Color(0x5555E7F5), Color(0x229666FF), Color.Transparent))))
                 Box(
                     Modifier.size((182f * (if (animatedOrb) pulse else 1f)).dp).clip(CircleShape)
