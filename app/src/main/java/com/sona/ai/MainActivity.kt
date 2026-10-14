@@ -1463,13 +1463,13 @@ class MainActivity : ComponentActivity() {
                                     status = "NEW CHAT DRAFT READY"
                                 },
                                 shape = RoundedCornerShape(17.dp),
-                                color = Color(0xFF151D43),
-                                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF6654C8))
+                                color = Color(0xFF10283A),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF55E7F5).copy(alpha = .65f))
                             ) {
                                 Row(Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 12.dp),
                                     verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                                     Box(Modifier.size(42.dp).clip(RoundedCornerShape(12.dp))
-                                        .background(Brush.linearGradient(listOf(Color(0xFF8D35FF), Color(0xFF3E5BFF)))),
+                                        .background(Brush.linearGradient(listOf(Color(0xFF147C9A), Color(0xFF2455A8)))),
                                         contentAlignment = Alignment.Center) {
                                         Text("✧", color = Color.White, fontSize = 23.sp, fontWeight = FontWeight.Bold)
                                     }
@@ -1496,7 +1496,7 @@ class MainActivity : ComponentActivity() {
                                             }
                                         },
                                         shape = RoundedCornerShape(18.dp),
-                                        color = if (active) Color(0xFF14283D) else Color(0xFF0D192B),
+                                        color = if (active) Color(0xFF103342) else Color(0xFF0D192B),
                                         border = androidx.compose.foundation.BorderStroke(1.dp, if (active) Color(0xFF55E7F5) else Color(0xFF314B6A))
                                     ) {
                                         Text(
