@@ -6309,7 +6309,7 @@ private fun MyraHome(
             Column(
                 Modifier.weight(1f)
                     .background(if (selectedNav == "Chat") Color(0x33D946FF) else Color.Transparent, RoundedCornerShape(13.dp))
-                    .clickable { selectedNav = "Chat"; showAllTools = false; showChatScreen = true }
+                    .clickable { selectedNav = "Chat"; showAllTools = false; onChat() }
                     .padding(vertical = 7.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -6329,7 +6329,7 @@ private fun MyraHome(
             Column(
                 Modifier.weight(1f)
                     .background(if (selectedNav == "Trigger") Color(0x33D946FF) else Color.Transparent, RoundedCornerShape(13.dp))
-                    .clickable { selectedNav = "Trigger"; showAllTools = false; onFeatures() }
+                    .clickable { selectedNav = "Trigger"; showAllTools = false; onReminder() }
                     .padding(vertical = 7.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
