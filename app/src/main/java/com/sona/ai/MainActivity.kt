@@ -915,7 +915,7 @@ class MainActivity : ComponentActivity() {
                                     Modifier.fillMaxWidth().padding(horizontal = 6.dp),
                                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                                 ) {
-                                    listOf("REAL-TIME", "MULTI-LANGUAGE", "BOSS MODE").forEachIndexed { index, feature ->
+                                    listOf("REAL-TIME", "LANGUAGE", "BOSS MODE").forEachIndexed { index, feature ->
                                         Surface(
                                             modifier = Modifier.weight(1f),
                                             shape = RoundedCornerShape(12.dp),
@@ -940,7 +940,7 @@ class MainActivity : ComponentActivity() {
                                                     letterSpacing = .2.sp, maxLines = 1
                                                 )
                                                 Text(
-                                                    when (index) { 0 -> if (voiceReady) "CONNECTED" else "STANDBY"; 1 -> "LANGUAGE OPTIONS"; else -> if (bossMode) "ACTIVE" else "TAP TO ENABLE" },
+                                                    when (index) { 0 -> if (voiceReady) "CONNECTED" else "STANDBY"; 1 -> "LANGUAGE OPTIONS"; else -> if (bossMode) "ACTIVE" else "OPTIONAL MODE" },
                                                     color = if ((index == 2 && bossMode) || (index == 0 && voiceReady)) Color(0xFF66F0BC) else Color(0xFF8298B8),
                                                     fontSize = 7.sp, maxLines = 1
                                                 )
