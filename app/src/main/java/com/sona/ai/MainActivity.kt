@@ -883,15 +883,15 @@ class MainActivity : ComponentActivity() {
                                     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                             Box(Modifier.size(5.dp).clip(CircleShape).background(Color(0xFFB46CFF)))
-                                            Text("MYRA NEURAL CORE  •  LIVE VOICE", color = Color(0xFF53E5F5), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.55.sp)
+                                            Text("MYRA NEURAL CORE  •  VOICE STUDIO", color = Color(0xFF53E5F5), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.55.sp)
                                         }
                                         Text(
                                             when {
                                                 voiceMuted -> "Microphone input is paused"
                                                 (status.contains("FAILED", true) || status.contains("ERROR", true) || status.contains("DENIED", true) || status.contains("NEEDS", true) || status.contains("TIMEOUT", true)) -> "Check setup to reconnect"
                                                 status.contains("THINK", true) || status.contains("PROCESS", true) || status.contains("REPLY", true) -> "Preparing your response…"
-                                                status.contains("CONNECT", true) || status.contains("LISTEN", true) || status.contains("LIVE", true) -> "Listening for your voice"
-                                                else -> "Ready when you are"
+                                                status.contains("CONNECT", true) || status.contains("LISTEN", true) || status.contains("LIVE", true) -> "I’m listening — speak naturally"
+                                                else -> "Tap the orb when you’re ready"
                                             },
                                             color = Color(0xFF9CB4D0), fontSize = 10.sp
                                         )
@@ -1343,8 +1343,8 @@ class MainActivity : ComponentActivity() {
                                 }
                                 Spacer(Modifier.width(10.dp))
                                 Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                                    Text("Chat", color = Color(0xFFF5F7FF), fontSize = 24.sp, fontWeight = FontWeight.Bold, letterSpacing = .2.sp)
-                                    Text("A private space to think, create and ask", color = Color(0xFFB6C5DE), fontSize = 11.sp, fontWeight = FontWeight.Medium, letterSpacing = .1.sp)
+                                    Text("MYRA Chat", color = Color(0xFFF5F7FF), fontSize = 24.sp, fontWeight = FontWeight.Bold, letterSpacing = .2.sp)
+                                    Text("Ask anything. Build ideas. Keep the flow going.", color = Color(0xFFB6C5DE), fontSize = 11.sp, fontWeight = FontWeight.Medium, letterSpacing = .1.sp)
                                     Row(
                                         Modifier.padding(top = 2.dp).clip(RoundedCornerShape(20.dp))
                                             .background(Color(0xFF172B42)).border(1.dp, Color(0xFF9666FF).copy(alpha = .28f), RoundedCornerShape(20.dp))
