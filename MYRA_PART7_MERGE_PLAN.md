@@ -10,16 +10,16 @@
 
 ## Reference inputs confirmed
 
-Both reference files are now present in the user's Library and have been materialized for inspection:
+Both reference files are present in the user's Library and were materialized for inspection:
 
 - `Part 7.apk` — 99,002,975 bytes.
 - `Playlist-main.zip` — 278,977,140 bytes.
 
-The previous statement that these inputs were pending is superseded. Their existence is confirmed, but a full file-by-file archive/APK inspection still needs to complete before claiming every contained feature has been audited. Do not mark a reference feature complete solely because it appears in a previous summary.
+A full file-by-file archive/APK inspection is still not complete. Do not claim every contained feature has been audited.
 
 ## Current MYRA implementation already found
 
-The current `MainActivity.kt` already contains implementations or entry points for:
+The current `MainActivity.kt` contains implementations or entry points for:
 
 - Home and holographic orb.
 - Chat sessions, categories, search, and conversation history.
@@ -46,18 +46,27 @@ Check each item against both reference artifacts and the current implementation 
 
 ## One-by-one integration sequence
 
-- [x] **Stage 0 — Archive inventory (initial pass):** ZIP inventory counted 7 project snapshots and 323 Kotlin / 324 XML / 21 Gradle Kotlin files across the archive; Part 7 alone contains 78 Kotlin files. APK ZIP inventory confirms `classes.dex`, `AndroidManifest.xml`, `resources.arsc`, Vosk native libraries for multiple ABIs, English Vosk model assets, speaker-model assets, HUD/orb HTML, and overlay toy assets. **Remaining:** decode binary manifest/resources and inspect activity/service/permission declarations before Stage 0 is fully closed. Evidence: inventory run on 2026-10-14.
+- [x] **Stage 0 — Archive inventory (initial pass):** ZIP inventory counted 7 project snapshots and 323 Kotlin / 324 XML / 21 Gradle Kotlin files across the archive; Part 7 alone contains 78 Kotlin files. APK container inventory confirms `classes.dex`, binary `AndroidManifest.xml`, `resources.arsc`, Vosk native libraries for multiple ABIs, English Vosk model assets, speaker-model assets, HUD/orb HTML, and overlay toy assets. Evidence: inventory run on 2026-10-14.
+- [x] **Stage 0b — MYRA manifest inspection:** current `app/src/main/AndroidManifest.xml` declares microphone, camera, contacts, call, coarse/fine location, notifications, media image/video/selected-media, internet, overlay, foreground-service, and special-use foreground-service permissions. Declared components: exported launcher `.MainActivity`; non-exported `.MyraFloatingAssistantService`; accessibility service protected by `BIND_ACCESSIBILITY_SERVICE` and linked to `@xml/myra_accessibility_service`; non-exported movement-security foreground service with a declared special-use subtype; and notification-listener service protected by `BIND_NOTIFICATION_LISTENER_SERVICE`. This describes MYRA's current manifest, not the APK's decoded manifest. APK binary manifest decoding and full DEX inspection remain open.
 - [x] **License review (initial pass):** `Playlist-main/LICENSE` and `Part 7/LICENSE` specify Tech GPTx attribution requirements for substantial reuse and creator media; preserve license and attribution if adapting code. Confirm exact compliance requirements before publishing derivative content.
-- [ ] **Stage 0b — Deep archive inspection:** decode APK manifest/resources, list APK activities/services/permissions, and review source/license constraints in detail.
-- [ ] **Stage 1 — Gap matrix:** map every discovered screen/feature to the existing MYRA implementation; label `already present`, `partial`, `missing`, or `not compatible`.
+- [ ] **Stage 0c — Deep reference inspection:** decode the APK binary manifest/resources, enumerate its declared activities/services/permissions, and inspect the source/license constraints in detail.
+- [ ] **Stage 1 — Gap matrix:** map every discovered screen/feature to the existing MYRA implementation; label `Already present`, `Partial`, `Missing`, or `Not compatible`.
 
 ### Initial verified reference inventory (2026-10-14)
 
-`Playlist-main.zip` contains seven successive Android source snapshots. Part 7 includes source files for Vosk model management, owner voice management, headset audio routing, wake-word/background services (from earlier parts), accessibility command execution, contacts/phone/WhatsApp/YouTube automation, Room-based memory, agent task engine and task overlay, screen capture/UI grounding/visual task orchestration, voice enrollment, privacy shield, permission/settings flows, location/weather, and update UI. These are **reference capabilities found in source filenames**, not proof that every feature builds or works. They must be compared against MYRA and permission/API constraints before integration.
+`Playlist-main.zip` contains seven successive Android source snapshots. Part 7 includes source files for Vosk model management, owner voice management, headset audio routing, wake-word/background services (from earlier parts), accessibility command execution, contacts/phone/WhatsApp/YouTube automation, Room-based memory, agent task engine and task overlay, screen capture/UI grounding/visual task orchestration, voice enrollment, privacy shield, permission/settings flows, location/weather, and update UI. These are **reference capabilities found in source filenames**, not proof that every feature builds or works.
 
 `Part 7.apk` includes Vosk native libraries and bundled voice-model assets plus orb/HUD/overlay HTML. This is an initial container inventory only; APK binary manifest has not yet been decoded and DEX code has not been fully decompiled. Do not infer full runtime behavior from strings alone.
 
 Initial integration priorities after the gap matrix: (1) check owner voice/Vosk/wake phrase against MYRA's existing `LiveVoiceSession.kt`; (2) check screen-capture/agent task assistance against the existing accessibility service and permissions; (3) check YouTube/WhatsApp/contact launchers against existing intent-based shortcuts. Avoid merging duplicate project snapshots wholesale.
+
+## Latest build verification
+
+- GitHub Actions run **#771** — run ID `38595766404`, commit `b3a62cc16db026e9275463c9942a54c213f9bdfd`, conclusion `success`, updated `2026-10-14T16:12:14Z`.
+- Run #771 records the initial Part 7 APK and Playlist archive inventory. This is the latest status observed during the 2026-10-14 check; later builds must be checked again before claiming success.
+
+## Integration stages
+
 - [ ] **Stage 2 — Voice gaps:** add only verified, compatible missing voice features; keep microphone use explicit and visible.
 - [ ] **Stage 3 — Phone/app/media gaps:** use supported Android intents and permissions; no claims of unrestricted control.
 - [ ] **Stage 4 — Screen/vision gaps:** add only features supported by the app's permissions and platform APIs.
