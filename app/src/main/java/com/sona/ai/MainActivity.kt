@@ -2516,7 +2516,7 @@ class MainActivity : ComponentActivity() {
                     title = {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(20.dp))
-                                .background(Brush.horizontalGradient(listOf(Color(0xFFD91E3D), Color(0xFF30164D), Color(0xFF071426))))
+                                .background(Brush.horizontalGradient(listOf(Color(0xFF12354A), Color(0xFF17213B), Color(0xFF071426))))
                                 .border(1.dp, Color(0xFF55E7F5), RoundedCornerShape(20.dp)).padding(16.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
@@ -2527,7 +2527,7 @@ class MainActivity : ComponentActivity() {
                                 Spacer(Modifier.width(11.dp))
                                 Column {
                                     Text("MYRA AI • PROFILE & SETTINGS", color = Color(0xFF55E7F5), fontWeight = FontWeight.Black, fontSize = 10.sp, letterSpacing = 2.sp)
-                                    Text("Profile, voice and app controls", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                                    Text("Your profile • voice • preferences", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp)
                                 }
                             }
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(7.dp)) {
@@ -2551,8 +2551,8 @@ class MainActivity : ComponentActivity() {
                                 }
                                 Spacer(Modifier.width(10.dp))
                                 Column {
-                                    Text("CONTROL CENTER  •  MYRA", color = Color(0xFF55E7F5), fontWeight = FontWeight.Black, fontSize = 10.sp, letterSpacing = 1.8.sp)
-                                    Text("Everything, tuned to you", color = Color(0xFFF7EEFF), fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                                    Text("MYRA CONTROL CENTER", color = Color(0xFF55E7F5), fontWeight = FontWeight.Black, fontSize = 10.sp, letterSpacing = 1.8.sp)
+                                    Text("Make MYRA feel like yours", color = Color(0xFFF7EEFF), fontWeight = FontWeight.Bold, fontSize = 16.sp)
                                 }
                             }
                             Row(
@@ -6096,26 +6096,26 @@ private fun MyraFeaturesMenu(
     Box(Modifier.fillMaxSize().background(Color(0xFF070B18)).statusBarsPadding().navigationBarsPadding()) {
         Column(Modifier.fillMaxSize().padding(horizontal = 18.dp)) {
             Row(Modifier.fillMaxWidth().padding(top = 14.dp, bottom = 16.dp), verticalAlignment = Alignment.CenterVertically) {
-                Surface(onClick = onClose, shape = CircleShape, color = Color(0xFF11182A), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF3B294F))) {
-                    Text("‹", color = Color(0xFFFF72D2), fontSize = 28.sp, modifier = Modifier.padding(horizontal = 13.dp, vertical = 2.dp))
+                Surface(onClick = onClose, shape = CircleShape, color = Color(0xFF11182A), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF29465F))) {
+                    Text("‹", color = Color(0xFF55E7F5), fontSize = 28.sp, modifier = Modifier.padding(horizontal = 13.dp, vertical = 2.dp))
                 }
                 Spacer(Modifier.width(12.dp))
                 Column(Modifier.weight(1f)) {
                     Text("Myra AI", color = Color(0xFFF7EEFF), fontSize = 22.sp, fontWeight = FontWeight.Bold)
-                    Text("FEATURES MENU • YOUR AI COMPANION", color = Color(0xFFB8A9D8), fontSize = 9.sp, letterSpacing = 1.sp)
+                    Text("SHORTCUTS • YOUR AI COMPANION", color = Color(0xFF9DB2CC), fontSize = 9.sp, letterSpacing = 1.sp)
                 }
                 Box(Modifier.size(42.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFF8D9C), Color(0xFF7A2E83), Color(0xFF0D0A20)))).border(1.dp, Color(0xFF49365F), CircleShape), contentAlignment = Alignment.Center) {
                     Text("✦", color = Color.White, fontSize = 23.sp)
                 }
             }
-            Box(Modifier.fillMaxWidth().height(1.dp).background(Brush.horizontalGradient(listOf(Color.Transparent, Color(0xFF49365F), Color(0xFFFF72D2), Color.Transparent))))
+            Box(Modifier.fillMaxWidth().height(1.dp).background(Brush.horizontalGradient(listOf(Color.Transparent, Color(0xFF49365F), Color(0xFF55E7F5), Color.Transparent))))
             Text("Everything you need, in one place.", color = Color(0xFFE5DDF0), fontSize = 14.sp, modifier = Modifier.padding(top = 18.dp, bottom = 12.dp))
             Column(Modifier.weight(1f).verticalScroll(androidx.compose.foundation.rememberScrollState()), verticalArrangement = Arrangement.spacedBy(9.dp)) {
                 items.forEach { (item, action) ->
                     Surface(onClick = action, shape = RoundedCornerShape(17.dp), color = Color(0xFF11182A), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF3B294F)), shadowElevation = 4.dp, modifier = Modifier.fillMaxWidth()) {
                         Row(Modifier.padding(horizontal = 13.dp, vertical = 13.dp), verticalAlignment = Alignment.CenterVertically) {
                             Box(Modifier.size(42.dp).clip(RoundedCornerShape(13.dp))
-                                .background(Brush.linearGradient(listOf(Color(0xFFFFE1E7), Color(0xFF070B18))))
+                                .background(Brush.linearGradient(listOf(Color(0xFF17384A), Color(0xFF070B18))))
                                 .border(1.dp, Color(0xFF49365F), RoundedCornerShape(13.dp)),
                                 contentAlignment = Alignment.Center) {
                                 Text(item.third, color = Color(0xFFFF72D2), fontSize = 21.sp)
