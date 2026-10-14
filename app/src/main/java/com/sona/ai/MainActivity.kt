@@ -5525,7 +5525,7 @@ private fun MyraHome(
                     Text(" AI", color = Color(0xFF55E7F5), fontSize = 27.sp, fontWeight = FontWeight.Black, letterSpacing = (-1).sp
                     Box(Modifier.padding(start = 5.dp).size(6.dp).clip(CircleShape).background(if (hasKey) Color(0xFF9666FF) else Color(0xFFFFB36B)))
                 }
-                Text("AI COMPANION", color = Color(0xFF9EABC2), fontSize = 9.sp, letterSpacing = .8.sp)
+                Text("AI COMPANION", color = Color(0xFF9EABC2), fontSize = 9.sp, letterSpacing = 1.1.sp)
                 Row(Modifier.padding(top = 6.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                     Box(Modifier.size(5.dp).clip(CircleShape).background(if (busy) Color(0xFF9666FF) else if (hasKey) Color(0xFF53E5F5) else Color(0xFFFFB36B)))
                     Text(
@@ -5634,21 +5634,21 @@ private fun MyraHome(
             }
             Surface(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(28.dp), color = Color(0xFF0B192B), shadowElevation = 5.dp,
-                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF53E5F5).copy(alpha = .52f))
+                shape = RoundedCornerShape(24.dp), color = Color(0xFF080F24), shadowElevation = 7.dp,
+                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF55E7F5).copy(alpha = .7f))
             ) {
                 Row(Modifier.padding(horizontal = 12.dp, vertical = 9.dp), verticalAlignment = Alignment.CenterVertically) {
                     Surface(onClick = onFiles, shape = CircleShape, color = Color(0xFF13243B),
                         border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))) {
                         Box(Modifier.size(40.dp), contentAlignment = Alignment.Center) {
-                            Text("⌁", color = Color(0xFF9666FF), fontSize = 25.sp)
+                            Text("⌁", color = Color(0xFF55E7F5), fontSize = 25.sp)
                         }
                     }
                     androidx.compose.foundation.text.BasicTextField(
                         value = prompt, onValueChange = { prompt = it },
                         modifier = Modifier.weight(1f).padding(horizontal = 10.dp, vertical = 8.dp),
                         singleLine = true, textStyle = androidx.compose.ui.text.TextStyle(color = ink, fontSize = 15.sp),
-                        cursorBrush = androidx.compose.ui.graphics.SolidColor(Color(0xFF9666FF)),
+                        cursorBrush = androidx.compose.ui.graphics.SolidColor(Color(0xFF55E7F5)),
                         decorationBox = { inner ->
                             if (prompt.isEmpty()) Text("How can I help you today?", color = Color(0xFFDCE8FF), fontSize = 14.sp, fontWeight = FontWeight.Medium)
                             inner()
@@ -5656,8 +5656,8 @@ private fun MyraHome(
                     )
                     Surface(
                         onClick = { if (prompt.isNotBlank()) { onAskText(prompt.trim()); prompt = "" } },
-                        shape = CircleShape, color = Color(0xFF9666FF), shadowElevation = 5.dp,
-                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF9666FF).copy(alpha = .9f))
+                        shape = CircleShape, color = Color(0xFF087E9A), shadowElevation = 5.dp,
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF55E7F5).copy(alpha = .9f))
                     ) {
                         Box(Modifier.size(46.dp), contentAlignment = Alignment.Center) {
                             Text("➤", color = Color(0xFFF5F7FF), fontSize = 23.sp, fontWeight = FontWeight.Bold)
