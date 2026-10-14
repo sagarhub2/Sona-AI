@@ -1052,6 +1052,42 @@ class MainActivity : ComponentActivity() {
                                         border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFF6B91).copy(alpha = .55f))
                                     ) { Text("■  Stop", fontSize = 11.sp, fontWeight = FontWeight.Bold) }
                                 }
+                                Spacer(Modifier.height(13.dp))
+                                Row(
+                                    Modifier.fillMaxWidth().padding(bottom = 3.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text("VOICE FEATURES", color = Color(0xFF55E7F5), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                                    Spacer(Modifier.weight(1f))
+                                    Text("MYRA AUDIO", color = Color(0xFF647D9D), fontSize = 8.sp, letterSpacing = 1.sp)
+                                }
+                                androidx.compose.foundation.layout.FlowRow(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.spacedBy(7.dp),
+                                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                                ) {
+                                    listOf("◉  Live Voice", "文  Multi-language", "♛  Boss Mode").forEach { feature ->
+                                        Surface(
+                                            shape = RoundedCornerShape(12.dp),
+                                            color = Color(0xFF0C1A2C),
+                                            border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A))
+                                        ) {
+                                            Text(
+                                                feature,
+                                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 8.dp),
+                                                color = Color(0xFFB6C5DE), fontSize = 10.sp, fontWeight = FontWeight.Medium
+                                            )
+                                        }
+                                    }
+                                    Surface(
+                                        onClick = { showSettings = true },
+                                        shape = RoundedCornerShape(12.dp),
+                                        color = Color(0xFF102238),
+                                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF55E7F5).copy(alpha = .55f))
+                                    ) {
+                                        Text("⚙  Voice Settings", modifier = Modifier.padding(horizontal = 10.dp, vertical = 8.dp), color = Color(0xFF55E7F5), fontSize = 10.sp, fontWeight = FontWeight.SemiBold)
+                                    }
+                                }
                                 Spacer(Modifier.height(9.dp))
                                 androidx.compose.material3.FilledTonalButton(
                                     modifier = Modifier.fillMaxWidth().height(44.dp),
