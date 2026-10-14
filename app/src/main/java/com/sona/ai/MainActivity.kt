@@ -493,8 +493,8 @@ class MainActivity : ComponentActivity() {
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
-                            Text("◈  MYRA AI • TRIGGER CENTER", color = Color(0xFF53E5F5), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
-                            Text("Phone Actions & Triggers", color = Color.White, fontSize = 21.sp, fontWeight = FontWeight.Bold)
+                            Text("◈  MYRA AI • TRIGGER CENTER", color = Color(0xFF55E7F5), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.7.sp)
+                            Text("Phone Actions & Triggers", color = Color(0xFFF5F7FF), fontSize = 22.sp, fontWeight = FontWeight.Bold, letterSpacing = .1.sp)
                             Text("Quickly launch useful phone actions, alarms and reminders.", color = Color.White.copy(alpha = .88f), fontSize = 12.sp)
                         }
                     },
@@ -508,8 +508,8 @@ class MainActivity : ComponentActivity() {
                                     modifier = Modifier.fillMaxWidth(),
                                     shape = RoundedCornerShape(16.dp),
                                     color = Color(0xFF0B1424),
-                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF9666FF).copy(alpha = .55f)),
-                                    shadowElevation = 2.dp
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF55E7F5).copy(alpha = .42f)),
+                                    shadowElevation = 3.dp
                                 ) {
                                     Row(
                                         Modifier.padding(13.dp),
@@ -960,7 +960,7 @@ class MainActivity : ComponentActivity() {
                                                 voiceMuted -> "MICROPHONE PAUSED"
                                                 status.contains("THINK", true) || status.contains("PROCESS", true) -> "PROCESSING YOUR VOICE"
                                                 status.contains("LISTEN", true) || status.contains("LIVE", true) -> "LISTENING • SPEAK NATURALLY"
-                                                else -> "TAP THE ORB TO CONNECT"
+                                                else -> "TAP THE ORB TO START VOICE"
                                             },
                                             color = Color(0xFFB8C5DA),
                                             fontSize = 8.sp,
