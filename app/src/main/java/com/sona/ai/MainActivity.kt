@@ -2125,10 +2125,10 @@ class MainActivity : ComponentActivity() {
                                 colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
                                     focusedTextColor = Color(0xFFF5F7FF),
                                     unfocusedTextColor = Color(0xFFF5F7FF),
-                                    focusedBorderColor = Color(0xFF9666FF),
+                                    focusedBorderColor = Color(0xFF55E7F5),
                                     unfocusedBorderColor = Color(0xFF293B55),
-                                    focusedLabelColor = Color(0xFF9666FF),
-                                    cursorColor = Color(0xFF9666FF),
+                                    focusedLabelColor = Color(0xFF55E7F5),
+                                    cursorColor = Color(0xFF55E7F5),
                                     focusedContainerColor = Color(0xFF0B1424),
                                     unfocusedContainerColor = Color(0xFF0B1424)
                                 )
@@ -2259,10 +2259,10 @@ class MainActivity : ComponentActivity() {
                                 colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
                                     focusedTextColor = Color(0xFFF5F7FF),
                                     unfocusedTextColor = Color(0xFFF5F7FF),
-                                    focusedBorderColor = Color(0xFF9666FF),
-                                    unfocusedBorderColor = Color(0xFF9666FF).copy(alpha = .45f),
-                                    focusedLabelColor = Color(0xFF9666FF),
-                                    cursorColor = Color(0xFF9666FF),
+                                    focusedBorderColor = Color(0xFF55E7F5),
+                                    unfocusedBorderColor = Color(0xFF55E7F5).copy(alpha = .45f),
+                                    focusedLabelColor = Color(0xFF55E7F5),
+                                    cursorColor = Color(0xFF55E7F5),
                                     focusedContainerColor = Color(0xFF0B1424),
                                     unfocusedContainerColor = Color(0xFF0B1424)
                                 )
@@ -2414,10 +2414,10 @@ class MainActivity : ComponentActivity() {
                                 colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
                                     focusedTextColor = Color(0xFFF5F7FF),
                                     unfocusedTextColor = Color(0xFFF5F7FF),
-                                    focusedBorderColor = Color(0xFF9666FF),
+                                    focusedBorderColor = Color(0xFF55E7F5),
                                     unfocusedBorderColor = Color(0xFF293B55),
-                                    focusedLabelColor = Color(0xFF9666FF),
-                                    cursorColor = Color(0xFF9666FF),
+                                    focusedLabelColor = Color(0xFF55E7F5),
+                                    cursorColor = Color(0xFF55E7F5),
                                     focusedContainerColor = Color(0xFF0B1424),
                                     unfocusedContainerColor = Color(0xFF0B1424)
                                 )
@@ -2517,7 +2517,7 @@ class MainActivity : ComponentActivity() {
                     onDismissRequest = { showSettings = false },
                     title = {
                         Column(
-                            Modifier.fillMaxWidth().clip(RoundedCornerShape(20.dp))
+                            Modifier.fillMaxWidth().statusBarsPadding().clip(RoundedCornerShape(20.dp))
                                 .background(Brush.horizontalGradient(listOf(Color(0xFF12354A), Color(0xFF17213B), Color(0xFF071426))))
                                 .border(1.dp, Color(0xFF55E7F5), RoundedCornerShape(20.dp)).padding(16.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
@@ -2644,9 +2644,9 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                                Divider(Modifier.weight(1f), color = Violet.copy(alpha = .65f), thickness = 1.dp)
+                                Divider(Modifier.weight(1f), color = Cyan.copy(alpha = .65f), thickness = 1.dp)
                                 Text("PROFILE", color = Color(0xFF55E7F5), fontWeight = FontWeight.Black, fontSize = 9.sp, letterSpacing = 1.6.sp)
-                                Divider(Modifier.weight(1f), color = Violet.copy(alpha = .65f), thickness = 1.dp)
+                                Divider(Modifier.weight(1f), color = Cyan.copy(alpha = .65f), thickness = 1.dp)
                             }
                             Text("ASSISTANT PROFILE", color = Color(0xFF55E7F5), fontWeight = FontWeight.Bold, fontSize = 12.sp, letterSpacing = .8.sp)
                             Surface(
@@ -2929,7 +2929,7 @@ class MainActivity : ComponentActivity() {
                             Slider(value = speechPitch, onValueChange = { speechPitch = it }, valueRange = 0.75f..1.35f)
                             SettingToggle("Auto-listen preference (not active yet)", autoListen, { autoListen = it })
                             Text("Available voice depends on the speech engine installed on your phone.", color = Color(0xFF9DB2CC), fontSize = 11.sp)
-                            Text("PERSONALITY & MEMORY", color = Violet, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text("PERSONALITY & MEMORY", color = Color(0xFF55E7F5), fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             Text("QUICK PERSONALITY", color = Color(0xFF9DB2CC), fontSize = 10.sp, fontWeight = FontWeight.Bold)
                             listOf(
                                 "GF / Caring Companion" to "Warm, affectionate fictional companion style; caring, supportive, respectful, never claim to be a real partner",
