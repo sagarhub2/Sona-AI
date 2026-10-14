@@ -2047,6 +2047,7 @@ class MainActivity : ComponentActivity() {
                             }
                             var showAllChatModes by remember { mutableStateOf(false) }
                             val visibleChatModes = if (showAllChatModes) chatCategories else (listOf(selectedChatCategory) + chatCategories.filter { it != selectedChatCategory }).distinct().take(6)
+                            val compactChatModes = visibleChatModes.filter { it != "General Chat" || selectedChatCategory == "General Chat" }.take(2)
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.spacedBy(7.dp),
@@ -2069,9 +2070,8 @@ class MainActivity : ComponentActivity() {
                                     )
                                 )
                                 androidx.compose.foundation.layout.BoxWithConstraints(Modifier.weight(1f)) {
-                                    val modeChipWidth = (maxWidth - 14.dp) / 2
                                     Row(horizontalArrangement = Arrangement.spacedBy(7.dp)) {
-                                        visibleChatModes.filter { it != "General Chat" || selectedChatCategory == "General Chat" }.take(2).forEach { category ->
+                                        compactChatModes.forEach { category ->
                                             androidx.compose.material3.FilterChip(
                                                 modifier = Modifier.weight(1f),
                                                 selected = selectedChatCategory == category,
