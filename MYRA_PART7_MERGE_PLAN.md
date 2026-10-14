@@ -46,8 +46,18 @@ Check each item against both reference artifacts and the current implementation 
 
 ## One-by-one integration sequence
 
-- [ ] **Stage 0 — Archive inspection:** list ZIP contents and inspect APK manifest, activities, services, permissions, resources and packaged libraries. Record source/license constraints and evidence.
+- [x] **Stage 0 — Archive inventory (initial pass):** ZIP inventory counted 7 project snapshots and 323 Kotlin / 324 XML / 21 Gradle Kotlin files across the archive; Part 7 alone contains 78 Kotlin files. APK ZIP inventory confirms `classes.dex`, `AndroidManifest.xml`, `resources.arsc`, Vosk native libraries for multiple ABIs, English Vosk model assets, speaker-model assets, HUD/orb HTML, and overlay toy assets. **Remaining:** decode binary manifest/resources and inspect activity/service/permission declarations before Stage 0 is fully closed. Evidence: inventory run on 2026-10-14.
+- [x] **License review (initial pass):** `Playlist-main/LICENSE` and `Part 7/LICENSE` specify Tech GPTx attribution requirements for substantial reuse and creator media; preserve license and attribution if adapting code. Confirm exact compliance requirements before publishing derivative content.
+- [ ] **Stage 0b — Deep archive inspection:** decode APK manifest/resources, list APK activities/services/permissions, and review source/license constraints in detail.
 - [ ] **Stage 1 — Gap matrix:** map every discovered screen/feature to the existing MYRA implementation; label `already present`, `partial`, `missing`, or `not compatible`.
+
+### Initial verified reference inventory (2026-10-14)
+
+`Playlist-main.zip` contains seven successive Android source snapshots. Part 7 includes source files for Vosk model management, owner voice management, headset audio routing, wake-word/background services (from earlier parts), accessibility command execution, contacts/phone/WhatsApp/YouTube automation, Room-based memory, agent task engine and task overlay, screen capture/UI grounding/visual task orchestration, voice enrollment, privacy shield, permission/settings flows, location/weather, and update UI. These are **reference capabilities found in source filenames**, not proof that every feature builds or works. They must be compared against MYRA and permission/API constraints before integration.
+
+`Part 7.apk` includes Vosk native libraries and bundled voice-model assets plus orb/HUD/overlay HTML. This is an initial container inventory only; APK binary manifest has not yet been decoded and DEX code has not been fully decompiled. Do not infer full runtime behavior from strings alone.
+
+Initial integration priorities after the gap matrix: (1) check owner voice/Vosk/wake phrase against MYRA's existing `LiveVoiceSession.kt`; (2) check screen-capture/agent task assistance against the existing accessibility service and permissions; (3) check YouTube/WhatsApp/contact launchers against existing intent-based shortcuts. Avoid merging duplicate project snapshots wholesale.
 - [ ] **Stage 2 — Voice gaps:** add only verified, compatible missing voice features; keep microphone use explicit and visible.
 - [ ] **Stage 3 — Phone/app/media gaps:** use supported Android intents and permissions; no claims of unrestricted control.
 - [ ] **Stage 4 — Screen/vision gaps:** add only features supported by the app's permissions and platform APIs.
