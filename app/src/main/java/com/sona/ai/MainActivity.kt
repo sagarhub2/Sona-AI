@@ -1139,6 +1139,41 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                                 Spacer(Modifier.height(10.dp))
+                                Column(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                                ) {
+                                    Row(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Text("VOICE TRANSCRIPT", color = Color(0xFF55E7F5), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.3.sp)
+                                        Spacer(Modifier.weight(1f))
+                                        Text(if (heardText.isBlank()) "READY FOR SPEECH" else "LATEST UPDATE", color = Color(0xFF647D9D), fontSize = 8.sp, letterSpacing = .5.sp)
+                                    }
+                                    Surface(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        color = Color(0xFF091525),
+                                        shape = RoundedCornerShape(16.dp),
+                                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF314B6A).copy(alpha = .8f))
+                                    ) {
+                                        Row(
+                                            modifier = Modifier.fillMaxWidth().padding(horizontal = 13.dp, vertical = 12.dp),
+                                            verticalAlignment = Alignment.Top,
+                                            horizontalArrangement = Arrangement.spacedBy(10.dp)
+                                        ) {
+                                            Text("“", color = Color(0xFFB46CFF), fontSize = 26.sp, fontWeight = FontWeight.Bold)
+                                            Text(
+                                                if (heardText.isBlank()) "Your latest voice response or recognized speech will appear here." else heardText,
+                                                modifier = Modifier.weight(1f),
+                                                color = if (heardText.isBlank()) Color(0xFF8298B8) else Color(0xFFE4ECFA),
+                                                fontSize = 12.sp,
+                                                lineHeight = 18.sp
+                                            )
+                                        }
+                                    }
+                                }
+                                Spacer(Modifier.height(10.dp))
                                 Surface(
                                     color = Color(0xFF0D192B),
                                     shape = RoundedCornerShape(18.dp),
