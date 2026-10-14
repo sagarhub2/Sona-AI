@@ -508,8 +508,8 @@ class MainActivity : ComponentActivity() {
                                     modifier = Modifier.fillMaxWidth(),
                                     shape = RoundedCornerShape(16.dp),
                                     color = Color(0xFF0B1424),
-                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF55E7F5).copy(alpha = .42f)),
-                                    shadowElevation = 3.dp
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF55E7F5).copy(alpha = .58f)),
+                                    shadowElevation = 5.dp
                                 ) {
                                     Row(
                                         Modifier.padding(13.dp),
@@ -805,7 +805,8 @@ class MainActivity : ComponentActivity() {
                             Column(
                                 Modifier.fillMaxSize()
                                     .verticalScroll(androidx.compose.foundation.rememberScrollState())
-                                    .padding(horizontal = 18.dp, vertical = 14.dp),
+                                    .statusBarsPadding().navigationBarsPadding()
+                                    .padding(horizontal = 18.dp, vertical = 12.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 val voiceReady = status.contains("CONNECTED", true) || status.contains("LISTEN", true) || status.contains("LIVE", true)
@@ -1326,7 +1327,8 @@ class MainActivity : ComponentActivity() {
                     ) {
                         Column(Modifier.fillMaxSize()
                             .background(Brush.verticalGradient(listOf(Color(0xFF071426), Color(0xFF030711), Color(0xFF0A1020))))
-                            .padding(16.dp)
+                            .statusBarsPadding().navigationBarsPadding()
+                            .padding(horizontal = 14.dp, vertical = 12.dp)
                             .imePadding()) {
                             Row(
                                 Modifier.fillMaxWidth().padding(top = 0.dp, bottom = 6.dp),
@@ -1437,8 +1439,8 @@ class MainActivity : ComponentActivity() {
                                     Surface(
                                         onClick = { selectedChatCategory = if (category == "All") "General Chat" else category },
                                         shape = RoundedCornerShape(18.dp),
-                                        color = if (active) Color(0xFF526EFF) else Color(0xFF0D192B),
-                                        border = androidx.compose.foundation.BorderStroke(1.dp, if (active) Color(0xFF8C9CFF) else Color(0xFF233854))
+                                        color = if (active) Color(0xFF124253) else Color(0xFF0D192B),
+                                        border = androidx.compose.foundation.BorderStroke(1.dp, if (active) Color(0xFF55E7F5) else Color(0xFF233854))
                                     ) {
                                         Text(category, modifier = Modifier.padding(horizontal = 13.dp, vertical = 8.dp),
                                             color = Color(0xFFF5F7FF), fontSize = 11.sp,
