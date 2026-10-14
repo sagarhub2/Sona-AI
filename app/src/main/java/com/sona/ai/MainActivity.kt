@@ -5522,10 +5522,10 @@ private fun MyraHome(
             Column(Modifier.weight(1f)) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(2.dp)) {
                     Text("MYRA", color = Color(0xFFF5F7FF), fontSize = 27.sp, fontWeight = FontWeight.Black, letterSpacing = (-1).sp)
-                    Text(" AI", color = Color(0xFF9666FF), fontSize = 27.sp, fontWeight = FontWeight.Black, letterSpacing = (-1).sp)
+                    Text(" AI", color = Color(0xFF55E7F5), fontSize = 27.sp, fontWeight = FontWeight.Black, letterSpacing = (-1).sp
                     Box(Modifier.padding(start = 5.dp).size(6.dp).clip(CircleShape).background(if (hasKey) Color(0xFF9666FF) else Color(0xFFFFB36B)))
                 }
-                Text("Your Intelligent Companion", color = muted, fontSize = 10.sp, letterSpacing = .1.sp)
+                Text("AI COMPANION", color = Color(0xFF9EABC2), fontSize = 9.sp, letterSpacing = .8.sp)
                 Row(Modifier.padding(top = 6.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                     Box(Modifier.size(5.dp).clip(CircleShape).background(if (busy) Color(0xFF9666FF) else if (hasKey) Color(0xFF53E5F5) else Color(0xFFFFB36B)))
                     Text(
@@ -5556,7 +5556,7 @@ private fun MyraHome(
             Column(Modifier.fillMaxWidth().padding(top = 5.dp, bottom = 2.dp), horizontalAlignment = Alignment.Start) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                     Text(greeting, color = Color(0xFFF5F7FF), fontSize = 22.sp, fontWeight = FontWeight.Bold)
-                    Text(savedUserName.ifBlank { "there" }.take(24), color = Color(0xFFB8A0FF), fontSize = 22.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+                    Text(savedUserName.ifBlank { "there" }.take(24), color = Color(0xFFF5F7FF), fontSize = 22.sp, fontWeight = FontWeight.Bold, maxLines = 1)
                     Text("☀", fontSize = 17.sp)
                 }
                 Text("Ready when you are…", color = muted, fontSize = 12.sp, modifier = Modifier.padding(top = 3.dp, bottom = 2.dp))
@@ -5650,7 +5650,7 @@ private fun MyraHome(
                         singleLine = true, textStyle = androidx.compose.ui.text.TextStyle(color = ink, fontSize = 15.sp),
                         cursorBrush = androidx.compose.ui.graphics.SolidColor(Color(0xFF9666FF)),
                         decorationBox = { inner ->
-                            if (prompt.isEmpty()) Text("Message MYRA…", color = Color(0xFF9CB4D0), fontSize = 14.sp)
+                            if (prompt.isEmpty()) Text("How can I help you today?", color = Color(0xFFDCE8FF), fontSize = 14.sp, fontWeight = FontWeight.Medium)
                             inner()
                         }
                     )
