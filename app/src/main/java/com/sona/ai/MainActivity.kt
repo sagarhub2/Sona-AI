@@ -4339,6 +4339,33 @@ class MainActivity : ComponentActivity() {
             } catch (_: Exception) { respond("Calendar event screen open nahi ho paayi.") }
         }
 
+        // Explicit system-setting shortcuts are handled before the generic "open <app>" matcher.
+        // Android opens the settings page; the user remains in control of every system toggle.
+        if (listOf("open myra app info", "myra app info kholo", "open myra app details", "myra ki app settings kholo").any { command == it }) {
+            return try {
+                startActivity(Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + packageName)))
+                respond("MYRA AI app info khol diya hai. Permissions aur app options tum yahan manage kar sakte ho.")
+            } catch (_: Exception) { respond("MYRA AI app info open nahi ho paaya.") }
+        }
+        if (listOf("open location toggle", "location toggle kholo", "open location controls", "location settings kholo").any { command == it }) {
+            return try {
+                startActivity(Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+                respond("Location settings khol di hain. Location on ya off tum khud choose karna.")
+            } catch (_: Exception) { respond("Location settings is phone par open nahi ho paayi.") }
+        }
+        if (listOf("open date and time settings", "date time settings kholo", "open time settings", "date aur time settings kholo").any { command == it }) {
+            return try {
+                startActivity(Intent(android.provider.Settings.ACTION_DATE_SETTINGS))
+                respond("Date aur time settings khol di hain. Changes confirm karne se pehle values check kar lena.")
+            } catch (_: Exception) { respond("Date aur time settings open nahi ho paayi.") }
+        }
+        if (listOf("open default apps settings", "default apps kholo", "change default apps", "default app settings kholo").any { command == it }) {
+            return try {
+                startActivity(Intent(android.provider.Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS))
+                respond("Default apps settings khol di hain. Browser, phone ya doosre defaults tum yahan select kar sakte ho.")
+            } catch (_: Exception) { respond("Default apps settings is phone par available nahi hai.") }
+        }
+
         val openPrefix = listOf("open app ", "launch app ", "open ", "launch ", "खोलो ", "ओपन ")
             .firstOrNull { command.startsWith(it) }
         val suffixAppQuery = listOf(" kholo", " khol do", " खोलो", " खोल दो", " open")
