@@ -826,7 +826,7 @@ class MainActivity : ComponentActivity() {
                                     Box(
                                         Modifier.size(38.dp).clip(CircleShape)
                                             .background(Brush.radialGradient(listOf(Color(0xFFB46CFF).copy(alpha = .55f), Color(0xFF10233A), Color(0xFF080D18))))
-                                            .border(1.dp, Color(0xFFB46CFF).copy(alpha = .75f), CircleShape),
+                                            .border(1.dp, Color(0xFF55E7F5).copy(alpha = .75f), CircleShape),
                                         contentAlignment = Alignment.Center
                                     ) {
                                         Box(Modifier.size(23.dp).border(1.dp, Color(0xFF55E7F5).copy(alpha = .9f), CircleShape))
@@ -1349,7 +1349,7 @@ class MainActivity : ComponentActivity() {
                                     Text("Your private space to think, create and ask.", color = Color(0xFFB6C5DE), fontSize = 11.sp, fontWeight = FontWeight.Medium, letterSpacing = .1.sp)
                                     Row(
                                         Modifier.padding(top = 2.dp).clip(RoundedCornerShape(20.dp))
-                                            .background(Color(0xFF172B42)).border(1.dp, Color(0xFF9666FF).copy(alpha = .28f), RoundedCornerShape(20.dp))
+                                            .background(Color(0xFF172B42)).border(1.dp, Color(0xFF55E7F5).copy(alpha = .30f), RoundedCornerShape(20.dp))
                                             .padding(horizontal = 8.dp, vertical = 4.dp),
                                         verticalAlignment = Alignment.CenterVertically,
                                         horizontalArrangement = Arrangement.spacedBy(6.dp)
@@ -1364,7 +1364,7 @@ class MainActivity : ComponentActivity() {
                                     border = androidx.compose.foundation.BorderStroke(1.dp, if (showChatSearch) Color(0xFF55E7F5) else Color(0xFF55E7F5).copy(alpha = .65f))
                                 ) {
                                     Box(Modifier.size(34.dp), contentAlignment = Alignment.Center) {
-                                        Text("⌕", color = if (showChatSearch) Color(0xFF55E7F5) else Color(0xFF9666FF), fontSize = 23.sp)
+                                        Text("⌕", color = Color(0xFF55E7F5), fontSize = 23.sp)
                                     }
                                 }
                                 Spacer(Modifier.width(7.dp))
@@ -1390,7 +1390,7 @@ class MainActivity : ComponentActivity() {
                                     border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF34345F))
                                 ) {
                                     Box(Modifier.size(34.dp), contentAlignment = Alignment.Center) {
-                                        Text("＋", color = Color(0xFF9666FF), fontSize = 23.sp)
+                                        Text("＋", color = Color(0xFF55E7F5), fontSize = 23.sp)
                                     }
                                 }
                                 Spacer(Modifier.width(3.dp))
