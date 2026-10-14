@@ -5801,7 +5801,7 @@ private fun MyraHome(
     var showAllTools by remember { mutableStateOf(false) }
     var showChatScreen by remember { mutableStateOf(false) }
     var chatDraft by remember { mutableStateOf("") }
-    var selectedNav by remember { mutableStateOf("Assistant") }
+    var selectedNav by remember { mutableStateOf("Home") }
     val navScope = rememberCoroutineScope()
     var notesText by remember { mutableStateOf(context.getSharedPreferences("myra_prefs", 0).getString("myra_quick_notes", "") ?: "") }
     Surface(modifier = Modifier.fillMaxSize(), color = Night) {
@@ -6287,14 +6287,65 @@ private fun MyraHome(
             Spacer(Modifier.height(8.dp))
         }
         Row(
-            modifier = Modifier.fillMaxWidth().background(Color(0xFF090B17)).border(1.dp, Color(0x444C4A7A)).padding(horizontal = 7.dp, vertical = 7.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically
+            modifier = Modifier.fillMaxWidth()
+                .background(Color(0xFF090714))
+                .border(1.dp, Color(0x665E2D91), RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp))
+                .padding(horizontal = 7.dp, vertical = 7.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Column(Modifier.weight(1f).background(if (selectedNav == "Assistant") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(13.dp)).clickable { selectedNav = "Assistant"; showAllTools = false; navScope.launch { scrollState.animateScrollTo(0) } }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("⌂", color = if (selectedNav == "Assistant") Cyan else Color(0xFF8993B7), fontSize = 18.sp); Text("Home", color = if (selectedNav == "Assistant") Color.White else Color(0xFF8993B7), fontSize = 9.sp) }
-            Column(Modifier.weight(1f).background(if (selectedNav == "Chat") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(13.dp)).clickable { selectedNav = "Chat"; showAllTools = false; showChatScreen = true }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("▤", color = if (selectedNav == "Chat") Cyan else Color(0xFF8993B7), fontSize = 18.sp); Text("Chat", color = if (selectedNav == "Chat") Color.White else Color(0xFF8993B7), fontSize = 9.sp) }
-            Column(Modifier.weight(1f).background(if (selectedNav == "Voice") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(13.dp)).clickable { selectedNav = "Voice"; onStartVoice() }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("✦", color = if (selectedNav == "Voice") Cyan else Color(0xFF8993B7), fontSize = 18.sp); Text("Voice", color = if (selectedNav == "Voice") Color.White else Color(0xFF8993B7), fontSize = 9.sp) }
-            Column(Modifier.weight(1f).background(if (selectedNav == "History") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(13.dp)).clickable { selectedNav = "History"; onHistory() }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("◷", color = if (selectedNav == "History") Cyan else Color(0xFF8993B7), fontSize = 18.sp); Text("History", color = if (selectedNav == "History") Color.White else Color(0xFF8993B7), fontSize = 9.sp) }
-            Column(Modifier.weight(1f).background(if (selectedNav == "Profile") Color(0x332CDBFF) else Color.Transparent, RoundedCornerShape(13.dp)).clickable { selectedNav = "Profile"; showAllTools = false; navScope.launch { scrollState.animateScrollTo(0) } }.padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("◉", color = if (selectedNav == "Profile") Cyan else Color(0xFF8993B7), fontSize = 18.sp); Text("Profile", color = if (selectedNav == "Profile") Color.White else Color(0xFF8993B7), fontSize = 9.sp) }
+            val navAccent = Color(0xFFFF4FD8)
+            val navMuted = Color(0xFF9B9AB8)
+            Column(
+                Modifier.weight(1f)
+                    .background(if (selectedNav == "Home") Color(0x33D946FF) else Color.Transparent, RoundedCornerShape(13.dp))
+                    .clickable { selectedNav = "Home"; showAllTools = false; navScope.launch { scrollState.animateScrollTo(0) } }
+                    .padding(vertical = 7.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text("⌂", color = if (selectedNav == "Home") navAccent else navMuted, fontSize = 18.sp)
+                Text("Home", color = if (selectedNav == "Home") Color.White else navMuted, fontSize = 9.sp)
+            }
+            Column(
+                Modifier.weight(1f)
+                    .background(if (selectedNav == "Chat") Color(0x33D946FF) else Color.Transparent, RoundedCornerShape(13.dp))
+                    .clickable { selectedNav = "Chat"; showAllTools = false; showChatScreen = true }
+                    .padding(vertical = 7.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text("▤", color = if (selectedNav == "Chat") navAccent else navMuted, fontSize = 18.sp)
+                Text("Chat", color = if (selectedNav == "Chat") Color.White else navMuted, fontSize = 9.sp)
+            }
+            Column(
+                Modifier.weight(1f)
+                    .background(if (selectedNav == "Voice") Color(0x33D946FF) else Color.Transparent, RoundedCornerShape(13.dp))
+                    .clickable { selectedNav = "Voice"; onStartVoice() }
+                    .padding(vertical = 7.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text("✦", color = if (selectedNav == "Voice") navAccent else navMuted, fontSize = 18.sp)
+                Text("Voice", color = if (selectedNav == "Voice") Color.White else navMuted, fontSize = 9.sp)
+            }
+            Column(
+                Modifier.weight(1f)
+                    .background(if (selectedNav == "Trigger") Color(0x33D946FF) else Color.Transparent, RoundedCornerShape(13.dp))
+                    .clickable { selectedNav = "Trigger"; showAllTools = false; onFeatures() }
+                    .padding(vertical = 7.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text("⌘", color = if (selectedNav == "Trigger") navAccent else navMuted, fontSize = 18.sp)
+                Text("Trigger", color = if (selectedNav == "Trigger") Color.White else navMuted, fontSize = 9.sp)
+            }
+            Column(
+                Modifier.weight(1f)
+                    .background(if (selectedNav == "Setting") Color(0x33D946FF) else Color.Transparent, RoundedCornerShape(13.dp))
+                    .clickable { selectedNav = "Setting"; onSettings() }
+                    .padding(vertical = 7.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text("⚙", color = if (selectedNav == "Setting") navAccent else navMuted, fontSize = 18.sp)
+                Text("Setting", color = if (selectedNav == "Setting") Color.White else navMuted, fontSize = 9.sp)
+            }
         }
         }
     }
