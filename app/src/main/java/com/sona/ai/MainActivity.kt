@@ -883,7 +883,7 @@ class MainActivity : ComponentActivity() {
                                     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                             Box(Modifier.size(5.dp).clip(CircleShape).background(Color(0xFFB46CFF)))
-                                            Text("MYRA NEURAL CORE  /  LIVE LINK", color = Color(0xFF53E5F5), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.55.sp)
+                                            Text("MYRA NEURAL CORE  •  LIVE VOICE", color = Color(0xFF53E5F5), fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.55.sp)
                                         }
                                         Text(
                                             when {
@@ -1344,7 +1344,7 @@ class MainActivity : ComponentActivity() {
                                 Spacer(Modifier.width(10.dp))
                                 Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                     Text("Chat", color = Color(0xFFF5F7FF), fontSize = 24.sp, fontWeight = FontWeight.Bold, letterSpacing = .2.sp)
-                                    Text("Your AI conversations", color = Color(0xFFB6C5DE), fontSize = 11.sp, fontWeight = FontWeight.Medium, letterSpacing = .1.sp)
+                                    Text("A private space to think, create and ask", color = Color(0xFFB6C5DE), fontSize = 11.sp, fontWeight = FontWeight.Medium, letterSpacing = .1.sp)
                                     Row(
                                         Modifier.padding(top = 2.dp).clip(RoundedCornerShape(20.dp))
                                             .background(Color(0xFF172B42)).border(1.dp, Color(0xFF9666FF).copy(alpha = .28f), RoundedCornerShape(20.dp))
@@ -1353,7 +1353,7 @@ class MainActivity : ComponentActivity() {
                                         horizontalArrangement = Arrangement.spacedBy(6.dp)
                                     ) {
                                         Box(Modifier.size(5.dp).clip(CircleShape).background(if (apiKey.isBlank()) Color(0xFFFFB36B) else if (busy) Color(0xFFFFC857) else Color(0xFF66F0BC)))
-                                        Text(if (apiKey.isBlank()) "API KEY REQUIRED" else if (busy) "MYRA IS THINKING" else "AI SYSTEM READY", color = if (apiKey.isBlank()) Color(0xFFFFB36B) else if (busy) Color(0xFFFFC857) else Color(0xFF9666FF), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                                        Text(if (apiKey.isBlank()) "SETUP REQUIRED" else if (busy) "THINKING…" else "MYRA ONLINE", color = if (apiKey.isBlank()) Color(0xFFFFB36B) else if (busy) Color(0xFFFFC857) else Color(0xFF55E7F5), fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
                                     }
                                 }
                                 Surface(
@@ -6109,7 +6109,7 @@ private fun MyraFeaturesMenu(
                 }
             }
             Box(Modifier.fillMaxWidth().height(1.dp).background(Brush.horizontalGradient(listOf(Color.Transparent, Color(0xFF49365F), Color(0xFF55E7F5), Color.Transparent))))
-            Text("Everything you need, in one place.", color = Color(0xFFE5DDF0), fontSize = 14.sp, modifier = Modifier.padding(top = 18.dp, bottom = 12.dp))
+            Text("Your MYRA shortcuts", color = Color(0xFFE5DDF0), fontSize = 14.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 18.dp, bottom = 12.dp))
             Column(Modifier.weight(1f).verticalScroll(androidx.compose.foundation.rememberScrollState()), verticalArrangement = Arrangement.spacedBy(9.dp)) {
                 items.forEach { (item, action) ->
                     Surface(onClick = action, shape = RoundedCornerShape(17.dp), color = Color(0xFF11182A), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF3B294F)), shadowElevation = 4.dp, modifier = Modifier.fillMaxWidth()) {
