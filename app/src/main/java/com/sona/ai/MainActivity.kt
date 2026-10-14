@@ -1156,17 +1156,29 @@ class MainActivity : ComponentActivity() {
                                     horizontalArrangement = Arrangement.spacedBy(7.dp),
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    listOf("◉  REAL-TIME", "文  VOICE OPTIONS", "♛  BOSS MODE").forEachIndexed { index, feature ->
+                                    listOf(
+                                        if (voiceReady) "● LIVE CONNECTED" else "◉ REAL-TIME",
+                                        "文 VOICE OPTIONS",
+                                        if (bossMode) "♛ BOSS ACTIVE" else "♛ BOSS MODE"
+                                    ).forEachIndexed { index, feature ->
                                         Surface(
                                             modifier = Modifier.weight(1f),
                                             color = Color(0xFF0D192B),
                                             shape = RoundedCornerShape(12.dp),
-                                            border = androidx.compose.foundation.BorderStroke(1.dp, if (index == 2 && bossMode) Color(0xFFFFB547) else Color(0xFF314B6A))
+                                            border = androidx.compose.foundation.BorderStroke(1.dp, when {
+                                                index == 2 && bossMode -> Color(0xFFFFB547)
+                                                index == 0 && voiceReady -> Color(0xFF55E7F5)
+                                                else -> Color(0xFF314B6A)
+                                            })
                                         ) {
                                             Text(
                                                 feature,
                                                 modifier = Modifier.fillMaxWidth().padding(horizontal = 3.dp, vertical = 10.dp),
-                                                color = if (index == 2 && bossMode) Color(0xFFFFB547) else Color(0xFF9CB4D0),
+                                                color = when {
+                                                    index == 2 && bossMode -> Color(0xFFFFB547)
+                                                    index == 0 && voiceReady -> Color(0xFF55E7F5)
+                                                    else -> Color(0xFF9CB4D0)
+                                                },
                                                 fontSize = 8.sp,
                                                 fontWeight = FontWeight.Bold,
                                                 textAlign = TextAlign.Center,
