@@ -1313,7 +1313,7 @@ class MainActivity : ComponentActivity() {
                 val chatSearchResult = if (chatSearchQuery.isBlank()) savedChat else savedChat.lines()
                     .filter { it.contains(chatSearchQuery, ignoreCase = true) }
                     .joinToString("\n")
-                val chatCategories = listOf("General Chat", "Study Help", "Daily Planner", "Creative Writing", "Writing Studio", "Tech & Gadgets", "Travel Planning", "Health & Fitness", "Code Assistant", "Image Prompt", "Creative Ideas", "Focus & Goals", "Interview Prep", "Language Practice", "Business Ideas", "Email & Messages", "Math Solver", "Science Explainer", "History & Culture", "Career Guidance", "Presentation Maker", "Resume Builder")
+                val chatCategories = listOf("General Chat", "Study Help", "Daily Planner", "Creative Writing", "Writing Studio", "Tech & Gadgets", "Travel Planning", "Health & Fitness", "Code Assistant", "Image Prompt", "Creative Ideas", "Focus & Goals", "Interview Prep", "Language Practice", "Business Ideas", "Email & Messages", "Math Solver", "Science Explainer", "History & Culture", "Career Guidance", "Presentation Maker", "Resume Builder", "Exam Prep", "Recipe Helper", "Budget Planner", "Story Builder", "Problem Solving")
                 Dialog(
                     onDismissRequest = { showChat = false },
                     properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false)
@@ -2059,6 +2059,11 @@ class MainActivity : ComponentActivity() {
                                                 "Career Guidance" -> "Help explore careers, skills, education paths, and practical next steps without assuming one path fits everyone. "
                                                 "Presentation Maker" -> "Help build a clear presentation outline with slide titles, concise bullets, speaker notes, and a strong flow. "
                                                 "Resume Builder" -> "Help draft an honest, readable resume using the user's real skills and experience; never invent qualifications. "
+                                                "Exam Prep" -> "Build a realistic revision plan, quiz the user with practice questions, and explain mistakes supportively. "
+                                                "Recipe Helper" -> "Suggest practical recipes based on ingredients, time, and preferences; include food-safety reminders where relevant. "
+                                                "Budget Planner" -> "Help organize income, spending, savings goals, and trade-offs; state assumptions and avoid promising financial outcomes. "
+                                                "Story Builder" -> "Collaborate on original stories with characters, setting, plot, and age-appropriate themes; follow the user's chosen style. "
+                                                "Problem Solving" -> "Break the problem into smaller parts, compare possible approaches, and explain a clear step-by-step solution. "
                                                 else -> ""
                                             }
                                             askGemini(if (categoryInstruction.isBlank()) message else "$categoryInstruction\\nUser request: $message", activeChatSessionId)
