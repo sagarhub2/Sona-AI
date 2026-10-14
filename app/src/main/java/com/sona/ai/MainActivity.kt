@@ -5738,6 +5738,13 @@ private fun MyraHome(
                 HomeQuickAction("Music", "♫", Color(0xFF8EA8FF)) { onMedia() }
                 HomeQuickAction("Settings", "⚙", Color(0xFFB46CFF)) { onSettings() }
             }
+            Spacer(Modifier.height(10.dp))
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
+                HomeQuickAction("Tasks", "✓", Color(0xFF55E7C4)) { onTasks() }
+                HomeQuickAction("Files", "▤", Color(0xFF69A8FF)) { onFiles() }
+                HomeQuickAction("History", "◷", Color(0xFFFFB36B)) { onHistory() }
+                HomeQuickAction("Lens", "◎", Color(0xFFB46CFF)) { onCamera() }
+            }
             Spacer(Modifier.height(14.dp))
         // Floating HUD-style navigation: separated from the screen edge with a soft holographic rim.
         Row(
