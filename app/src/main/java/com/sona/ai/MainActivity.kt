@@ -6063,7 +6063,7 @@ private fun MyraHome(
             var interactionMode by remember { mutableStateOf("Both") }
             Text("HOW DO YOU WANT TO TALK?", color = Color(0xFF9AA6C8), fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
             Spacer(Modifier.height(7.dp))
-            Row(Modifier.fillMaxWidth().background(Color(0xFF0B1022), RoundedCornerShape(15.dp)).padding(4.dp), horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+            Row(Modifier.fillMaxWidth().background(Color(0xFF160B13), RoundedCornerShape(15.dp)).padding(4.dp), horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                 listOf("Chat", "Voice", "Both").forEach { mode ->
                     Box(
                         Modifier.weight(1f).clip(RoundedCornerShape(11.dp))
@@ -6083,7 +6083,7 @@ private fun MyraHome(
                 listOf("Explain simply", "Plan my day", "Write for me").forEach { suggestion ->
                     Box(
                         Modifier.weight(1f)
-                            .border(1.dp, Color(0xFF244858), RoundedCornerShape(12.dp))
+                            .border(1.dp, Color(0xFF593044), RoundedCornerShape(12.dp))
                             .background(Color(0xFF0B1924), RoundedCornerShape(12.dp))
                             .clickable {
                                 val request = when (suggestion) {
@@ -6096,7 +6096,7 @@ private fun MyraHome(
                             .padding(horizontal = 6.dp, vertical = 11.dp),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(suggestion, color = Color(0xFFD4F6FA), fontSize = 10.sp, fontWeight = FontWeight.Medium)
+                        Text(suggestion, color = Color(0xFFFFD9E2), fontSize = 10.sp, fontWeight = FontWeight.Medium)
                     }
                 }
             }
@@ -6145,7 +6145,7 @@ private fun MyraHome(
                 enabled = !busy,
                 modifier = Modifier.fillMaxWidth().height(58.dp),
                 shape = RoundedCornerShape(20.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF087F95))
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF9F2447))
             ) {
                 Text(if (busy) "✦  Myra is thinking…" else "🎙   Talk with Myra", color = Color.White, fontSize = 17.sp, fontWeight = FontWeight.Bold)
             }
