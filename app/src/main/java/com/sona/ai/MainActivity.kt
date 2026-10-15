@@ -5939,111 +5939,105 @@ private fun MyraHome(
                 }
             }
             Spacer(Modifier.height(10.dp))
-            // Compact Part 7-inspired command dock. Each action reuses the existing feature callback.
+            // Reference-style compact greeting panel and six primary action tiles.
             Surface(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(22.dp),
+                shape = RoundedCornerShape(18.dp),
+                color = Color(0xFF21101D),
+                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x66FF526F))
+            ) {
+                Row(
+                    Modifier.fillMaxWidth().clickable { onTasks() }.padding(horizontal = 14.dp, vertical = 13.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text("☀", color = Color(0xFFFFC85A), fontSize = 25.sp)
+                    Column(Modifier.weight(1f).padding(start = 10.dp)) {
+                        Text("Good Morning, Sagar", color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
+                        Text("Stay positive, keep going!", color = Color(0xFFD0A8B5), fontSize = 11.sp)
+                    }
+                    Text("›", color = HudPink, fontSize = 25.sp)
+                }
+            }
+            Spacer(Modifier.height(12.dp))
+            val primaryActions = listOf(
+                Triple("◉", "Chat", onChat),
+                Triple("♩", "Voice", onStartVoice),
+                Triple("▣", "Camera", onCamera),
+                Triple("▤", "Memory", onMemory),
+                Triple("✓", "Tasks", onTasks),
+                Triple("⠿", "More", onFeatures)
+            )
+            primaryActions.chunked(3).forEach { rowActions ->
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(9.dp)) {
+                    rowActions.forEach { action ->
+                        Surface(
+                            onClick = action.third,
+                            modifier = Modifier.weight(1f).height(82.dp),
+                            shape = RoundedCornerShape(17.dp),
+                            color = Color(0xFF200D1B),
+                            border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x66FF526F))
+                        ) {
+                            Column(
+                                Modifier.fillMaxSize().padding(8.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center
+                            ) {
+                                Box(
+                                    Modifier.size(31.dp).background(Color(0xFF4A102A), CircleShape),
+                                    contentAlignment = Alignment.Center
+                                ) { Text(action.first, color = HudPink, fontSize = 18.sp, fontWeight = FontWeight.Bold) }
+                                Spacer(Modifier.height(4.dp))
+                                Text(action.second, color = Color.White, fontSize = 11.sp, fontWeight = FontWeight.SemiBold)
+                                Text(
+                                    when (action.second) {
+                                        "Chat" -> "Talk with MYRA"
+                                        "Voice" -> "Speak & Ask"
+                                        "Camera" -> "See & Explore"
+                                        "Memory" -> "Your Data"
+                                        "Tasks" -> "Stay Organised"
+                                        else -> "Tools & Apps"
+                                    },
+                                    color = Color(0xFFD0A8B5), fontSize = 8.sp
+                                )
+                            }
+                        }
+                    }
+                }
+                Spacer(Modifier.height(8.dp))
+            }
+            Spacer(Modifier.height(4.dp))
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(18.dp),
                 color = Color(0xCC190B12),
                 border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x66FF526F))
             ) {
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 9.dp),
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 8.dp),
                     horizontalArrangement = Arrangement.spacedBy(7.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Surface(
-                        onClick = onStartVoice,
-                        modifier = Modifier.weight(1.15f),
-                        shape = RoundedCornerShape(15.dp),
-                        color = Color(0xFF35101D),
+                        onClick = onFloatingAssistant,
+                        modifier = Modifier.weight(1f),
+                        shape = RoundedCornerShape(13.dp),
+                        color = Color(0xFF211018),
                         border = androidx.compose.foundation.BorderStroke(1.dp, HudPink)
                     ) {
-                        Column(Modifier.padding(vertical = 10.dp, horizontal = 4.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                            Text("◉", color = HudPink, fontSize = 18.sp)
-                            Text("VOICE", color = Color.White, fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
-                        }
+                        Text("✧  FLOATING ORB", Modifier.padding(vertical = 12.dp), color = Color.White, fontSize = 10.sp, textAlign = TextAlign.Center, fontWeight = FontWeight.Bold)
                     }
                     Surface(
-                        onClick = onChat,
+                        onClick = { showSearchDialog = true },
                         modifier = Modifier.weight(1f),
-                        shape = RoundedCornerShape(15.dp),
+                        shape = RoundedCornerShape(13.dp),
                         color = Color(0xFF211018),
                         border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x88FF7898))
                     ) {
-                        Column(Modifier.padding(vertical = 10.dp, horizontal = 4.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                            Text("⌘", color = HudPink, fontSize = 18.sp)
-                            Text("CHAT", color = Color.White, fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
-                        }
-                    }
-                    Surface(
-                        onClick = onFloatingAssistant,
-                        modifier = Modifier.weight(1f),
-                        shape = RoundedCornerShape(15.dp),
-                        color = Color(0xFF211018),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x88FF526F))
-                    ) {
-                        Column(Modifier.padding(vertical = 10.dp, horizontal = 4.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                            Text("✧", color = HudRed, fontSize = 18.sp)
-                            Text("FLOAT HUD", color = Color.White, fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 0.5.sp)
-                        }
-                    }
-                }
-            }
-            Spacer(Modifier.height(14.dp))
-            Text("QUICK START", modifier = Modifier.fillMaxWidth(), color = Color(0xFFFF9AAE), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.8.sp)
-            Spacer(Modifier.height(8.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth().horizontalScroll(androidx.compose.foundation.rememberScrollState()),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                listOf(
-                    "Aaj ka plan bana do" to "Make a realistic plan for today with priorities and breaks.",
-                    "Mujhe kuch sikhao" to "Teach me an interesting useful concept in simple Hinglish.",
-                    "Idea do" to "Suggest three practical creative ideas I can start with limited resources."
-                ).forEach { (label, prompt) ->
-                    Surface(
-                        onClick = { onAskText(prompt) },
-                        color = Color(0xAA0E2430),
-                        shape = RoundedCornerShape(14.dp),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x664A9BAD))
-                    ) {
-                        Text(label, modifier = Modifier.padding(horizontal = 13.dp, vertical = 11.dp), color = Color(0xFFE9DDFF), fontSize = 12.sp)
+                        Text("⌕  SEARCH", Modifier.padding(vertical = 12.dp), color = Color.White, fontSize = 10.sp, textAlign = TextAlign.Center, fontWeight = FontWeight.Bold)
                     }
                 }
             }
             Spacer(Modifier.height(12.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                listOf(
-                    Triple("☎", "Phone", onContacts),
-                    Triple("▦", "Apps", onDeviceSettings),
-                    Triple("◉", "Camera", onCamera),
-                    Triple("▶", "Media", onMedia),
-                    Triple("⌕", "Search", { showSearchDialog = true })
-                ).forEach { item ->
-                    Surface(
-                        modifier = Modifier.weight(1f).height(64.dp).clickable { item.third.invoke() },
-                        color = Color(0xAA10172E),
-                        shape = RoundedCornerShape(15.dp),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x553E9CFF))
-                    ) {
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Text(item.first, color = HudPink, fontSize = 19.sp, fontWeight = FontWeight.Bold)
-                            Text(item.second, color = Color(0xFFD4F6FA), fontSize = 9.sp)
-                        }
-                    }
-                }
-            }
-            Spacer(Modifier.height(12.dp))
-            Text("Your AI. Your space. ✨", color = Color.White, fontSize = 25.sp, fontWeight = FontWeight.Bold, letterSpacing = (-0.4).sp)
-            Spacer(Modifier.height(6.dp))
-            Text("Talk naturally, ask anything, save ideas, and get things done.", color = Color(0xFFA9B2D0), fontSize = 13.sp, lineHeight = 19.sp)
-            Spacer(Modifier.height(18.dp))
 
             Card(
                 modifier = Modifier.fillMaxWidth(),
