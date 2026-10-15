@@ -2421,38 +2421,38 @@ class MainActivity : ComponentActivity() {
                 AlertDialog(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(26.dp),
-                    containerColor = Color(0xFF071426),
-                    titleContentColor = Color(0xFFF5F7FF),
-                    textContentColor = Color(0xFF9CB4D0),
+                    containerColor = Color(0xFF10070B),
+                    titleContentColor = Color(0xFFFFF1F4),
+                    textContentColor = Color(0xFFD9A7B4),
                     tonalElevation = 0.dp,
                     onDismissRequest = { showTasks = false },
                     title = {
                         Column(
                             Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
-                                .background(Brush.horizontalGradient(listOf(Color(0xFF101D31), Color(0xFF0B1424), Color(0xFF0B1424))))
-                                .border(1.dp, Color(0xFF293B55), RoundedCornerShape(18.dp))
+                                .background(Brush.horizontalGradient(listOf(Color(0xFF35101D), Color(0xFF1A090F), Color(0xFF1A090F))))
+                                .border(1.dp, Color(0xFF6A2639), RoundedCornerShape(18.dp))
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
                             Text("TASKS & REMINDERS", color = Color(0xFFFF7898), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
-                            Text("Tasks & reminders", color = Color(0xFFF5F7FF), fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                            Text("Plan your day, one task at a time.", color = Color(0xFF9CB4D0), fontSize = 12.sp)
+                            Text("Tasks & reminders", color = Color(0xFFFFF1F4), fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                            Text("Plan your day, one task at a time.", color = Color(0xFFD9A7B4), fontSize = 12.sp)
                         }
                     },
                     text = {
                         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                             Row(
                                 Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp))
-                                    .background(Color(0xFF0B1424))
-                                    .border(1.dp, Color(0xFF293B55), RoundedCornerShape(14.dp))
+                                    .background(Color(0xFF1A090F))
+                                    .border(1.dp, Color(0xFF6A2639), RoundedCornerShape(14.dp))
                                     .padding(12.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Text("☷", color = Color(0xFFFF7898), fontSize = 25.sp)
                                 Spacer(Modifier.width(10.dp))
                                 Column {
-                                    Text("${taskLines.size} tasks in your list", color = Color(0xFFF5F7FF), fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
-                                    Text(if (taskLines.isEmpty()) "Add one task per line to get started." else "$completedTasks marked complete • add [x] before a finished task", color = Color(0xFF9CB4D0), fontSize = 11.sp)
+                                    Text("${taskLines.size} tasks in your list", color = Color(0xFFFFF1F4), fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
+                                    Text(if (taskLines.isEmpty()) "Add one task per line to get started." else "$completedTasks marked complete • add [x] before a finished task", color = Color(0xFFD9A7B4), fontSize = 11.sp)
                                 }
                             }
                             OutlinedTextField(
@@ -2464,14 +2464,14 @@ class MainActivity : ComponentActivity() {
                                 maxLines = 9,
                                 modifier = Modifier.fillMaxWidth(),
                                 colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
-                                    focusedTextColor = Color(0xFFF5F7FF),
-                                    unfocusedTextColor = Color(0xFFF5F7FF),
+                                    focusedTextColor = Color(0xFFFFF1F4),
+                                    unfocusedTextColor = Color(0xFFFFF1F4),
                                     focusedBorderColor = Color(0xFFFF7898),
                                     unfocusedBorderColor = Color(0xFFFF7898).copy(alpha = .45f),
                                     focusedLabelColor = Color(0xFFFF7898),
                                     cursorColor = Color(0xFFFF7898),
-                                    focusedContainerColor = Color(0xFF0B1424),
-                                    unfocusedContainerColor = Color(0xFF0B1424)
+                                    focusedContainerColor = Color(0xFF1A090F),
+                                    unfocusedContainerColor = Color(0xFF1A090F)
                                 )
                             )
                             val savedTaskDraft = prefs.getString("sona_tasks", "").orEmpty()
