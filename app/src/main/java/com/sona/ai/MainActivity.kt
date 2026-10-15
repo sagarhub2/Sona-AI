@@ -6171,12 +6171,12 @@ private fun MyraHome(
                 }
                 Spacer(Modifier.height(20.dp))
                 Box(
-                    Modifier.fillMaxWidth().background(Brush.linearGradient(listOf(Color(0xFF103847), Color(0xFF0D2736), Color(0xFF0B1D28))), RoundedCornerShape(26.dp))
-                        .border(1.dp, Color(0x667D73D9), RoundedCornerShape(26.dp)).padding(20.dp)
+                    Modifier.fillMaxWidth().background(Brush.linearGradient(listOf(Color(0xFF351426), Color(0xFF21101D), Color(0xFF140B15))), RoundedCornerShape(26.dp))
+                        .border(1.dp, Color(0x66FF526F), RoundedCornerShape(26.dp)).padding(20.dp)
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
                         Box(Modifier.size(94.dp).background(Brush.linearGradient(listOf(HudPink, HudRed, Color(0xFFED78D7))), CircleShape).padding(3.dp), contentAlignment = Alignment.Center) {
-                            Box(Modifier.fillMaxSize().background(Color(0xFF0B0C1B), CircleShape), contentAlignment = Alignment.Center) {
+                            Box(Modifier.fillMaxSize().background(Color(0xFF100811), CircleShape), contentAlignment = Alignment.Center) {
                                 Text(profileName.trim().firstOrNull()?.uppercase() ?: "S", color = Color.White, fontSize = 38.sp, fontWeight = FontWeight.Black)
                             }
                         }
@@ -6185,8 +6185,8 @@ private fun MyraHome(
                         Text(profileBio.ifBlank { "Your personal AI journey" }, color = Color(0xFFD0C9F0), fontSize = 12.sp)
                         Spacer(Modifier.height(12.dp))
                         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Surface(shape = RoundedCornerShape(30.dp), color = Color(0x332CE6C8)) { Text(if (hasKey) "✦ AI CONNECTED" else "✦ SET UP AI", color = HudPink, fontSize = 9.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(horizontal = 10.dp, vertical = 7.dp)) }
-                            Surface(shape = RoundedCornerShape(30.dp), color = Color(0x33B86BFF)) { Text("◈ ON-DEVICE PROFILE", color = Color(0xFFD5B8FF), fontSize = 9.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(horizontal = 10.dp, vertical = 7.dp)) }
+                            Surface(shape = RoundedCornerShape(30.dp), color = Color(0x33FF526F)) { Text(if (hasKey) "✦ AI CONNECTED" else "✦ SET UP AI", color = HudPink, fontSize = 9.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(horizontal = 10.dp, vertical = 7.dp)) }
+                            Surface(shape = RoundedCornerShape(30.dp), color = Color(0x33FF7898)) { Text("◈ ON-DEVICE PROFILE", color = Color(0xFFFFB7C7), fontSize = 9.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(horizontal = 10.dp, vertical = 7.dp)) }
                         }
                     }
                 }
@@ -6202,7 +6202,7 @@ private fun MyraHome(
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     listOf("Hindi", "English", "Hindi + English").forEach { language ->
                         val selected = profileLanguage == language
-                        Surface(onClick = { profileLanguage = language; profileSaved = false }, modifier = Modifier.weight(1f), shape = RoundedCornerShape(14.dp), color = if (selected) Color(0x5535D7E8) else Color(0xFF11152A), border = androidx.compose.foundation.BorderStroke(1.dp, if (selected) HudPink else Color(0xFF303653))) {
+                        Surface(onClick = { profileLanguage = language; profileSaved = false }, modifier = Modifier.weight(1f), shape = RoundedCornerShape(14.dp), color = if (selected) Color(0x55FF526F) else Color(0xFF21101D), border = androidx.compose.foundation.BorderStroke(1.dp, if (selected) HudPink else Color(0xFF593044))) {
                             Text(language, color = if (selected) Color.White else Color(0xFF9AA6C8), fontSize = 10.sp, modifier = Modifier.padding(vertical = 12.dp, horizontal = 5.dp), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
                         }
                     }
