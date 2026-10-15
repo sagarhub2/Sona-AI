@@ -5820,7 +5820,7 @@ private fun MyraHome(
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                 Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     Text("MYRA AI", color = Color.White, fontSize = 29.sp, fontWeight = FontWeight.Black, letterSpacing = 3.2.sp)
-                    Text("YOUR INTELLIGENT EVERYDAY SYSTEM", color = Color(0xFFFF9AAE), fontSize = 9.sp, letterSpacing = 1.7.sp)
+                    Text("Your Phone, Voice-First", color = Color(0xFFFF9AAE), fontSize = 11.sp, letterSpacing = 0.4.sp)
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Box(Modifier.size(6.dp).background(if (hasKey) Color(0xFF4ADE80) else Color(0xFFFBBF24), CircleShape))
                         Spacer(Modifier.width(6.dp))
@@ -5841,9 +5841,9 @@ private fun MyraHome(
 
             Spacer(Modifier.height(12.dp))
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
-                Text("Welcome back, Sagar", color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold, letterSpacing = (-0.4).sp)
+                Text("Good Morning, Sagar", color = Color.White, fontSize = 23.sp, fontWeight = FontWeight.Bold, letterSpacing = (-0.4).sp)
             }
-            Text("One calm space for voice, ideas, and everyday actions.", color = Color(0xFFD0A8B5), fontSize = 13.sp, modifier = Modifier.fillMaxWidth().padding(top = 4.dp))
+            Text("Stay positive, keep going!", color = Color(0xFFD0A8B5), fontSize = 13.sp, modifier = Modifier.fillMaxWidth().padding(top = 4.dp))
             Spacer(Modifier.height(8.dp))
             Box(
                 modifier = Modifier.fillMaxWidth().height(270.dp),
@@ -5884,7 +5884,7 @@ private fun MyraHome(
                     modifier = Modifier.align(Alignment.TopCenter).padding(top = 4.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text("MYRA AI  •  PERSONAL COMMAND CENTER", color = Color(0xFFFFB2C0), fontSize = 8.sp, letterSpacing = 1.5.sp)
+                    Text("YOUR PHONE, VOICE-FIRST", color = Color(0xFFFFB2C0), fontSize = 8.sp, letterSpacing = 1.5.sp)
                     Text(if (busy) "● LIVE SESSION" else "● READY WHEN YOU ARE", color = if (busy) HudPink else Color(0xFF7CF7C6), fontSize = 9.sp, letterSpacing = 1.4.sp)
                 }
                 if (animatedOrb) {
