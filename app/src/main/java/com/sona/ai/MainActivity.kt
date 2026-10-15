@@ -5898,15 +5898,15 @@ private fun MyraHome(
                     )
                     Box(
                         Modifier.size(184.dp).rotate(ringRotation * 0.55f)
-                            .border(2.dp, Brush.sweepGradient(listOf(Color.Transparent, Color(0x664AD7E8), HudPink, Color.Transparent)), CircleShape)
+                            .border(2.dp, Brush.sweepGradient(listOf(Color.Transparent, Color(0x66FF7898), HudPink, Color.Transparent)), CircleShape)
                     )
                     Box(Modifier.size(224.dp).rotate(ringRotation), contentAlignment = Alignment.TopCenter) {
                         Box(Modifier.padding(top = 1.dp).size(10.dp).background(HudPink, CircleShape)
-                            .border(2.dp, Color(0x6648E8FF), CircleShape))
+                            .border(2.dp, Color(0x66FF7898), CircleShape))
                     }
                     Box(Modifier.size(202.dp).rotate(counterRotation), contentAlignment = Alignment.BottomCenter) {
                         Box(Modifier.padding(bottom = 1.dp).size(7.dp).background(HudRed, CircleShape)
-                            .border(2.dp, Color(0x664AD7E8), CircleShape))
+                            .border(2.dp, Color(0x66FF7898), CircleShape))
                     }
                     androidx.compose.foundation.Canvas(
                         modifier = Modifier.size(236.dp).rotate(ringRotation * 1.2f)
@@ -5924,11 +5924,11 @@ private fun MyraHome(
                 }
                 Box(
                     modifier = Modifier.size((176 * pulse).dp)
-                        .background(Brush.radialGradient(listOf(Color(0x889F67FF), Color(0x554626B5), Color.Transparent)), CircleShape),
+                        .background(Brush.radialGradient(listOf(Color(0x88FF526F), Color(0x554A1425), Color.Transparent)), CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
-                    Box(Modifier.size(164.dp).background(Brush.radialGradient(listOf(Color(0xFF19B6C8), Color(0xFF126B85), Color(0xFF111B43))), CircleShape), contentAlignment = Alignment.Center) {
-                        Box(Modifier.size(142.dp).background(Brush.radialGradient(listOf(Color(0xFF111B43), Color(0xFF050816))), CircleShape), contentAlignment = Alignment.Center) {
+                    Box(Modifier.size(164.dp).background(Brush.radialGradient(listOf(Color(0xFF8E2947), Color(0xFF481529), Color(0xFF160B13))), CircleShape), contentAlignment = Alignment.Center) {
+                        Box(Modifier.size(142.dp).background(Brush.radialGradient(listOf(Color(0xFF220B14), Color(0xFF080509))), CircleShape), contentAlignment = Alignment.Center) {
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                 Text("✦", color = HudPink, fontSize = 28.sp)
                                 Text("MYRA", color = Color.White, fontSize = 25.sp, fontWeight = FontWeight.Light, letterSpacing = 3.sp)
@@ -5938,7 +5938,58 @@ private fun MyraHome(
                     }
                 }
             }
-            Spacer(Modifier.height(8.dp))
+            Spacer(Modifier.height(10.dp))
+            // Compact Part 7-inspired command dock. Each action reuses the existing feature callback.
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(22.dp),
+                color = Color(0xCC190B12),
+                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x66FF526F))
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 9.dp),
+                    horizontalArrangement = Arrangement.spacedBy(7.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Surface(
+                        onClick = onStartVoice,
+                        modifier = Modifier.weight(1.15f),
+                        shape = RoundedCornerShape(15.dp),
+                        color = Color(0xFF35101D),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, HudPink)
+                    ) {
+                        Column(Modifier.padding(vertical = 10.dp, horizontal = 4.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text("◉", color = HudPink, fontSize = 18.sp)
+                            Text("VOICE", color = Color.White, fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                        }
+                    }
+                    Surface(
+                        onClick = onChat,
+                        modifier = Modifier.weight(1f),
+                        shape = RoundedCornerShape(15.dp),
+                        color = Color(0xFF211018),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x88FF7898))
+                    ) {
+                        Column(Modifier.padding(vertical = 10.dp, horizontal = 4.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text("⌘", color = HudPink, fontSize = 18.sp)
+                            Text("CHAT", color = Color.White, fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                        }
+                    }
+                    Surface(
+                        onClick = onFloatingAssistant,
+                        modifier = Modifier.weight(1f),
+                        shape = RoundedCornerShape(15.dp),
+                        color = Color(0xFF211018),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x88FF526F))
+                    ) {
+                        Column(Modifier.padding(vertical = 10.dp, horizontal = 4.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text("✧", color = HudRed, fontSize = 18.sp)
+                            Text("FLOAT HUD", color = Color.White, fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 0.5.sp)
+                        }
+                    }
+                }
+            }
+            Spacer(Modifier.height(14.dp))
             Text("QUICK START", modifier = Modifier.fillMaxWidth(), color = Color(0xFFFF9AAE), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.8.sp)
             Spacer(Modifier.height(8.dp))
             Row(
