@@ -7100,16 +7100,16 @@ private fun MyraPremiumIntro() {
     )
     Box(
         modifier = Modifier.fillMaxSize().background(
-            Brush.radialGradient(listOf(Color(0xFF101B38), Color(0xFF070B18), Color(0xFF03050D)))
+            Brush.radialGradient(listOf(Color(0xFF32101B), Color(0xFF10070B), Color(0xFF080407)))
         ),
         contentAlignment = Alignment.Center
     ) {
         // Ambient liquid-glass light pools.
         Box(Modifier.size(310.dp).background(
-            Brush.radialGradient(listOf(Color(0x3322D3EE), Color.Transparent)), CircleShape
+            Brush.radialGradient(listOf(Color(0x33FF526F), Color.Transparent)), CircleShape
         ))
         Box(Modifier.size(270.dp).background(
-            Brush.radialGradient(listOf(Color(0x338B5CF6), Color.Transparent)), CircleShape
+            Brush.radialGradient(listOf(Color(0x33FF7898), Color.Transparent)), CircleShape
         ))
         Column(
             modifier = Modifier.fillMaxSize().padding(horizontal = 26.dp, vertical = 24.dp),
@@ -7119,16 +7119,16 @@ private fun MyraPremiumIntro() {
             Box(Modifier.size(250.dp), contentAlignment = Alignment.Center) {
                 // Three independent glass orbit paths.
                 Box(Modifier.size(238.dp).rotate(outerRotation)
-                    .border(1.4.dp, Color(0xAA22D3EE).copy(alpha = glow), CircleShape))
+                    .border(1.4.dp, Color(0xAAFF526F).copy(alpha = glow), CircleShape))
                 Box(Modifier.size(207.dp).rotate(-outerRotation * 0.63f)
-                    .border(1.2.dp, Color(0xAA8B5CF6).copy(alpha = glow), CircleShape))
+                    .border(1.2.dp, Color(0xAAFF7898).copy(alpha = glow), CircleShape))
                 Box(Modifier.size(178.dp).rotate(innerRotation)
-                    .border(2.dp, Color(0xAAFF4D9D).copy(alpha = glow), RoundedCornerShape(44.dp)))
+                    .border(2.dp, Color(0xAAFFB2C0).copy(alpha = glow), RoundedCornerShape(44.dp)))
                 // Core halo.
                 Box(Modifier.size((148 * pulse).dp).background(
                     Brush.radialGradient(listOf(
-                        Color(0xBB22D3EE).copy(alpha = glow),
-                        Color(0x668B5CF6).copy(alpha = glow),
+                        Color(0xBBFF526F).copy(alpha = glow),
+                        Color(0x66FF7898).copy(alpha = glow),
                         Color.Transparent
                     )), CircleShape
                 ))
@@ -7137,45 +7137,45 @@ private fun MyraPremiumIntro() {
                     Modifier.size((116 * pulse).dp)
                         .background(
                             Brush.linearGradient(listOf(
-                                Color(0xFF1E3A68), Color(0xFF21143F), Color(0xFF071629)
+                                Color(0xFF501626), Color(0xFF30101A), Color(0xFF16080D)
                             )), CircleShape
                         )
-                        .border(1.6.dp, Brush.linearGradient(listOf(Color(0xFF67E8F9), Color(0xFFC084FC), Color(0xFFFF72D2))), CircleShape),
+                        .border(1.6.dp, Brush.linearGradient(listOf(Color(0xFFFF8FA3), Color(0xFFFFB2C0), Color(0xFFFF72D2))), CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
                     Box(Modifier.size(78.dp).background(
-                        Brush.radialGradient(listOf(Color(0xFF8B5CF6), Color(0xFF263A80), Color(0xFF071629))),
+                        Brush.radialGradient(listOf(Color(0xFFFF526F), Color(0xFF6E263B), Color(0xFF16080D))),
                         CircleShape
-                    ).border(1.dp, Color(0x887BE8F9), CircleShape), contentAlignment = Alignment.Center) {
+                    ).border(1.dp, Color(0x88FFB2C0), CircleShape), contentAlignment = Alignment.Center) {
                         Text("M", color = Color.White, fontSize = 53.sp, fontWeight = FontWeight.Light)
                     }
                 }
                 // Orbiting energy points.
                 Box(Modifier.offset(x = 102.dp, y = (-36).dp).size(10.dp)
-                    .background(Color(0xFF67E8F9), CircleShape))
+                    .background(Color(0xFFFF8FA3), CircleShape))
                 Box(Modifier.offset(x = (-91).dp, y = 65.dp).size(7.dp)
                     .background(Color(0xFFFF72D2), CircleShape))
                 Box(Modifier.offset(x = 24.dp, y = 116.dp).size(6.dp)
-                    .background(Color(0xFFC084FC), CircleShape))
+                    .background(Color(0xFFFFB2C0), CircleShape))
             }
             Spacer(Modifier.height(25.dp))
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
-                Text("MYRA", color = Color(0xFFF7FAFF), fontSize = 36.sp, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
+                Text("MYRA", color = Color(0xFFFFF1F4), fontSize = 36.sp, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
                 Spacer(Modifier.width(8.dp))
-                Text("AI", color = Color(0xFF67E8F9), fontSize = 36.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                Text("AI", color = Color(0xFFFF8FA3), fontSize = 36.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
             }
             Spacer(Modifier.height(7.dp))
-            Text("YOUR VOICE-FIRST AI COMPANION", color = Color(0xFFC4B5FD), fontSize = 11.sp, letterSpacing = 2.2.sp)
+            Text("YOUR VOICE-FIRST AI COMPANION", color = Color(0xFFFFB2C0), fontSize = 11.sp, letterSpacing = 2.2.sp)
             Spacer(Modifier.height(28.dp))
             Box(Modifier.width(190.dp).height(5.dp).clip(RoundedCornerShape(8.dp))
-                .background(Color(0xFF18233B))) {
+                .background(Color(0xFF35131E))) {
                 Box(Modifier.fillMaxWidth(glow).fillMaxHeight().background(
-                    Brush.horizontalGradient(listOf(Color(0xFF22D3EE), Color(0xFF8B5CF6), Color(0xFFFF4D9D))),
+                    Brush.horizontalGradient(listOf(Color(0xFFFF526F), Color(0xFFFF526F), Color(0xFFFFB2C0))),
                     RoundedCornerShape(8.dp)
                 ))
             }
             Spacer(Modifier.height(12.dp))
-            Text("INITIALIZING NEURAL CORE", color = Color(0xFFB8C7E5), fontSize = 10.sp, letterSpacing = 1.7.sp)
+            Text("INITIALIZING NEURAL CORE", color = Color(0xFFE4B7C1), fontSize = 10.sp, letterSpacing = 1.7.sp)
         }
     }
 }
@@ -7204,16 +7204,16 @@ private fun QuickTile(title: String, subtitle: String, modifier: Modifier = Modi
         onClick = { onClick?.invoke() },
         enabled = onClick != null,
         shape = shape,
-        color = Color(0xFF100B22),
-        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF63305F))
+        color = Color(0xFF1B0C12),
+        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF6A2639))
     ) {
         Column(
             modifier = Modifier.fillMaxSize().padding(13.dp),
             verticalArrangement = Arrangement.Center
         ) {
-            Text(title, color = Color(0xFFFF72D2), fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
+            Text(title, color = Color(0xFFFF7898), fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
             Spacer(Modifier.height(5.dp))
-            Text(subtitle, color = Color(0xFFB8A9D8), fontSize = 11.sp)
+            Text(subtitle, color = Color(0xFFD9A7B4), fontSize = 11.sp)
         }
     }
 }
