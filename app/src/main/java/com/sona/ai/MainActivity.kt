@@ -5745,6 +5745,8 @@ private fun MyraHome(
     onAnalyzeImage: (android.net.Uri) -> Unit = {}
 ) {
     val context = LocalContext.current
+    val HudPink = Color(0xFFFF7898)
+    val HudRed = Color(0xFFFF526F)
     val transition = androidx.compose.animation.core.rememberInfiniteTransition(label = "sona-orb")
     val animatedPulse by transition.animateFloat(
         initialValue = 0.94f,
@@ -5832,7 +5834,7 @@ private fun MyraHome(
                     border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x66FF526F))
                 ) {
                     Box(Modifier.size(46.dp), contentAlignment = Alignment.Center) {
-                        Text("⚙", color = Cyan, fontSize = 22.sp)
+                        Text("⚙", color = HudPink, fontSize = 22.sp)
                     }
                 }
             }
@@ -5854,14 +5856,14 @@ private fun MyraHome(
                     val horizonY = size.height * 0.79f
                     drawRect(
                         brush = Brush.verticalGradient(
-                            colors = listOf(Color(0x00050A20), Color(0x222E1A72), Color(0x663A1C91), Color(0x0038DDF5)),
+                            colors = listOf(Color(0x00080509), Color(0x2235101D), Color(0x664A1425), Color(0x00FF7898)),
                             startY = size.height * 0.42f,
                             endY = size.height
                         )
                     )
                     drawOval(
                         brush = Brush.radialGradient(
-                            colors = listOf(Color(0x663D36FF), Color(0x333B8DFF), Color.Transparent),
+                            colors = listOf(Color(0x66FF526F), Color(0x33FF7898), Color.Transparent),
                             center = androidx.compose.ui.geometry.Offset(size.width / 2f, horizonY),
                             radius = size.width * 0.65f
                         ),
@@ -5869,7 +5871,7 @@ private fun MyraHome(
                         size = androidx.compose.ui.geometry.Size(size.width * 1.3f, 88.dp.toPx())
                     )
                     drawArc(
-                        brush = Brush.horizontalGradient(listOf(Color.Transparent, Cyan, Violet, Color(0xFFFF5EDB), Color.Transparent)),
+                        brush = Brush.horizontalGradient(listOf(Color.Transparent, HudPink, HudRed, Color(0xFFFFB2C0), Color.Transparent)),
                         startAngle = 180f,
                         sweepAngle = 180f,
                         useCenter = false,
@@ -5882,35 +5884,35 @@ private fun MyraHome(
                     modifier = Modifier.align(Alignment.TopCenter).padding(top = 4.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text("MYRA AI  •  PERSONAL COMMAND CENTER", color = Color(0xFF8BDFF0), fontSize = 8.sp, letterSpacing = 1.5.sp)
-                    Text(if (busy) "● LIVE SESSION" else "● READY WHEN YOU ARE", color = if (busy) Cyan else Color(0xFF7CF7C6), fontSize = 9.sp, letterSpacing = 1.4.sp)
+                    Text("MYRA AI  •  PERSONAL COMMAND CENTER", color = Color(0xFFFFB2C0), fontSize = 8.sp, letterSpacing = 1.5.sp)
+                    Text(if (busy) "● LIVE SESSION" else "● READY WHEN YOU ARE", color = if (busy) HudPink else Color(0xFF7CF7C6), fontSize = 9.sp, letterSpacing = 1.4.sp)
                 }
                 if (animatedOrb) {
                     Box(
                         Modifier.size(224.dp).rotate(ringRotation)
-                            .border(1.5.dp, Brush.sweepGradient(listOf(Cyan, Color.Transparent, Violet, Color.Transparent, Cyan)), CircleShape)
+                            .border(1.5.dp, Brush.sweepGradient(listOf(HudPink, Color.Transparent, HudRed, Color.Transparent, HudPink)), CircleShape)
                     )
                     Box(
                         Modifier.size(202.dp).rotate(counterRotation)
-                            .border(1.dp, Brush.sweepGradient(listOf(Color.Transparent, Cyan, Color.Transparent, Violet, Color.Transparent)), CircleShape)
+                            .border(1.dp, Brush.sweepGradient(listOf(Color.Transparent, HudPink, Color.Transparent, HudRed, Color.Transparent)), CircleShape)
                     )
                     Box(
                         Modifier.size(184.dp).rotate(ringRotation * 0.55f)
-                            .border(2.dp, Brush.sweepGradient(listOf(Color.Transparent, Color(0x664AD7E8), Cyan, Color.Transparent)), CircleShape)
+                            .border(2.dp, Brush.sweepGradient(listOf(Color.Transparent, Color(0x664AD7E8), HudPink, Color.Transparent)), CircleShape)
                     )
                     Box(Modifier.size(224.dp).rotate(ringRotation), contentAlignment = Alignment.TopCenter) {
-                        Box(Modifier.padding(top = 1.dp).size(10.dp).background(Cyan, CircleShape)
+                        Box(Modifier.padding(top = 1.dp).size(10.dp).background(HudPink, CircleShape)
                             .border(2.dp, Color(0x6648E8FF), CircleShape))
                     }
                     Box(Modifier.size(202.dp).rotate(counterRotation), contentAlignment = Alignment.BottomCenter) {
-                        Box(Modifier.padding(bottom = 1.dp).size(7.dp).background(Violet, CircleShape)
+                        Box(Modifier.padding(bottom = 1.dp).size(7.dp).background(HudRed, CircleShape)
                             .border(2.dp, Color(0x664AD7E8), CircleShape))
                     }
                     androidx.compose.foundation.Canvas(
                         modifier = Modifier.size(236.dp).rotate(ringRotation * 1.2f)
                     ) {
                         drawArc(
-                            brush = Brush.sweepGradient(listOf(Color.Transparent, Cyan, Violet, Color.Transparent)),
+                            brush = Brush.sweepGradient(listOf(Color.Transparent, HudPink, HudRed, Color.Transparent)),
                             startAngle = 215f,
                             sweepAngle = 72f,
                             useCenter = false,
@@ -5928,7 +5930,7 @@ private fun MyraHome(
                     Box(Modifier.size(164.dp).background(Brush.radialGradient(listOf(Color(0xFF19B6C8), Color(0xFF126B85), Color(0xFF111B43))), CircleShape), contentAlignment = Alignment.Center) {
                         Box(Modifier.size(142.dp).background(Brush.radialGradient(listOf(Color(0xFF111B43), Color(0xFF050816))), CircleShape), contentAlignment = Alignment.Center) {
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                Text("✦", color = Cyan, fontSize = 28.sp)
+                                Text("✦", color = HudPink, fontSize = 28.sp)
                                 Text("MYRA", color = Color.White, fontSize = 25.sp, fontWeight = FontWeight.Light, letterSpacing = 3.sp)
                                 Text("LIVE ASSISTANT CORE", color = Color(0xFFFF9AAE), fontSize = 9.sp, letterSpacing = 2.sp)
                             }
@@ -5980,7 +5982,7 @@ private fun MyraHome(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center
                         ) {
-                            Text(item.first, color = Cyan, fontSize = 19.sp, fontWeight = FontWeight.Bold)
+                            Text(item.first, color = HudPink, fontSize = 19.sp, fontWeight = FontWeight.Bold)
                             Text(item.second, color = Color(0xFFD4F6FA), fontSize = 9.sp)
                         }
                     }
@@ -6063,11 +6065,11 @@ private fun MyraHome(
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedTextColor = Color.White,
                     unfocusedTextColor = Color.White,
-                    focusedBorderColor = Cyan,
+                    focusedBorderColor = HudPink,
                     unfocusedBorderColor = Color(0xFF29335B),
-                    focusedLabelColor = Cyan,
+                    focusedLabelColor = HudPink,
                     unfocusedLabelColor = Color(0xFF9AA6C8),
-                    cursorColor = Cyan
+                    cursorColor = HudPink
                 ),
                 maxLines = 4
             )
@@ -6115,8 +6117,8 @@ private fun MyraHome(
                         Text("MY PROFILE", color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Black, letterSpacing = 1.5.sp)
                         Text("Make Myra feel like yours", color = Color(0xFFFF9AAE), fontSize = 12.sp)
                     }
-                    Surface(onClick = onSettings, shape = CircleShape, color = Color(0xFF102632), border = androidx.compose.foundation.BorderStroke(1.dp, Violet)) {
-                        Box(Modifier.size(44.dp), contentAlignment = Alignment.Center) { Text("⚙", fontSize = 20.sp, color = Cyan) }
+                    Surface(onClick = onSettings, shape = CircleShape, color = Color(0xFF102632), border = androidx.compose.foundation.BorderStroke(1.dp, HudRed)) {
+                        Box(Modifier.size(44.dp), contentAlignment = Alignment.Center) { Text("⚙", fontSize = 20.sp, color = HudPink) }
                     }
                 }
                 Spacer(Modifier.height(20.dp))
@@ -6125,7 +6127,7 @@ private fun MyraHome(
                         .border(1.dp, Color(0x667D73D9), RoundedCornerShape(26.dp)).padding(20.dp)
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
-                        Box(Modifier.size(94.dp).background(Brush.linearGradient(listOf(Cyan, Violet, Color(0xFFED78D7))), CircleShape).padding(3.dp), contentAlignment = Alignment.Center) {
+                        Box(Modifier.size(94.dp).background(Brush.linearGradient(listOf(HudPink, HudRed, Color(0xFFED78D7))), CircleShape).padding(3.dp), contentAlignment = Alignment.Center) {
                             Box(Modifier.fillMaxSize().background(Color(0xFF0B0C1B), CircleShape), contentAlignment = Alignment.Center) {
                                 Text(profileName.trim().firstOrNull()?.uppercase() ?: "S", color = Color.White, fontSize = 38.sp, fontWeight = FontWeight.Black)
                             }
@@ -6135,24 +6137,24 @@ private fun MyraHome(
                         Text(profileBio.ifBlank { "Your personal AI journey" }, color = Color(0xFFD0C9F0), fontSize = 12.sp)
                         Spacer(Modifier.height(12.dp))
                         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Surface(shape = RoundedCornerShape(30.dp), color = Color(0x332CE6C8)) { Text(if (hasKey) "✦ AI CONNECTED" else "✦ SET UP AI", color = Cyan, fontSize = 9.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(horizontal = 10.dp, vertical = 7.dp)) }
+                            Surface(shape = RoundedCornerShape(30.dp), color = Color(0x332CE6C8)) { Text(if (hasKey) "✦ AI CONNECTED" else "✦ SET UP AI", color = HudPink, fontSize = 9.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(horizontal = 10.dp, vertical = 7.dp)) }
                             Surface(shape = RoundedCornerShape(30.dp), color = Color(0x33B86BFF)) { Text("◈ ON-DEVICE PROFILE", color = Color(0xFFD5B8FF), fontSize = 9.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(horizontal = 10.dp, vertical = 7.dp)) }
                         }
                     }
                 }
                 Spacer(Modifier.height(18.dp))
-                Text("PERSONAL DETAILS", color = Cyan, fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                Text("PERSONAL DETAILS", color = HudPink, fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
                 Spacer(Modifier.height(8.dp))
                 OutlinedTextField(value = profileName, onValueChange = { profileName = it; profileSaved = false }, label = { Text("What should Myra call you?") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                 Spacer(Modifier.height(8.dp))
                 OutlinedTextField(value = profileBio, onValueChange = { profileBio = it; profileSaved = false }, label = { Text("Short bio / status") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                 Spacer(Modifier.height(8.dp))
-                Text("PREFERRED LANGUAGE", color = Cyan, fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                Text("PREFERRED LANGUAGE", color = HudPink, fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
                 Spacer(Modifier.height(8.dp))
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     listOf("Hindi", "English", "Hindi + English").forEach { language ->
                         val selected = profileLanguage == language
-                        Surface(onClick = { profileLanguage = language; profileSaved = false }, modifier = Modifier.weight(1f), shape = RoundedCornerShape(14.dp), color = if (selected) Color(0x5535D7E8) else Color(0xFF11152A), border = androidx.compose.foundation.BorderStroke(1.dp, if (selected) Cyan else Color(0xFF303653))) {
+                        Surface(onClick = { profileLanguage = language; profileSaved = false }, modifier = Modifier.weight(1f), shape = RoundedCornerShape(14.dp), color = if (selected) Color(0x5535D7E8) else Color(0xFF11152A), border = androidx.compose.foundation.BorderStroke(1.dp, if (selected) HudPink else Color(0xFF303653))) {
                             Text(language, color = if (selected) Color.White else Color(0xFF9AA6C8), fontSize = 10.sp, modifier = Modifier.padding(vertical = 12.dp, horizontal = 5.dp), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
                         }
                     }
@@ -6161,11 +6163,11 @@ private fun MyraHome(
                 Button(onClick = {
                     profilePrefs.edit().putString("profile_display_name", profileName.trim()).putString("profile_bio", profileBio.trim()).putString("profile_language", profileLanguage).apply()
                     profileSaved = true
-                }, modifier = Modifier.fillMaxWidth().height(50.dp), shape = RoundedCornerShape(16.dp), colors = ButtonDefaults.buttonColors(containerColor = Violet)) {
+                }, modifier = Modifier.fillMaxWidth().height(50.dp), shape = RoundedCornerShape(16.dp), colors = ButtonDefaults.buttonColors(containerColor = HudRed)) {
                     Text(if (profileSaved) "✓  Profile saved" else "Save profile", color = Color.White, fontWeight = FontWeight.Bold)
                 }
                 Spacer(Modifier.height(18.dp))
-                Text("YOUR SPACE", color = Cyan, fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
+                Text("YOUR SPACE", color = HudPink, fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.5.sp)
                 Spacer(Modifier.height(10.dp))
                 QuickTile("🧠 My Memory", "Personal notes for Myra", Modifier.fillMaxWidth(), onClick = onMemory)
                 Spacer(Modifier.height(9.dp))
@@ -6247,7 +6249,7 @@ private fun MyraHome(
                     QuickTile("⏹ Stop speaking", "Stop voice playback immediately", Modifier.fillMaxWidth(), onClick = onStopSpeaking)
                 }
                 Spacer(Modifier.height(10.dp))
-                OutlinedButton(onClick = { showAllTools = !showAllTools }, modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.outlinedButtonColors(contentColor = Cyan), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF743044))) {
+                OutlinedButton(onClick = { showAllTools = !showAllTools }, modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.outlinedButtonColors(contentColor = HudPink), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF743044))) {
                     Text(if (showAllTools) "⌃  Show fewer tools" else "⌄  Explore all Myra tools")
                 }
                 Spacer(Modifier.height(20.dp))
@@ -6272,13 +6274,13 @@ private fun MyraHome(
                 Spacer(Modifier.height(14.dp))
                 Box(Modifier.fillMaxWidth().background(Color(0x552D101A), RoundedCornerShape(18.dp)).border(1.dp, Color(0x33A43D57), RoundedCornerShape(18.dp)).padding(14.dp)) {
                     Column {
-                        Text("YOUR CONVERSATION", color = Cyan, fontSize = 10.sp, letterSpacing = 1.4.sp, fontWeight = FontWeight.Bold)
+                        Text("YOUR CONVERSATION", color = HudPink, fontSize = 10.sp, letterSpacing = 1.4.sp, fontWeight = FontWeight.Bold)
                         Spacer(Modifier.height(6.dp))
                         Text(heardText.ifBlank { "Your latest answer will appear here when you talk to Myra." }, color = Color(0xFFD9D9EA), fontSize = 13.sp, lineHeight = 19.sp, maxLines = 4)
                     }
                 }
                 Spacer(Modifier.height(14.dp))
-                OutlinedButton(onClick = { selectedNav = "Tools"; showAllTools = true }, modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.outlinedButtonColors(contentColor = Cyan), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF743044))) {
+                OutlinedButton(onClick = { selectedNav = "Tools"; showAllTools = true }, modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.outlinedButtonColors(contentColor = HudPink), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF743044))) {
                     Text("⌘  Open all assistant tools")
                 }
                 Spacer(Modifier.height(8.dp))
@@ -6395,9 +6397,9 @@ private fun MyraHome(
                         }
                         if (busy) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                CircularProgressIndicator(modifier = Modifier.size(16.dp), strokeWidth = 2.dp, color = Cyan)
+                                CircularProgressIndicator(modifier = Modifier.size(16.dp), strokeWidth = 2.dp, color = HudPink)
                                 Spacer(Modifier.width(8.dp))
-                                Text("Myra is thinking…", color = Cyan, fontSize = 12.sp)
+                                Text("Myra is thinking…", color = HudPink, fontSize = 12.sp)
                             }
                         }
                     }
@@ -6419,7 +6421,7 @@ private fun MyraHome(
                                 }
                             },
                             enabled = chatDraft.isNotBlank() && !busy,
-                            colors = ButtonDefaults.buttonColors(containerColor = Cyan, contentColor = Color(0xFF06101B))
+                            colors = ButtonDefaults.buttonColors(containerColor = HudPink, contentColor = Color(0xFF06101B))
                         ) { Text("Send") }
                     }
                     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -6442,7 +6444,7 @@ private fun MyraHome(
     if (showStudyDialog) {
         AlertDialog(
             onDismissRequest = { showStudyDialog = false },
-            title = { Text("Study Mode", color = Cyan, fontWeight = FontWeight.Bold) },
+            title = { Text("Study Mode", color = HudPink, fontWeight = FontWeight.Bold) },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     Text("Choose how Myra should help you learn.")
@@ -6485,7 +6487,7 @@ private fun MyraHome(
     if (showWritingStudio) {
         AlertDialog(
             onDismissRequest = { showWritingStudio = false },
-            title = { Text("Writing Studio", color = Cyan, fontWeight = FontWeight.Bold) },
+            title = { Text("Writing Studio", color = HudPink, fontWeight = FontWeight.Bold) },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     Text("Choose a format and describe what you want to write.")
@@ -6522,7 +6524,7 @@ private fun MyraHome(
     if (showPlannerDialog) {
         AlertDialog(
             onDismissRequest = { showPlannerDialog = false },
-            title = { Text("AI Goal Planner", color = Cyan, fontWeight = FontWeight.Bold) },
+            title = { Text("AI Goal Planner", color = HudPink, fontWeight = FontWeight.Bold) },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     Text("Tell Myra what you want to accomplish.")
@@ -6532,7 +6534,7 @@ private fun MyraHome(
                             Text(style, color = Color.White)
                         }
                     }
-                    Text("Timeline", color = Cyan, fontWeight = FontWeight.Medium)
+                    Text("Timeline", color = HudPink, fontWeight = FontWeight.Medium)
                     listOf("Today", "7 days", "30 days").forEach { duration ->
                         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                             RadioButton(selected = plannerDuration == duration, onClick = { plannerDuration = duration })
@@ -6566,10 +6568,10 @@ private fun MyraHome(
     if (showJournalDialog) {
         AlertDialog(
             onDismissRequest = { showJournalDialog = false },
-            title = { Text("Daily Journal", color = Cyan, fontWeight = FontWeight.Bold) },
+            title = { Text("Daily Journal", color = HudPink, fontWeight = FontWeight.Bold) },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text("Today • " + java.time.LocalDate.now().toString(), color = Cyan)
+                    Text("Today • " + java.time.LocalDate.now().toString(), color = HudPink)
                     Text("Write down what happened, what you learned, or what you want to remember.")
                     OutlinedTextField(
                         value = journalEntry,
@@ -6600,7 +6602,7 @@ private fun MyraHome(
     if (showNotesDialog) {
         AlertDialog(
             onDismissRequest = { showNotesDialog = false },
-            title = { Text("Quick Notes", color = Cyan, fontWeight = FontWeight.Bold) },
+            title = { Text("Quick Notes", color = HudPink, fontWeight = FontWeight.Bold) },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text("Keep useful ideas, lists, or details saved locally.")
@@ -6633,7 +6635,7 @@ private fun MyraHome(
     if (showDecisionDialog) {
         AlertDialog(
             onDismissRequest = { showDecisionDialog = false },
-            title = { Text("AI Decision Helper", color = Cyan, fontWeight = FontWeight.Bold) },
+            title = { Text("AI Decision Helper", color = HudPink, fontWeight = FontWeight.Bold) },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     Text("Myra will compare the options and explain the trade-offs.")
@@ -6655,7 +6657,7 @@ private fun MyraHome(
                         maxLines = 4,
                         modifier = Modifier.fillMaxWidth()
                     )
-                    Text("What matters most?", color = Cyan)
+                    Text("What matters most?", color = HudPink)
                     listOf("Best long-term value", "Lowest cost", "Fastest result", "Simplest option").forEach { priority ->
                         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                             RadioButton(selected = decisionPriority == priority, onClick = { decisionPriority = priority })
