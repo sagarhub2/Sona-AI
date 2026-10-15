@@ -7025,44 +7025,44 @@ private fun MyraFeaturesMenu(
         Triple("Conversation History", "Review previous chats", "☷") to onHistory,
         Triple("Settings & Appearance", "Profile, voice, theme and API key", "⚙") to onSettings
     )
-    Box(Modifier.fillMaxSize().background(Color(0xFF070B18)).statusBarsPadding().navigationBarsPadding()) {
+    Box(Modifier.fillMaxSize().background(Color(0xFF080407)).statusBarsPadding().navigationBarsPadding()) {
         Column(Modifier.fillMaxSize().padding(horizontal = 18.dp)) {
             Row(Modifier.fillMaxWidth().padding(top = 14.dp, bottom = 16.dp), verticalAlignment = Alignment.CenterVertically) {
-                Surface(onClick = onClose, shape = CircleShape, color = Color(0xFF11182A), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF29465F))) {
-                    Text("‹", color = Color(0xFF55E7F5), fontSize = 28.sp, modifier = Modifier.padding(horizontal = 13.dp, vertical = 2.dp))
+                Surface(onClick = onClose, shape = CircleShape, color = Color(0xFF1B0C12), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF6A2639))) {
+                    Text("‹", color = Color(0xFFFF7898), fontSize = 28.sp, modifier = Modifier.padding(horizontal = 13.dp, vertical = 2.dp))
                 }
                 Spacer(Modifier.width(12.dp))
                 Column(Modifier.weight(1f)) {
-                    Text("Myra AI", color = Color(0xFFF7EEFF), fontSize = 22.sp, fontWeight = FontWeight.Bold)
-                    Text("SHORTCUTS • YOUR AI COMPANION", color = Color(0xFF9DB2CC), fontSize = 9.sp, letterSpacing = 1.sp)
+                    Text("Myra AI", color = Color(0xFFFFF1F4), fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                    Text("SHORTCUTS • YOUR AI COMPANION", color = Color(0xFFD9A7B4), fontSize = 9.sp, letterSpacing = 1.sp)
                 }
-                Box(Modifier.size(42.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFF8D9C), Color(0xFF7A2E83), Color(0xFF0D0A20)))).border(1.dp, Color(0xFF49365F), CircleShape), contentAlignment = Alignment.Center) {
+                Box(Modifier.size(42.dp).clip(CircleShape).background(Brush.radialGradient(listOf(Color(0xFFFF8D9C), Color(0xFF8A1D3D), Color(0xFF0D0A20)))).border(1.dp, Color(0xFF6A2639), CircleShape), contentAlignment = Alignment.Center) {
                     Text("✦", color = Color.White, fontSize = 23.sp)
                 }
             }
-            Box(Modifier.fillMaxWidth().height(1.dp).background(Brush.horizontalGradient(listOf(Color.Transparent, Color(0xFF49365F), Color(0xFF55E7F5), Color.Transparent))))
-            Text("Your MYRA shortcuts", color = Color(0xFFE5DDF0), fontSize = 14.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 18.dp, bottom = 12.dp))
+            Box(Modifier.fillMaxWidth().height(1.dp).background(Brush.horizontalGradient(listOf(Color.Transparent, Color(0xFF6A2639), Color(0xFFFF7898), Color.Transparent))))
+            Text("Your MYRA shortcuts", color = Color(0xFFFFE7ED), fontSize = 14.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 18.dp, bottom = 12.dp))
             Column(Modifier.weight(1f).verticalScroll(androidx.compose.foundation.rememberScrollState()), verticalArrangement = Arrangement.spacedBy(9.dp)) {
                 items.forEach { (item, action) ->
-                    Surface(onClick = action, shape = RoundedCornerShape(17.dp), color = Color(0xFF11182A), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF3B294F)), shadowElevation = 4.dp, modifier = Modifier.fillMaxWidth()) {
+                    Surface(onClick = action, shape = RoundedCornerShape(17.dp), color = Color(0xFF1B0C12), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF542033)), shadowElevation = 4.dp, modifier = Modifier.fillMaxWidth()) {
                         Row(Modifier.padding(horizontal = 13.dp, vertical = 13.dp), verticalAlignment = Alignment.CenterVertically) {
                             Box(Modifier.size(42.dp).clip(RoundedCornerShape(13.dp))
-                                .background(Brush.linearGradient(listOf(Color(0xFF17384A), Color(0xFF070B18))))
-                                .border(1.dp, Color(0xFF49365F), RoundedCornerShape(13.dp)),
+                                .background(Brush.linearGradient(listOf(Color(0xFF4A1425), Color(0xFF080407))))
+                                .border(1.dp, Color(0xFF6A2639), RoundedCornerShape(13.dp)),
                                 contentAlignment = Alignment.Center) {
-                                Text(item.third, color = Color(0xFFFF72D2), fontSize = 21.sp)
+                                Text(item.third, color = Color(0xFFFF7898), fontSize = 21.sp)
                             }
                             Spacer(Modifier.width(12.dp))
                             Column(Modifier.weight(1f)) {
-                                Text(item.first, color = Color(0xFFF7EEFF), fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
-                                Text(item.second, color = Color(0xFFB8A9D8), fontSize = 10.sp, modifier = Modifier.padding(top = 3.dp))
+                                Text(item.first, color = Color(0xFFFFF1F4), fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+                                Text(item.second, color = Color(0xFFD9A7B4), fontSize = 10.sp, modifier = Modifier.padding(top = 3.dp))
                             }
-                            Text("›", color = Color(0xFFFF72D2), fontSize = 22.sp)
+                            Text("›", color = Color(0xFFFF7898), fontSize = 22.sp)
                         }
                     }
                 }
             }
-            Text("PREMIUM • PERSONAL • ALWAYS READY", color = Color(0xFFB8A9D8), fontSize = 9.sp, letterSpacing = 1.2.sp, modifier = Modifier.align(Alignment.CenterHorizontally).padding(vertical = 12.dp))
+            Text("PREMIUM • PERSONAL • ALWAYS READY", color = Color(0xFFD9A7B4), fontSize = 9.sp, letterSpacing = 1.2.sp, modifier = Modifier.align(Alignment.CenterHorizontally).padding(vertical = 12.dp))
         }
     }
 }
