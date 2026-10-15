@@ -2718,14 +2718,14 @@ class MainActivity : ComponentActivity() {
                 AlertDialog(
                     modifier = Modifier.fillMaxSize(),
                     shape = RoundedCornerShape(0.dp),
-                    containerColor = Color(0xFF071426),
+                    containerColor = Color(0xFF10070B),
                     tonalElevation = 0.dp,
                     properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false),
                     onDismissRequest = { showSettings = false },
                     title = {
                         Column(
                             Modifier.fillMaxWidth().statusBarsPadding().clip(RoundedCornerShape(20.dp))
-                                .background(Brush.horizontalGradient(listOf(Color(0xFF421322), Color(0xFF28101A), Color(0xFF071426))))
+                                .background(Brush.horizontalGradient(listOf(Color(0xFF421322), Color(0xFF28101A), Color(0xFF10070B))))
                                 .border(1.dp, Color(0xFFFF7898), RoundedCornerShape(20.dp)).padding(16.dp),
                             verticalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
@@ -2749,7 +2749,7 @@ class MainActivity : ComponentActivity() {
                         Column(
                             modifier = Modifier.fillMaxWidth().fillMaxHeight(0.82f).verticalScroll(settingsScrollState)
                                 .clip(RoundedCornerShape(24.dp))
-                                .background(Brush.verticalGradient(listOf(Color(0xFF071426), Color(0xFF071426), Color(0xFF050A12))))
+                                .background(Brush.verticalGradient(listOf(Color(0xFF10070B), Color(0xFF10070B), Color(0xFF080407))))
                                 .border(1.dp, Brush.verticalGradient(listOf(Color(0xFFFF7898), Color(0xFF6A2639)),), RoundedCornerShape(24.dp))
                                 .padding(16.dp),
                             verticalArrangement = Arrangement.spacedBy(10.dp)
@@ -2766,13 +2766,13 @@ class MainActivity : ComponentActivity() {
                             }
                             Row(
                                 Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
-                                    .background(Brush.horizontalGradient(listOf(Color(0xFF101D31), Color(0xFF0B1424), Color(0xFF101D31))))
+                                    .background(Brush.horizontalGradient(listOf(Color(0xFF35101D), Color(0xFF0B1424), Color(0xFF35101D))))
                                     .border(1.dp, Color(0xFF6A2639), RoundedCornerShape(18.dp))
                                     .padding(14.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Box(Modifier.size(52.dp).clip(CircleShape)
-                                    .background(Brush.radialGradient(listOf(Violet, Color(0xFF7A1830), Color(0xFF050A12)))),
+                                    .background(Brush.radialGradient(listOf(Violet, Color(0xFF7A1830), Color(0xFF080407)))),
                                     contentAlignment = Alignment.Center) {
                                     Text("✦", color = Color.White, fontSize = 26.sp, fontWeight = FontWeight.Bold)
                                 }
@@ -2807,7 +2807,7 @@ class MainActivity : ComponentActivity() {
                                 listOf(Triple("VOICE", "♫", 1700), Triple("MEMORY", "◈", 3300), Triple("PRIVACY", "⌑", 5200)).forEach { item ->
                                     Column(
                                         Modifier.weight(1f).clip(RoundedCornerShape(14.dp))
-                                            .background(Brush.verticalGradient(listOf(Color(0xFF071426), Color(0xFF071426))))
+                                            .background(Brush.verticalGradient(listOf(Color(0xFF10070B), Color(0xFF10070B))))
                                             .border(1.dp, Color(0xFF6A2639), RoundedCornerShape(14.dp))
                                             .clickable { settingsScope.launch { settingsScrollState.animateScrollTo(item.third) } }
                                             .padding(vertical = 12.dp, horizontal = 4.dp),
@@ -2815,7 +2815,7 @@ class MainActivity : ComponentActivity() {
                                         verticalArrangement = Arrangement.spacedBy(4.dp)
                                     ) {
                                         Box(Modifier.size(32.dp).clip(RoundedCornerShape(11.dp))
-                                            .background(Color(0xFF101D31))
+                                            .background(Color(0xFF35101D))
                                             .border(1.dp, Color(0xFF6A2639), RoundedCornerShape(11.dp)),
                                             contentAlignment = Alignment.Center) {
                                             Text(item.second, color = Color(0xFFFF7898), fontSize = 18.sp)
@@ -2828,12 +2828,12 @@ class MainActivity : ComponentActivity() {
                             Surface(
                                 modifier = Modifier.fillMaxWidth(),
                                 shape = RoundedCornerShape(18.dp),
-                                color = Color(0xFF071426),
+                                color = Color(0xFF10070B),
                                 border = androidx.compose.foundation.BorderStroke(1.dp, if (accessibilityEnabled) Color(0xFF56D6A0) else Color(0xFF6A2639))
                             ) {
                                 Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(9.dp)) {
                                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                                        Box(Modifier.size(42.dp).clip(RoundedCornerShape(13.dp)).background(Color(0xFF101D31)), contentAlignment = Alignment.Center) {
+                                        Box(Modifier.size(42.dp).clip(RoundedCornerShape(13.dp)).background(Color(0xFF35101D)), contentAlignment = Alignment.Center) {
                                             Text("⌘", color = Color(0xFFFF7898), fontSize = 23.sp, fontWeight = FontWeight.Bold)
                                         }
                                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
@@ -2859,13 +2859,13 @@ class MainActivity : ComponentActivity() {
                             Surface(
                                 modifier = Modifier.fillMaxWidth(),
                                 shape = RoundedCornerShape(18.dp),
-                                color = Color(0xFF071426),
+                                color = Color(0xFF10070B),
                                 border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF6A2639))
                             ) {
                                 Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                                     Box(
                                         Modifier.size(58.dp).clip(CircleShape)
-                                            .background(Brush.radialGradient(listOf(Violet, Color(0xFF7A1830), Color(0xFF050A12)))),
+                                            .background(Brush.radialGradient(listOf(Violet, Color(0xFF7A1830), Color(0xFF080407)))),
                                         contentAlignment = Alignment.Center
                                     ) {
                                         if (profilePhotoUri.isNotBlank()) {
@@ -2966,7 +2966,7 @@ class MainActivity : ComponentActivity() {
                             Surface(
                                 modifier = Modifier.fillMaxWidth(),
                                 shape = RoundedCornerShape(18.dp),
-                                color = Color(0xFF071426),
+                                color = Color(0xFF10070B),
                                 border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFF7898).copy(alpha = .65f))
                             ) {
                                 Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -3032,7 +3032,7 @@ class MainActivity : ComponentActivity() {
                                 Row(
                                     Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp))
                                         .background(if (selected) Color(0x33FF72D2) else Color(0xFF0B1424))
-                                        .border(1.dp, if (selected) Color(0xFFFF7898) else Color(0xFF49365F), RoundedCornerShape(12.dp))
+                                        .border(1.dp, if (selected) Color(0xFFFF7898) else Color(0xFF6A2639), RoundedCornerShape(12.dp))
                                         .clickable {
                                             voiceDraft = preset.second
                                             when (preset.third) {
@@ -3046,7 +3046,7 @@ class MainActivity : ComponentActivity() {
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     Column(Modifier.weight(1f)) {
-                                        Text(preset.first, color = if (selected) Color(0xFFFF7898) else Color(0xFFE6DDF8), fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+                                        Text(preset.first, color = if (selected) Color(0xFFFF7898) else Color(0xFFFFE7ED), fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
                                         Text(preset.second, color = Color(0xFF9DB2CC), fontSize = 10.sp)
                                     }
                                     if (selected) Text("✓ SELECTED", color = Color(0xFFFF7898), fontSize = 9.sp, fontWeight = FontWeight.Bold)
@@ -3062,7 +3062,7 @@ class MainActivity : ComponentActivity() {
                                     Row(
                                         Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp))
                                             .background(if (selected) Color(0x33FF72D2) else Color(0xFF0B1424))
-                                            .border(1.dp, if (selected) Color(0xFFFF7898) else Color(0xFF49365F), RoundedCornerShape(10.dp))
+                                            .border(1.dp, if (selected) Color(0xFFFF7898) else Color(0xFF6A2639), RoundedCornerShape(10.dp))
                                             .clickable {
                                                 selectedVoiceName = voiceName
                                                 val voice = textToSpeech?.voices.orEmpty().firstOrNull { it.name == voiceName }
@@ -3077,7 +3077,7 @@ class MainActivity : ComponentActivity() {
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
                                         Column(Modifier.weight(1f)) {
-                                            Text(voiceName, color = if (selected) Color(0xFFFF7898) else Color(0xFFE6DDF8), fontSize = 12.sp)
+                                            Text(voiceName, color = if (selected) Color(0xFFFF7898) else Color(0xFFFFE7ED), fontSize = 12.sp)
                                             Text(textToSpeech?.voices.orEmpty().firstOrNull { it.name == voiceName }?.locale?.displayName ?: "Installed voice", color = Color(0xFF9DB2CC), fontSize = 10.sp)
                                         }
                                         if (selected) Text("✓", color = Color(0xFFFF7898), fontWeight = FontWeight.Bold)
@@ -3130,9 +3130,9 @@ class MainActivity : ComponentActivity() {
                                 shape = RoundedCornerShape(12.dp)
                             ) { Text("▶  Preview voice", color = Color(0xFFFF7898)) }
                             SettingToggle("Speak text replies aloud", speakReplies, { speakReplies = it })
-                            Text("Speech speed • ${String.format(Locale.US, "%.2f", speechRate)}×", color = Color(0xFFE6DDF8), fontSize = 13.sp)
+                            Text("Speech speed • ${String.format(Locale.US, "%.2f", speechRate)}×", color = Color(0xFFFFE7ED), fontSize = 13.sp)
                             Slider(value = speechRate, onValueChange = { speechRate = it }, valueRange = 0.65f..1.35f)
-                            Text("Voice pitch • ${String.format(Locale.US, "%.2f", speechPitch)}", color = Color(0xFFE6DDF8), fontSize = 13.sp)
+                            Text("Voice pitch • ${String.format(Locale.US, "%.2f", speechPitch)}", color = Color(0xFFFFE7ED), fontSize = 13.sp)
                             Slider(value = speechPitch, onValueChange = { speechPitch = it }, valueRange = 0.75f..1.35f)
                             SettingToggle("Auto-listen preference (not active yet)", autoListen, { autoListen = it })
                             Text("Available voice depends on the speech engine installed on your phone.", color = Color(0xFF9DB2CC), fontSize = 11.sp)
@@ -3159,7 +3159,7 @@ class MainActivity : ComponentActivity() {
                                         .clickable { personalityDraft = value }.padding(horizontal = 10.dp, vertical = 9.dp),
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    Text(label, color = if (personalityDraft == value) Color(0xFFFF7898) else Color(0xFFE6DDF8), fontSize = 13.sp, fontWeight = FontWeight.Medium)
+                                    Text(label, color = if (personalityDraft == value) Color(0xFFFF7898) else Color(0xFFFFE7ED), fontSize = 13.sp, fontWeight = FontWeight.Medium)
                                     Spacer(Modifier.weight(1f))
                                     if (personalityDraft == value) Text("✓", color = Cyan, fontWeight = FontWeight.Bold)
                                 }
@@ -3323,9 +3323,9 @@ class MainActivity : ComponentActivity() {
                                         }
                                     }
                                     Divider(color = Color(0xFF24364C))
-                                    Text("AI provider: Google Gemini", color = Color(0xFFE6DDF8), fontSize = 12.sp)
-                                    Text("Voice input: Android speech recognition", color = Color(0xFFE6DDF8), fontSize = 12.sp)
-                                    Text("Spoken replies: installed Android text-to-speech engine", color = Color(0xFFE6DDF8), fontSize = 12.sp)
+                                    Text("AI provider: Google Gemini", color = Color(0xFFFFE7ED), fontSize = 12.sp)
+                                    Text("Voice input: Android speech recognition", color = Color(0xFFFFE7ED), fontSize = 12.sp)
+                                    Text("Spoken replies: installed Android text-to-speech engine", color = Color(0xFFFFE7ED), fontSize = 12.sp)
                                     Text("Some device actions require Android permissions and may depend on apps installed on your phone.", color = Color(0xFF9DB2CC), fontSize = 11.sp)
                                 }
                             }
