@@ -5807,7 +5807,7 @@ private fun MyraHome(
     Surface(modifier = Modifier.fillMaxSize(), color = Night) {
         Column(
             modifier = Modifier.fillMaxSize()
-                .background(Brush.verticalGradient(listOf(Color(0xFF07131D), Color(0xFF050B12), Color(0xFF07131D))))
+                .background(Brush.verticalGradient(listOf(Color(0xFF12070D), Color(0xFF080509), Color(0xFF12070D))))
         ) {
         Column(
             modifier = Modifier.weight(1f).fillMaxWidth()
@@ -5818,18 +5818,18 @@ private fun MyraHome(
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                 Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     Text("MYRA AI", color = Color.White, fontSize = 29.sp, fontWeight = FontWeight.Black, letterSpacing = 3.2.sp)
-                    Text("YOUR INTELLIGENT EVERYDAY SYSTEM", color = Color(0xFF9BE8FF), fontSize = 9.sp, letterSpacing = 1.7.sp)
+                    Text("YOUR INTELLIGENT EVERYDAY SYSTEM", color = Color(0xFFFF9AAE), fontSize = 9.sp, letterSpacing = 1.7.sp)
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Box(Modifier.size(6.dp).background(if (hasKey) Color(0xFF4ADE80) else Color(0xFFFBBF24), CircleShape))
                         Spacer(Modifier.width(6.dp))
-                        Text(if (hasKey) "AI CORE READY" else "AI CORE • API KEY NEEDED", color = Color(0xFFB9B8D7), fontSize = 9.sp, letterSpacing = 1.sp)
+                        Text(if (hasKey) "AI CORE READY" else "AI CORE • API KEY NEEDED", color = Color(0xFFE4B9C5), fontSize = 9.sp, letterSpacing = 1.sp)
                     }
                 }
                 Surface(
                     onClick = onSettings,
                     shape = CircleShape,
-                    color = Color(0xFF15162B),
-                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x665F55A8))
+                    color = Color(0xFF211018),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x66FF526F))
                 ) {
                     Box(Modifier.size(46.dp), contentAlignment = Alignment.Center) {
                         Text("⚙", color = Cyan, fontSize = 22.sp)
@@ -5841,7 +5841,7 @@ private fun MyraHome(
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
                 Text("Welcome back, Sagar", color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold, letterSpacing = (-0.4).sp)
             }
-            Text("One calm space for voice, ideas, and everyday actions.", color = Color(0xFF9FA8C8), fontSize = 13.sp, modifier = Modifier.fillMaxWidth().padding(top = 4.dp))
+            Text("One calm space for voice, ideas, and everyday actions.", color = Color(0xFFD0A8B5), fontSize = 13.sp, modifier = Modifier.fillMaxWidth().padding(top = 4.dp))
             Spacer(Modifier.height(8.dp))
             Box(
                 modifier = Modifier.fillMaxWidth().height(270.dp),
@@ -5930,14 +5930,14 @@ private fun MyraHome(
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                 Text("✦", color = Cyan, fontSize = 28.sp)
                                 Text("MYRA", color = Color.White, fontSize = 25.sp, fontWeight = FontWeight.Light, letterSpacing = 3.sp)
-                                Text("LIVE ASSISTANT CORE", color = Color(0xFF9BE8FF), fontSize = 9.sp, letterSpacing = 2.sp)
+                                Text("LIVE ASSISTANT CORE", color = Color(0xFFFF9AAE), fontSize = 9.sp, letterSpacing = 2.sp)
                             }
                         }
                     }
                 }
             }
             Spacer(Modifier.height(8.dp))
-            Text("QUICK START", modifier = Modifier.fillMaxWidth(), color = Color(0xFF9BE8FF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.8.sp)
+            Text("QUICK START", modifier = Modifier.fillMaxWidth(), color = Color(0xFFFF9AAE), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.8.sp)
             Spacer(Modifier.height(8.dp))
             Row(
                 modifier = Modifier.fillMaxWidth().horizontalScroll(androidx.compose.foundation.rememberScrollState()),
@@ -6113,7 +6113,7 @@ private fun MyraHome(
                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                     Column(Modifier.weight(1f)) {
                         Text("MY PROFILE", color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Black, letterSpacing = 1.5.sp)
-                        Text("Make Myra feel like yours", color = Color(0xFF9BE8FF), fontSize = 12.sp)
+                        Text("Make Myra feel like yours", color = Color(0xFFFF9AAE), fontSize = 12.sp)
                     }
                     Surface(onClick = onSettings, shape = CircleShape, color = Color(0xFF102632), border = androidx.compose.foundation.BorderStroke(1.dp, Violet)) {
                         Box(Modifier.size(44.dp), contentAlignment = Alignment.Center) { Text("⚙", fontSize = 20.sp, color = Cyan) }
