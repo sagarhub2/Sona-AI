@@ -5967,27 +5967,30 @@ private fun MyraHome(
                 Triple("✓", "Tasks", onTasks),
                 Triple("⠿", "More", onFeatures)
             )
-            primaryActions.chunked(3).forEach { rowActions ->
+            primaryActions.chunked(3).forEachIndexed { rowIndex, rowActions ->
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(9.dp)) {
                     rowActions.forEach { action ->
                         Surface(
                             onClick = action.third,
-                            modifier = Modifier.weight(1f).height(82.dp),
+                            modifier = Modifier.weight(1f).height(88.dp),
                             shape = RoundedCornerShape(17.dp),
-                            color = Color(0xFF200D1B),
-                            border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x66FF526F))
+                            color = Color(0xFF17101D),
+                            border = androidx.compose.foundation.BorderStroke(1.dp, Color(0x774B334F))
                         ) {
                             Column(
-                                Modifier.fillMaxSize().padding(8.dp),
+                                Modifier.fillMaxSize().padding(horizontal = 5.dp, vertical = 8.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.Center
                             ) {
                                 Box(
-                                    Modifier.size(31.dp).background(Color(0xFF4A102A), CircleShape),
+                                    Modifier.size(32.dp).background(
+                                        Brush.linearGradient(listOf(Color(0xFF54203D), Color(0xFF29172F))),
+                                        CircleShape
+                                    ),
                                     contentAlignment = Alignment.Center
                                 ) { Text(action.first, color = HudPink, fontSize = 18.sp, fontWeight = FontWeight.Bold) }
-                                Spacer(Modifier.height(4.dp))
-                                Text(action.second, color = Color.White, fontSize = 11.sp, fontWeight = FontWeight.SemiBold)
+                                Spacer(Modifier.height(5.dp))
+                                Text(action.second, color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
                                 Text(
                                     when (action.second) {
                                         "Chat" -> "Talk with MYRA"
@@ -5997,13 +6000,13 @@ private fun MyraHome(
                                         "Tasks" -> "Stay Organised"
                                         else -> "Tools & Apps"
                                     },
-                                    color = Color(0xFFD0A8B5), fontSize = 8.sp
+                                    color = Color(0xFFB9A8C5), fontSize = 8.sp
                                 )
                             }
                         }
                     }
                 }
-                Spacer(Modifier.height(8.dp))
+                if (rowIndex < 1) Spacer(Modifier.height(8.dp))
             }
             Spacer(Modifier.height(4.dp))
             Surface(
