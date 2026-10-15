@@ -6247,11 +6247,11 @@ private fun MyraHome(
                     QuickTile("⏹ Stop speaking", "Stop voice playback immediately", Modifier.fillMaxWidth(), onClick = onStopSpeaking)
                 }
                 Spacer(Modifier.height(10.dp))
-                OutlinedButton(onClick = { showAllTools = !showAllTools }, modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.outlinedButtonColors(contentColor = Cyan), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF39416D))) {
+                OutlinedButton(onClick = { showAllTools = !showAllTools }, modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.outlinedButtonColors(contentColor = Cyan), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF743044))) {
                     Text(if (showAllTools) "⌃  Show fewer tools" else "⌄  Explore all Myra tools")
                 }
                 Spacer(Modifier.height(20.dp))
-                Text("VOICE • MEMORY • SEARCH • TOOLS", color = Color(0xFF66708F), fontSize = 10.sp, letterSpacing = 2.sp)
+                Text("VOICE • MEMORY • SEARCH • TOOLS", color = Color(0xFFB98B98), fontSize = 10.sp, letterSpacing = 2.sp)
             } else {
                 Spacer(Modifier.height(20.dp))
                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
@@ -6270,7 +6270,7 @@ private fun MyraHome(
                     QuickTile("📂 Files & PDFs", "Ask about documents", Modifier.weight(1f), onClick = onFiles)
                 }
                 Spacer(Modifier.height(14.dp))
-                Box(Modifier.fillMaxWidth().background(Color(0x55201B39), RoundedCornerShape(18.dp)).border(1.dp, Color(0x334D4A79), RoundedCornerShape(18.dp)).padding(14.dp)) {
+                Box(Modifier.fillMaxWidth().background(Color(0x552D101A), RoundedCornerShape(18.dp)).border(1.dp, Color(0x33A43D57), RoundedCornerShape(18.dp)).padding(14.dp)) {
                     Column {
                         Text("YOUR CONVERSATION", color = Cyan, fontSize = 10.sp, letterSpacing = 1.4.sp, fontWeight = FontWeight.Bold)
                         Spacer(Modifier.height(6.dp))
@@ -6278,27 +6278,27 @@ private fun MyraHome(
                     }
                 }
                 Spacer(Modifier.height(14.dp))
-                OutlinedButton(onClick = { selectedNav = "Tools"; showAllTools = true }, modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.outlinedButtonColors(contentColor = Cyan), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF39416D))) {
+                OutlinedButton(onClick = { selectedNav = "Tools"; showAllTools = true }, modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.outlinedButtonColors(contentColor = Cyan), border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF743044))) {
                     Text("⌘  Open all assistant tools")
                 }
                 Spacer(Modifier.height(8.dp))
-                Text("VOICE • MEMORY • CONVERSATION", color = Color(0xFF66708F), fontSize = 10.sp, letterSpacing = 1.5.sp)
+                Text("VOICE • MEMORY • CONVERSATION", color = Color(0xFFB98B98), fontSize = 10.sp, letterSpacing = 1.5.sp)
             }
             Spacer(Modifier.height(8.dp))
         }
         Row(
             modifier = Modifier.fillMaxWidth()
-                .background(Color(0xFF090714))
-                .border(1.dp, Color(0x665E2D91), RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp))
+                .background(Color(0xFF160A10))
+                .border(1.dp, Color(0x66FF526F), RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp))
                 .padding(horizontal = 7.dp, vertical = 7.dp),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            val navAccent = Color(0xFFFF4FD8)
-            val navMuted = Color(0xFF9B9AB8)
+            val navAccent = Color(0xFFFF526F)
+            val navMuted = Color(0xFFC4A3AD)
             Column(
                 Modifier.weight(1f)
-                    .background(if (selectedNav == "Home") Color(0x33D946FF) else Color.Transparent, RoundedCornerShape(13.dp))
+                    .background(if (selectedNav == "Home") Color(0x33FF526F) else Color.Transparent, RoundedCornerShape(13.dp))
                     .clickable { selectedNav = "Home"; showAllTools = false; navScope.launch { scrollState.animateScrollTo(0) } }
                     .padding(vertical = 7.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -6308,7 +6308,7 @@ private fun MyraHome(
             }
             Column(
                 Modifier.weight(1f)
-                    .background(if (selectedNav == "Chat") Color(0x33D946FF) else Color.Transparent, RoundedCornerShape(13.dp))
+                    .background(if (selectedNav == "Chat") Color(0x33FF526F) else Color.Transparent, RoundedCornerShape(13.dp))
                     .clickable { selectedNav = "Chat"; showAllTools = false; onChat() }
                     .padding(vertical = 7.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -6318,7 +6318,7 @@ private fun MyraHome(
             }
             Column(
                 Modifier.weight(1f)
-                    .background(if (selectedNav == "Voice") Color(0x33D946FF) else Color.Transparent, RoundedCornerShape(13.dp))
+                    .background(if (selectedNav == "Voice") Color(0x33FF526F) else Color.Transparent, RoundedCornerShape(13.dp))
                     .clickable { selectedNav = "Voice"; onStartVoice() }
                     .padding(vertical = 7.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -6328,7 +6328,7 @@ private fun MyraHome(
             }
             Column(
                 Modifier.weight(1f)
-                    .background(if (selectedNav == "Trigger") Color(0x33D946FF) else Color.Transparent, RoundedCornerShape(13.dp))
+                    .background(if (selectedNav == "Trigger") Color(0x33FF526F) else Color.Transparent, RoundedCornerShape(13.dp))
                     .clickable { selectedNav = "Trigger"; showAllTools = false; onReminder() }
                     .padding(vertical = 7.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -6338,7 +6338,7 @@ private fun MyraHome(
             }
             Column(
                 Modifier.weight(1f)
-                    .background(if (selectedNav == "Setting") Color(0x33D946FF) else Color.Transparent, RoundedCornerShape(13.dp))
+                    .background(if (selectedNav == "Setting") Color(0x33FF526F) else Color.Transparent, RoundedCornerShape(13.dp))
                     .clickable { selectedNav = "Setting"; onSettings() }
                     .padding(vertical = 7.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -6358,7 +6358,7 @@ private fun MyraHome(
         ) {
             Surface(
                 modifier = Modifier.fillMaxSize(),
-                color = Color(0xFF080714),
+                color = Color(0xFF10070B),
                 shape = RoundedCornerShape(0.dp)
             ) {
                 Column(
@@ -6367,14 +6367,14 @@ private fun MyraHome(
                 ) {
                     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                         Column(Modifier.weight(1f)) {
-                            Text("MYRA CHAT", color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.Bold)
-                            Text("Your private conversation on this device", color = Cyan, fontSize = 11.sp)
+                            Text("MYRA CHAT", color = Color(0xFFFFF0F3), fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                            Text("Your private conversation on this device", color = Color(0xFFFF8FA3), fontSize = 11.sp)
                         }
-                        TextButton(onClick = { showChatScreen = false }) { Text("Close", color = Cyan) }
+                        TextButton(onClick = { showChatScreen = false }) { Text("Close", color = Color(0xFFFF8FA3)) }
                     }
                     Column(
                         modifier = Modifier.weight(1f).fillMaxWidth()
-                            .background(Color(0xFF111126), RoundedCornerShape(18.dp))
+                            .background(Color(0xFF1C0D13), RoundedCornerShape(18.dp))
                             .verticalScroll(androidx.compose.foundation.rememberScrollState())
                             .padding(12.dp),
                         verticalArrangement = Arrangement.spacedBy(10.dp)
